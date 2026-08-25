@@ -1,6 +1,6 @@
 /**
  * ALEXIS SERANO - PORTFOLIO INTERACTIVE CORE ENGINE 2026
- * Particle Canvas, Interactive Terminal, 3D Card Tilt, Project Filters & Toast System
+ * Particle Canvas, Interactive Terminal, 3D Card Tilt, Project Filters, Load More & Dock Navigator
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,11 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initParticleCanvas();
     initTypewriter();
     initTerminal();
-    initProjectFilters();
+    initTerminalToggle();
+    initProjectFiltersAndLoadMore();
     initTiltEffect();
     initMobileNav();
     initToastAndClipboard();
     initBackToTop();
+    initFloatingDock();
 });
 
 /* ==========================================================================
@@ -25,13 +27,13 @@ function initScrollProgress() {
     window.addEventListener('scroll', () => {
         const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (winScroll / height) * 100;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
         progressBar.style.width = scrolled + '%';
     });
 }
 
 /* ==========================================================================
-   2. INTERACTIVE PARTICLE CANVAS (60 FPS, Responsive)
+   2. INTERACTIVE PARTICLE CANVAS (60 FPS, Performance-friendly)
    ========================================================================== */
 function initParticleCanvas() {
     const canvas = document.getElementById('bg-canvas');
@@ -40,13 +42,13 @@ function initParticleCanvas() {
     const ctx = canvas.getContext('2d');
     let width, height;
     let particles = [];
-    const particleCount = window.innerWidth < 768 ? 35 : 75;
-    const maxDistance = 140;
+    const particleCount = window.innerWidth < 768 ? 30 : 65;
+    const maxDistance = 130;
 
     let mouse = {
         x: null,
         y: null,
-        radius: 160
+        radius: 140
     };
 
     function resize() {
@@ -70,10 +72,10 @@ function initParticleCanvas() {
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.8;
-            this.vy = (Math.random() - 0.5) * 0.8;
+            this.vx = (Math.random() - 0.5) * 0.7;
+            this.vy = (Math.random() - 0.5) * 0.7;
             this.radius = Math.random() * 2 + 1;
-            this.baseAlpha = Math.random() * 0.5 + 0.2;
+            this.baseAlpha = Math.random() * 0.45 + 0.15;
         }
 
         update() {
@@ -90,8 +92,8 @@ function initParticleCanvas() {
                 const dist = Math.sqrt(dx * dx + dy * dy);
                 if (dist < mouse.radius) {
                     const force = (mouse.radius - dist) / mouse.radius;
-                    const dirX = (dx / dist) * force * 1.5;
-                    const dirY = (dy / dist) * force * 1.5;
+                    const dirX = (dx / dist) * force * 1.2;
+                    const dirY = (dy / dist) * force * 1.2;
                     this.x -= dirX;
                     this.y -= dirY;
                 }
@@ -102,14 +104,13 @@ function initParticleCanvas() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(0, 242, 254, ${this.baseAlpha})`;
-            ctx.shadowBlur = 8;
+            ctx.shadowBlur = 6;
             ctx.shadowColor = '#00f2fe';
             ctx.fill();
             ctx.shadowBlur = 0;
         }
     }
 
-    // Init particle array
     for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
     }
@@ -128,12 +129,12 @@ function initParticleCanvas() {
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
                 if (dist < maxDistance) {
-                    const alpha = (1 - dist / maxDistance) * 0.25;
+                    const alpha = (1 - dist / maxDistance) * 0.22;
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
                     ctx.strokeStyle = `rgba(99, 102, 241, ${alpha})`;
-                    ctx.lineWidth = 0.8;
+                    ctx.lineWidth = 0.75;
                     ctx.stroke();
                 }
             }
@@ -151,7 +152,7 @@ function initTypewriter() {
     if (!target) return;
 
     const phrases = [
-        "Étudiant en BUT Informatique (IUT2 Grenoble)",
+        "Étudiant en 3ème année de BUT Informatique (IUT2)",
         "Développeur Full-Stack & Logiciel",
         "Passionné DevOps, Infra & Automatisation",
         "Explorateur IA & Machine Learning",
@@ -161,7 +162,7 @@ function initTypewriter() {
     let phraseIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
-    let typeSpeed = 70;
+    let typeSpeed = 65;
 
     function typeLoop() {
         const currentPhrase = phrases[phraseIndex];
@@ -169,11 +170,11 @@ function initTypewriter() {
         if (isDeleting) {
             target.textContent = currentPhrase.substring(0, charIndex - 1);
             charIndex--;
-            typeSpeed = 35;
+            typeSpeed = 30;
         } else {
             target.textContent = currentPhrase.substring(0, charIndex + 1);
             charIndex++;
-            typeSpeed = 70;
+            typeSpeed = 65;
         }
 
         if (!isDeleting && charIndex === currentPhrase.length) {
@@ -182,7 +183,7 @@ function initTypewriter() {
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             phraseIndex = (phraseIndex + 1) % phrases.length;
-            typeSpeed = 500; // Pause before typing new phrase
+            typeSpeed = 450;
         }
 
         setTimeout(typeLoop, typeSpeed);
@@ -192,7 +193,7 @@ function initTypewriter() {
 }
 
 /* ==========================================================================
-   4. INTERACTIVE DEVELOPER TERMINAL
+   4. INTERACTIVE DEVELOPER TERMINAL & COLLAPSE TOGGLE
    ========================================================================== */
 function initTerminal() {
     const input = document.getElementById('terminal-cmd-input');
@@ -210,7 +211,7 @@ function initTerminal() {
   <span class="t-cyan">clear</span>       : Efface l'écran du terminal`,
 
         about: `<span class="t-green">Alexis Serano</span>
-  - Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble
+  - Étudiant en 3ème année de BUT Informatique à l'IUT2 de Grenoble
   - Passionné par le dev applicatif, l'architecture logicielle, le DevOps et l'IA
   - Autonome, rigoureux et adepte de défis techniques concrets`,
 
@@ -231,7 +232,7 @@ function initTerminal() {
         contact: `<span class="t-green">Contact & Liens :</span>
   - Email    : <a href="mailto:alexis.seranoo@gmail.com" class="t-cyan">alexis.seranoo@gmail.com</a>
   - GitHub   : <a href="https://github.com/AlexisSerano" target="_blank" class="t-cyan">github.com/AlexisSerano</a>
-  - Statut   : Disponible pour un stage / alternance`,
+  - Statut   : Disponible pour opportunités`,
 
         matrix: `<span class="t-green">Wake up, Neo... The Matrix has you. Follow the white rabbit. 🐇</span>`,
 
@@ -243,7 +244,6 @@ function initTerminal() {
     function executeCommand(cmd) {
         const cleanCmd = cmd.trim().toLowerCase();
         
-        // Append user command line
         const cmdLine = document.createElement('div');
         cmdLine.innerHTML = `<span class="t-prompt">alexis@portfolio:~$</span> <span>${escapeHtml(cmd)}</span>`;
         body.insertBefore(cmdLine, body.lastElementChild);
@@ -260,7 +260,6 @@ function initTerminal() {
         if (commands[cleanCmd]) {
             resLine.innerHTML = commands[cleanCmd];
         } else if (cleanCmd === '') {
-            // Do nothing on empty enter
             return;
         } else {
             resLine.innerHTML = `Commande non reconnue : "${escapeHtml(cleanCmd)}". Tapez <span class="t-cyan">help</span> pour la liste.`;
@@ -292,46 +291,122 @@ function initTerminal() {
     }
 }
 
+function initTerminalToggle() {
+    const termWindow = document.querySelector('.terminal-window');
+    const toggleBtn = document.getElementById('terminal-toggle-btn');
+    const header = document.querySelector('.terminal-header');
+    if (!termWindow || !toggleBtn || !header) return;
+
+    function toggle() {
+        const isCollapsed = termWindow.classList.toggle('is-collapsed');
+        toggleBtn.textContent = isCollapsed ? "Déplier [+]" : "Réduire [-]";
+    }
+
+    toggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggle();
+    });
+
+    header.addEventListener('click', toggle);
+}
+
 /* ==========================================================================
-   5. PROJECT FILTERS WITH ANIMATION
+   5. PROJECT FILTERS & SMART LOAD MORE
    ========================================================================== */
-function initProjectFilters() {
+function initProjectFiltersAndLoadMore() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
+    const toggleBtn = document.getElementById('toggle-projects-btn');
+    const loadMoreContainer = document.querySelector('.load-more-container');
     if (!filterBtns.length || !projectCards.length) return;
+
+    let isExpanded = false;
+    let currentFilter = 'all';
+
+    // Mark extra projects on initial state (show top 5 featured/main projects)
+    const initialVisibleCount = 5;
+    projectCards.forEach((card, index) => {
+        if (index >= initialVisibleCount) {
+            card.classList.add('is-extra');
+        }
+    });
+
+    function applyFilterAndVisibility() {
+        let matchingCount = 0;
+
+        projectCards.forEach((card) => {
+            const category = card.getAttribute('data-category');
+            const matchesFilter = (currentFilter === 'all' || category === currentFilter);
+
+            if (!matchesFilter) {
+                card.classList.add('is-hidden');
+            } else {
+                card.classList.remove('is-hidden');
+                matchingCount++;
+
+                // In 'all' view, respect load more state
+                if (currentFilter === 'all') {
+                    if (card.classList.contains('is-extra') && !isExpanded) {
+                        card.classList.remove('is-revealed');
+                    } else if (card.classList.contains('is-extra') && isExpanded) {
+                        card.classList.add('is-revealed');
+                    }
+                } else {
+                    // In specific filter view, show all matching cards
+                    card.classList.add('is-revealed');
+                }
+            }
+        });
+
+        // Hide load more button if not on 'all' tab or if matching cards <= initial count
+        if (loadMoreContainer) {
+            if (currentFilter !== 'all') {
+                loadMoreContainer.style.display = 'none';
+            } else {
+                loadMoreContainer.style.display = 'block';
+            }
+        }
+    }
 
     filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-
-            const filterValue = btn.getAttribute('data-filter');
-
-            projectCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                
-                if (filterValue === 'all' || category === filterValue) {
-                    card.classList.remove('is-hidden');
-                    card.style.opacity = '0';
-                    card.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'scale(1)';
-                    }, 50);
-                } else {
-                    card.classList.add('is-hidden');
-                }
-            });
+            currentFilter = btn.getAttribute('data-filter');
+            applyFilterAndVisibility();
         });
     });
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+            toggleBtn.classList.toggle('is-expanded', isExpanded);
+
+            const btnText = toggleBtn.querySelector('.btn-text');
+            if (btnText) {
+                btnText.textContent = isExpanded ? "Réduire l'affichage" : "Afficher tous les projets (10)";
+            }
+
+            applyFilterAndVisibility();
+
+            // Smooth scroll back to projects if collapsing
+            if (!isExpanded) {
+                const projectsSection = document.getElementById('projets');
+                if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    }
+
+    applyFilterAndVisibility();
 }
 
 /* ==========================================================================
-   6. 3D CARD TILT & MOUSE SPOTLIGHT EFFECT
+   6. 3D CARD TILT & MOUSE SPOTLIGHT (Desktop only)
    ========================================================================== */
 function initTiltEffect() {
-    // Only apply on non-touch devices
-    if (window.matchMedia('(hover: hover)').matches) {
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
         const cards = document.querySelectorAll('.project-card, .bento-card');
 
         cards.forEach(card => {
@@ -340,13 +415,12 @@ function initTiltEffect() {
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 
-                // Calculate tilt angles
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -5;
-                const rotateY = ((x - centerX) / centerX) * 5;
+                const rotateX = ((y - centerY) / centerY) * -4;
+                const rotateY = ((x - centerX) / centerX) * 4;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
             });
 
             card.addEventListener('mouseleave', () => {
@@ -357,7 +431,46 @@ function initTiltEffect() {
 }
 
 /* ==========================================================================
-   7. MOBILE NAVIGATION TOGGLE
+   7. FLOATING SECTION DOCK NAVIGATOR (Quick TOC Teleportation)
+   ========================================================================== */
+function initFloatingDock() {
+    const dots = document.querySelectorAll('.dock-dot');
+    if (!dots.length) return;
+
+    const sections = Array.from(dots).map(dot => {
+        const targetId = dot.getAttribute('data-target');
+        return document.getElementById(targetId);
+    }).filter(Boolean);
+
+    window.addEventListener('scroll', () => {
+        const scrollPos = window.scrollY + window.innerHeight / 3;
+
+        sections.forEach((sec, idx) => {
+            if (sec) {
+                const top = sec.offsetTop;
+                const height = sec.offsetHeight;
+
+                if (scrollPos >= top && scrollPos < top + height) {
+                    dots.forEach(d => d.classList.remove('active'));
+                    if (dots[idx]) dots[idx].classList.add('active');
+                }
+            }
+        });
+    });
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const targetId = dot.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+}
+
+/* ==========================================================================
+   8. MOBILE NAVIGATION TOGGLE
    ========================================================================== */
 function initMobileNav() {
     const toggleBtn = document.querySelector('.mobile-toggle');
@@ -368,7 +481,6 @@ function initMobileNav() {
         mainNav.classList.toggle('mobile-active');
     });
 
-    // Close when clicking nav links on mobile
     const navLinks = document.querySelectorAll('.nav-link, .dropdown-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
@@ -380,7 +492,7 @@ function initMobileNav() {
 }
 
 /* ==========================================================================
-   8. TOAST NOTIFICATIONS & COPY EMAIL
+   9. TOAST NOTIFICATIONS & COPY EMAIL
    ========================================================================== */
 function initToastAndClipboard() {
     const copyTriggers = document.querySelectorAll('.copy-email-btn');
@@ -410,7 +522,7 @@ function initToastAndClipboard() {
 }
 
 /* ==========================================================================
-   9. BACK TO TOP BUTTON
+   10. BACK TO TOP BUTTON
    ========================================================================== */
 function initBackToTop() {
     const btn = document.getElementById('back-to-top');

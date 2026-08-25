@@ -23,6 +23,28 @@
     <div class="ambient-glow glow-2"></div>
     <div class="ambient-glow glow-3"></div>
 
+    <!-- Floating Quick Navigation Dock (Desktop) -->
+    <nav class="floating-nav-dock" aria-label="Navigation rapide">
+        <div class="dock-dot active" data-target="hero">
+            <span class="dock-tooltip">Accueil</span>
+        </div>
+        <div class="dock-dot" data-target="terminal">
+            <span class="dock-tooltip">Console</span>
+        </div>
+        <div class="dock-dot" data-target="about">
+            <span class="dock-tooltip">À propos</span>
+        </div>
+        <div class="dock-dot" data-target="competences">
+            <span class="dock-tooltip">Compétences</span>
+        </div>
+        <div class="dock-dot" data-target="projets">
+            <span class="dock-tooltip">Projets</span>
+        </div>
+        <div class="dock-dot" data-target="contact">
+            <span class="dock-tooltip">Contact</span>
+        </div>
+    </nav>
+
     <!-- Header & Navigation -->
     <header class="site-header">
         <div class="nav-container">
@@ -151,8 +173,8 @@
             <!-- Stats Banner -->
             <div class="stats-banner">
                 <div class="stat-box">
-                    <div class="stat-number gradient-text">2+</div>
-                    <div class="stat-title">Années en BUT Informatique</div>
+                    <div class="stat-number gradient-text">3ème</div>
+                    <div class="stat-title">Année en BUT Informatique</div>
                 </div>
                 <div class="stat-box">
                     <div class="stat-number gradient-text">10+</div>
@@ -169,7 +191,7 @@
             </div>
         </section>
 
-        <!-- Interactive Developer Terminal -->
+        <!-- Interactive Developer Terminal (Collapsible & Compact) -->
         <section class="terminal-section container" id="terminal">
             <div class="terminal-window">
                 <div class="terminal-header">
@@ -178,29 +200,33 @@
                         <span class="t-dot yellow"></span>
                         <span class="t-dot green"></span>
                     </div>
-                    <div class="terminal-title">alexis@portfolio: ~/interactive-shell (bash)</div>
-                    <div style="width: 48px;"></div>
+                    <div class="terminal-title">
+                        <span>alexis@portfolio: ~/interactive-shell (bash)</span>
+                    </div>
+                    <button class="terminal-toggle-btn" id="terminal-toggle-btn">Réduire [-]</button>
                 </div>
 
-                <div class="terminal-body" id="terminal-body">
-                    <div class="terminal-output">
+                <div class="terminal-collapse-wrapper">
+                    <div class="terminal-body" id="terminal-body">
+                        <div class="terminal-output">
 Bienvenue sur le terminal interactif d'Alexis Serano !
 Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez sur les suggestions ci-dessous.
+                        </div>
+                        <div class="terminal-input-row">
+                            <span class="t-prompt">alexis@portfolio:~$</span>
+                            <input type="text" id="terminal-cmd-input" class="terminal-input" placeholder="Tapez une commande (ex: skills, projects, about)..." autocomplete="off" spellcheck="false">
+                        </div>
                     </div>
-                    <div class="terminal-input-row">
-                        <span class="t-prompt">alexis@portfolio:~$</span>
-                        <input type="text" id="terminal-cmd-input" class="terminal-input" placeholder="Tapez une commande (ex: skills, projects, about)..." autocomplete="off" spellcheck="false">
-                    </div>
-                </div>
 
-                <div class="terminal-quick-cmds">
-                    <span>Commandes rapides :</span>
-                    <button class="cmd-badge" data-cmd="about">about</button>
-                    <button class="cmd-badge" data-cmd="skills">skills</button>
-                    <button class="cmd-badge" data-cmd="projects">projects</button>
-                    <button class="cmd-badge" data-cmd="contact">contact</button>
-                    <button class="cmd-badge" data-cmd="matrix">matrix</button>
-                    <button class="cmd-badge" data-cmd="clear">clear</button>
+                    <div class="terminal-quick-cmds">
+                        <span>Commandes rapides :</span>
+                        <button class="cmd-badge" data-cmd="about">about</button>
+                        <button class="cmd-badge" data-cmd="skills">skills</button>
+                        <button class="cmd-badge" data-cmd="projects">projects</button>
+                        <button class="cmd-badge" data-cmd="contact">contact</button>
+                        <button class="cmd-badge" data-cmd="matrix">matrix</button>
+                        <button class="cmd-badge" data-cmd="clear">clear</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -599,6 +625,16 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                     </div>
                 </article>
 
+            </div>
+
+            <!-- Smart Load More Toggle Button -->
+            <div class="load-more-container">
+                <button class="btn-toggle-projects" id="toggle-projects-btn">
+                    <span class="btn-text">Afficher tous les projets (10)</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
             </div>
         </section>
     </main>
