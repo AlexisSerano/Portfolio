@@ -3,124 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expérience: Monteur Vidéo - Alexis Serano</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Expérience : Monteur Vidéo & Créateur - Alexis Serano</title>
+    <meta name="description" content="Expérience en montage vidéo et création de contenu multimédia depuis 2017 avec la suite Adobe (Premiere Pro, After Effects, Photoshop) et freelance Fiverr.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="../index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="../experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="../projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="../projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="../projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="../projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="../projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="../autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="../autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">Compétences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
         <section class="interest-detail-page">
-            <h2>Montage Vidéo & Création de Contenu</h2>
-            
-            <div class="interest-layout-wrapper">
-                
-                <aside class="interest-stats">
-                    <h3>Informations Clés</h3>
-                    
-                    <h4>Cadre de Réalisation :</h4>
-                    <ul>
-                        <li><strong>Type :</strong> Expérience personnelle & Freelance</li>
-                        <li><strong>Période :</strong> 2017 - Actuel</li>
-                    </ul>
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_autres_experiences">Autres Expériences</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Montage Vidéo</span>
+            </nav>
 
-                    <h4>Technologies & Outils :</h4>
-                    <ul>
-                        <li>Adobe Premiere Pro</li>
-                        <li>Adobe After Effects</li>
-                        <li>Adobe Photoshop</li>
-                        <li>Plateformes de freelance (ex: Fiverr)</li>
-                    </ul>
-                    
-                    <h4>Compétences & Qualités :</h4>
-                    <ul>
-                        <li>Maîtrise de logiciels de montage et d'effets</li>
-                        <li>Adaptation aux styles et demandes clients</li>
-                        <li>Production de contenu visuel professionnel</li>
-                        <li>Storytelling visuel</li>
-                        <li>Créativité, Sens de l'observation</li>
-                        <li>Rigueur, Souci du détail</li>
-                        <li>Autonomie, Gestion de projets freelance</li>
-                    </ul>
+            <div class="detail-page-header">
+                <span class="section-tag">// Création Numérique & Freelance</span>
+                <h1 class="detail-page-title">Montage Vidéo & Création de Contenu</h1>
+                <p class="section-subtitle">Suite Adobe Creative • Storytelling visuel • Prestations audiovisuelles</p>
+            </div>
+
+            <div class="interest-layout-wrapper">
+                <!-- Sidebar -->
+                <aside class="interest-stats">
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Expérience
+                    </h3>
+
+                    <div class="sidebar-section">
+                        <h4>Cadre de Réalisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Expérience personnelle & Freelance</li>
+                            <li><strong>Période :</strong> 2017 - Actuel</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Technologies & Outils</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">Adobe Premiere Pro</span>
+                            <span class="skill-tag">Adobe After Effects</span>
+                            <span class="skill-tag">Adobe Photoshop</span>
+                            <span class="skill-tag">Plateformes Freelance (Fiverr)</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Compétences & Qualités</h4>
+                        <ul>
+                            <li>Maîtrise avancée du montage et des effets visuels</li>
+                            <li>Adaptation aux chartes graphiques et demandes clients</li>
+                            <li>Sens du rythme, de l'harmonie et du storytelling</li>
+                            <li>Rigueur, précision et souci du détail</li>
+                            <li>Gestion autonome de projets clients</li>
+                        </ul>
+                    </div>
                 </aside>
 
+                <!-- Content -->
                 <article class="interest-main-content">
-                    <img src="../img/montage.jpg" alt="Illustration Montage Vidéo" class="interest-detail-image">
-                    
+                    <div class="interest-detail-image-wrapper">
+                        <img src="../img/montage.jpg" alt="Illustration Montage Vidéo" class="interest-detail-image">
+                    </div>
+
                     <div class="interest-text-content">
                         <h3>Présentation Générale</h3>
                         <p>
-                            Depuis 2017, je pratique le montage vidéo, initialement pour des projets personnels publiés sur YouTube. Cette passion s'est développée en une compétence que j'ai pu monétiser via des missions de freelance, notamment sur la plateforme Fiverr.
+                            Depuis 2017, je pratique avec passion le montage vidéo et la création multimédia. D'abord développée pour des projets personnels sur YouTube, cette compétence créative et technique m'a permis de réaliser des missions rémunérées en freelance, notamment sur la plateforme <strong>Fiverr</strong> pour divers créateurs de contenu et marques.
                         </p>
 
-                        <h4>Points clés</h4>
+                        <h4>Expertise & Logiciels Maîtrisés</h4>
                         <p>
-                            Mon expérience couvre la maîtrise des logiciels Adobe (Premiere Pro, After Effects, Photoshop) pour la création et l'édition vidéo. Je m'attache à comprendre les besoins spécifiques de chaque projet pour livrer un résultat soigné.
+                            Mon expérience s'appuie sur la suite logicielle professionnelle d'Adobe :
                         </p>
-                        
-                        <h4>Apprentissages & Perspectives</h4>
                         <ul>
-                            <li><strong>Ce qui m'a plu :</strong> La satisfaction de voir le rendu final d'un montage et la fierté du travail accompli. L'aspect créatif et technique de l'utilisation des logiciels est également très motivant.</li>
-                            <li><strong>Défis rencontrés :</strong> Les plantages occasionnels des logiciels peuvent être une source de frustration.</li>
+                            <li><strong>Adobe Premiere Pro :</strong> Dérushage, découpage dynamique, synchronisation sonore et étalonnage colorimétrique.</li>
+                            <li><strong>Adobe After Effects :</strong> Motion design, animations typographiques, effets visuels et transitions sur-mesure.</li>
+                            <li><strong>Adobe Photoshop :</strong> Création de miniatures percutantes, retouche d'éléments graphiques et compositions visuelles.</li>
                         </ul>
+
+                        <h4>Apprentissages & Bilan</h4>
                         <p>
-                            Cette activité continue d'affiner ma créativité et mes compétences techniques en production multimédia.
+                            La production audiovisuelle m'apporte un sens aiguisé du détail, de l'esthétique et de l'ergonomie visuelle. Ces compétences créatives enrichissent directement ma vision du développement Front-End et de l'UI/UX design, me permettant de concevoir des interfaces web et logicielles dynamiques et soignées.
                         </p>
                     </div>
-                </article>
-            </div>
 
-            <div class="navigation-links">
-                <a href="experience_investissement.html" class="button-link">← Expérience Précédente</a>
-                <a href="../index.html#s_autres_experiences" class="button-link">Retour aux expériences</a>
-                <!-- Pas d'expérience suivante dans cette catégorie -->
+                    <div class="navigation-links">
+                        <a href="experience_investissement.html" class="btn-secondary">← Expérience Précédente (Trading)</a>
+                        <a href="../index.html#projets" class="btn-primary">Retour à la grille des projets ↗</a>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Tous droits réservés.</div>
+            </div>
+        </div>
     </footer>
-    <script src="script.js"></script>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié !</span>
+    </div>
+    <script src="../script.js"></script>
 </body>
 </html>

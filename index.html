@@ -3,193 +3,663 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Alexis Serano</title>
-    <link rel="stylesheet" href="./style.css">
+    <title>Alexis Serano | Portfolio Développeur Full-Stack & DevOps</title>
+    <meta name="description" content="Portfolio d'Alexis Serano, étudiant en BUT Informatique à l'IUT2 de Grenoble. Développement logiciel, Full-Stack, DevOps, IA et projets multimédias.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="/Portfolio/index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <!-- Top Reading Progress Indicator -->
+    <div id="scroll-progress"></div>
+
+    <!-- Background Particle Canvas & Ambient Lights -->
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-glow glow-3"></div>
+
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#terminal" class="nav-link">Console</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#competences" class="nav-link">Compétences</a>
+                    </li>
+                    <li class="nav-item has-dropdown">
+                        <a href="#projets" class="nav-link">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
-        <section class="s_presentation">
-            <article class="aboutMe">
-                <h2>À propos de moi</h2>
-                <div class="presentation-content">
-                    <h3>Qui suis-je ?</h3>
+        <!-- Hero Section -->
+        <section class="hero-section container" id="hero">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="status-badge-container">
+                        <span class="pulse-dot"></span>
+                        <span class="status-text">Disponible pour Stage & Opportunités</span>
+                    </div>
+
+                    <h1 class="hero-title">
+                        Bonjour, je suis <br>
+                        <span class="gradient-text">Alexis Serano</span>
+                    </h1>
+
+                    <div class="hero-typewriter-wrapper">
+                        <span id="typewriter-text"></span>
+                        <span class="typewriter-cursor"></span>
+                    </div>
+
+                    <p class="hero-bio">
+                        Étudiant en 2ème année de <strong>BUT Informatique à l'IUT2 de Grenoble</strong>. Passionné de technologie depuis mon plus jeune âge, je conçois des solutions logicielles complètes, des architectures réseau résilientes et des applications web innovantes.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#projets" class="btn-primary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            Explorer mes projets
+                        </a>
+                        <a href="img/test.pdf" target="_blank" class="btn-secondary">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Consulter mon CV
+                        </a>
+                        <button class="btn-icon-only copy-email-btn" title="Copier mon email">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                        </button>
+                        <a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer" class="btn-icon-only" title="Profil GitHub">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual-card">
+                    <div class="avatar-wrapper">
+                        <img src="img/logo.png" alt="Alexis Serano" class="avatar-img">
+                    </div>
+                    <div class="floating-pill pill-1">
+                        <span>⚡</span> Full-Stack & DevOps
+                    </div>
+                    <div class="floating-pill pill-2">
+                        <span>💻</span> C# • Java • PHP • Python
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Banner -->
+            <div class="stats-banner">
+                <div class="stat-box">
+                    <div class="stat-number gradient-text">2+</div>
+                    <div class="stat-title">Années en BUT Informatique</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number gradient-text">10+</div>
+                    <div class="stat-title">Projets & Réalisations</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number gradient-text">1800+</div>
+                    <div class="stat-title">Utilisateurs impactés (CHAI)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number gradient-text">100%</div>
+                    <div class="stat-title">Curiosité & Rigueur</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Developer Terminal -->
+        <section class="terminal-section container" id="terminal">
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="terminal-controls">
+                        <span class="t-dot red"></span>
+                        <span class="t-dot yellow"></span>
+                        <span class="t-dot green"></span>
+                    </div>
+                    <div class="terminal-title">alexis@portfolio: ~/interactive-shell (bash)</div>
+                    <div style="width: 48px;"></div>
+                </div>
+
+                <div class="terminal-body" id="terminal-body">
+                    <div class="terminal-output">
+Bienvenue sur le terminal interactif d'Alexis Serano !
+Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez sur les suggestions ci-dessous.
+                    </div>
+                    <div class="terminal-input-row">
+                        <span class="t-prompt">alexis@portfolio:~$</span>
+                        <input type="text" id="terminal-cmd-input" class="terminal-input" placeholder="Tapez une commande (ex: skills, projects, about)..." autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+
+                <div class="terminal-quick-cmds">
+                    <span>Commandes rapides :</span>
+                    <button class="cmd-badge" data-cmd="about">about</button>
+                    <button class="cmd-badge" data-cmd="skills">skills</button>
+                    <button class="cmd-badge" data-cmd="projects">projects</button>
+                    <button class="cmd-badge" data-cmd="contact">contact</button>
+                    <button class="cmd-badge" data-cmd="matrix">matrix</button>
+                    <button class="cmd-badge" data-cmd="clear">clear</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Bento Competences Section -->
+        <section class="about-section container" id="about">
+            <div class="section-header">
+                <span class="section-tag">// Profil & Expertise</span>
+                <h2 class="section-title">Compétences & Univers Technique</h2>
+                <p class="section-subtitle">
+                    Une approche polyvalente alliant rigueur algorithmique, développement applicatif moderne et gestion d'infrastructure.
+                </p>
+            </div>
+
+            <div class="about-bento-grid" id="competences">
+                <!-- Bento Card 1 : À Propos -->
+                <div class="bento-card bento-about-main">
+                    <div class="bento-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="bento-card-title">Qui suis-je ?</h3>
                     <p>
-                        Je m'appelle Alexis Serano, étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble. Passionné par la technologie depuis très jeune, j'aime développer des projets concrets et apprendre de nouvelles choses.
+                        Je m'appelle <strong>Alexis Serano</strong>, étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble. Passionné par l'informatique et la création numérique depuis mon adolescence, j'aime comprendre les systèmes en profondeur et construire des outils robustes.
                     </p>
                     <p>
-                        Je suis curieux, autonome et persévérant. J'ai une volonté constante d'apprendre et d'innover, que ce soit en développement logiciel (C#, Java), web (PHP, Symfony), ou mobile (Android).
+                        Curieux, autonome et persévérant, j'ai une volonté constante d'apprendre et d'innover : du développement logiciel bas niveau au web moderne, en passant par le déploiement conteneurisé.
                     </p>
                     <p>
-                        N'hésitez pas à explorer mes expériences et projets exposés ci-dessous.
+                        Mon parcours mêle projets académiques d'envergure, expérience en environnement hospitalier haute disponibilité (CHAI), projets d'ingénierie personnels, montage vidéo et investissement financier.
                     </p>
+                    <div class="links-pill-group">
+                        <a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer" class="skill-tag">GitHub ↗</a>
+                        <a href="https://alexisserano.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="skill-tag">Portfolio en ligne ↗</a>
+                        <button class="skill-tag copy-email-btn" style="cursor:pointer;">Copier Email 📋</button>
+                    </div>
                 </div>
-                <div class="presentation-links">
-                    <h4>Mes liens :</h4>
-                    <ul class="link">
-                        <li><a href="https://github.com/AlexisSerano" class="button-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-                        <li><a href="https://alexisserano.github.io/Portfolio/" class="button-link" target="_blank" rel="noopener noreferrer">Portfolio en ligne</a></li>
-                    </ul>
+
+                <!-- Bento Card 2 : Développement Web -->
+                <div class="bento-card">
+                    <div class="bento-card-icon" style="background: rgba(56, 189, 248, 0.1); color: var(--accent-blue);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="bento-card-title">Développement Web</h3>
+                    <p>Conception d'applications web réactives, sécurisées et modulaires.</p>
+                    <div class="skills-tags-list">
+                        <span class="skill-tag">HTML5 / CSS3</span>
+                        <span class="skill-tag">JavaScript (ES6+)</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Symfony</span>
+                        <span class="skill-tag">Node.js</span>
+                    </div>
                 </div>
-            </article>
-            <article class="competences">
-                <h2>Compétences</h2>
-                <div class="presentation-content">
-                    <p><strong>Dev Web :</strong> HTML/CSS/JS/PHP/SYMFONY/NODE.JS</p>
-                    <p><strong>Mobile & IHM :</strong> ANDROID (JAVA) / JAVAFX</p>
-                    <p><strong>Langages :</strong> C/C#/C++/JAVA/PYTHON</p>
-                    <p><strong>Base de données :</strong> MYSQL/SQLITE/POSTGRESQL</p>
-                    <p><strong>Environnement & Outils :</strong> GIT/GITHUB/DOCKER/LINUX</p>
+
+                <!-- Bento Card 3 : Mobile & Desktop IHM -->
+                <div class="bento-card">
+                    <div class="bento-card-icon" style="background: rgba(168, 85, 247, 0.1); color: var(--accent-purple);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <h3 class="bento-card-title">Mobile & Desktop IHM</h3>
+                    <p>Développement d'interfaces logicielles ergonomiques et interactives.</p>
+                    <div class="skills-tags-list">
+                        <span class="skill-tag">Android Studio (Java)</span>
+                        <span class="skill-tag">JavaFX</span>
+                        <span class="skill-tag">.NET Windows Forms</span>
+                    </div>
                 </div>
-            </article>
 
-            <article class="img-presentation">
-                <img src="img/logo.png" alt="Photo Alexis Serano" class="presentation-image">
-            </article>
-        </section>
-        <section class="s_interets" id="s_experiences_pro"> 
-            <h2>Expériences Professionnelles</h2>
-            
-            <a href="experiences_pro/experience_stage_chai.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Stagiaire DSI - Développement & Système</h3>
-                    <img src="img/chai.png" alt="Logo CHAI" class="interet-image">
-                    <p><strong>Centre Hospitalier Alpes Isère (CHAI)</strong><br>Développement et maintenance d'applications métier (C#, Python), support technique et gestion de parc.</p>
-                </article>
-            </a>
-        </section>
+                <!-- Bento Card 4 : Langages & Algorithmique -->
+                <div class="bento-card">
+                    <div class="bento-card-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3 class="bento-card-title">Langages & POO</h3>
+                    <p>Maîtrise des paradigmes orientés objet et bas niveau.</p>
+                    <div class="skills-tags-list">
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">C / C++</span>
+                    </div>
+                </div>
 
-        <section class="s_interets" id="s_projets_academiques"> 
-            <h2>Projets Académiques (BUT INFO)</h2>
-            
-            <a href="projets_academiques/projet_chronia.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Chronia - App Web d'aide à la personne</h3>
-                    <img src="img/chronia.png" alt="Projet Chronia" class="interet-image">
-                    <p>Développement d'un agenda partagé interactif et d'une messagerie sécurisée (HTML/CSS/PHP/SQL/JS).</p>
-                </article>
-            </a>
-
-            <a href="projets_academiques/projet_agence_voyages.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>App de Gestion de Voyages IHM</h3>
-                    <img src="img/marianne.png" alt="Projet Agence Voyages" class="interet-image">
-                    <p>Analyse, modélisation et conception d'une application de gestion d'agence (JavaFX, JSON).</p>
-                </article>
-            </a>
-
-            <a href="projets_academiques/projet_refonte_mobile.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Refonte Web & Application Mobile</h3>
-                    <img src="img/stage.jpg" alt="Projet Mobile" class="interet-image">
-                    <p>Conception d'une app mobile sous Android Studio (Java) et volet web sous Symfony.</p>
-                </article>
-            </a>
-            
-            <a href="projets_academiques/projet_chatenger.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Chatenger - Web App (lycée)</h3>
-                    <img src="img/chatenger.png" alt="Image Projet Chatenger" class="interet-image">
-                    <p>Application web de messagerie dynamique avec gestion d'amis et chiffrement (HTML, CSS, PHP, SQL).</p>
-                </article>
-            </a>
+                <!-- Bento Card 5 : Infra, DevOps & BDD -->
+                <div class="bento-card">
+                    <div class="bento-card-icon" style="background: rgba(245, 158, 11, 0.1); color: var(--accent-amber);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                            <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                            <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                            <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                        </svg>
+                    </div>
+                    <h3 class="bento-card-title">DevOps, BDD & Outils</h3>
+                    <p>Conteneurisation, automatisation système et stockage structuré.</p>
+                    <div class="skills-tags-list">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">PowerShell</span>
+                        <span class="skill-tag">Linux / Nginx</span>
+                        <span class="skill-tag">MySQL / MariaDB</span>
+                        <span class="skill-tag">PostgreSQL / SQLite</span>
+                        <span class="skill-tag">Git / GitHub</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <section class="s_interets" id="s_projets_personnels"> 
-            <h2>Projets Personnels</h2>
-            
-            <a href="projets_personnels/projet_neurone.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Modèle de neurone (Python, TensorFlow)</h3>
-                    <img src="img/neurones.png" alt="Image Projet Modèle de Neurone" class="interet-image">
-                    <p>Création d'un modèle de neurone pour reconnaître des motifs logiques simples.</p>
-                </article>
-            </a>
-            
-            <a href="projets_personnels/projet_gestionnaire_taches.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Gestionnaire de tâches (C#, JSON)</h3>
-                    <img src="img/gestionnaire.png" alt="Image Projet Gestionnaire de tâches" class="interet-image">
-                    <p>Application de bureau C# pour gérer des tâches, avec persistance en JSON.</p>
-                </article>
-            </a>
+        <!-- Projects Showcase Section -->
+        <section class="projects-section container" id="projets">
+            <div class="section-header">
+                <span class="section-tag">// Portfolio & Réalisations</span>
+                <h2 class="section-title">Mes Projets & Expériences</h2>
+                <p class="section-subtitle">
+                    Découvrez une sélection de mes travaux académiques, projets personnels et expériences en entreprise.
+                </p>
+            </div>
 
-            <a href="projets_personnels/projet_jeu_de_la_vie.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Jeu de la vie (Python)</h3>
-                    <img src="img/jeu_de_la_vie.gif" alt="Image Projet Jeu de la vie" class="interet-image">
-                    <p>Implémentation du jeu de la vie de Conway en console Python.</p>
+            <!-- Filter Controls -->
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">Tous les projets</button>
+                <button class="filter-btn" data-filter="pro">Expériences Pro</button>
+                <button class="filter-btn" data-filter="acad">Projets BUT</button>
+                <button class="filter-btn" data-filter="perso">Projets Perso & IA</button>
+                <button class="filter-btn" data-filter="autres">Créa & Finance</button>
+            </div>
+
+            <!-- Projects Bento Grid -->
+            <div class="projects-grid">
+                
+                <!-- 1. STAGE DSI CHAI (Featured) -->
+                <article class="project-card featured" data-category="pro" id="s_experiences_pro">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Expérience Pro • Stage DSI</span>
+                        <img src="img/chai.png" alt="Stage DSI CHAI" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Stage DSI - Centre Hospitalier Alpes-Isère</h3>
+                        <p class="project-desc">
+                            Administration système, automatisation PowerShell pour Active Directory & Exchange, refonte front-end de l'intranet sous WordPress, et déploiement d'un cluster Kubernetes en haute disponibilité (Load Balancer & MariaDB Master-Slave) pour plus de 1800 agents.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">PowerShell</span>
+                            <span class="p-tag">Kubernetes</span>
+                            <span class="p-tag">Docker</span>
+                            <span class="p-tag">WordPress / Nginx</span>
+                            <span class="p-tag">MariaDB Cluster</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="experiences_pro/experience_stage_chai.html" class="project-link-main">
+                                Explorer l'expérience <span>→</span>
+                            </a>
+                            <span class="p-tag" style="color: var(--accent-emerald);">Santé & Infra</span>
+                        </div>
+                    </div>
                 </article>
-            </a>
+
+                <!-- 2. CHRONIA -->
+                <article class="project-card" data-category="acad" id="s_projets_academiques">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Académique • BUT 2</span>
+                        <img src="img/chronia.png" alt="Projet Chronia" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Chronia - App Web d'aide à la personne</h3>
+                        <p class="project-desc">
+                            Développement Full-Stack en équipe d'une application web pour seniors et familles : agenda partagé interactif et messagerie instantanée sécurisée.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">PHP</span>
+                            <span class="p-tag">SQL</span>
+                            <span class="p-tag">JavaScript</span>
+                            <span class="p-tag">HTML/CSS</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_academiques/projet_chronia.html" class="project-link-main">
+                                Voir les détails <span>→</span>
+                            </a>
+                            <div class="project-quick-links">
+                                <a href="http://vps-e885b886.vps.ovh.net/chronia/" target="_blank" rel="noopener noreferrer" class="p-tag" title="Démo VPS OVH">Live ↗</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. AGENCE DE VOYAGES IHM -->
+                <article class="project-card" data-category="acad">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Académique • BUT</span>
+                        <img src="img/marianne.png" alt="Projet Agence Voyages" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Logiciel de Gestion de Voyages (IHM)</h3>
+                        <p class="project-desc">
+                            Analyse des besoins, modélisation conceptuelle et conception complète d'une application de bureau intuitive pour agence de voyages.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Java</span>
+                            <span class="p-tag">JavaFX</span>
+                            <span class="p-tag">POO</span>
+                            <span class="p-tag">JSON</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_academiques/projet_agence_voyages.html" class="project-link-main">
+                                Voir les détails <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. REFONTE MOBILE & WEB -->
+                <article class="project-card" data-category="acad">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Académique • BUT</span>
+                        <img src="img/stage.jpg" alt="Projet Refonte Mobile" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Refonte Web Symfony & Mobile Android</h3>
+                        <p class="project-desc">
+                            Conception conjointe d'un back-end web robuste sous Symfony (architecture MVC) et d'une application mobile native sous Android Studio en Java.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Android Studio</span>
+                            <span class="p-tag">Java</span>
+                            <span class="p-tag">Symfony (PHP)</span>
+                            <span class="p-tag">Client-Serveur</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_academiques/projet_refonte_mobile.html" class="project-link-main">
+                                Voir les détails <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5. CHATENGER -->
+                <article class="project-card" data-category="acad">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Développement Web</span>
+                        <img src="img/chatenger.png" alt="Projet Chatenger" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Chatenger - Web App Dynamique</h3>
+                        <p class="project-desc">
+                            Messagerie instantanée en ligne avec système d'amis, stockage relationnel MySQL et sécurisation des mots de passe par hachage cryptographique.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">PHP</span>
+                            <span class="p-tag">MySQL</span>
+                            <span class="p-tag">JavaScript</span>
+                            <span class="p-tag">Sécurité</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_academiques/projet_chatenger.html" class="project-link-main">
+                                Voir les détails <span>→</span>
+                            </a>
+                            <a href="https://github.com/AlexisSerano/Chatenger/tree/main" target="_blank" rel="noopener noreferrer" class="p-tag">GitHub ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. MODELE DE NEURONE (IA) -->
+                <article class="project-card" data-category="perso" id="s_projets_personnels">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Personnel • IA / ML</span>
+                        <img src="img/neurones.png" alt="Modèle de Neurone" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Modèle de Neurone Artificiel</h3>
+                        <p class="project-desc">
+                            Initiation au Machine Learning avec TensorFlow et NumPy en Python pour la reconnaissance et prédiction de motifs logiques tabulaires.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Python</span>
+                            <span class="p-tag">TensorFlow</span>
+                            <span class="p-tag">NumPy</span>
+                            <span class="p-tag">Deep Learning</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_personnels/projet_neurone.html" class="project-link-main">
+                                Voir les détails <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7. GESTIONNAIRE DE TACHES C# -->
+                <article class="project-card" data-category="perso">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Personnel • C# Desktop</span>
+                        <img src="img/gestionnaire.png" alt="Gestionnaire de Tâches C#" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Gestionnaire de Tâches C# (.NET)</h3>
+                        <p class="project-desc">
+                            Application de bureau Windows Forms avec gestion dynamique des états de tâches, tris alphabétiques et persistance instantanée en JSON.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">C#</span>
+                            <span class="p-tag">.NET Windows Forms</span>
+                            <span class="p-tag">JSON</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_personnels/projet_gestionnaire_taches.html" class="project-link-main">
+                                Voir les détails <span>→</span>
+                            </a>
+                            <a href="https://github.com/AlexisSerano/Task-managerV1-ByKys3n" target="_blank" rel="noopener noreferrer" class="p-tag">GitHub ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 8. JEU DE LA VIE -->
+                <article class="project-card" data-category="perso">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Personnel • Algorithmique</span>
+                        <img src="img/jeu_de_la_vie.gif" alt="Jeu de la vie" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Jeu de la Vie de Conway (Python)</h3>
+                        <p class="project-desc">
+                            Simulation d'automate cellulaire en console interactive : gestion dynamique des cellules, règles d'évolution et grille configurable.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Python</span>
+                            <span class="p-tag">Automate Cellulaire</span>
+                            <span class="p-tag">Algorithmique</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_personnels/projet_jeu_de_la_vie.html" class="project-link-main">
+                                Voir les détails <span>→</span>
+                            </a>
+                            <a href="https://github.com/AlexisSerano/Jeu-de-la-vie" target="_blank" rel="noopener noreferrer" class="p-tag">GitHub ↗</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 9. INVESTISSEMENT & TRADING -->
+                <article class="project-card" data-category="autres" id="s_autres_experiences">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Expérience Personnelle • Finance</span>
+                        <img src="img/trading.png" alt="Investissement & Trading" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Investissement & Trading Crypto</h3>
+                        <p class="project-desc">
+                            Gestion active de portefeuille, analyse technique des graphiques, évaluation et gestion du risque financier, et partage pédagogique de signaux.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Analyse Technique</span>
+                            <span class="p-tag">Gestion de Risque</span>
+                            <span class="p-tag">Cryptomonnaies</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="autres_experiences/experience_investissement.html" class="project-link-main">
+                                Voir l'expérience <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 10. MONTAGE VIDEO -->
+                <article class="project-card" data-category="autres">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Création Numérique • Freelance</span>
+                        <img src="img/montage.jpg" alt="Montage Vidéo" class="project-thumb">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Montage Vidéo & Création de Contenu</h3>
+                        <p class="project-desc">
+                            Pratique du montage depuis 2017 avec la suite Adobe (Premiere Pro, After Effects, Photoshop) et réalisations de prestations en freelance (Fiverr).
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Premiere Pro</span>
+                            <span class="p-tag">After Effects</span>
+                            <span class="p-tag">Photoshop</span>
+                            <span class="p-tag">Storytelling</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="autres_experiences/experience_monteur_video.html" class="project-link-main">
+                                Voir l'expérience <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
         </section>
-
-        <section class="s_interets" id="s_autres_experiences"> 
-            <h2>Autres Expériences</h2>
-            
-            <a href="autres_experiences/experience_investissement.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Investissement & Trading </h3>
-                    <img src="img/trading.png" alt="Image Expérience Investissement" class="interet-image">
-                    <p>Gestion de portefeuille, analyse technique et de risque (cryptomonnaies). Partage de connaissances.</p>
-                </article>
-            </a>
-            
-            <a href="autres_experiences/experience_monteur_video.html" class="interet-card-link">
-                <article class="interet-card">
-                    <h3>Montage Vidéo & Création de Contenu</h3>
-                    <img src="img/montage.jpg" alt="Image Expérience Montage Vidéo" class="interet-image">
-                    <p>Maîtrise de logiciels Adobe (Premiere Pro, After Effects, Photoshop) pour la création et le montage vidéo.</p>
-                </article>
-            </a>
-        </section>
-
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>
+                        Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble. Passionné par l'ingénierie logicielle, l'automatisation DevOps et la conception de projets complets.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="#hero">Accueil</a></li>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#competences">Compétences</a></li>
+                        <li><a href="#projets">Projets</a></li>
+                        <li><a href="img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Me Contacter</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub : AlexisSerano</a></li>
+                        <li><a href="https://alexisserano.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Portfolio Déployé</a></li>
+                        <li><button class="skill-tag copy-email-btn" style="margin-top: 8px; cursor: pointer;">Copier Email 📋</button></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Conçu & Développé avec passion.</div>
+                <div>IUT2 Grenoble • BUT Informatique</div>
+            </div>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié avec succès !</span>
+    </div>
+
+    <!-- Core Script -->
+    <script src="./script.js"></script>
 </body>
 </html>

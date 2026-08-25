@@ -3,138 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet: Chatenger - Application Web Dynamique - Alexis Serano</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Projet : Chatenger Web App - Alexis Serano</title>
+    <meta name="description" content="Chatenger - Application web de messagerie instantanée dynamique en PHP/MySQL avec gestion d'amis et sécurisation par hachage.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="../index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="../experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="../projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="../projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="../projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="../projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="../projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="../autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="../autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">Compétences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
         <section class="interest-detail-page">
-            <h2>Chatenger – Application web dynamique</h2>
-            
-            <div class="interest-layout-wrapper">
-                
-                <aside class="interest-stats">
-                    <h3>Informations Clés</h3>
-                    
-                    <h4>Cadre de Réalisation :</h4>
-                    <ul>
-                        <li><strong>Type :</strong> Projet de développement personnel</li>
-                        <li><strong>Durée :</strong> Plusieurs semaines</li>
-                        <li><strong>Rôle :</strong> Projet solo</li>
-                    </ul>
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_projets_academiques">Projets Académiques</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Chatenger</span>
+            </nav>
 
-                    <h4>Technologies & Outils :</h4>
-                    <ul>
-                        <li>HTML, CSS</li>
-                        <li>PHP</li>
-                        <li>SQL (MySQL)</li>
-                        <li>Principes de hachage (mots de passe)</li>
-                    </ul>
-                    
-                    <h4>Compétences & Qualités :</h4>
-                    <ul>
-                        <li>Développement web Full-Stack (front-end et back-end)</li>
-                        <li>Gestion de bases de données relationnelles</li>
-                        <li>Sécurisation des authentifications</li>
-                        <li>Création d'applications web dynamiques et interactives</li>
-                        <li>Gestion de sessions utilisateur</li>
-                        <li>Opérations CRUD sur base de données</li>
-                        <li>Persévérance, Gestion de projet autonome</li>
-                    </ul>
-                    <br>
-                    <a href="https://github.com/AlexisSerano/Chatenger/tree/main" class="button-link" target="_blank" rel="noopener noreferrer" style="display: block; margin-top: 15px;">Voir sur GitHub</a>
+            <div class="detail-page-header">
+                <span class="section-tag">// Développement Web Dynamique</span>
+                <h1 class="detail-page-title">Chatenger – Application Web de Messagerie</h1>
+                <p class="section-subtitle">Full-Stack PHP / MySQL • Chiffrement & Hachage • Sessions & Temps Réel</p>
+            </div>
+
+            <div class="interest-layout-wrapper">
+                <!-- Sidebar -->
+                <aside class="interest-stats">
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Projet
+                    </h3>
+
+                    <div class="sidebar-section">
+                        <h4>Cadre de Réalisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Projet de développement personnel</li>
+                            <li><strong>Durée :</strong> Plusieurs semaines</li>
+                            <li><strong>Rôle :</strong> Développeur solo</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Technologies & Outils</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">HTML5 / CSS3</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Hachage de MDP</span>
+                            <span class="skill-tag">Sessions PHP</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Compétences & Qualités</h4>
+                        <ul>
+                            <li>Développement Full-Stack front-end & back-end</li>
+                            <li>Gestion de bases de données relationnelles</li>
+                            <li>Sécurisation des authentifications</li>
+                            <li>Opérations CRUD et requêtes SQL optimisées</li>
+                            <li>Persévérance et autonomie de bout en bout</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Code Source</h4>
+                        <a href="https://github.com/AlexisSerano/Chatenger/tree/main" class="btn-primary" target="_blank" rel="noopener noreferrer" style="width: 100%; justify-content: center;">
+                            Voir sur GitHub ↗
+                        </a>
+                    </div>
                 </aside>
 
+                <!-- Content -->
                 <article class="interest-main-content">
-                    <img src="../img/chatenger.png" alt="Screenshot de l'application Chatenger" class="interest-detail-image">
-                    
+                    <div class="interest-detail-image-wrapper">
+                        <img src="../img/chatenger.png" alt="Aperçu de l'application Chatenger" class="interest-detail-image">
+                    </div>
+
                     <div class="interest-text-content">
                         <h3>Présentation Générale</h3>
                         <p>
-                            Chatenger est une application web de messagerie en ligne conçue pour permettre aux utilisateurs de s'inscrire, se connecter, ajouter des amis et discuter en temps réel. L'objectif principal était de créer une plateforme de chat fonctionnelle, avec un accent sur la gestion des données utilisateurs (stockées en SQL) et la sécurisation des mots de passe par hachage.
+                            <strong>Chatenger</strong> est une application web de messagerie instantanée en ligne conçue pour permettre aux utilisateurs de créer un compte, s'authentifier de manière sécurisée, ajouter des amis et échanger des messages. L'objectif était d'appréhender la gestion avancée des données utilisateurs en SQL et les mécanismes de protection des identifiants par hachage cryptographique.
                         </p>
 
-                        <h4>Points clés</h4>
+                        <h4>Points Clés & Fonctionnalités Implémentées</h4>
                         <p>
-                            L'application a été développée avec HTML, CSS pour l'interface, PHP pour la logique serveur et SQL (MySQL) pour la base de données. Les fonctionnalités clés comprennent :
+                            L'application combine une structure front-end fluide et un back-end PHP/MySQL structuré :
                         </p>
                         <ul>
-                            <li>Système d'inscription et de connexion sécurisé.</li>
-                            <li>Gestion d'une liste d'amis.</li>
-                            <li>Messagerie instantanée en temps réel entre utilisateurs.</li>
-                            <li>Stockage persistant des utilisateurs, relations et messages.</li>
-                            <li>Hachage des mots de passe pour une meilleure sécurité.</li>
-                            <li>Interface utilisateur simple et interactive.</li>
+                            <li><strong>Authentification robuste :</strong> Inscription avec validation des entrées et hachage sécurisé des mots de passe.</li>
+                            <li><strong>Réseau & Amitiés :</strong> Gestion interactive des demandes d'amis et affichage dynamique des listes de contacts.</li>
+                            <li><strong>Messagerie instantanée :</strong> Échange fluide de messages textuels avec persistance immédiate en base de données.</li>
+                            <li><strong>Gestion des sessions :</strong> Maintien de l'état de connexion et protection contre les accès non autorisés.</li>
                         </ul>
-                        <p>
-                            Le développement complet s'est étalé sur plusieurs semaines, aboutissant à une application fonctionnelle qui offre une expérience de messagerie basique mais sécurisée.
-                        </p>
-                        
+
                         <h4>Apprentissages & Perspectives</h4>
                         <p>
-                            Ce projet a été une expérience d'apprentissage en développement web full-stack, notamment sur l'interaction PHP/SQL et la gestion de la sécurité des utilisateurs.
+                            Ce projet a constitué une étape fondamentale dans mon apprentissage du développement web full-stack, en me confrontant aux problématiques réelles d'injection SQL, de sécurité des données sensibles et de synchronisation des états clients.
                         </p>
-                        <ul>
-                            <li><strong>Points forts :</strong> Expérience de messagerie fluide, stockage structuré et sécurisé des données sensibles.</li>
-                            <li><strong>Perspectives d'amélioration :</strong> Améliorer l'optimisation mobile, et renforcer davantage la sécurité (ex: chiffrement des messages, gestion avancée des sessions).</li>
-                        </ul>
+                    </div>
+
+                    <div class="navigation-links">
+                        <a href="projet_refonte_mobile.html" class="btn-secondary">← Projet Précédent (Refonte Mobile)</a>
+                        <a href="../projets_personnels/projet_neurone.html" class="btn-primary">Projet Suivant : Modèle de Neurone →</a>
                     </div>
                 </article>
-            </div>
-
-            <div class="navigation-links">
-                <a href="projet_refonte_mobile.html" class="button-link">← Projet Précédent</a>
-                <a href="../index.html#s_projets_dev" class="button-link">Retour aux projets</a>
-                <!-- Pas de projet suivant dans cette catégorie -->
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Tous droits réservés.</div>
+            </div>
+        </div>
     </footer>
-    <script src="script.js"></script>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié !</span>
+    </div>
+    <script src="../script.js"></script>
 </body>
 </html>

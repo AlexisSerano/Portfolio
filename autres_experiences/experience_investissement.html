@@ -3,123 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expérience: Investissement & Trading - Alexis Serano</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Expérience : Investissement & Trading - Alexis Serano</title>
+    <meta name="description" content="Expérience en investissement et trading de cryptomonnaies : analyse technique, gestion du risque et partage de connaissances.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="../index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="../experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="../projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="../projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="../projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="../projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="../projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="../autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="../autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">Compétences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
         <section class="interest-detail-page">
-            <h2>Investissement & Trading Cryptomonnaies</h2>
-            
-            <div class="interest-layout-wrapper">
-                
-                <aside class="interest-stats">
-                    <h3>Informations Clés</h3>
-                    
-                    <h4>Cadre de Réalisation :</h4>
-                    <ul>
-                        <li><strong>Type :</strong> Expérience personnelle</li>
-                        <li><strong>Période :</strong> 2024 - Actuel</li>
-                        <!-- Rôle pas vraiment applicable ici -->
-                    </ul>
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_autres_experiences">Autres Expériences</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Investissement & Trading</span>
+            </nav>
 
-                    <h4>Outils & Approches :</h4>
-                    <ul>
-                        <li>Analyse technique des graphiques</li>
-                        <li>Plateformes de trading</li>
-                        <li>Gestion de portefeuille</li>
-                    </ul>
-                    
-                    <h4>Compétences & Qualités :</h4>
-                    <ul>
-                        <li>Analyse de données financières (prix)</li>
-                        <li>Gestion et évaluation du risque</li>
-                        <li>Pédagogie et conseil</li>
-                        <li>Autonomie, Discipline, Patience</li>
-                        <li>Résistance au stress, Résilience</li>
-                        <li>Esprit critique, Observation, Pragmatisme</li>
-                        <li>Ambition, Responsabilité</li>
-                    </ul>
+            <div class="detail-page-header">
+                <span class="section-tag">// Analyse Financière & Marchés</span>
+                <h1 class="detail-page-title">Investissement & Trading Cryptomonnaies</h1>
+                <p class="section-subtitle">Gestion de portefeuille • Analyse technique & quantitative • Maîtrise du risque</p>
+            </div>
+
+            <div class="interest-layout-wrapper">
+                <!-- Sidebar -->
+                <aside class="interest-stats">
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Expérience
+                    </h3>
+
+                    <div class="sidebar-section">
+                        <h4>Cadre de Réalisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Expérience personnelle & financière</li>
+                            <li><strong>Période :</strong> 2024 - Actuel</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Outils & Approches</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">Analyse Technique</span>
+                            <span class="skill-tag">Gestion de Risque</span>
+                            <span class="skill-tag">Plateformes de Trading</span>
+                            <span class="skill-tag">Gestion de Portefeuille</span>
+                            <span class="skill-tag">Crypto-actifs</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Compétences & Qualités</h4>
+                        <ul>
+                            <li>Analyse de données de marché</li>
+                            <li>Évaluation et calibrage du risque (Risk Management)</li>
+                            <li>Discipline, patience et contrôle émotionnel</li>
+                            <li>Esprit critique et pragmatisme</li>
+                            <li>Pédagogie et transmission de connaissances</li>
+                        </ul>
+                    </div>
                 </aside>
 
+                <!-- Content -->
                 <article class="interest-main-content">
-                    <img src="../img/trading.png" alt="Illustration Investissement et Trading" class="interest-detail-image">
-                    
+                    <div class="interest-detail-image-wrapper">
+                        <img src="../img/trading.png" alt="Illustration Investissement et Trading" class="interest-detail-image">
+                    </div>
+
                     <div class="interest-text-content">
                         <h3>Présentation Générale</h3>
                         <p>
-                            Passionné par l'écosystème des cryptomonnaies, j'ai développé une activité d'investissement et de trading. Cette démarche personnelle m'a permis d'acquérir des connaissances pratiques en gestion financière et en analyse des marchés.
+                            Passionné par l'écosystème de la finance décentralisée et des cryptomonnaies, j'ai développé une activité continue d'investissement et de trading sur les marchés actifs. Cette démarche m'a permis d'acquérir une rigueur poussée en gestion financière et en lecture analytique des flux de capitaux.
                         </p>
 
-                        <h4>Points clés</h4>
+                        <h4>Points Clés & Stratégies</h4>
                         <p>
-                            Mon implication comprend l'analyse technique des prix, la gestion active de portefeuille et l'évaluation continue des risques. Fort de cette expérience, j'ai pu partager mes connaissances et analyses au sein d'un groupe de trading, apportant mon aide aux débutants.
+                            Mon implication comprend l'analyse technique des graphiques de prix, la gestion active des positions et l'évaluation permanente des risques. Fort de cette expérience, j'ai également partagé mes analyses au sein d'un groupe de trading, apportant un soutien pédagogique aux débutants.
                         </p>
-                        
+
                         <h4>Apprentissages & Perspectives</h4>
                         <ul>
-                            <li><strong>Ce qui m'a plu :</strong> L'impact direct de l'analyse et de la stratégie sur les résultats, ainsi que la satisfaction d'aider les autres à comprendre cet univers.</li>
-                            <li><strong>Défis rencontrés :</strong> La gestion de la volatilité des marchés, parfois influencée par des facteurs externes aux analyses techniques, ce qui requiert une forte capacité d'adaptation et de contrôle émotionnel.</li>
+                            <li><strong>Ce qui m'a plu :</strong> L'impact direct de la rigueur stratégique sur les résultats, ainsi que la satisfaction d'aider autrui à appréhender un environnement complexe.</li>
+                            <li><strong>Défis rencontrés :</strong> La gestion de la forte volatilité des marchés, exigeant une adaptabilité constante, une discipline de fer et une résistance au stress.</li>
                         </ul>
-                        <p>
-                            Cette expérience continue de renforcer ma discipline et mes capacités d'analyse.
-                        </p>
+                    </div>
+
+                    <div class="navigation-links">
+                        <a href="../projets_personnels/projet_jeu_de_la_vie.html" class="btn-secondary">← Projet Précédent (Jeu de la Vie)</a>
+                        <a href="experience_monteur_video.html" class="btn-primary">Expérience Suivante : Montage Vidéo →</a>
                     </div>
                 </article>
-            </div>
-
-            <div class="navigation-links">
-                <a href="../index.html#s_autres_experiences" class="button-link">Retour aux expériences</a>
-                <a href="experience_monteur_video.html" class="button-link">Expérience Suivante →</a>
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Tous droits réservés.</div>
+            </div>
+        </div>
     </footer>
-    <script src="script.js"></script>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié !</span>
+    </div>
+    <script src="../script.js"></script>
 </body>
 </html>

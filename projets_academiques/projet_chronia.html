@@ -3,124 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet: Chronia - Alexis Serano</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Projet : Chronia - Alexis Serano</title>
+    <meta name="description" content="Chronia - Application web d'aide à la personne pour les seniors et leurs familles : agenda interactif et messagerie instantanée sécurisée.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="../index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="../experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="../projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="../projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="../projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="../projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="../projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="../autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="../autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">Compétences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
         <section class="interest-detail-page">
-            <h2>Chronia - Application Web d'aide à la personne</h2>
-            
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_projets_academiques">Projets Académiques</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Chronia</span>
+            </nav>
+
+            <div class="detail-page-header">
+                <span class="section-tag">// Projet Académique BUT Info</span>
+                <h1 class="detail-page-title">Chronia – Application Web d'aide à la personne</h1>
+                <p class="section-subtitle">Développement Full-Stack en équipe • Public senior & familles • Solution d'assistance</p>
+            </div>
+
             <div class="interest-layout-wrapper">
-                
+                <!-- Sidebar -->
                 <aside class="interest-stats">
-                    <h3>Informations Clés</h3>
-                    
-                    <h4>Cadre de Réalisation :</h4>
-                    <ul>
-                        <li><strong>Type :</strong> Projet académique (BUT INFO)</li>
-                        <li><strong>Organisation :</strong> Travail en équipe</li>
-                        <li><strong>Cible :</strong> Personnes âgées et leur famille</li>
-                    </ul>
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Projet
+                    </h3>
 
-                    <h4>Technologies & Outils :</h4>
-                    <ul>
-                        <li>HTML / CSS / JavaScript</li>
-                        <li>PHP</li>
-                        <li>SQL (Base de données)</li>
-                    </ul>
-                    
-                    <h4>Compétences & Qualités :</h4>
-                    <ul>
-                        <li>Développement Full-Stack</li>
-                        <li>Travail collaboratif et répartition des tâches</li>
-                        <li>Conception d'interface adaptée (UX/UI)</li>
-                        <li>Sécurité des données (messagerie)</li>
-                        <li>Gestion de projet</li>
-                    </ul>
-                    <h4>En Voir Plus :</h4>
-                    <a href="http://vps-e885b886.vps.ovh.net/chronia/" class="button-link" target="_blank" rel="noopener noreferrer" style="display: block; margin-top: 15px;">Voir le site</a>
+                    <div class="sidebar-section">
+                        <h4>Cadre de Réalisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Projet académique (BUT INFO)</li>
+                            <li><strong>Organisation :</strong> Travail collaboratif en équipe</li>
+                            <li><strong>Cible :</strong> Personnes âgées et leur entourage familial</li>
+                        </ul>
+                    </div>
 
+                    <div class="sidebar-section">
+                        <h4>Technologies & Outils</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">HTML5</span>
+                            <span class="skill-tag">CSS3</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">PHP</span>
+                            <span class="skill-tag">SQL (MySQL)</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Compétences Acquises</h4>
+                        <ul>
+                            <li>Développement Full-Stack</li>
+                            <li>Travail collaboratif & répartition des tâches</li>
+                            <li>Conception d'interface adaptée (UX/UI séniors)</li>
+                            <li>Sécurité des données & messagerie privée</li>
+                            <li>Gestion de projet agile</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>En Voir Plus</h4>
+                        <a href="http://vps-e885b886.vps.ovh.net/chronia/" class="btn-primary" target="_blank" rel="noopener noreferrer" style="width: 100%; justify-content: center;">
+                            Voir la démo en ligne ↗
+                        </a>
+                    </div>
                 </aside>
-                
+
+                <!-- Content -->
                 <article class="interest-main-content">
-                    <img src="../img/chronia.png" alt="Aperçu du projet Chronia" class="interest-detail-image">
-                    
+                    <div class="interest-detail-image-wrapper">
+                        <img src="../img/chronia.png" alt="Aperçu du projet Chronia" class="interest-detail-image">
+                    </div>
+
                     <div class="interest-text-content">
                         <h3>Présentation Générale</h3>
                         <p>
                             Réalisé dans le cadre de mon BUT Informatique, <strong>Chronia</strong> est un projet de développement web mené en équipe. L'objectif principal était de concevoir et développer une application web dédiée à l'aide à la personne, en se concentrant tout particulièrement sur les besoins des personnes âgées et de leur entourage familial.
                         </p>
 
-                        <h4>Fonctionnalités Clés</h4>
+                        <h4>Fonctionnalités Clés & Architecture</h4>
                         <p>
-                            L'application repose sur des technologies web classiques (HTML, CSS, JS, PHP, SQL) pour garantir sa robustesse et son accessibilité. Nous avons implémenté plusieurs modules essentiels :
+                            L'application repose sur des technologies web fiables (HTML, CSS, JavaScript, PHP, SQL) pour garantir une robustesse optimale et une accessibilité maximale sur tous les navigateurs. Nous avons implémenté plusieurs modules essentiels :
                         </p>
                         <ul>
-                            <li><strong>Agenda partagé interactif :</strong> Un espace simple et ergonomique permettant à la personne âgée et à sa famille de planifier et de visualiser les événements quotidiens, les rendez-vous médicaux ou les visites.</li>
-                            <li><strong>Messagerie instantanée sécurisée :</strong> Un système de communication intégré permettant de créer des groupes familiaux privés, avec un système de notifications pour assurer un lien constant et sécurisé entre les membres.</li>
+                            <li><strong>Agenda partagé interactif :</strong> Un espace simple et hautement ergonomique permettant à la personne âgée et à ses proches de planifier et de visualiser en temps réel les événements quotidiens, les visites familiales et les rendez-vous médicaux.</li>
+                            <li><strong>Messagerie instantanée sécurisée :</strong> Un système de communication intégré permettant la création de groupes familiaux privés, doté d'un système d'alertes et de notifications pour assurer un lien constant, bienveillant et sécurisé entre les membres.</li>
                         </ul>
-                        
+
                         <h4>Apprentissages & Bilan</h4>
                         <p>
-                            Ce projet a été une excellente opportunité d'appliquer mes compétences de développement <em>Full-Stack</em> dans un contexte de travail en équipe. Il m'a demandé de la rigueur technique pour la liaison entre le front-end et la base de données (PHP/SQL), mais aussi une vraie réflexion sur l'expérience utilisateur (UX) pour rendre l'interface accessible à un public senior.
+                            Ce projet a été une excellente opportunité d'appliquer mes compétences de développement <em>Full-Stack</em> dans un contexte d'équipe dynamique. Il m'a demandé une grande rigueur technique pour la liaison entre le front-end et la persistance en base de données (PHP/SQL), ainsi qu'une réflexion approfondie sur l'expérience utilisateur (UX) pour rendre l'interface intuitive et lisible pour un public senior.
                         </p>
                     </div>
-                </article>
-            </div>
 
-            <div class="navigation-links">
-                <a href="../index.html#s_projets_academiques" class="button-link">Retour aux projets</a>
-                <a href="projet_agence_voyages.html" class="button-link">Projet Suivant →</a>
+                    <div class="navigation-links">
+                        <a href="../experiences_pro/experience_stage_chai.html" class="btn-secondary">← Expérience Précédente (CHAI)</a>
+                        <a href="projet_agence_voyages.html" class="btn-primary">Projet Suivant : Agence de Voyages →</a>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Tous droits réservés.</div>
+            </div>
+        </div>
     </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié !</span>
+    </div>
     <script src="../script.js"></script>
 </body>
 </html>

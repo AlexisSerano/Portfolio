@@ -3,123 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet: Agence de Voyages - Alexis Serano</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Projet : Agence de Voyages (JavaFX) - Alexis Serano</title>
+    <meta name="description" content="Application de gestion de voyages en Java / JavaFX et persistance JSON conçue dans le cadre du BUT Informatique.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="/Portfolio/index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="../experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="../projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="../projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="../projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="../projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="../projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="../autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="../autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">Compétences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
         <section class="interest-detail-page">
-            <h2>Application de Gestion de Voyages (IHM)</h2>
-            
-            <div class="interest-layout-wrapper">
-                
-                <aside class="interest-stats">
-                    <h3>Informations Clés</h3>
-                    
-                    <h4>Cadre de Réalisation :</h4>
-                    <ul>
-                        <li><strong>Type :</strong> Projet académique (BUT INFO)</li>
-                        <li><strong>Organisation :</strong> Travail en équipe</li>
-                        <li><strong>Domaine :</strong> Logiciel de gestion (Desktop)</li>
-                    </ul>
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_projets_academiques">Projets Académiques</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Agence de Voyages IHM</span>
+            </nav>
 
-                    <h4>Technologies & Outils :</h4>
-                    <ul>
-                        <li>Java</li>
-                        <li>JavaFX (Interface graphique)</li>
-                        <li>JSON (Stockage des données)</li>
-                    </ul>
-                    
-                    <h4>Compétences & Qualités :</h4>
-                    <ul>
-                        <li>Analyse des besoins et modélisation</li>
-                        <li>Conception d'Interface Homme-Machine (IHM)</li>
-                        <li>Programmation Orientée Objet (POO)</li>
-                        <li>Gestion de projet et répartition des tâches</li>
-                        <li>Travail collaboratif</li>
-                    </ul>
+            <div class="detail-page-header">
+                <span class="section-tag">// Logiciel Desktop & IHM</span>
+                <h1 class="detail-page-title">Application de Gestion de Voyages (JavaFX)</h1>
+                <p class="section-subtitle">Conception logicielle orientée objet • Interface Homme-Machine • Stockage JSON</p>
+            </div>
+
+            <div class="interest-layout-wrapper">
+                <!-- Sidebar -->
+                <aside class="interest-stats">
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Projet
+                    </h3>
+
+                    <div class="sidebar-section">
+                        <h4>Cadre de Réalisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Projet académique (BUT INFO)</li>
+                            <li><strong>Organisation :</strong> Travail en équipe</li>
+                            <li><strong>Domaine :</strong> Logiciel de gestion (Desktop)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Technologies & Outils</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">JavaFX (IHM)</span>
+                            <span class="skill-tag">JSON</span>
+                            <span class="skill-tag">POO</span>
+                            <span class="skill-tag">UML & Modélisation</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Compétences & Qualités</h4>
+                        <ul>
+                            <li>Analyse des besoins et modélisation</li>
+                            <li>Conception d'Interface Homme-Machine (IHM)</li>
+                            <li>Programmation Orientée Objet (POO)</li>
+                            <li>Gestion de projet et répartition des tâches</li>
+                            <li>Travail collaboratif</li>
+                        </ul>
+                    </div>
                 </aside>
 
+                <!-- Content -->
                 <article class="interest-main-content">
-                    <img src="../img/marianne.png" alt="Aperçu de l'application de gestion de voyages" class="interest-detail-image">
-                    
+                    <div class="interest-detail-image-wrapper">
+                        <img src="../img/marianne.png" alt="Aperçu de l'application de gestion de voyages" class="interest-detail-image">
+                    </div>
+
                     <div class="interest-text-content">
                         <h3>Présentation Générale</h3>
                         <p>
-                            Dans le cadre de mon BUT Informatique, j'ai participé en équipe à la création d'une application de bureau destinée à la gestion d'une agence de voyages. L'objectif principal était de concevoir un logiciel complet en couvrant toutes les étapes du cycle de développement, de la théorie à la pratique.
+                            Dans le cadre de mon BUT Informatique, j'ai participé en équipe à la création d'une application de bureau complète destinée à la gestion d'une agence de voyages. L'objectif principal était de concevoir un logiciel robuste en couvrant l'ensemble du cycle de vie du développement logiciel, de l'analyse conceptuelle préalable à l'implémentation finale.
                         </p>
 
-                        <h4>Déroulement et Missions</h4>
+                        <h4>Déroulement & Étapes Clés</h4>
                         <p>
-                            Ce projet a nécessité une forte collaboration et une répartition rigoureuse des tâches entre les membres de l'équipe. Notre travail s'est divisé en plusieurs grandes phases :
+                            Ce projet a nécessité une synchronisation rigoureuse au sein de l'équipe et s'est découpé en plusieurs grandes phases d'ingénierie :
                         </p>
                         <ul>
-                            <li><strong>Analyse et Modélisation :</strong> Étude approfondie des besoins de l'agence (gestion des clients, des destinations, des réservations) et modélisation conceptuelle de l'application.</li>
-                            <li><strong>Conception IHM avec JavaFX :</strong> Développement d'une Interface Homme-Machine (IHM) ergonomique et intuitive pour faciliter le travail des agents de voyages au quotidien.</li>
-                            <li><strong>Traitement des données :</strong> Utilisation du format JSON pour assurer la persistance, la sauvegarde et le chargement des données de l'application (catalogue de voyages, dossiers clients).</li>
+                            <li><strong>Analyse & Modélisation Conceptuelle :</strong> Étude approfondie du cahier des charges métier (gestion des clients, catalogue des destinations, réservation de séjours) et modélisation de l'architecture logicielle.</li>
+                            <li><strong>Conception IHM avec JavaFX :</strong> Développement d'une interface graphique fluide, intuitive et modulable pour simplifier les opérations courantes des agents de voyages.</li>
+                            <li><strong>Persistance & Traitement des Données :</strong> Structuration des données au format JSON pour garantir la sauvegarde instantanée, la sérialisation et le rechargement fiable des dossiers clients et catalogues.</li>
                         </ul>
-                        
+
                         <h4>Apprentissages & Bilan</h4>
                         <p>
-                            Ce projet m'a permis de consolider mes compétences en programmation Java et de découvrir la puissance de JavaFX pour la création d'interfaces graphiques modernes. J'ai également beaucoup appris sur l'importance de la phase d'analyse en amont du code, ainsi que sur la communication et la synchronisation nécessaires pour réussir un projet de développement en équipe.
+                            Ce projet m'a permis de consolider mes compétences en programmation Java et d'explorer la richesse de la bibliothèque <strong>JavaFX</strong> pour le design d'applications desktop modernes. Il a également renforcé mon sens de l'organisation et de la communication au sein d'une équipe de développement.
                         </p>
                     </div>
-                </article>
-            </div>
 
-            <div class="navigation-links">
-                <a href="projet_chronia.html" class="button-link">← Projet Précédent</a>
-                <a href="../index.html#s_projets_academiques" class="button-link">Retour aux projets</a>
-                <a href="projet_refonte_mobile.html" class="button-link">Projet Suivant →</a>
+                    <div class="navigation-links">
+                        <a href="projet_chronia.html" class="btn-secondary">← Projet Précédent (Chronia)</a>
+                        <a href="projet_refonte_mobile.html" class="btn-primary">Projet Suivant : Refonte Mobile →</a>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Tous droits réservés.</div>
+            </div>
+        </div>
     </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié !</span>
+    </div>
     <script src="../script.js"></script>
 </body>
 </html>

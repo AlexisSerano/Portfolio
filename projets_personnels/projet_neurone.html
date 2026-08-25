@@ -3,126 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet: Modèle de Neurone - Alexis Serano</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Projet : Modèle de Neurone (TensorFlow) - Alexis Serano</title>
+    <meta name="description" content="Modèle de neurone artificiel en Python avec TensorFlow et NumPy pour la détection et la prédiction de motifs logiques.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="../index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="../experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="../projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="../projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="../projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="../projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="../projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="../autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="../autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">Compétences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
         <section class="interest-detail-page">
-            <h2>Modèle de neurone en Python avec TensorFlow</h2>
-            
-            <div class="interest-layout-wrapper">
-                
-                <aside class="interest-stats">
-                    <h3>Informations Clés</h3>
-                    
-                    <h4>Cadre de Réalisation :</h4>
-                    <ul>
-                        <li><strong>Type :</strong> Projet de développement personnel</li>
-                        <li><strong>Durée :</strong> Quelques heures</li>
-                        <li><strong>Rôle :</strong> Projet solo</li>
-                    </ul>
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_projets_personnels">Projets Personnels</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Modèle de Neurone</span>
+            </nav>
 
-                    <h4>Technologies & Outils :</h4>
-                    <ul>
-                        <li>Python</li>
-                        <li>TensorFlow</li>
-                        <li>NumPy</li>
-                    </ul>
-                    
-                    <h4>Compétences & Qualités :</h4>
-                    <ul>
-                        <li>Programmation Python</li>
-                        <li>Initiation au Machine Learning</li>
-                        <li>Utilisation de TensorFlow</li>
-                        <li>Traitement de données (NumPy)</li>
-                        <li>Reconnaissance de motifs simples</li>
-                        <li>Autonomie, Curiosité</li>
-                    </ul>
-                    <!-- Si lien GitHub spécifique:
-                    <br>
-                    <a href="LIEN_GITHUB" class="button-link" target="_blank" rel="noopener noreferrer" style="display: block; margin-top: 15px;">Voir sur GitHub</a>
-                    -->
+            <div class="detail-page-header">
+                <span class="section-tag">// Machine Learning & IA</span>
+                <h1 class="detail-page-title">Modèle de Neurone Artificiel (Python & TensorFlow)</h1>
+                <p class="section-subtitle">Réseaux de neurones • Algorithmes d'apprentissage • Calcul matriciel NumPy</p>
+            </div>
+
+            <div class="interest-layout-wrapper">
+                <!-- Sidebar -->
+                <aside class="interest-stats">
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Projet
+                    </h3>
+
+                    <div class="sidebar-section">
+                        <h4>Cadre de Réalisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Projet de développement personnel</li>
+                            <li><strong>Durée :</strong> Quelques heures</li>
+                            <li><strong>Rôle :</strong> Projet solo</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Technologies & Outils</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">Python 3</span>
+                            <span class="skill-tag">TensorFlow</span>
+                            <span class="skill-tag">NumPy</span>
+                            <span class="skill-tag">Machine Learning</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Compétences & Qualités</h4>
+                        <ul>
+                            <li>Programmation Python scientifique</li>
+                            <li>Initiation aux concepts du Machine Learning</li>
+                            <li>Traitement et normalisation des données</li>
+                            <li>Reconnaissance et prédiction de motifs logiques</li>
+                            <li>Curiosité & veille technologique</li>
+                        </ul>
+                    </div>
                 </aside>
 
+                <!-- Content -->
                 <article class="interest-main-content">
-                    <img src="../img/neurones.png" alt="Illustration du modèle de neurone" class="interest-detail-image">
-                    
+                    <div class="interest-detail-image-wrapper">
+                        <img src="../img/neurones.png" alt="Illustration du modèle de neurone" class="interest-detail-image">
+                    </div>
+
                     <div class="interest-text-content">
                         <h3>Présentation Générale</h3>
                         <p>
-                            Ce projet visait à créer un modèle de neurone simple en Python avec TensorFlow et NumPy. L'objectif était d'entraîner ce modèle sur une base de données tabulaire élémentaire pour qu'il apprenne à reconnaître des motifs logiques, attribuant 1 pour une séquence correcte et 0 pour une incorrecte.
+                            Ce projet visait à concevoir et entraîner un modèle élémentaire de neurone artificiel en Python, en exploitant les bibliothèques scientifiques <strong>TensorFlow</strong> et <strong>NumPy</strong>. L'objectif était d'entraîner le réseau sur une base de données tabulaire pour lui apprendre à reconnaître et prédire la validité de séquences logiques complexes.
                         </p>
 
-                        <h4>Points clés</h4>
+                        <h4>Fonctionnement & Points Clés</h4>
                         <p>
-                            Le modèle a été développé pour identifier des séquences logiques dans un tableau. Chaque ligne représentait une suite, et le modèle devait apprendre à distinguer sa validité. L'entraînement a été rapide et a permis au modèle de prédire correctement la logique des suites, même avec une configuration matérielle basique.
+                            Le modèle a été configuré pour identifier des relations mathématiques sous-jacentes dans un jeu de données structuré. À chaque itération d'entraînement, la fonction de perte et les poids synaptiques se sont ajustés jusqu'à ce que le réseau atteigne une précision prédictive optimale sur de nouvelles séquences jamais rencontrées.
                         </p>
-                        
+
                         <h4>Apprentissages & Perspectives</h4>
                         <p>
-                            Ce projet a été une bonne introduction aux concepts de base du machine learning et à l'utilisation de TensorFlow.
+                            Ce projet a constitué une porte d'entrée passionnante dans le domaine de l'intelligence artificielle :
                         </p>
                         <ul>
-                            <li><strong>Points forts :</strong> Obtention rapide de résultats probants sur un cas simple.</li>
-                            <li><strong>Limites :</strong> Le modèle est basé sur un jeu de données très simple, limitant sa complexité et sa généralisation pour des applications plus avancées. L'utilisation d'un matériel basique n'a pas permis d'explorer des optimisations pour des jeux de données plus conséquents.</li>
+                            <li><strong>Points forts :</strong> Compréhension concrète de la descente de gradient, de la propagation avant/arrière et obtention rapide de résultats prédictifs vérifiés.</li>
+                            <li><strong>Perspectives :</strong> Évolution vers des architectures de réseaux multicouches (MLP, CNN) et traitement de données non structurées (vision par ordinateur ou traitement du langage).</li>
                         </ul>
                     </div>
-                </article>
-            </div>
 
-            <div class="navigation-links">
-                <a href="../index.html#s_projets_dev" class="button-link">Retour aux projets</a>
-                <a href="projet_gestionnaire_taches.html" class="button-link">Projet Suivant →</a>
+                    <div class="navigation-links">
+                        <a href="../projets_academiques/projet_chatenger.html" class="btn-secondary">← Projet Précédent (Chatenger)</a>
+                        <a href="projet_gestionnaire_taches.html" class="btn-primary">Projet Suivant : Gestionnaire de Tâches C# →</a>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Tous droits réservés.</div>
+            </div>
+        </div>
     </footer>
-    <script src="script.js"></script>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié !</span>
+    </div>
+    <script src="../script.js"></script>
 </body>
 </html>

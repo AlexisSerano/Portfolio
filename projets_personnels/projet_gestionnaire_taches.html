@@ -3,134 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projet: Gestionnaire de Tâches C# - Alexis Serano</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>Projet : Gestionnaire de Tâches C# - Alexis Serano</title>
+    <meta name="description" content="Application de bureau en C# Windows Forms avec persistance JSON pour la gestion et l'organisation quotidienne des tâches.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,700;1,300&family=Pixelify+Sans&family=Source+Sans+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <header>
-        <h1><a href="/Portfolio/index.html">Alexis Serano</a></h1>
-        <nav>
-            <ul class="nav">
-                <li>
-                    <a href="#s_experiences_pro" class="button-link">Expériences Pro</a>
-                    <ul>
-                        <li><a href="../experiences_pro/experience_stage_chai.html" class="button-link">Stage DSI - CHAI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_academiques" class="button-link">Projets Académiques</a>
-                    <ul>
-                        <li><a href="../projets_academiques/projet_chronia.html" class="button-link">Chronia</a></li>
-                        <li><a href="../projets_academiques/projet_agence_voyages.html" class="button-link">Agence de Voyages</a></li>
-                        <li><a href="../projets_academiques/projet_refonte_mobile.html" class="button-link">Refonte Mobile</a></li>
-                        <li><a href="../projets_academiques/projet_chatenger.html" class="button-link">Chatenger Web App</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_projets_personnels" class="button-link">Projets Personnels</a>
-                    <ul>
-                        <li><a href="../projets_personnels/projet_neurone.html" class="button-link">Modèle de Neurone</a></li>
-                        <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="button-link">Gestionnaire de Tâches</a></li>
-                        <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="button-link">Jeu de la Vie</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#s_autres_experiences" class="button-link">Autres Expériences</a>
-                    <ul>
-                        <li><a href="../autres_experiences/experience_investissement.html" class="button-link">Trading & Investissement</a></li>
-                        <li><a href="../autres_experiences/experience_monteur_video.html" class="button-link">Montage Vidéo</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span>.dev</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">À propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">Compétences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & Expériences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
+                            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
+                            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
+                            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
+                            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
+                            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
+                            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
+                            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
+                            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
+                            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
     </header>
-    
+
     <main>
         <section class="interest-detail-page">
-            <h2>Gestionnaire de tâches en C# (Windows Forms, JSON)</h2>
-            
-            <div class="interest-layout-wrapper">
-                
-                <aside class="interest-stats">
-                    <h3>Informations Clés</h3>
-                    
-                    <h4>Cadre de Réalisation :</h4>
-                    <ul>
-                        <li><strong>Type :</strong> Projet de développement personnel</li>
-                        <li><strong>Durée :</strong> 1 semaine</li>
-                        <li><strong>Rôle :</strong> Projet solo</li>
-                    </ul>
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_projets_personnels">Projets Personnels</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">Gestionnaire de Tâches C#</span>
+            </nav>
 
-                    <h4>Technologies & Outils :</h4>
-                    <ul>
-                        <li>C#</li>
-                        <li>.NET (Windows Forms)</li>
-                        <li>Visual Studio</li>
-                        <li>JSON (pour la persistance)</li>
-                    </ul>
-                    
-                    <h4>Compétences & Qualités :</h4>
-                    <ul>
-                        <li>Développement d'interface graphique (C#)</li>
-                        <li>Programmation orientée objet</li>
-                        <li>Manipulation de données JSON</li>
-                        <li>Gestion des événements utilisateur</li>
-                        <li>Conception d'application de bureau</li>
-                        <li>Autonomie, Organisation</li>
-                    </ul>
-                    <br>
-                    <a href="https://github.com/AlexisSerano/Task-managerV1-ByKys3n" class="button-link" target="_blank" rel="noopener noreferrer" style="display: block; margin-top: 15px;">Voir sur GitHub</a>
+            <div class="detail-page-header">
+                <span class="section-tag">// Développement Logiciel C# .NET</span>
+                <h1 class="detail-page-title">Gestionnaire de Tâches en C# (Windows Forms & JSON)</h1>
+                <p class="section-subtitle">Application de bureau Windows • Persistance sérialisée JSON • Interface interactive</p>
+            </div>
+
+            <div class="interest-layout-wrapper">
+                <!-- Sidebar -->
+                <aside class="interest-stats">
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Projet
+                    </h3>
+
+                    <div class="sidebar-section">
+                        <h4>Cadre de Réalisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Projet de développement personnel</li>
+                            <li><strong>Durée :</strong> 1 semaine</li>
+                            <li><strong>Rôle :</strong> Projet solo</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Technologies & Outils</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">C#</span>
+                            <span class="skill-tag">.NET Windows Forms</span>
+                            <span class="skill-tag">Visual Studio</span>
+                            <span class="skill-tag">JSON</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Compétences Acquises</h4>
+                        <ul>
+                            <li>Développement d'interface graphique (C#)</li>
+                            <li>Programmation orientée objet avancée</li>
+                            <li>Manipulation & parsing de fichiers JSON</li>
+                            <li>Gestion des événements utilisateur (UI Events)</li>
+                            <li>Organisation et autonomie</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Code Source</h4>
+                        <a href="https://github.com/AlexisSerano/Task-managerV1-ByKys3n" class="btn-primary" target="_blank" rel="noopener noreferrer" style="width: 100%; justify-content: center;">
+                            Voir sur GitHub ↗
+                        </a>
+                    </div>
                 </aside>
 
+                <!-- Content -->
                 <article class="interest-main-content">
-                    <img src="../img/gestionnaire.png" alt="Screenshot du gestionnaire de tâches" class="interest-detail-image">
-                    
+                    <div class="interest-detail-image-wrapper">
+                        <img src="../img/gestionnaire.png" alt="Screenshot du gestionnaire de tâches" class="interest-detail-image">
+                    </div>
+
                     <div class="interest-text-content">
                         <h3>Présentation Générale</h3>
                         <p>
-                            L'objectif était de développer une application de bureau en C# avec Visual Studio pour la gestion de tâches quotidiennes. L'application devait offrir une interface graphique interactive et assurer la persistance des données entre les sessions grâce au stockage en JSON.
+                            L'objectif était de concevoir une application de bureau complète en <strong>C#</strong> sous Visual Studio pour optimiser la gestion des tâches et la productivité quotidienne. L'accent a été mis sur la réactivité de l'interface graphique et la sauvegarde automatique des états sans perte de données grâce à la persistance JSON.
                         </p>
 
-                        <h4>Points clés</h4>
+                        <h4>Fonctionnalités & Points Clés</h4>
                         <p>
-                           L'application permet une gestion intuitive des tâches grâce à son interface Windows Forms. Les fonctionnalités principales incluent :
+                            L'application propose une interface Windows Forms claire avec plusieurs fonctionnalités essentielles :
                         </p>
                         <ul>
-                            <li>Ajout, suppression, et modification de l'état des tâches (cocher/décocher).</li>
-                            <li>Tri des tâches par ordre alphabétique (normal ou inversé).</li>
-                            <li>Sauvegarde et chargement automatique des tâches via un fichier JSON, garantissant la persistance.</li>
+                            <li><strong>Gestion complète des tâches :</strong> Ajout, suppression, édition et bascule d'état (effectué / en cours).</li>
+                            <li><strong>Tris intelligents :</strong> Réorganisation dynamique par ordre alphabétique croissant ou décroissant.</li>
+                            <li><strong>Persistance transparente :</strong> Sérialisation et désérialisation instantanée dans un fichier JSON local garantissant la conservation de l'historique d'une session à l'autre.</li>
                         </ul>
+
+                        <h4>Apprentissages & Bilan</h4>
                         <p>
-                           Le développement a été mené en une semaine, aboutissant à une application fonctionnelle et facile d'utilisation.
+                            Ce projet a consolidé mes compétences en programmation C# et en conception d'applications événementielles de bureau. Il a démontré ma capacité à structurer un code maintenable et réactif en un temps de développement réduit.
                         </p>
-                        
-                        <h4>Apprentissages & Perspectives</h4>
-                        <p>
-                            Ce projet a permis de consolider mes compétences en développement C# et en conception d'interfaces graphiques simples. L'application est pleinement opérationnelle pour un usage basique.
-                        </p>
-                        <ul>
-                            <li><strong>Points forts :</strong> Gestion fluide des tâches, persistance des données fiable.</li>
-                            <li><strong>Perspectives d'amélioration :</strong> Ajout de fonctionnalités avancées comme la gestion des priorités, des notifications, ou la synchronisation multi-appareils.</li>
-                        </ul>
+                    </div>
+
+                    <div class="navigation-links">
+                        <a href="projet_neurone.html" class="btn-secondary">← Projet Précédent (Neurone)</a>
+                        <a href="projet_jeu_de_la_vie.html" class="btn-primary">Projet Suivant : Jeu de la Vie →</a>
                     </div>
                 </article>
-            </div>
-
-            <div class="navigation-links">
-                <a href="projet_neurone.html" class="button-link">← Projet Précédent</a>
-                <a href="../index.html#s_projets_dev" class="button-link">Retour aux projets</a>
-                <a href="projet_jeu_de_la_vie.html" class="button-link">Projet Suivant →</a>
             </div>
         </section>
     </main>
 
-    <footer id="contact">
-        <p>Contactez-moi : <a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></p>
-        <p>© <script>document.write(new Date().getFullYear())</script> Alexis Serano. Tous droits réservés.</p>
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span>.dev</span></div>
+                    </div>
+                    <p>Étudiant en 2ème année de BUT Informatique à l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/test.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Alexis Serano. Tous droits réservés.</div>
+            </div>
+        </div>
     </footer>
-    <script src="script.js"></script>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">✓</span>
+        <span id="toast-message">Email copié !</span>
+    </div>
+    <script src="../script.js"></script>
 </body>
 </html>
