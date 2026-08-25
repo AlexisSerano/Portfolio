@@ -207,7 +207,6 @@ function initTerminal() {
   <span class="t-cyan">skills</span>      : Stack technologique & compétences
   <span class="t-cyan">projects</span>    : Liste des projets phares
   <span class="t-cyan">contact</span>     : Coordonnées & réseaux
-  <span class="t-cyan">matrix</span>      : Easter egg Cyber Matrix
   <span class="t-cyan">clear</span>       : Efface l'écran du terminal`,
 
         about: `<span class="t-green">Alexis Serano</span>
@@ -233,8 +232,6 @@ function initTerminal() {
   - Email    : <a href="mailto:alexis.seranoo@gmail.com" class="t-cyan">alexis.seranoo@gmail.com</a>
   - GitHub   : <a href="https://github.com/AlexisSerano" target="_blank" class="t-cyan">github.com/AlexisSerano</a>
   - Statut   : Disponible pour opportunités`,
-
-        matrix: `<span class="t-green">Wake up, Neo... The Matrix has you. Follow the white rabbit. 🐇</span>`,
 
         whoami: `alexis@portfolio: visitor_guest [privileges: read-only]`,
 
