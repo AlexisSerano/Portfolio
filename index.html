@@ -34,6 +34,12 @@
         <div class="dock-dot" data-target="about">
             <span class="dock-tooltip">À propos</span>
         </div>
+        <div class="dock-dot" data-target="parcours">
+            <span class="dock-tooltip">Parcours</span>
+        </div>
+        <div class="dock-dot" data-target="terminal">
+            <span class="dock-tooltip">Console</span>
+        </div>
         <div class="dock-dot" data-target="competences">
             <span class="dock-tooltip">Compétences</span>
         </div>
@@ -67,6 +73,9 @@
                         <a href="#about" class="nav-link">À propos</a>
                     </li>
                     <li class="nav-item">
+                        <a href="#parcours" class="nav-link">Parcours</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="#terminal" class="nav-link">Console</a>
                     </li>
                     <li class="nav-item">
@@ -79,17 +88,40 @@
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="experiences_pro/experience_stage_chai.html" class="dropdown-link">💼 Stage DSI - CHAI</a></li>
-                            <li><a href="projets_academiques/projet_chronia.html" class="dropdown-link">🎓 Chronia (Web)</a></li>
-                            <li><a href="projets_academiques/projet_agence_voyages.html" class="dropdown-link">🎓 Agence Voyages (JavaFX)</a></li>
-                            <li><a href="projets_academiques/projet_refonte_mobile.html" class="dropdown-link">🎓 Refonte Web & Mobile</a></li>
-                            <li><a href="projets_academiques/projet_chatenger.html" class="dropdown-link">🎓 Chatenger Web App</a></li>
-                            <li><a href="projets_personnels/projet_neurone.html" class="dropdown-link">⚡ Modèle de Neurone</a></li>
-                            <li><a href="projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">⚡ Gestionnaire Tâches (C#)</a></li>
-                            <li><a href="projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">⚡ Jeu de la Vie (Python)</a></li>
-                            <li><a href="autres_experiences/experience_investissement.html" class="dropdown-link">📈 Trading & Investissement</a></li>
-                            <li><a href="autres_experiences/experience_monteur_video.html" class="dropdown-link">🎬 Montage Vidéo</a></li>
+                        <ul class="dropdown-menu dropdown-mega">
+                            <li class="dropdown-category">
+                                <span class="dropdown-category-title">💼 Expériences Pro</span>
+                                <ul class="dropdown-submenu">
+                                    <li><a href="experiences_pro/experience_alternance_carrier.html" class="dropdown-link">Alternance Carrier Culoz</a></li>
+                                    <li><a href="experiences_pro/experience_stage_chai.html" class="dropdown-link">Stage DSI - CHAI</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-category">
+                                <span class="dropdown-category-title">🎓 Projets Académiques</span>
+                                <ul class="dropdown-submenu">
+                                    <li><a href="projets_academiques/projet_chronia.html" class="dropdown-link">Chronia (Web)</a></li>
+                                    <li><a href="projets_academiques/projet_agence_voyages.html" class="dropdown-link">Agence Voyages (JavaFX)</a></li>
+                                    <li><a href="projets_academiques/projet_refonte_mobile.html" class="dropdown-link">Refonte Web & Mobile</a></li>
+                                    <li><a href="projets_academiques/projet_chatenger.html" class="dropdown-link">Chatenger Web App</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-category">
+                                <span class="dropdown-category-title">🚀 Projets Personnels</span>
+                                <ul class="dropdown-submenu">
+                                    <li><a href="projets_personnels/projet_algofy.html" class="dropdown-link">Algofy (SaaS Trading)</a></li>
+                                    <li><a href="projets_personnels/projet_lifeos.html" class="dropdown-link">LifeOS </a></li>
+                                    <li><a href="projets_personnels/projet_neurone.html" class="dropdown-link">Modèle de Neurone</a></li>
+                                    <li><a href="projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">Gestionnaire Tâches (C#)</a></li>
+                                    <li><a href="projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">Jeu de la Vie (Python)</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-category">
+                                <span class="dropdown-category-title">🎨 Créa & Finance</span>
+                                <ul class="dropdown-submenu">
+                                    <li><a href="autres_experiences/experience_investissement.html" class="dropdown-link">Trading & Investissement</a></li>
+                                    <li><a href="autres_experiences/experience_monteur_video.html" class="dropdown-link">Montage Vidéo</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -111,7 +143,7 @@
                 <div class="hero-content">
                     <div class="status-badge-container">
                         <span class="pulse-dot"></span>
-                        <span class="status-text">Disponible pour Opportunités</span>
+                        <span class="status-text">En alternance chez Carrier Culoz SA</span>
                     </div>
 
                     <h1 class="hero-title">
@@ -125,7 +157,7 @@
                     </div>
 
                     <p class="hero-bio">
-                        Étudiant en 3ème année de <strong>BUT Informatique à l'IUT2 de Grenoble</strong>. Passionné de technologie depuis mon plus jeune âge, je conçois des solutions logicielles complètes, des architectures réseau et des applications web.
+                        Étudiant en 3ème année de <strong>BUT Informatique à l'IUT2 de Grenoble</strong>. Passionné de technologie depuis mon plus jeune âge, je conçois des solutions logicielles complètes, des déploiements d'architectures réseau et des applications web.
                     </p>
 
                     <div class="hero-actions">
@@ -171,13 +203,13 @@
             </div>
 
             <!-- Stats Banner -->
-            <div class="stats-banner">
+            <div class="stats-banner reveal">
                 <div class="stat-box">
                     <div class="stat-number gradient-text">3ème</div>
                     <div class="stat-title">Année en BUT Informatique</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-number gradient-text">10+</div>
+                    <div class="stat-number gradient-text">13+</div>
                     <div class="stat-title">Projets & Réalisations</div>
                 </div>
                 <div class="stat-box">
@@ -190,6 +222,9 @@
                 </div>
             </div>
         </section>
+
+        <!-- Section Divider -->
+        <div class="section-divider-line"></div>
 
         <!-- Interactive Developer Terminal (Collapsible & Compact) -->
         <section class="terminal-section container" id="terminal">
@@ -209,7 +244,7 @@
                 <div class="terminal-collapse-wrapper">
                     <div class="terminal-body" id="terminal-body">
                         <div class="terminal-output">
-Bienvenue sur le terminal interactif d'Alexis Serano !
+Bienvenue sur le terminal interactif
 Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez sur les suggestions ci-dessous.
                         </div>
                         <div class="terminal-input-row">
@@ -221,8 +256,11 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                     <div class="terminal-quick-cmds">
                         <span>Commandes rapides :</span>
                         <button class="cmd-badge" data-cmd="about">about</button>
+                        <button class="cmd-badge" data-cmd="carrier">carrier</button>
                         <button class="cmd-badge" data-cmd="skills">skills</button>
                         <button class="cmd-badge" data-cmd="projects">projects</button>
+                        <button class="cmd-badge" data-cmd="algofy">algofy</button>
+                        <button class="cmd-badge" data-cmd="lifeos">lifeos</button>
                         <button class="cmd-badge" data-cmd="contact">contact</button>
                         <button class="cmd-badge" data-cmd="clear">clear</button>
                     </div>
@@ -232,7 +270,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
 
         <!-- About & Bento Competences Section -->
         <section class="about-section container" id="about">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-tag">// Profil & Expertise</span>
                 <h2 class="section-title">Compétences & Univers Technique</h2>
                 <p class="section-subtitle">
@@ -251,14 +289,20 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                     </div>
                     <h3 class="bento-card-title">Qui suis-je ?</h3>
                     <p>
-                        Je m'appelle <strong>Alexis Serano</strong>, étudiant en 3ème année de BUT Informatique à l'IUT2 de Grenoble. Passionné par l'informatique et la création numérique depuis mon adolescence, j'aime comprendre les systèmes en profondeur et construire des outils robustes.
+                        Je m'appelle <strong>Alexis Serano</strong>, étudiant en 3ème année de BUT Informatique à l'IUT2 de Grenoble. Passionné par l'informatique et la création numérique depuis mon adolescence.
                     </p>
                     <p>
                         Curieux, autonome et persévérant, j'ai une volonté constante d'apprendre et d'innover : du développement logiciel bas niveau au web moderne, en passant par le déploiement conteneurisé.
                     </p>
                     <p>
-                        Mon parcours mêle projets académiques d'envergure, expérience en environnement hospitalier haute disponibilité (CHAI), projets d'ingénierie personnels, montage vidéo et investissement financier.
+                        Mon parcours mêle projets académiques, expériences professionnelles, projets personnels, montage vidéo et investissement financier.
                     </p>
+                    <div class="info-pills-row">
+                        <span class="info-pill"><span class="info-pill-icon">📍</span> Culoz (01) / Grenoble (38)</span>
+                        <span class="info-pill"><span class="info-pill-icon">🚗</span> Permis B</span>
+                        <span class="info-pill"><span class="info-pill-icon">🏢</span> Alternance Carrier Culoz SA</span>
+                        <span class="info-pill"><span class="info-pill-icon">🎓</span> BUT Informatique — IUT2 Grenoble</span>
+                    </div>
                     <div class="links-pill-group">
                         <a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer" class="skill-tag">GitHub ↗</a>
                         <a href="https://alexisserano.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="skill-tag">Portfolio en ligne ↗</a>
@@ -347,9 +391,89 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
             </div>
         </section>
 
+        <!-- Section Divider -->
+        <div class="section-divider-line"></div>
+
+        <!-- Parcours / Timeline Section -->
+        <section class="timeline-section container" id="parcours">
+            <div class="section-header reveal">
+                <span class="section-tag">// Parcours & Chronologie</span>
+                <h2 class="section-title">Mon Parcours</h2>
+                <p class="section-subtitle">
+                    Les étapes clés de ma formation et de mes expériences professionnelles.
+                </p>
+            </div>
+
+            <div class="timeline-container">
+                <div class="timeline-item timeline-current reveal">
+                    <div class="timeline-date">SEPT. 2026 → JUIL. 2027</div>
+                    <div class="timeline-card">
+                        <h4 class="timeline-title">🏭 Alternance — Carrier Culoz SA</h4>
+                        <div class="timeline-subtitle">Développeur Embarqué — 3ème année BUT Informatique</div>
+                        <p class="timeline-desc">Programmation embarquée sur automates de traitement de l'air. Migration logicielle Carrel → STone (Langage ST).</p>
+                        <div class="timeline-tags">
+                            <span class="p-tag">Langage ST</span>
+                            <span class="p-tag">Automates</span>
+                            <span class="p-tag">HVAC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-date">2026</div>
+                    <div class="timeline-card">
+                        <h4 class="timeline-title">🏥 Stage — Centre Hospitalier Alpes-Isère (CHAI)</h4>
+                        <div class="timeline-subtitle">Administration Système & DevOps — Direction des Systèmes d'Information</div>
+                        <p class="timeline-desc">Automatisation PowerShell, déploiement cluster Kubernetes, gestion de 1800+ utilisateurs en haute disponibilité 24/7.</p>
+                        <div class="timeline-tags">
+                            <span class="p-tag">PowerShell</span>
+                            <span class="p-tag">Kubernetes</span>
+                            <span class="p-tag">Active Directory</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-date">2024 → 2027</div>
+                    <div class="timeline-card">
+                        <h4 class="timeline-title">🎓 BUT Informatique — IUT2 de Grenoble</h4>
+                        <div class="timeline-subtitle">Bachelor Universitaire de Technologie — Parcours développement logiciel</div>
+                        <p class="timeline-desc">Formation complète en développement logiciel, architecture réseau, bases de données, projet d'envergure (Chronia, Agence de Voyages, etc.).</p>
+                        <div class="timeline-tags">
+                            <span class="p-tag">Java</span>
+                            <span class="p-tag">Web</span>
+                            <span class="p-tag">SQL</span>
+                            <span class="p-tag">Réseaux</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-date">2024 → Actuellement</div>
+                    <div class="timeline-card">
+                        <h4 class="timeline-title">📊 Trading & Investissement</h4>
+                        <div class="timeline-subtitle">Investisseur indépendant — Marchés crypto & financiers</div>
+                        <p class="timeline-desc">Développement de stratégies d'investissement, analyse technique, création de bots de trading (Algofy, LifeOS).</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-date">2017 → Actuellement</div>
+                    <div class="timeline-card">
+                        <h4 class="timeline-title">🎬 Montage Vidéo & Création Numérique</h4>
+                        <div class="timeline-subtitle">Freelance / Passionné</div>
+                        <p class="timeline-desc">Premières expériences dans le numérique à travers le montage vidéo, qui ont éveillé ma passion pour l'informatique.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Divider -->
+        <div class="section-divider-line"></div>
+
         <!-- Projects Showcase Section -->
         <section class="projects-section container" id="projets">
-            <div class="section-header">
+            <div class="section-header reveal">
                 <span class="section-tag">// Portfolio & Réalisations</span>
                 <h2 class="section-title">Mes Projets & Expériences</h2>
                 <p class="section-subtitle">
@@ -369,10 +493,38 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
             <!-- Projects Bento Grid -->
             <div class="projects-grid">
                 
-                <!-- 1. STAGE DSI CHAI (Featured) -->
+                <!-- 0. ALTERNANCE CARRIER CULOZ SA (Featured, Current) -->
                 <article class="project-card featured" data-category="pro" id="s_experiences_pro">
                     <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Alternance • 3ème année BUT</span>
+                        <span class="project-year-badge">2026–2027</span>
+                        <div class="project-thumb-placeholder" style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #6366f1 100%);">🏭 CARRIER CULOZ SA</div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Alternance Développeur Embarqué - Carrier Culoz SA</h3>
+                        <p class="project-desc">
+                            Programmation embarquée sur automates de systèmes de traitement de l'air. Migration du logiciel fourni par Carrel vers la plateforme STone en langage Structured Text (ST). Environnement industriel haute exigence.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Langage ST</span>
+                            <span class="p-tag">Automates</span>
+                            <span class="p-tag">Systèmes Embarqués</span>
+                            <span class="p-tag">Migration Logicielle</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="experiences_pro/experience_alternance_carrier.html" class="project-link-main">
+                                Explorer l'expérience <span>→</span>
+                            </a>
+                            <span class="project-status status-dev">En cours</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 1. STAGE DSI CHAI (Featured) -->
+                <article class="project-card featured" data-category="pro">
+                    <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Expérience Pro • Stage DSI</span>
+                        <span class="project-year-badge">2026</span>
                         <img src="img/chai.png" alt="Stage DSI CHAI" class="project-thumb">
                     </div>
                     <div class="project-content">
@@ -400,6 +552,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                 <article class="project-card" data-category="acad" id="s_projets_academiques">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Projet Académique • BUT 2</span>
+                        <span class="project-year-badge">2026</span>
                         <img src="img/chronia.png" alt="Projet Chronia" class="project-thumb">
                     </div>
                     <div class="project-content">
@@ -424,10 +577,70 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                     </div>
                 </article>
 
+
+                                <!-- 9. ALGOFY — SaaS Trading Platform -->
+                <article class="project-card featured" data-category="perso">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Personnel • SaaS Fintech</span>
+                        <span class="project-year-badge">2026</span>
+                        <div class="project-thumb-placeholder algofy-gradient">🤖 ALGOFY</div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Algofy – Plateforme SaaS de Trading Algorithmique</h3>
+                        <p class="project-desc">
+                            Plateforme SaaS clé en main de trading algorithmique sur le DEX Hyperliquid. Infrastructure conteneurisée Docker, bots 24/7 via systemctl, chiffrement AES-256/Fernet, monétisation Stripe & affiliation Connect, pilotage via Bot Telegram.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">Django REST</span>
+                            <span class="p-tag">React / Vite</span>
+                            <span class="p-tag">Docker</span>
+                            <span class="p-tag">PostgreSQL</span>
+                            <span class="p-tag">Hyperliquid API</span>
+                            <span class="p-tag">Stripe</span>
+                            <span class="p-tag">Telegram Bot</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_personnels/projet_algofy.html" class="project-link-main">
+                                Explorer le projet <span>→</span>
+                            </a>
+                            <span class="project-status status-production">En production</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 10. LIFEOS — Second Brain -->
+                <article class="project-card" data-category="perso">
+                    <div class="project-thumb-wrapper">
+                        <span class="project-category-badge">Projet Personnel • Full-Stack</span>
+                        <span class="project-year-badge">2026</span>
+                        <div class="project-thumb-placeholder lifeos-gradient">🧠 LIFEOS</div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">LifeOS – Operating System Personnel </h3>
+                        <p class="project-desc">
+                            Système d'exploitation personnel (Second Brain) couplé à une infrastructure de suivi financier. +30 modules applicatifs, parseur CSV multi-exchanges, architecture Docker Compose complète.
+                        </p>
+                        <div class="project-tags">
+                            <span class="p-tag">FastAPI</span>
+                            <span class="p-tag">React / TypeScript</span>
+                            <span class="p-tag">PostgreSQL</span>
+                            <span class="p-tag">Redis / Celery</span>
+                            <span class="p-tag">Docker</span>
+                        </div>
+                        <div class="project-footer">
+                            <a href="projets_personnels/projet_lifeos.html" class="project-link-main">
+                                Explorer le projet <span>→</span>
+                            </a>
+                            <span class="project-status status-dev">En développement</span>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- 3. AGENCE DE VOYAGES IHM -->
                 <article class="project-card" data-category="acad">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Projet Académique • BUT</span>
+                        <span class="project-year-badge">2025</span>
                         <img src="img/marianne.png" alt="Projet Agence Voyages" class="project-thumb">
                     </div>
                     <div class="project-content">
@@ -453,6 +666,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                 <article class="project-card" data-category="acad">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Projet Académique • BUT</span>
+                        <span class="project-year-badge">2026</span>
                         <img src="img/stage.jpg" alt="Projet Refonte Mobile" class="project-thumb">
                     </div>
                     <div class="project-content">
@@ -478,12 +692,13 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                 <article class="project-card" data-category="acad">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Projet Développement Web</span>
+                        <span class="project-year-badge">2023</span>
                         <img src="img/chatenger.png" alt="Projet Chatenger" class="project-thumb">
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Chatenger - Web App Dynamique</h3>
                         <p class="project-desc">
-                            Messagerie instantanée en ligne avec système d'amis, stockage relationnel MySQL et sécurisation des mots de passe par hachage cryptographique.
+                            Messagerie instantanée en ligne avec système d'amis, stockage relationnel MySQL.
                         </p>
                         <div class="project-tags">
                             <span class="p-tag">PHP</span>
@@ -504,6 +719,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                 <article class="project-card" data-category="perso" id="s_projets_personnels">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Projet Personnel • IA / ML</span>
+                        <span class="project-year-badge">2022</span>
                         <img src="img/neurones.png" alt="Modèle de Neurone" class="project-thumb">
                     </div>
                     <div class="project-content">
@@ -529,6 +745,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                 <article class="project-card" data-category="perso">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Projet Personnel • C# Desktop</span>
+                        <span class="project-year-badge">2022</span>
                         <img src="img/gestionnaire.png" alt="Gestionnaire de Tâches C#" class="project-thumb">
                     </div>
                     <div class="project-content">
@@ -554,6 +771,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                 <article class="project-card" data-category="perso">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Projet Personnel • Algorithmique</span>
+                        <span class="project-year-badge">2023</span>
                         <img src="img/jeu_de_la_vie.gif" alt="Jeu de la vie" class="project-thumb">
                     </div>
                     <div class="project-content">
@@ -575,16 +793,18 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                     </div>
                 </article>
 
-                <!-- 9. INVESTISSEMENT & TRADING -->
+
+                <!-- 11. INVESTISSEMENT & TRADING -->
                 <article class="project-card" data-category="autres" id="s_autres_experiences">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Expérience Personnelle • Finance</span>
+                        <span class="project-year-badge">2024-Actuellement</span>
                         <img src="img/trading.png" alt="Investissement & Trading" class="project-thumb">
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Investissement & Trading Crypto</h3>
                         <p class="project-desc">
-                            Gestion active de portefeuille, analyse technique des graphiques, évaluation et gestion du risque financier, et partage pédagogique de signaux.
+                            Gestion active de portefeuille, analyse technique des graphiques, évaluation et gestion du risque financier et aide à l'apprentissage.
                         </p>
                         <div class="project-tags">
                             <span class="p-tag">Analyse Technique</span>
@@ -603,18 +823,18 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                 <article class="project-card" data-category="autres">
                     <div class="project-thumb-wrapper">
                         <span class="project-category-badge">Création Numérique • Freelance</span>
+                        <span class="project-year-badge">2017 - Actuel</span>
                         <img src="img/montage.jpg" alt="Montage Vidéo" class="project-thumb">
                     </div>
                     <div class="project-content">
                         <h3 class="project-title">Montage Vidéo & Création de Contenu</h3>
                         <p class="project-desc">
-                            Pratique du montage depuis 2017 avec la suite Adobe (Premiere Pro, After Effects, Photoshop) et réalisations de prestations en freelance (Fiverr).
+                            Pratique du montage depuis 2017 avec la suite Adobe (Premiere Pro, After Effects, Photoshop) et réalisation de prestations en freelance (Fiverr).
                         </p>
                         <div class="project-tags">
                             <span class="p-tag">Premiere Pro</span>
                             <span class="p-tag">After Effects</span>
                             <span class="p-tag">Photoshop</span>
-                            <span class="p-tag">Storytelling</span>
                         </div>
                         <div class="project-footer">
                             <a href="autres_experiences/experience_monteur_video.html" class="project-link-main">
@@ -629,7 +849,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
             <!-- Smart Load More Toggle Button -->
             <div class="load-more-container">
                 <button class="btn-toggle-projects" id="toggle-projects-btn">
-                    <span class="btn-text">Afficher tous les projets (10)</span>
+                    <span class="btn-text">Afficher tous les projets (13)</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="6 9 12 15 18 9"></polyline>
                     </svg>
@@ -657,6 +877,7 @@ Tapez <span class="t-cyan">help</span> pour afficher les commandes ou cliquez su
                     <ul class="footer-links">
                         <li><a href="#hero">Accueil</a></li>
                         <li><a href="#about">À propos</a></li>
+                        <li><a href="#parcours">Parcours</a></li>
                         <li><a href="#competences">Compétences</a></li>
                         <li><a href="#projets">Projets</a></li>
                         <li><a href="img/Alexis serano.pdf" target="_blank">Mon CV (PDF)</a></li>

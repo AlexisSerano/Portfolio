@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeOS â€“ Operating System Personnel & Ã‰cosystÃ¨me d'Algo-Trading - Alexis Serano</title>
+    <meta name="description" content="LifeOS â€“ Operating System Personnel & Ã‰cosystÃ¨me d'Algo-Trading. SystÃ¨me centralisÃ© et infrastructure analytique.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div id="scroll-progress"></div>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <div class="logo-badge">AS</div>
+                <div class="logo-text">Alexis<span> Serano</span></div>
+            </a>
+
+            <button class="mobile-toggle" aria-label="Menu Mobile">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="../index.html" class="nav-link">Accueil</a></li>
+                    <li class="nav-item"><a href="../index.html#about" class="nav-link">Ã€ propos</a></li>
+                    <li class="nav-item"><a href="../index.html#competences" class="nav-link">CompÃ©tences</a></li>
+                    <li class="nav-item has-dropdown">
+                        <a href="../index.html#projets" class="nav-link active">
+                            Projets & ExpÃ©riences
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu dropdown-mega">
+    <li class="dropdown-category">
+        <span class="dropdown-category-title">ðŸ’¼ ExpÃ©riences Pro</span>
+        <ul class="dropdown-submenu">
+            <li><a href="../experiences_pro/experience_alternance_carrier.html" class="dropdown-link">Alternance Carrier Culoz</a></li>
+            <li><a href="../experiences_pro/experience_stage_chai.html" class="dropdown-link">Stage DSI - CHAI</a></li>
+        </ul>
+    </li>
+    <li class="dropdown-category">
+        <span class="dropdown-category-title">ðŸŽ“ Projets AcadÃ©miques</span>
+        <ul class="dropdown-submenu">
+            <li><a href="../projets_academiques/projet_chronia.html" class="dropdown-link">Chronia (Web)</a></li>
+            <li><a href="../projets_academiques/projet_agence_voyages.html" class="dropdown-link">Agence Voyages (JavaFX)</a></li>
+            <li><a href="../projets_academiques/projet_refonte_mobile.html" class="dropdown-link">Refonte Web & Mobile</a></li>
+            <li><a href="../projets_academiques/projet_chatenger.html" class="dropdown-link">Chatenger Web App</a></li>
+        </ul>
+    </li>
+    <li class="dropdown-category">
+        <span class="dropdown-category-title">ðŸš€ Projets Personnels</span>
+        <ul class="dropdown-submenu">
+            <li><a href="../projets_personnels/projet_algofy.html" class="dropdown-link">Algofy (SaaS Trading)</a></li>
+            <li><a href="../projets_personnels/projet_lifeos.html" class="dropdown-link">LifeOS (Second Brain)</a></li>
+            <li><a href="../projets_personnels/projet_neurone.html" class="dropdown-link">ModÃ¨le de Neurone</a></li>
+            <li><a href="../projets_personnels/projet_gestionnaire_taches.html" class="dropdown-link">Gestionnaire TÃ¢ches (C#)</a></li>
+            <li><a href="../projets_personnels/projet_jeu_de_la_vie.html" class="dropdown-link">Jeu de la Vie (Python)</a></li>
+        </ul>
+    </li>
+    <li class="dropdown-category">
+        <span class="dropdown-category-title">ðŸŽ¨ CrÃ©a & Finance</span>
+        <ul class="dropdown-submenu">
+            <li><a href="../autres_experiences/experience_investissement.html" class="dropdown-link">Trading & Investissement</a></li>
+            <li><a href="../autres_experiences/experience_monteur_video.html" class="dropdown-link">Montage VidÃ©o</a></li>
+        </ul>
+    </li>
+</ul>
+                    </li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <a href="#contact" class="btn-contact-nav">Me contacter</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="interest-detail-page reveal">
+            <nav class="breadcrumb" aria-label="Fil d'Ariane">
+                <a href="../index.html">Accueil</a>
+                <span class="breadcrumb-separator">/</span>
+                <a href="../index.html#s_projets_personnels">Projets Personnels</a>
+                <span class="breadcrumb-separator">/</span>
+                <span class="breadcrumb-current">LifeOS</span>
+            </nav>
+
+            <a href="../index.html" class="btn-back-home">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    Retour Ã  l'accueil
+</a>
+            <div class="detail-page-header">
+                <span class="section-tag">// SYSTEME DE GESTION DE VIE & ALGO-TRADING</span>
+                <h1 class="detail-page-title">LifeOS â€“ Operating System Personnel & Ã‰cosystÃ¨me d'Algo-Trading</h1>
+                <p class="section-subtitle">Second Brain â€¢ Dashboard Financier & Crypto â€¢ Automation Trading & Microservices â€¢ FastAPI & React</p>
+            </div>
+
+            <div class="interest-layout-wrapper">
+                <!-- Sidebar -->
+                <aside class="interest-stats reveal">
+                    <h3 class="sidebar-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        Fiche Projet
+                    </h3>
+
+                    <div class="sidebar-section">
+                        <h4>Cadre de RÃ©alisation</h4>
+                        <ul>
+                            <li><strong>Type :</strong> Projet d'ingÃ©nierie systÃ¨me & dÃ©veloppement fullstack personnel</li>
+                            <li><strong>DurÃ©e :</strong> En dÃ©veloppement continu</li>
+                            <li><strong>RÃ´le :</strong> Architecte SystÃ¨mes & DÃ©veloppeur Fullstack (Projet solo)</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>Technologies & Outils</h4>
+                        <div class="skills-tags-list">
+                            <span class="skill-tag">Python 3.12</span>
+                            <span class="skill-tag">FastAPI</span>
+                            <span class="skill-tag">React 18</span>
+                            <span class="skill-tag">TypeScript</span>
+                            <span class="skill-tag">PostgreSQL 16</span>
+                            <span class="skill-tag">Redis 7</span>
+                            <span class="skill-tag">Celery</span>
+                            <span class="skill-tag">Docker & Compose</span>
+                            <span class="skill-tag">Tailwind CSS</span>
+                            <span class="skill-tag">Hyperliquid API</span>
+                            <span class="skill-tag">Telegram Bot API</span>
+                            <span class="skill-tag">Systemd (Linux VPS)</span>
+                            <span class="skill-tag">Recharts</span>
+                            <span class="skill-tag">Leaflet</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <h4>CompÃ©tences & QualitÃ©s</h4>
+                        <ul>
+                            <li>Architecture Microservices & Conteneurisation</li>
+                            <li>IngÃ©nierie d'Algo-Trading & Services VPS</li>
+                            <li>IntÃ©gration d'APIs & Command & Control</li>
+                            <li>Traitement & Parsing de DonnÃ©es FinanciÃ¨res</li>
+                            <li>Conception Backend & TÃ¢ches Asynchrones</li>
+                            <li>Interfaces Dashboarding & Analytics</li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <!-- Content -->
+                <article class="interest-main-content reveal">
+                    <div class="interest-detail-image-wrapper">
+                        <div style="height:300px; background: linear-gradient(135deg, #10b981 0%, #6366f1 50%, #ec4899 100%); border-radius: 14px; display:flex; align-items:center; justify-content:center; font-size:3rem; color:white; font-weight:800; font-family: var(--font-heading);">ðŸ§  LIFEOS</div>
+                    </div>
+
+                    <div class="interest-text-content">
+                        <h3>PrÃ©sentation GÃ©nÃ©rale</h3>
+                        <p>
+                            Ce projet visait Ã  concevoir un systÃ¨me d'exploitation personnel centralisÃ© (Â« Second Brain Â») couplÃ© Ã  une infrastructure d'analyse financiÃ¨re et d'algo-trading en temps rÃ©el. LifeOS regroupe plus de 30 modules applicatifs permettant de suivre, corrÃ©ler et analyser la totalitÃ© des donnÃ©es d'une vie (finances, nutrition, santÃ©, habitudes, connaissances, voyages) tout en hÃ©bergeant des automates de trading autonomes connectÃ©s aux marchÃ©s crypto.
+                        </p>
+
+                        <h4>Fonctionnement & Points ClÃ©s</h4>
+                        <ul>
+                            <li><strong>Ã‰cosystÃ¨me de Trading Bot & ContrÃ´le Telegram :</strong> Les bots de trading dÃ©veloppÃ©s en Python tournent en tant que services d'arriÃ¨re-plan permanents (systemctl) directement sur le VPS Linux. Ils s'interfacent avec l'API d'Hyperliquid pour l'exÃ©cution automatique de stratÃ©gies, la surveillance des positions et de la marge, et sont entiÃ¨rement pilotables et surveillÃ©s Ã  distance via une interface Telegram personnalisÃ©e.</li>
+                            <li><strong>Gestion du Patrimoine & Crypto (Module Wealth) :</strong> IntÃ©gration d'un parseur CSV universel capable d'auto-dÃ©tecter le format de provenance (Blofin, Bitget, Hyperliquid, Kraken, Binance, Tangem). Calcul prÃ©cis des mÃ©triques financiÃ¨res avancÃ©es : PnL rÃ©alisÃ©/non rÃ©alisÃ©, frais de funding, frais de trading, mouvements fiat et historique des balances.</li>
+                            <li><strong>Architecture ConteneurisÃ©e & Traitement Asynchrone :</strong> L'ensemble de la plateforme principale (PostgreSQL 16, Redis 7, Backend FastAPI, Workers Celery, Celery Beat Scheduler et Frontend Nginx/React) est orchestrÃ© au sein d'un environnement Docker Compose isolÃ©, garantissant une rÃ©silience et des recalculs automatisÃ©s des snapshots de patrimoine.</li>
+                            <li><strong>Second Brain & Tracking Multi-Domaines :</strong> Centralisation de donnÃ©es hÃ©tÃ©rogÃ¨nes Ã  travers +30 modules interconnectÃ©s (Journal, Suivi Nutrition/Macros, SantÃ© & Biomarqueurs, Routines, Import de cartes Google Maps avec cartes de chaleur Leaflet, Moteur d'occurrences et de tags unifiÃ©s).</li>
+                        </ul>
+
+                        <h4>Apprentissages & Perspectives</h4>
+                        <p>
+                            Ce projet a permis de dÃ©velopper une expertise approfondie dans la gestion d'architectures distribuÃ©es rÃ©silientes et le traitement de donnÃ©es en temps rÃ©el :
+                        </p>
+                        <p><strong>Points forts:</strong></p>
+                        <ul>
+                            <li>MaÃ®trise complÃ¨te de la chaÃ®ne de valeur logicielle : du dÃ©ploiement d'infrastructure Linux/Docker et de services systemctl rÃ©silients, jusqu'Ã  la modÃ©lisation financiÃ¨re complexe et le dÃ©veloppement d'interfaces analytiques haute performance.</li>
+                        </ul>
+                        <p><strong>Perspectives:</strong></p>
+                        <ul>
+                            <li>IntÃ©gration d'un moteur de dÃ©cision basÃ© sur des modÃ¨les d'IA (LLM / RAG) pour l'analyse prÃ©dictive du journal et de la santÃ©.</li>
+                            <li>DÃ©veloppement de nouvelles stratÃ©gies quantitatives sur Hyperliquid.</li>
+                            <li>Ã‰volution vers une Progressive Web App (PWA).</li>
+                        </ul>
+                    </div>
+
+                    <div class="navigation-links">
+                        <a href="projet_algofy.html" class="btn-secondary">â† Projet PrÃ©cÃ©dent (Algofy)</a>
+                        <a href="../autres_experiences/experience_investissement.html" class="btn-primary">Projet Suivant : Trading & Investissement â†’</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-bio">
+                    <div class="logo">
+                        <div class="logo-badge">AS</div>
+                        <div class="logo-text">Alexis<span> Serano</span></div>
+                    </div>
+                    <p>Ã‰tudiant en 3Ã¨me annÃ©e de BUT Informatique Ã  l'IUT2 de Grenoble.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigation</h4>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Accueil</a></li>
+                        <li><a href="../index.html#projets">Tous les projets</a></li>
+                        <li><a href="../img/Alexis serano.pdf" target="_blank">Mon CV (PDF)</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:alexis.seranoo@gmail.com">alexis.seranoo@gmail.com</a></li>
+                        <li><a href="https://github.com/AlexisSerano" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>Â© 2026 Alexis Serano.</div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Retour en haut">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"></polyline>
+        </svg>
+    </button>
+    <div class="toast-notification" id="toast-notification">
+        <span class="toast-icon">âœ“</span>
+        <span id="toast-message">Email copiÃ© !</span>
+    </div>
+    <script src="../script.js"></script>
+</body>
+</html>
+
+

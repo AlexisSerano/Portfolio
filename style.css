@@ -1846,3 +1846,756 @@ footer.site-footer {
         align-self: center;
     }
 }
+
+/* ==========================================================================
+   🚀 MEGA VISUAL ENHANCEMENTS — SCROLL REVEAL SYSTEM
+   ========================================================================== */
+
+/* Page Load Animation */
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        filter: blur(8px);
+    }
+    to {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
+
+body {
+    animation: pageEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scroll Reveal Base */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.reveal-scale.is-visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Staggered reveal delays (set via data-delay or CSS custom property) */
+.reveal[style*="--delay"] {
+    transition-delay: var(--delay);
+}
+
+/* ==========================================================================
+   SHIMMER EFFECT ON GRADIENT TEXT
+   ========================================================================== */
+
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+.hero-title .gradient-text {
+    background: linear-gradient(
+        90deg,
+        #00f2fe 0%,
+        #a855f7 25%,
+        #ec4899 50%,
+        #a855f7 75%,
+        #00f2fe 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer 4s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   ANIMATED GRADIENT BORDER (FEATURED CARDS)
+   ========================================================================== */
+
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.project-card.featured {
+    position: relative;
+    border: none;
+}
+
+.project-card.featured::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: calc(var(--radius-lg) + 2px);
+    background: linear-gradient(
+        60deg,
+        #00f2fe,
+        #4facfe,
+        #6366f1,
+        #a855f7,
+        #ec4899,
+        #a855f7,
+        #6366f1,
+        #4facfe,
+        #00f2fe
+    );
+    background-size: 300% 300%;
+    animation: borderGlow 6s ease infinite;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.project-card.featured:hover::before {
+    opacity: 1;
+}
+
+.project-card.featured::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    z-index: -1;
+}
+
+/* ==========================================================================
+   MOUSE SPOTLIGHT OVERLAY ON CARDS
+   ========================================================================== */
+
+.project-card,
+.bento-card,
+.timeline-card {
+    --spotlight-x: 50%;
+    --spotlight-y: 50%;
+    --spotlight-opacity: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before,
+.bento-card::before,
+.timeline-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        600px circle at var(--spotlight-x) var(--spotlight-y),
+        rgba(0, 242, 254, 0.08),
+        transparent 40%
+    );
+    opacity: var(--spotlight-opacity);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+}
+
+.project-card.featured::before {
+    z-index: 2;
+}
+
+.project-card > *,
+.bento-card > *,
+.timeline-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* ==========================================================================
+   SECTION DIVIDERS (SVG WAVE)
+   ========================================================================== */
+
+.section-divider {
+    width: 100%;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-divider svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.section-divider-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent-cyan) 20%, var(--accent-purple) 50%, var(--accent-cyan) 80%, transparent 100%);
+    margin: 30px auto;
+    opacity: 0.3;
+    position: relative;
+}
+
+.section-divider-line::before {
+    content: '◆';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--accent-cyan);
+    font-size: 0.7rem;
+    background: var(--bg-base);
+    padding: 0 12px;
+    letter-spacing: 4px;
+}
+
+/* ==========================================================================
+   PROJECT YEAR BADGE
+   ========================================================================== */
+
+.project-year-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #ffffff;
+    font-family: var(--font-code);
+    letter-spacing: 0.8px;
+    z-index: 3;
+}
+
+/* ==========================================================================
+   PROJECT STATUS INDICATOR
+   ========================================================================== */
+
+.project-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.project-status.status-production {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--accent-emerald);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.project-status.status-production::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-emerald);
+    animation: radarPulse 2s infinite;
+}
+
+.project-status.status-dev {
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--accent-amber);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.project-status.status-dev::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-amber);
+    animation: radarPulse 2s infinite;
+}
+
+.project-status.status-complete {
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--accent-indigo);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+/* ==========================================================================
+   MAGNETIC BUTTON EFFECT
+   ========================================================================== */
+
+.btn-magnetic {
+    transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ==========================================================================
+   ENHANCED HOVER STATES
+   ========================================================================== */
+
+/* Bento cards enhanced glow on hover */
+.bento-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(0, 242, 254, 0.3);
+    box-shadow: var(--shadow-lg),
+                0 0 30px rgba(0, 242, 254, 0.12),
+                0 0 60px rgba(168, 85, 247, 0.06);
+}
+
+/* Project card enhanced hover */
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(0, 242, 254, 0.25),
+                0 0 60px rgba(168, 85, 247, 0.1);
+}
+
+/* Tag hover glow */
+.p-tag {
+    transition: var(--transition-fast);
+}
+
+.p-tag:hover {
+    background: rgba(0, 242, 254, 0.12);
+    color: var(--accent-cyan);
+    transform: translateY(-1px);
+}
+
+/* Skill tags floating animation on hover */
+.skills-tags-list .skill-tag:hover {
+    box-shadow: 0 4px 12px rgba(0, 242, 254, 0.2);
+}
+
+/* ==========================================================================
+   STATS COUNTER ANIMATION
+   ========================================================================== */
+
+.stat-number {
+    transition: var(--transition-base);
+}
+
+.stat-box:hover .stat-number {
+    transform: scale(1.08);
+}
+
+.stat-box:hover {
+    transform: translateY(-2px);
+}
+
+.stat-box {
+    transition: transform 0.3s ease;
+}
+
+/* ==========================================================================
+   PROJECT CARD PLACEHOLDER IMAGE (for projects without screenshots)
+   ========================================================================== */
+
+.project-thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-heading);
+    letter-spacing: -0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-thumb-placeholder.algofy-gradient {
+    background: linear-gradient(135deg, #00f2fe 0%, #6366f1 50%, #a855f7 100%);
+}
+
+.project-thumb-placeholder.lifeos-gradient {
+    background: linear-gradient(135deg, #10b981 0%, #6366f1 50%, #ec4899 100%);
+}
+
+.project-thumb-placeholder::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%);
+    background-size: 200% 200%;
+    animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   ENHANCED TERMINAL GLOW
+   ========================================================================== */
+
+.terminal-window:hover {
+    border-color: rgba(0, 242, 254, 0.2);
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 242, 254, 0.08);
+}
+
+/* ==========================================================================
+   FLOATING NAV DOCK ENHANCED
+   ========================================================================== */
+
+.floating-nav-dock {
+    transition: var(--transition-base), box-shadow 0.3s ease;
+}
+
+.floating-nav-dock:hover {
+    border-color: rgba(0, 242, 254, 0.2);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(0, 242, 254, 0.1);
+}
+
+/* ==========================================================================
+   LINK HOVER UNDERLINE ANIMATION
+   ========================================================================== */
+
+.project-link-main {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-link-main::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--grad-cyber);
+    transition: width 0.3s ease;
+}
+
+.project-link-main:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   FOOTER ENHANCED
+   ========================================================================== */
+
+footer.site-footer {
+    position: relative;
+    overflow: hidden;
+}
+
+footer.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple), var(--accent-cyan), transparent);
+    opacity: 0.4;
+}
+
+/* ==========================================================================
+   RESPONSIVE ADDITIONS FOR NEW ELEMENTS
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .section-divider {
+        height: 40px;
+    }
+
+    .section-divider-line {
+        margin: 20px auto;
+    }
+
+    .project-year-badge {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-thumb-placeholder {
+        font-size: 1.8rem;
+    }
+}
+
+/* ==========================================================================
+   MEGA DROPDOWN — CATEGORIZED SUB-MENUS
+   ========================================================================== */
+
+.dropdown-mega {
+    min-width: 520px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 12px;
+}
+
+.dropdown-category {
+    list-style: none;
+}
+
+.dropdown-category-title {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 6px 10px 4px 10px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--border-subtle);
+    user-select: none;
+}
+
+.dropdown-submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-submenu .dropdown-link {
+    font-size: 0.82rem;
+    padding: 6px 10px;
+}
+
+/* Mobile override for mega dropdown */
+@media (max-width: 768px) {
+    .dropdown-mega {
+        grid-template-columns: 1fr;
+        min-width: unset;
+    }
+
+    .dropdown-mega .dropdown-category {
+        margin-bottom: 8px;
+    }
+}
+
+/* ==========================================================================
+   BACK TO HOME BUTTON (Detail Pages)
+   ========================================================================== */
+
+.btn-back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-pill);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.88rem;
+    backdrop-filter: blur(16px);
+    transition: var(--transition-base);
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.btn-back-home:hover {
+    background: rgba(0, 242, 254, 0.12);
+    border-color: var(--accent-cyan);
+    color: var(--accent-cyan);
+    transform: translateX(-4px);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2);
+}
+
+.btn-back-home svg {
+    transition: transform 0.2s ease;
+}
+
+.btn-back-home:hover svg {
+    transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   INFO PILLS — Personal Details (About Section)
+   ========================================================================== */
+
+.info-pills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+    margin-bottom: 14px;
+}
+
+.info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.info-pill:hover {
+    background: rgba(0, 242, 254, 0.08);
+    border-color: rgba(0, 242, 254, 0.3);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.info-pill .info-pill-icon {
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   PARCOURS TIMELINE SECTION
+   ========================================================================== */
+
+.timeline-section {
+    padding: 50px 0;
+}
+
+.timeline-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-left: 40px;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+    opacity: 0.4;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+    padding-left: 24px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    border: 3px solid var(--bg-base);
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+    z-index: 1;
+}
+
+.timeline-item.timeline-current::before {
+    background: var(--accent-emerald);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+    animation: radarPulse 2s infinite;
+}
+
+.timeline-date {
+    font-family: var(--font-code);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+
+.timeline-card {
+    background: var(--bg-surface);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    transition: var(--transition-base);
+}
+
+.timeline-card:hover {
+    border-color: rgba(0, 242, 254, 0.2);
+    box-shadow: var(--shadow-md), 0 0 20px rgba(0, 242, 254, 0.06);
+    transform: translateX(4px);
+}
+
+.timeline-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+.timeline-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.timeline-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+.timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    .timeline-container {
+        padding-left: 30px;
+    }
+
+    .timeline-item::before {
+        left: -22px;
+        width: 10px;
+        height: 10px;
+    }
+
+    .timeline-container::before {
+        left: 10px;
+    }
+}
