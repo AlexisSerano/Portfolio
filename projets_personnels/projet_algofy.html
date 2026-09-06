@@ -185,8 +185,8 @@
 
                         <h4>Fonctionnement & Points ClÃ©s</h4>
                         <ul>
-                            <li><strong>Infrastructure ConteneurisÃ©e Docker & Pipeline de Prod :</strong> L'ensemble de la plateforme SaaS (Backend Django Gunicorn, Frontend React Nginx et Base PostgreSQL) est packagÃ© et dÃ©ployÃ© au sein d'un environnement Docker & Docker Compose, garantissant une isolation parfaite, des dÃ©ploiements reproductibles et un rÃ©seau interne sÃ©curisÃ©.</li>
-                            <li><strong>HÃ©bergement des Bots via systemctl (VPS Linux) :</strong> Les bots d'exÃ©cution Python tournent en arriÃ¨re-plan sur le VPS sous forme de services daemons Linux gÃ©rÃ©s par systemctl. Cela assure une disponibilitÃ© constante 24/7, un redÃ©marrage automatique en cas d'anomalie rÃ©seau et une stabilitÃ© Ã  toute Ã©preuve.</li>
+                            <li><strong>Infrastructure ConteneurisÃ©e Docker & Pipeline de Prod :</strong> L'ensemble de la plateforme SaaS (Backend Django Gunicorn, Frontend React Nginx et Base PostgreSQL) est packagÃ© et dÃ©ployÃ© au sein d'un environnement Docker & Docker Compose, garantissant une isolation parfaite, des dÃ©ploiements reproductibles et un rÃ©seau interne.</li>
+                            <li><strong>HÃ©bergement des Bots via systemctl (VPS Linux) :</strong> Les bots d'exÃ©cution Python tournent en arriÃ¨re-plan sur le VPS sous forme de services daemons Linux gÃ©rÃ©s par systemctl. Cela assure une disponibilitÃ© constante 24/7, un redÃ©marrage automatique en cas d'anomalie rÃ©seau et une stabilitÃ©.</li>
                             <li><strong>Connexion Haute Performance Ã  Hyperliquid via API Agent :</strong> IntÃ©gration de l'API Hyperliquid (L1 Agent) permettant d'interroger la marge unifiÃ©e, d'exÃ©cuter des ordres Spot/Futures Ã  faible latence et de calculer l'Ã©quitÃ© totale rÃ©elle de maniÃ¨re non-custodiale sans jamais toucher aux fonds des utilisateurs.</li>
                             <li><strong>ContrÃ´le Conversationnel & Alertes Telegram :</strong> DÃ©ploiement d'un bot Telegram interactif permettant aux utilisateurs de piloter leurs bots Ã  distance (activation, mise en pause, ajustement du levier/allocation) et de recevoir des notifications instantanÃ©es.</li>
                             <li><strong>Coffre-Fort Cryptographique AES-256 (Fernet) :</strong> Les clÃ©s privÃ©es d'Agent API des clients sont chiffrÃ©es Ã  la volÃ©e avant tout stockage en base PostgreSQL grÃ¢ce au module cryptography (chiffrement symÃ©trique Fernet / AES-256), empÃªchant toute fuite d'identifiants mÃªme en cas d'accÃ¨s direct Ã  la BDD.</li>
@@ -197,11 +197,11 @@
 
                         <h4>Apprentissages & Perspectives</h4>
                         <p>
-                            Ce projet a reprÃ©sentÃ© un dÃ©fi d'ingÃ©nierie complet et transverse, combinant finance dÃ©centralisÃ©e, dÃ©veloppement Full-Stack et DevOps :
+                            Ce projet a combiné finance dÃ©centralisÃ©e, dÃ©veloppement Full-Stack et DevOps :
                         </p>
                         <ul>
-                            <li><strong>Points forts :</strong> Maitrise avancÃ©e de l'architecture microservices (conteneurs Docker + daemons systemd Linux) appliquÃ©e Ã  des exigences de trading en temps rÃ©el. Mise en Å“uvre de standards Ã©levÃ©s en cybersÃ©curitÃ© (chiffrement Fernet, cookies JWT HttpOnly, protection anti-rejeu et dÃ©sactivation des accÃ¨s directs aux clÃ©s privÃ©es). Conception d'un modÃ¨le SaaS robuste Ã  haute tolÃ©rance aux pannes, capable de gÃ©rer des abonnements rÃ©currents, de l'affiliation et de la rÃ©gulation de capital dynamique.</li>
-                            <li><strong>Perspectives :</strong> Ã‰volution multi-exchanges (support d'autres DEX/CEX comme Bybit ou Binance Perp) via une couche d'abstraction d'exÃ©cution gÃ©nÃ©rique. IntÃ©gration de modules d'IA / Machine Learning pour l'analyse de sentiment de marchÃ© et l'optimisation dynamique des seuils d'entrÃ©e en position.</li>
+                            <li><strong>Points forts :</strong> Maitrise de l'architecture microservices (conteneurs Docker + daemons systemd Linux) appliquÃ©e Ã  des exigences de trading en temps rÃ©el. Mise en Å“uvre de standards en cybersÃ©curitÃ© (chiffrement Fernet, cookies JWT HttpOnly, protection anti-rejeu et dÃ©sactivation des accÃ¨s directs aux clÃ©s privÃ©es). Conception d'un modÃ¨le SaaS robuste Ã  tolÃ©rance aux pannes, capable de gÃ©rer des abonnements rÃ©currents, de l'affiliation et de la rÃ©gulation de capital.</li>
+                            <li><strong>Perspectives :</strong> Ã‰volution multi-exchanges (support d'autres DEX/CEX comme Bybit ou Binance Perp) via une couche d'abstraction d'exÃ©cution gÃ©nÃ©rique.</li>
                         </ul>
                     </div>
 
