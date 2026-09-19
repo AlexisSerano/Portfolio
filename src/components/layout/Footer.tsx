@@ -1,6 +1,7 @@
 'use client'
 import { Heart } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
+import { assetPath } from '@/lib/asset'
 
 export default function Footer() {
   const { lang, t } = useLanguage()
@@ -100,7 +101,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="/images/Alexis_serano.pdf"
+                  href={assetPath('/images/Alexis_serano.pdf')}
                   target="_blank"
                   className="text-sm text-[#A3A3A3] hover:text-[#D4A843] transition-colors"
                 >

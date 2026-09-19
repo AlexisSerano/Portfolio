@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
 import MagneticButton from '@/components/ui/MagneticButton'
+import { assetPath } from '@/lib/asset'
 import { Mail, Copy } from 'lucide-react'
 
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -195,7 +196,7 @@ export default function Hero() {
         </MagneticButton>
 
         <MagneticButton
-          href="/images/Alexis_serano.pdf"
+          href={assetPath('/images/Alexis_serano.pdf')}
           target="_blank"
           className="px-6 py-3 rounded-full border border-[rgba(255,255,255,0.12)] text-[#A3A3A3] text-sm font-medium hover:border-[#D4A843] hover:text-[#D4A843] transition-all"
         >

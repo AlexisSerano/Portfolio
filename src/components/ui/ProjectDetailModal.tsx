@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
-import type { Project } from '@/data/projects'
+import { type Project } from '@/data/projects'
+import { assetPath } from '@/lib/asset'
 import { X, ExternalLink, Calendar, Briefcase, CheckCircle2, ChevronLeft, ChevronRight, Award } from 'lucide-react'
 
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -122,7 +123,7 @@ export default function ProjectDetailModal({
         {/* Banner Preview */}
         <div className="relative aspect-[21/9] w-full bg-[#07090F] overflow-hidden border-b border-white/10 shrink-0">
           <Image
-            src={project.image}
+            src={assetPath(project.image)}
             alt={title}
             fill
             className="object-cover"

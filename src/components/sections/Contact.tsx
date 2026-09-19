@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import TextReveal from '@/components/ui/TextReveal'
 import MagneticButton from '@/components/ui/MagneticButton'
+import { assetPath } from '@/lib/asset'
 import { Mail, FileText, Copy, Check } from 'lucide-react'
 
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -73,7 +74,7 @@ export default function Contact() {
               </span>
             </a>
 
-            <a href="/images/Alexis_serano.pdf" target="_blank" className="flex items-center gap-4 group">
+            <a href={assetPath('/images/Alexis_serano.pdf')} target="_blank" className="flex items-center gap-4 group">
               <div className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.06)] flex items-center justify-center text-[#6B6B6B] group-hover:text-[#D4A843] group-hover:border-[rgba(212,168,67,0.3)] transition-all">
                 <FileText className="w-4 h-4" />
               </div>

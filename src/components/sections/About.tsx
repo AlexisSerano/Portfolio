@@ -7,6 +7,7 @@ import GlowCard from '@/components/ui/GlowCard'
 import TextReveal from '@/components/ui/TextReveal'
 import { MapPin, GraduationCap, Building2 } from 'lucide-react'
 import Image from 'next/image'
+import { assetPath } from '@/lib/asset'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
@@ -58,7 +59,7 @@ export default function About() {
           <div className="flex items-center gap-4 mb-6">
             <div className="relative w-16 h-16 rounded-2xl overflow-hidden border border-[#D4A843]/30 shadow-[0_0_20px_rgba(212,168,67,0.15)] bg-[#0A0A0A] shrink-0">
               <Image
-                src="/images/alexis.png"
+                src={assetPath('/images/alexis.png')}
                 alt="Alexis Serano"
                 width={64}
                 height={64}

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { cn } from '@/lib/utils'
+import { assetPath } from '@/lib/asset'
 import MagneticButton from '@/components/ui/MagneticButton'
 
 const navLinks = [
@@ -94,7 +95,7 @@ export default function Navbar() {
             </button>
 
             <MagneticButton
-              href="/images/Alexis_serano.pdf"
+              href={assetPath('/images/Alexis_serano.pdf')}
               target="_blank"
               className="text-sm font-semibold px-5 py-2 rounded-full bg-[#D4A843] text-[#050505] hover:shadow-[0_0_30px_rgba(212,168,67,0.3)] transition-shadow"
             >

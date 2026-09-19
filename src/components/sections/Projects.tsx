@@ -8,6 +8,7 @@ import GlowCard from '@/components/ui/GlowCard'
 import ProjectDetailModal from '@/components/ui/ProjectDetailModal'
 import { projects, type Project } from '@/data/projects'
 import { cn } from '@/lib/utils'
+import { assetPath } from '@/lib/asset'
 import { ExternalLink, ChevronDown, Eye } from 'lucide-react'
 import Image from 'next/image'
 
@@ -138,7 +139,7 @@ export default function Projects() {
                   project.featured ? 'aspect-[21/9]' : 'aspect-video'
                 )}>
                   <Image
-                    src={project.image}
+                    src={assetPath(project.image)}
                     alt={lang === 'fr' ? project.title.fr : project.title.en}
                     fill
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
