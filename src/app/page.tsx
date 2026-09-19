@@ -1,69 +1,80 @@
-import Image from "next/image";
+'use client'
+import { useState, useEffect, useCallback } from 'react'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import LoadingScreen from '@/components/sections/LoadingScreen'
+import Navbar from '@/components/layout/Navbar'
+import Hero from '@/components/sections/Hero'
+import About from '@/components/sections/About'
+import Skills from '@/components/sections/Skills'
+import Experience from '@/components/sections/Experience'
+import Projects from '@/components/sections/Projects'
+import Terminal from '@/components/sections/Terminal'
+import Contact from '@/components/sections/Contact'
+import Footer from '@/components/layout/Footer'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    // If previously loaded in this session, skip intro immediately
+    const hasLoaded = sessionStorage.getItem('portfolio_intro_played')
+    if (hasLoaded) {
+      setIsLoading(false)
+    }
+  }, [])
+
+  const handleLoadingComplete = useCallback(() => {
+    setIsLoading(false)
+    if (typeof window !== 'undefined') {
+      try {
+        sessionStorage.setItem('portfolio_intro_played', 'true')
+      } catch (_) {}
+      setTimeout(() => {
+        ScrollTrigger.refresh()
+      }, 100)
+    }
+  }, [])
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    <>
+      {/* Loading Screen Overlay - only on initial visit */}
+      {isLoading && mounted && (
+        <LoadingScreen onComplete={handleLoadingComplete} />
+      )}
+
+      {/* Atmospheric Golden Ambient Lighting Layers */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Top Gold Glow (Hero) */}
+        <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[900px] h-[550px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.15)_0%,transparent_70%)] blur-[100px]" />
+
+        {/* Upper Middle Gold Glow (About / Skills) */}
+        <div className="absolute top-[22%] -left-[10%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.11)_0%,transparent_70%)] blur-[130px]" />
+
+        {/* Center Right Warm Glow (Experience / Projects) */}
+        <div className="absolute top-[52%] -right-[10%] w-[750px] h-[750px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.12)_0%,transparent_70%)] blur-[130px]" />
+
+        {/* Bottom Ambient Glow (Terminal / Contact) */}
+        <div className="absolute bottom-[3%] left-1/3 -translate-x-1/2 w-[850px] h-[600px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(212,168,67,0.10)_0%,transparent_70%)] blur-[120px]" />
+      </div>
+
+      {/* Main Content */}
+      <div className="relative min-h-screen z-10">
+        <ScrollProgress />
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Terminal />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </>
+  )
 }

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080c14" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#050810" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D4A843" />
+      <stop offset="50%" stop-color="#F5D785" />
+      <stop offset="100%" stop-color="#A3845B" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bgGrad)" />
+  <rect width="800" height="450" fill="url(#grid)" />
+
+  <!-- Ambient Glow -->
+  <circle cx="650" cy="120" r="180" fill="#D4A843" opacity="0.08" filter="blur(40px)" />
+  <circle cx="150" cy="350" r="150" fill="#0284c7" opacity="0.08" filter="blur(40px)" />
+
+  <!-- Top bar -->
+  <rect x="40" y="35" width="720" height="42" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" />
+  <circle cx="65" cy="56" r="5" fill="#ef4444" opacity="0.8" />
+  <circle cx="82" cy="56" r="5" fill="#f59e0b" opacity="0.8" />
+  <circle cx="99" cy="56" r="5" fill="#10b981" opacity="0.8" />
+  <text x="125" y="61" fill="#A3A3A3" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1">CARRIER CULOZ SA // PLC CONTROLLER · STone MIGRATION</text>
+  <rect x="660" y="46" width="85" height="20" rx="4" fill="rgba(212,168,67,0.15)" stroke="rgba(212,168,67,0.4)" />
+  <text x="702" y="60" text-anchor="middle" fill="#F5D785" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold">ONLINE</text>
+
+  <!-- Left Panel: Structured Text Code -->
+  <g transform="translate(40, 95)">
+    <rect width="380" height="315" rx="12" fill="rgba(10,15,25,0.7)" stroke="rgba(255,255,255,0.08)" />
+    <rect x="0" y="0" width="380" height="32" rx="12" fill="rgba(255,255,255,0.02)" />
+    <text x="20" y="21" fill="#6B6B6B" font-family="'JetBrains Mono', monospace" font-size="11">AHU_Regulation_STone.st (IEC 61131-3)</text>
+    
+    <text x="20" y="60" fill="#f43f5e" font-family="'JetBrains Mono', monospace" font-size="11">PROGRAM</text>
+    <text x="80" y="60" fill="#f5f5f5" font-family="'JetBrains Mono', monospace" font-size="11">AHU_Main_Loop</text>
+    
+    <text x="20" y="85" fill="#eab308" font-family="'JetBrains Mono', monospace" font-size="11">VAR_INPUT</text>
+    <text x="40" y="105" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11">rTempAmbiente</text>
+    <text x="140" y="105" fill="#6B6B6B" font-family="'JetBrains Mono', monospace" font-size="11">: REAL; // 21.4°C</text>
+    <text x="40" y="125" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11">rConsigneCVC</text>
+    <text x="140" y="125" fill="#6B6B6B" font-family="'JetBrains Mono', monospace" font-size="11">: REAL; // 20.0°C</text>
+    <text x="40" y="145" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11">bSecurityFire</text>
+    <text x="140" y="145" fill="#6B6B6B" font-family="'JetBrains Mono', monospace" font-size="11">: BOOL; // FALSE</text>
+    <text x="20" y="165" fill="#eab308" font-family="'JetBrains Mono', monospace" font-size="11">END_VAR</text>
+
+    <text x="20" y="195" fill="#6B6B6B" font-family="'JetBrains Mono', monospace" font-size="11">// Migration Carrel -> STone Platform</text>
+    <text x="20" y="215" fill="#f43f5e" font-family="'JetBrains Mono', monospace" font-size="11">IF NOT</text>
+    <text x="75" y="215" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="11">bSecurityFire</text>
+    <text x="175" y="215" fill="#f43f5e" font-family="'JetBrains Mono', monospace" font-size="11">THEN</text>
+    <text x="40" y="235" fill="#f5f5f5" font-family="'JetBrains Mono', monospace" font-size="11">rPID_Output := Calc_PID(rTempAmbiente);</text>
+    <text x="40" y="255" fill="#f5f5f5" font-family="'JetBrains Mono', monospace" font-size="11">Actuator_Drive(rPID_Output);</text>
+    <text x="20" y="275" fill="#f43f5e" font-family="'JetBrains Mono', monospace" font-size="11">END_IF;</text>
+  </g>
+
+  <!-- Right Panel: Telemetry & Status -->
+  <g transform="translate(440, 95)">
+    <!-- Box 1: Industrial Status -->
+    <rect width="320" height="145" rx="12" fill="rgba(10,15,25,0.7)" stroke="rgba(255,255,255,0.08)" />
+    <text x="20" y="30" fill="#F5D785" font-family="'JetBrains Mono', monospace" font-size="12" font-weight="bold">HVAC SYSTEM TELEMETRY</text>
+    
+    <text x="20" y="65" fill="#A3A3A3" font-family="sans-serif" font-size="12">Température Réelle</text>
+    <text x="240" y="65" fill="#38bdf8" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold">21.4°C</text>
+    <rect x="20" y="75" width="280" height="4" rx="2" fill="rgba(255,255,255,0.06)" />
+    <rect x="20" y="75" width="190" height="4" rx="2" fill="#38bdf8" />
+
+    <text x="20" y="105" fill="#A3A3A3" font-family="sans-serif" font-size="12">Ouverture Vanne CVC</text>
+    <text x="240" y="105" fill="#D4A843" font-family="'JetBrains Mono', monospace" font-size="14" font-weight="bold">68.5%</text>
+    <rect x="20" y="115" width="280" height="4" rx="2" fill="rgba(255,255,255,0.06)" />
+    <rect x="20" y="115" width="210" height="4" rx="2" fill="url(#goldGrad)" />
+
+    <!-- Box 2: Platform Migration Specs -->
+    <g transform="translate(0, 160)">
+      <rect width="320" height="155" rx="12" fill="rgba(10,15,25,0.7)" stroke="rgba(212,168,67,0.2)" />
+      <text x="20" y="30" fill="#F5F5F5" font-family="sans-serif" font-size="13" font-weight="bold">Architecture Embarquée</text>
+      
+      <circle cx="30" cy="65" r="4" fill="#10b981" />
+      <text x="45" y="69" fill="#A3A3A3" font-family="sans-serif" font-size="12">Portage logiciel Carrel → STone</text>
+
+      <circle cx="30" cy="95" r="4" fill="#10b981" />
+      <text x="45" y="99" fill="#A3A3A3" font-family="sans-serif" font-size="12">Automates traitement d'air industriel</text>
+
+      <circle cx="30" cy="125" r="4" fill="#10b981" />
+      <text x="45" y="129" fill="#A3A3A3" font-family="sans-serif" font-size="12">Norme IEC 61131-3 (Langage ST)</text>
+    </g>
+  </g>
+</svg>
