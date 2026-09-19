@@ -383,16 +383,16 @@ export const projects: Project[] = [
     },
     details: {
       role: {
-        fr: 'Développeur Web & Sécurité',
-        en: 'Web Developer & Security Lead',
+        fr: 'Projet Lycée (Terminale NSI) — Développeur Web & Sécurité',
+        en: 'High School Project (Senior Year CS) — Web Developer & Security',
       },
       duration: {
-        fr: 'Semestre 2 BUT Informatique (2023)',
-        en: 'Semester 2 CS Degree (2023)',
+        fr: 'Terminale Générale NSI (2023)',
+        en: 'High School Senior Year (CS / 2023)',
       },
       context: {
-        fr: 'Conception d\'une messagerie web en temps réel mettant l\'accent sur la robustesse du code et la défense contre les vulnérabilités du Top 10 OWASP.',
-        en: 'Real-time web messenger designed with strict focus on software hardening and OWASP Top 10 vulnerability mitigation.',
+        fr: 'Conçu en classe de Terminale dans le cadre de la spécialité NSI, Chatenger est une messagerie web temps réel mettant l\'accent sur la robustesse du code et la défense contre les vulnérabilités du Top 10 OWASP (injections SQL, failles XSS, CSRF).',
+        en: 'Engineered during high school senior year (NSI CS specialty), Chatenger is a real-time web messenger designed with strict focus on software hardening and OWASP Top 10 vulnerability mitigation.',
       },
       highlights: {
         fr: [

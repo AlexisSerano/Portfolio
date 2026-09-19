@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { useLanguage } from '@/context/LanguageContext'
 import { type Project } from '@/data/projects'
 import { assetPath } from '@/lib/asset'
+import ProjectMockup from '@/components/ui/ProjectMockup'
+import TechIcon from '@/components/ui/TechIcon'
 import { X, ExternalLink, Calendar, Briefcase, CheckCircle2, ChevronLeft, ChevronRight, Award } from 'lucide-react'
 
 const GithubIcon = ({ className }: { className?: string }) => (
@@ -122,17 +124,16 @@ export default function ProjectDetailModal({
 
         {/* Banner Preview */}
         <div className="relative aspect-[21/9] w-full bg-[#07090F] overflow-hidden border-b border-white/10 shrink-0">
-          <Image
-            src={assetPath(project.image)}
-            alt={title}
-            fill
-            className="object-cover"
+          <ProjectMockup
+            slug={project.slug}
+            title={title}
+            imageSrc={project.image}
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#10141F] via-transparent to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#10141F] via-transparent to-black/30 pointer-events-none" />
 
           {/* Badges on Banner */}
-          <div className="absolute bottom-4 left-6 right-6 flex items-center justify-between gap-2">
+          <div className="absolute bottom-4 left-6 right-6 flex items-center justify-between gap-2 pointer-events-none">
             <div className="flex items-center gap-2">
               <span className="text-[0.7rem] uppercase tracking-wider bg-[#050505]/80 backdrop-blur-md border border-white/10 text-[#D4A843] font-mono px-3 py-1 rounded-full">
                 {project.category === 'pro'
@@ -161,7 +162,7 @@ export default function ProjectDetailModal({
                 ? t('● En production', '● Live in production')
                 : project.status === 'in-progress'
                 ? t('● En cours', '● In progress')
-                : t('✓ Terminé', '✓ Completed')}
+                : t('Terminé', 'Completed')}
             </span>
           </div>
         </div>
@@ -256,9 +257,10 @@ export default function ProjectDetailModal({
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="text-xs text-[#CBD5E1] bg-white/[0.04] border border-white/10 px-3 py-1 rounded-md font-mono"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#CBD5E1] bg-white/[0.04] border border-white/10 px-3 py-1 rounded-md font-mono"
                 >
-                  {tag}
+                  <TechIcon name={tag} size={14} />
+                  <span>{tag}</span>
                 </span>
               ))}
             </div>

@@ -38,8 +38,24 @@ export default function MagneticButton({
     gsap.to(ref.current, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' })
   }
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (href && href.startsWith('#')) {
+      e.preventDefault()
+      const target = document.querySelector(href)
+      if (target) {
+        const lenis = (window as any).lenis
+        if (lenis) {
+          lenis.scrollTo(target, { duration: 1.3, offset: -30 })
+        } else {
+          target.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+    }
+    onClick?.()
+  }
+
   const Tag = href ? 'a' : 'button'
-  const props = href ? { href, target, rel } : { onClick }
+  const props = href ? { href, target, rel, onClick: handleClick } : { onClick: handleClick }
 
   return (
     <Tag

@@ -39,7 +39,7 @@ export default function Terminal() {
   - ${t('Étudiant en 3ème année de BUT Informatique à l\'IUT2 de Grenoble', '3rd year CS student at IUT2 Grenoble')}
   - ${t('Localisation', 'Location')} : Culoz (01) & Grenoble (38) | ${t('Permis B', 'Driver\'s License')}
   - ${t('Passionné par le dev applicatif, l\'embarqué, le DevOps et l\'IA', 'Passionate about software dev, embedded systems, DevOps and AI')}`,
-    carrier: `<span class="text-emerald-400">🏭 Carrier Culoz SA — ${t('Alternance Développeur Embarqué', 'Embedded Developer Apprenticeship')}</span>
+    carrier: `<span class="text-emerald-400">[Carrier Culoz SA] — ${t('Alternance Développeur Embarqué', 'Embedded Developer Apprenticeship')}</span>
   <span class="text-[#D4A843]">${t('Période', 'Period')} :</span> 31/08/2026 → 02/07/2027
   <span class="text-[#D4A843]">${t('Missions', 'Missions')} :</span>
   → ${t('Programmation embarquée sur automates (HVAC)', 'Embedded PLC programming (HVAC)')}
@@ -53,22 +53,22 @@ export default function Terminal() {
   - Data     : PostgreSQL, MySQL, MariaDB, SQLite, Redis
   - Creative : Adobe Premiere Pro, After Effects, Photoshop`,
     projects: `<span class="text-[#D4A843]">${t('Projets Clés', 'Key Projects')} :</span>
-  0. <span class="text-emerald-400">★</span> Carrier Culoz SA (Automates, Langage ST)
-  1. <span class="text-emerald-400">★</span> Stage DSI CHAI (PowerShell, K8s)
-  2. <span class="text-emerald-400">★</span> Algofy (SaaS Trading — Django/React/Docker)
-  3. <span class="text-emerald-400">★</span> LifeOS (Second Brain — FastAPI/React)
+  0. <span class="text-emerald-400">❯</span> Carrier Culoz SA (Automates, Langage ST)
+  1. <span class="text-emerald-400">❯</span> Stage DSI CHAI (PowerShell, K8s)
+  2. <span class="text-emerald-400">❯</span> Algofy (SaaS Trading — Django/React/Docker)
+  3. <span class="text-emerald-400">❯</span> LifeOS (Second Brain — FastAPI/React)
   4. Chronia (PHP/SQL — ${t('aide à la personne', 'assisted living app')})
   5. ${t('Agence Voyages', 'Travel Agency')} (JavaFX)
-  6. Chatenger (PHP/MySQL)
+  6. Chatenger (PHP/MySQL — Lycée NSI 2023)
   7. ${t('Modèle Neurone', 'Neural Model')} (TensorFlow/Python)
   ${t('→ Tapez le nom d\'un projet pour plus de détails.', '→ Type a project name for details.')}`,
-    algofy: `<span class="text-emerald-400">🤖 Algofy — ${t('Plateforme SaaS de Trading Algorithmique', 'Algorithmic Trading SaaS Platform')}</span>
+    algofy: `<span class="text-emerald-400">[Algofy] — ${t('Plateforme SaaS de Trading Algorithmique', 'Algorithmic Trading SaaS Platform')}</span>
   <span class="text-[#D4A843]">Stack :</span> Django REST • React/Vite • Docker • PostgreSQL • Hyperliquid API
   → ${t('Bots de trading 24/7 via systemctl', '24/7 trading bots via systemctl')}
   → ${t('Chiffrement AES-256/Fernet', 'AES-256/Fernet encryption')}
   → ${t('Monétisation Stripe + Affiliation Connect', 'Stripe monetization + Connect affiliates')}
   → ${t('Alertes temps réel via Bot Telegram', 'Real-time alerts via Telegram Bot')}`,
-    lifeos: `<span class="text-emerald-400">🧠 LifeOS — ${t('Operating System Personnel', 'Personal Operating System')}</span>
+    lifeos: `<span class="text-emerald-400">[LifeOS] — ${t('Operating System Personnel', 'Personal Operating System')}</span>
   <span class="text-[#D4A843]">Stack :</span> FastAPI • React/TypeScript • PostgreSQL • Redis • Celery • Docker
   → +30 modules (Journal, Nutrition, ${t('Santé', 'Health')}, Finances...)
   → ${t('Parseur CSV multi-exchanges', 'Multi-exchange CSV parser')}
@@ -78,14 +78,14 @@ export default function Terminal() {
   - Email  : <a href="mailto:alexis.seranoo@gmail.com" class="text-[#4A9ECA] hover:underline">alexis.seranoo@gmail.com</a>
   - GitHub : <a href="https://github.com/AlexisSerano" target="_blank" class="text-[#4A9ECA] hover:underline">github.com/AlexisSerano</a>
   - Status : ${t('En alternance chez Carrier Culoz SA', 'Apprenticeship at Carrier Culoz SA')}`,
-    hire: `<span class="text-[#D4A843]">⚡ ${t('Vous avez trouvé la commande secrète !', 'You found the secret command!')}</span>
+    hire: `<span class="text-[#D4A843]">[SECRET] ${t('Vous avez trouvé la commande secrète !', 'You found the secret command!')}</span>
 
   ${t('Si vous êtes recruteur, vous savez déjà que je suis le bon candidat.', 'If you\'re a recruiter, you already know I\'m the right fit.')}
   
   Email: <a href="mailto:alexis.seranoo@gmail.com" class="text-[#4A9ECA] hover:underline">alexis.seranoo@gmail.com</a>
-  ${t('Construisons quelque chose de grand ensemble.', 'Let\'s build something great together.')} 🚀`,
+  ${t('Construisons quelque chose de grand ensemble.', 'Let\'s build something great together.')}`,
     whoami: 'visitor@portfolio: guest [privileges: read-only]',
-    sudo: `<span class="text-[#D4A843]">${t('Permission refusée : Alexis est le seul admin ici !', 'Permission denied: Alexis is the only root admin here!')} 😉</span>`,
+    sudo: `<span class="text-[#D4A843]">${t('Permission refusée : Alexis est le seul administrateur ici !', 'Permission denied: Alexis is the only root admin here!')}</span>`,
   }
 
   const executeCommand = (cmd: string) => {

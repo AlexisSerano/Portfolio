@@ -6,7 +6,8 @@ export interface Experience {
   tags: string[]
   current: boolean
   link?: string
-  icon: string
+  projectSlug?: string
+  icon: 'Building2' | 'Activity' | 'GraduationCap' | 'School' | 'TrendingUp' | 'Film'
 }
 
 export const experiences: Experience[] = [
@@ -20,8 +21,8 @@ export const experiences: Experience[] = [
     date: 'SEPT. 2026 → JUIL. 2027',
     tags: ['Langage ST', 'Automates', 'HVAC'],
     current: true,
-    link: '/projects/alternance-carrier',
-    icon: '🏭',
+    projectSlug: 'alternance-carrier',
+    icon: 'Building2',
   },
   {
     title: { fr: 'Stage DSI — Centre Hospitalier Alpes-Isère', en: 'IT Internship — Alps-Isère Hospital Center' },
@@ -33,8 +34,8 @@ export const experiences: Experience[] = [
     date: '2026',
     tags: ['PowerShell', 'Kubernetes', 'Active Directory'],
     current: false,
-    link: '/projects/stage-chai',
-    icon: '🏥',
+    projectSlug: 'stage-chai',
+    icon: 'Activity',
   },
   {
     title: { fr: 'BUT Informatique — IUT2 de Grenoble', en: 'Computer Science Degree — IUT2 Grenoble' },
@@ -46,7 +47,7 @@ export const experiences: Experience[] = [
     date: '2024 → 2027',
     tags: ['Java', 'Web', 'SQL', 'Réseaux'],
     current: true,
-    icon: '🎓',
+    icon: 'GraduationCap',
   },
   {
     title: {
@@ -64,7 +65,7 @@ export const experiences: Experience[] = [
     date: '2021 → 2024',
     tags: ['Mathématiques', 'NSI', 'Python', 'Algorithmique'],
     current: false,
-    icon: '🏫',
+    icon: 'School',
   },
   {
     title: { fr: 'Trading & Investissement', en: 'Trading & Investment' },
@@ -76,7 +77,7 @@ export const experiences: Experience[] = [
     date: '2024 → Present',
     tags: ['Analyse Technique', 'Gestion de Risque', 'Crypto'],
     current: true,
-    icon: '📊',
+    icon: 'TrendingUp',
   },
   {
     title: { fr: 'Montage Vidéo & Création Numérique', en: 'Video Editing & Digital Creation' },
@@ -88,6 +89,7 @@ export const experiences: Experience[] = [
     date: '2017 → Present',
     tags: ['Premiere Pro', 'After Effects', 'Photoshop'],
     current: true,
-    icon: '🎬',
+    icon: 'Film',
   },
 ]
+
