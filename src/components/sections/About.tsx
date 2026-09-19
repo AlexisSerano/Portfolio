@@ -1,10 +1,11 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
 import TextReveal from '@/components/ui/TextReveal'
 import TechIcon from '@/components/ui/TechIcon'
+import TiltCard from '@/components/ui/TiltCard'
 import {
   MapPin,
   GraduationCap,
@@ -25,6 +26,39 @@ import { assetPath } from '@/lib/asset'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
+}
+
+function Counter({ value, suffix = '', duration = 1.6 }: { value: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = useState(0)
+  const nodeRef = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    if (!nodeRef.current) return
+    const obj = { val: 0 }
+    const st = ScrollTrigger.create({
+      trigger: nodeRef.current,
+      start: 'top 90%',
+      onEnter: () => {
+        gsap.to(obj, {
+          val: value,
+          duration,
+          ease: 'power2.out',
+          onUpdate: () => {
+            setCount(Math.round(obj.val))
+          },
+        })
+      },
+      once: true,
+    })
+
+    return () => st.kill()
+  }, [value, duration])
+
+  return (
+    <span ref={nodeRef}>
+      {count}{suffix}
+    </span>
+  )
 }
 
 export default function About() {
@@ -86,7 +120,9 @@ export default function About() {
         className="about-fade grid grid-cols-2 md:grid-cols-4 gap-6 py-6 px-4 mb-16 border-y border-white/[0.08] bg-white/[0.01]"
       >
         <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono">1 an</div>
+          <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono">
+            <Counter value={1} suffix=" an" />
+          </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
             {t("D'expérience pro", 'Pro experience')}
           </div>
@@ -94,7 +130,9 @@ export default function About() {
         </div>
 
         <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] font-mono">11+</div>
+          <div className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] font-mono">
+            <Counter value={11} suffix="+" />
+          </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
             {t('Projets réalisés', 'Projects built')}
           </div>
@@ -110,7 +148,10 @@ export default function About() {
         </div>
 
         <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono">24/7</div>
+          <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono flex items-center gap-1.5">
+            <span>24/7</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
             {t('Systèmes autonomes', 'Autonomous systems')}
           </div>
@@ -121,54 +162,56 @@ export default function About() {
       {/* Main Two-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
-        {/* Left Column: Identity, Status & Location (5 cols) */}
+        {/* Left Column: Identity, Status & Location (5 cols) with 3D Tilt */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="about-fade p-6 border border-white/[0.08] rounded-xl bg-[#090C12]/60 backdrop-blur-md relative overflow-hidden">
-            <div className="flex items-center gap-4 mb-6">
-              <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-[#D4A843]/40 shadow-[0_0_20px_rgba(212,168,67,0.15)] bg-[#050505] shrink-0">
-                <Image
-                  src={assetPath('/images/alexis.png')}
-                  alt="Alexis Serano"
-                  width={64}
-                  height={64}
-                  className="object-contain"
-                  priority
-                />
+          <TiltCard maxTilt={7} scale={1.01} className="rounded-xl overflow-hidden">
+            <div className="about-fade p-6 border border-white/[0.08] hover:border-[#D4A843]/40 rounded-xl bg-[#090C12]/80 backdrop-blur-md relative overflow-hidden transition-colors duration-300">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-[#D4A843]/40 shadow-[0_0_20px_rgba(212,168,67,0.15)] bg-[#050505] shrink-0">
+                  <Image
+                    src={assetPath('/images/alexis.png')}
+                    alt="Alexis Serano"
+                    width={64}
+                    height={64}
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-[#F8FAFC]">Alexis Serano</h3>
+                  <p className="text-xs text-[#D4A843] font-mono">
+                    {t('Développeur Full-Stack & DevOps', 'Full-Stack & DevOps Developer')}
+                  </p>
+                  <p className="text-[11px] text-[#64748B]">20 ans · Permis B</p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-lg font-bold text-[#F8FAFC]">Alexis Serano</h3>
-                <p className="text-xs text-[#D4A843] font-mono">
-                  {t('Développeur Full-Stack & DevOps', 'Full-Stack & DevOps Developer')}
-                </p>
-                <p className="text-[11px] text-[#64748B]">20 ans · Permis B</p>
-              </div>
-            </div>
 
-            <div className="space-y-2.5 text-xs text-[#94A3B8] pt-4 border-t border-white/[0.06]">
-              <div className="flex items-center gap-2.5">
-                <Building2 className="w-4 h-4 text-[#D4A843] shrink-0" />
-                <span>{t('Alternance chez Carrier Culoz SA (R&D STone)', 'Apprenticeship @ Carrier Culoz SA (STone R&D)')}</span>
+              <div className="space-y-2.5 text-xs text-[#94A3B8] pt-4 border-t border-white/[0.06]">
+                <div className="flex items-center gap-2.5">
+                  <Building2 className="w-4 h-4 text-[#D4A843] shrink-0" />
+                  <span>{t('Alternance chez Carrier Culoz SA (R&D STone)', 'Apprenticeship @ Carrier Culoz SA (STone R&D)')}</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <GraduationCap className="w-4 h-4 text-[#D4A843] shrink-0" />
+                  <span>BUT Informatique — IUT2 Grenoble</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <MapPin className="w-4 h-4 text-[#D4A843] shrink-0" />
+                  <span>Culoz (01) &amp; Grenoble (38)</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2.5">
-                <GraduationCap className="w-4 h-4 text-[#D4A843] shrink-0" />
-                <span>BUT Informatique — IUT2 Grenoble</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <MapPin className="w-4 h-4 text-[#D4A843] shrink-0" />
-                <span>Culoz (01) &amp; Grenoble (38)</span>
-              </div>
-            </div>
 
-            {/* Improved Dynamic Professional Status (replaces old "Disponible 2027") */}
-            <div className="mt-6 pt-4 border-t border-white/[0.06]">
-              <div className="flex items-center gap-2 text-xs text-[#CBD5E1]">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-                <span className="font-medium text-[#F5D785]">
-                  {t('En alternance Carrier · Ouvert aux opportunités (CDI / Missions dès 2027)', 'Carrier Apprentice · Open to opportunities (Full-time / Projects)')}
-                </span>
+              {/* Improved Dynamic Professional Status (replaces old "Disponible 2027") */}
+              <div className="mt-6 pt-4 border-t border-white/[0.06]">
+                <div className="flex items-center gap-2 text-xs text-[#CBD5E1]">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                  <span className="font-medium text-[#F5D785]">
+                    {t('En alternance Carrier · Ouvert aux opportunités (CDI / Missions dès 2027)', 'Carrier Apprentice · Open to opportunities (Full-time / Projects)')}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          </TiltCard>
         </div>
 
         {/* Right Column: Narrative Biography & Philosophy (7 cols) */}

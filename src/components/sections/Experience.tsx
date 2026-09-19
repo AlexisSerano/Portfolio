@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
 import TextReveal from '@/components/ui/TextReveal'
 import { experiences, type Experience as ExperienceType } from '@/data/experiences'
+import TiltCard from '@/components/ui/TiltCard'
 import { cn } from '@/lib/utils'
 import {
   Building2,
@@ -132,59 +133,61 @@ export default function Experience() {
                     : 'bg-[#0A0A0A] border-white/20'
                 )} />
 
-                {/* Card */}
-                <div className="glass rounded-xl p-6 hover:border-[rgba(212,168,67,0.25)] transition-all duration-300 group">
-                  {/* Date + Badge */}
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-[#D4A843] font-mono text-xs font-semibold">{exp.date}</span>
-                    {exp.current && (
-                      <span className="text-[0.6rem] uppercase tracking-widest text-[#D4A843] bg-[#D4A843]/10 px-2 py-0.5 rounded-full border border-[#D4A843]/20"
-                        style={{ animation: 'glow-pulse 2s ease-in-out infinite' }}>
-                        {t('En cours', 'Current')}
-                      </span>
+                {/* Card with 3D Tilt */}
+                <TiltCard maxTilt={6} scale={1.01} className="rounded-xl overflow-hidden">
+                  <div className="glass rounded-xl p-6 hover:border-[rgba(212,168,67,0.35)] transition-all duration-300 group">
+                    {/* Date + Badge */}
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-[#D4A843] font-mono text-xs font-semibold">{exp.date}</span>
+                      {exp.current && (
+                        <span className="text-[0.6rem] uppercase tracking-widest text-[#D4A843] bg-[#D4A843]/10 px-2 py-0.5 rounded-full border border-[#D4A843]/20"
+                          style={{ animation: 'glow-pulse 2s ease-in-out infinite' }}>
+                          {t('En cours', 'Current')}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title with sleek Lucide Icon */}
+                    <h3 className="text-lg font-bold text-[#F8FAFC] mb-1 flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#D4A843] shrink-0">
+                        <IconComponent className="w-3.5 h-3.5" />
+                      </div>
+                      <span>{lang === 'fr' ? exp.title.fr : exp.title.en}</span>
+                    </h3>
+
+                    {/* Subtitle */}
+                    <p className="text-xs text-[#94A3B8] mb-3 ml-9">
+                      {lang === 'fr' ? exp.subtitle.fr : exp.subtitle.en}
+                    </p>
+
+                    {/* Description */}
+                    <p className="text-sm text-[#CBD5E1] mb-4 leading-relaxed ml-9">
+                      {lang === 'fr' ? exp.description.fr : exp.description.en}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 ml-9">
+                      {exp.tags.map(tag => (
+                        <span key={tag} className="text-[0.65rem] font-mono text-[#94A3B8] bg-white/[0.03] border border-white/[0.06] px-2 py-0.5 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Interactive Button: Opens Project Modal cleanly (no 404!) */}
+                    {exp.projectSlug && (
+                      <div className="ml-9 mt-4 pt-3 border-t border-white/[0.06]">
+                        <button
+                          onClick={() => handleOpenProjectModal(exp.projectSlug!)}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4A843] hover:text-[#F5D785] transition-colors cursor-pointer group/btn"
+                        >
+                          <span>{t('Consulter la fiche technique du projet', 'View technical project details')}</span>
+                          <span className="transition-transform group-hover/btn:translate-x-1">→</span>
+                        </button>
+                      </div>
                     )}
                   </div>
-
-                  {/* Title with sleek Lucide Icon */}
-                  <h3 className="text-lg font-bold text-[#F8FAFC] mb-1 flex items-center gap-2.5">
-                    <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#D4A843] shrink-0">
-                      <IconComponent className="w-3.5 h-3.5" />
-                    </div>
-                    <span>{lang === 'fr' ? exp.title.fr : exp.title.en}</span>
-                  </h3>
-
-                  {/* Subtitle */}
-                  <p className="text-xs text-[#94A3B8] mb-3 ml-9">
-                    {lang === 'fr' ? exp.subtitle.fr : exp.subtitle.en}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-sm text-[#CBD5E1] mb-4 leading-relaxed ml-9">
-                    {lang === 'fr' ? exp.description.fr : exp.description.en}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 ml-9">
-                    {exp.tags.map(tag => (
-                      <span key={tag} className="text-[0.65rem] font-mono text-[#94A3B8] bg-white/[0.03] border border-white/[0.06] px-2 py-0.5 rounded">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Interactive Button: Opens Project Modal cleanly (no 404!) */}
-                  {exp.projectSlug && (
-                    <div className="ml-9 mt-4 pt-3 border-t border-white/[0.06]">
-                      <button
-                        onClick={() => handleOpenProjectModal(exp.projectSlug!)}
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4A843] hover:text-[#F5D785] transition-colors cursor-pointer group/btn"
-                      >
-                        <span>{t('Consulter la fiche technique du projet', 'View technical project details')}</span>
-                        <span className="transition-transform group-hover/btn:translate-x-1">→</span>
-                      </button>
-                    </div>
-                  )}
-                </div>
+                </TiltCard>
               </div>
             )
           })}

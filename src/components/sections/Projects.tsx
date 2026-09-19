@@ -7,6 +7,7 @@ import TextReveal from '@/components/ui/TextReveal'
 import ProjectDetailModal from '@/components/ui/ProjectDetailModal'
 import ProjectMockup from '@/components/ui/ProjectMockup'
 import TechIcon from '@/components/ui/TechIcon'
+import TiltCard from '@/components/ui/TiltCard'
 import { projects, type Project } from '@/data/projects'
 import { cn } from '@/lib/utils'
 import {
@@ -51,26 +52,34 @@ export default function Projects() {
   const [filter, setFilter] = useState<FilterCategory>('all')
   const [viewMode, setViewMode] = useState<ViewMode>('carousel')
   const [carouselIndex, setCarouselIndex] = useState(0)
+  const [slideDirection, setSlideDirection] = useState<'next' | 'prev' | 'none'>('none')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const slideRef = useRef<HTMLDivElement>(null)
 
   const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter)
   const currentProject = filtered[carouselIndex] || filtered[0]
 
+  const prevIndex = (carouselIndex - 1 + filtered.length) % filtered.length
+  const nextIndex = (carouselIndex + 1) % filtered.length
+  const prevProject = filtered[prevIndex]
+  const nextProject = filtered[nextIndex]
+
   // Reset carousel index when filter changes
   useEffect(() => {
     setCarouselIndex(0)
+    setSlideDirection('none')
   }, [filter])
 
-  // Animate slide change
+  // Animate slide change with momentum
   useEffect(() => {
     if (slideRef.current && viewMode === 'carousel') {
+      const xOffset = slideDirection === 'next' ? 24 : slideDirection === 'prev' ? -24 : 0
       gsap.fromTo(slideRef.current,
-        { opacity: 0, scale: 0.98 },
-        { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }
+        { opacity: 0, x: xOffset, scale: 0.98 },
+        { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: 'power3.out' }
       )
     }
-  }, [carouselIndex, viewMode])
+  }, [carouselIndex, viewMode, slideDirection])
 
   // Listen for global open project event from Experience section
   useEffect(() => {
@@ -89,10 +98,12 @@ export default function Projects() {
   }, [])
 
   const nextSlide = useCallback(() => {
+    setSlideDirection('next')
     setCarouselIndex((prev) => (prev + 1) % filtered.length)
   }, [filtered.length])
 
   const prevSlide = useCallback(() => {
+    setSlideDirection('prev')
     setCarouselIndex((prev) => (prev - 1 + filtered.length) % filtered.length)
   }, [filtered.length])
 
@@ -177,134 +188,231 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* VIEW 1: INTERACTIVE CAROUSEL SHOWCASE */}
+      {/* VIEW 1: INTERACTIVE CAROUSEL SHOWCASE WITH 3D PEEK PREVIEWS */}
       {viewMode === 'carousel' && currentProject && (
         <div className="space-y-6">
-          <div
-            ref={slideRef}
-            className="border border-white/[0.08] hover:border-[#D4A843]/30 rounded-2xl bg-[#090C12]/80 backdrop-blur-md overflow-hidden transition-colors duration-300 shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12">
-              {/* Left/Top: Rich Realistic UI Preview */}
-              <div className="lg:col-span-7 h-[280px] sm:h-[380px] lg:h-[460px] relative border-b lg:border-b-0 lg:border-r border-white/[0.08]">
-                <ProjectMockup
-                  slug={currentProject.slug}
-                  title={lang === 'fr' ? currentProject.title.fr : currentProject.title.en}
-                  imageSrc={currentProject.image}
-                  priority
-                />
-
-                {/* Badges on mockup */}
-                <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
-                  {currentProject.featured && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold uppercase tracking-wider bg-[#D4A843] text-black px-2.5 py-1 rounded-md shadow-md">
-                      <Sparkles className="w-3 h-3" />
-                      {t('En vedette', 'Featured')}
-                    </span>
-                  )}
-                  <span className="text-[10px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#D4A843] px-2.5 py-1 rounded-md">
-                    {currentProject.category === 'pro' ? t('Expérience Pro', 'Professional') :
-                     currentProject.category === 'academic' ? t('Académique', 'Academic') :
-                     currentProject.category === 'personal' ? t('SaaS & Perso', 'SaaS & Personal') :
-                     t('Finance & Créa', 'Finance & Creative')}
-                  </span>
-                </div>
-
-                <div className="absolute top-4 right-4 z-10">
-                  <span className="text-[10px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#CBD5E1] px-2.5 py-1 rounded-md">
-                    {currentProject.year}
-                  </span>
-                </div>
-              </div>
-
-              {/* Right/Bottom: Project Details & Action Triggers */}
-              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between">
+          {/* 3D Stage Container */}
+          <div className="flex items-center gap-4 xl:gap-6 justify-center">
+            {/* Left Peek Preview (Previous Project) */}
+            {filtered.length > 1 && prevProject && (
+              <div
+                onClick={prevSlide}
+                role="button"
+                tabIndex={0}
+                aria-label={t(`Voir projet précédent: ${prevProject.title.fr}`, `View previous project: ${prevProject.title.en}`)}
+                className="hidden lg:flex flex-col justify-between w-[180px] xl:w-[220px] shrink-0 h-[480px] rounded-2xl border border-white/10 hover:border-[#D4A843]/60 bg-[#090C12]/50 hover:bg-[#090C12]/90 backdrop-blur-md p-4 transition-all duration-300 opacity-40 hover:opacity-100 hover:-translate-x-1 cursor-pointer group/peek shadow-lg select-none"
+              >
                 <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className={cn(
-                      'text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full border font-mono',
-                      statusConfig[currentProject.status].color
-                    )}>
-                      {lang === 'fr' ? statusConfig[currentProject.status].label.fr : statusConfig[currentProject.status].label.en}
-                    </span>
-
-                    <span className="text-xs font-mono text-[#D4A843]">
-                      {String(carouselIndex + 1).padStart(2, '0')} / {String(filtered.length).padStart(2, '0')}
-                    </span>
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#D4A843] mb-3 group-hover/peek:-translate-x-1 transition-transform">
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span>{t('Précédent', 'Previous')}</span>
                   </div>
-
-                  <h3 className="text-xl sm:text-2xl font-bold text-[#F8FAFC] tracking-tight mb-3">
-                    {lang === 'fr' ? currentProject.title.fr : currentProject.title.en}
-                  </h3>
-
-                  <p className="text-sm text-[#94A3B8] leading-relaxed mb-6">
-                    {lang === 'fr' ? currentProject.description.fr : currentProject.description.en}
-                  </p>
-
-                  {/* Highlights snippet */}
-                  <div className="space-y-2 mb-6">
-                    {currentProject.details.highlights[lang === 'fr' ? 'fr' : 'en'].slice(0, 2).map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs text-[#CBD5E1]">
-                        <span className="text-[#D4A843] mt-0.5">❯</span>
-                        <span className="leading-snug">{item}</span>
-                      </div>
-                    ))}
+                  <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-white/10 mb-3 bg-black/40">
+                    <ProjectMockup
+                      slug={prevProject.slug}
+                      title={lang === 'fr' ? prevProject.title.fr : prevProject.title.en}
+                      imageSrc={prevProject.image}
+                    />
                   </div>
-
-                  {/* Tech stack tags with authentic SVG TechIcon */}
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {currentProject.tags.slice(0, 5).map(tag => (
-                      <span key={tag} className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#CBD5E1] bg-white/[0.04] border border-white/[0.08] px-2.5 py-1 rounded">
-                        <TechIcon name={tag} size={14} />
-                        <span>{tag}</span>
-                      </span>
-                    ))}
-                    {currentProject.tags.length > 5 && (
-                      <span className="text-[11px] font-mono text-[#64748B] self-center">
-                        +{currentProject.tags.length - 5}
-                      </span>
-                    )}
-                  </div>
+                  <span className="text-[9px] font-mono text-[#D4A843] bg-black/60 px-2 py-0.5 rounded border border-white/10 inline-block mb-2">
+                    {prevProject.year}
+                  </span>
+                  <h4 className="text-xs font-bold text-[#F8FAFC] group-hover/peek:text-[#D4A843] transition-colors line-clamp-2 leading-snug">
+                    {lang === 'fr' ? prevProject.title.fr : prevProject.title.en}
+                  </h4>
                 </div>
-
-                {/* Actions & Modal Trigger */}
-                <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
-                  <button
-                    onClick={() => setSelectedProject(currentProject)}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4A843] hover:bg-[#F5D785] text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] cursor-pointer"
-                  >
-                    <Eye className="w-4 h-4" />
-                    <span>{t('Fiche technique complète', 'View project details')}</span>
-                  </button>
-
-                  <div className="flex items-center gap-2">
-                    {currentProject.links.github && (
-                      <a
-                        href={currentProject.links.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-full border border-white/10 hover:border-[#D4A843] flex items-center justify-center text-[#94A3B8] hover:text-[#D4A843] transition-colors"
-                        title="GitHub"
-                      >
-                        <GithubIcon className="w-4 h-4" />
-                      </a>
-                    )}
-                    {currentProject.links.live && (
-                      <a
-                        href={currentProject.links.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-full border border-white/10 hover:border-[#D4A843] flex items-center justify-center text-[#94A3B8] hover:text-[#D4A843] transition-colors"
-                        title="Live demo"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
+                <div className="pt-3 border-t border-white/[0.08] text-[10px] text-[#94A3B8] font-mono flex items-center justify-between">
+                  <span>{String(prevIndex + 1).padStart(2, '0')}</span>
+                  <span className="text-[#D4A843]">‹</span>
                 </div>
               </div>
+            )}
+
+            {/* Center Active Project (Full TiltCard) */}
+            <div ref={slideRef} className="flex-1 min-w-0 max-w-4xl w-full">
+              <TiltCard
+                maxTilt={6}
+                scale={1.01}
+                className="rounded-2xl border border-white/[0.12] hover:border-[#D4A843]/40 bg-[#090C12]/90 backdrop-blur-md overflow-hidden transition-colors duration-300 shadow-[0_20px_60px_rgba(0,0,0,0.7)]"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  {/* Left/Top: Rich Realistic UI Preview */}
+                  <div className="lg:col-span-7 h-[280px] sm:h-[380px] lg:h-[460px] relative border-b lg:border-b-0 lg:border-r border-white/[0.08]">
+                    <ProjectMockup
+                      slug={currentProject.slug}
+                      title={lang === 'fr' ? currentProject.title.fr : currentProject.title.en}
+                      imageSrc={currentProject.image}
+                      priority
+                    />
+
+                    {/* Badges on mockup */}
+                    <div className="absolute top-4 left-4 flex items-center gap-2 z-10">
+                      {currentProject.featured && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold uppercase tracking-wider bg-[#D4A843] text-black px-2.5 py-1 rounded-md shadow-md">
+                          <Sparkles className="w-3 h-3" />
+                          {t('En vedette', 'Featured')}
+                        </span>
+                      )}
+                      <span className="text-[10px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#D4A843] px-2.5 py-1 rounded-md">
+                        {currentProject.category === 'pro' ? t('Expérience Pro', 'Professional') :
+                         currentProject.category === 'academic' ? t('Académique', 'Academic') :
+                         currentProject.category === 'personal' ? t('SaaS & Perso', 'SaaS & Personal') :
+                         t('Finance & Créa', 'Finance & Creative')}
+                      </span>
+                    </div>
+
+                    <div className="absolute top-4 right-4 z-10">
+                      <span className="text-[10px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#CBD5E1] px-2.5 py-1 rounded-md">
+                        {currentProject.year}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right/Bottom: Project Details & Action Triggers */}
+                  <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-3">
+                        <span className={cn(
+                          'text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full border font-mono',
+                          statusConfig[currentProject.status].color
+                        )}>
+                          {lang === 'fr' ? statusConfig[currentProject.status].label.fr : statusConfig[currentProject.status].label.en}
+                        </span>
+
+                        <span className="text-xs font-mono text-[#D4A843]">
+                          {String(carouselIndex + 1).padStart(2, '0')} / {String(filtered.length).padStart(2, '0')}
+                        </span>
+                      </div>
+
+                      <h3 className="text-xl sm:text-2xl font-bold text-[#F8FAFC] tracking-tight mb-3">
+                        {lang === 'fr' ? currentProject.title.fr : currentProject.title.en}
+                      </h3>
+
+                      <p className="text-sm text-[#94A3B8] leading-relaxed mb-6">
+                        {lang === 'fr' ? currentProject.description.fr : currentProject.description.en}
+                      </p>
+
+                      {/* Highlights snippet */}
+                      <div className="space-y-2 mb-6">
+                        {currentProject.details.highlights[lang === 'fr' ? 'fr' : 'en'].slice(0, 2).map((item, idx) => (
+                          <div key={idx} className="flex items-start gap-2 text-xs text-[#CBD5E1]">
+                            <span className="text-[#D4A843] mt-0.5">❯</span>
+                            <span className="leading-snug">{item}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Tech stack tags with authentic SVG TechIcon */}
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {currentProject.tags.slice(0, 5).map(tag => (
+                          <span key={tag} className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#CBD5E1] bg-white/[0.04] border border-white/[0.08] px-2.5 py-1 rounded">
+                            <TechIcon name={tag} size={14} />
+                            <span>{tag}</span>
+                          </span>
+                        ))}
+                        {currentProject.tags.length > 5 && (
+                          <span className="text-[11px] font-mono text-[#64748B] self-center">
+                            +{currentProject.tags.length - 5}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Actions & Modal Trigger */}
+                    <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
+                      <button
+                        onClick={() => setSelectedProject(currentProject)}
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4A843] hover:bg-[#F5D785] text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] cursor-pointer"
+                      >
+                        <Eye className="w-4 h-4" />
+                        <span>{t('Fiche technique complète', 'View project details')}</span>
+                      </button>
+
+                      <div className="flex items-center gap-2">
+                        {currentProject.links.github && (
+                          <a
+                            href={currentProject.links.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-9 h-9 rounded-full border border-white/10 hover:border-[#D4A843] flex items-center justify-center text-[#94A3B8] hover:text-[#D4A843] transition-colors"
+                            title="GitHub"
+                          >
+                            <GithubIcon className="w-4 h-4" />
+                          </a>
+                        )}
+                        {currentProject.links.live && (
+                          <a
+                            href={currentProject.links.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-9 h-9 rounded-full border border-white/10 hover:border-[#D4A843] flex items-center justify-center text-[#94A3B8] hover:text-[#D4A843] transition-colors"
+                            title="Live demo"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </TiltCard>
             </div>
+
+            {/* Right Peek Preview (Next Project) */}
+            {filtered.length > 1 && nextProject && (
+              <div
+                onClick={nextSlide}
+                role="button"
+                tabIndex={0}
+                aria-label={t(`Voir projet suivant: ${nextProject.title.fr}`, `View next project: ${nextProject.title.en}`)}
+                className="hidden lg:flex flex-col justify-between w-[180px] xl:w-[220px] shrink-0 h-[480px] rounded-2xl border border-white/10 hover:border-[#D4A843]/60 bg-[#090C12]/50 hover:bg-[#090C12]/90 backdrop-blur-md p-4 transition-all duration-300 opacity-40 hover:opacity-100 hover:translate-x-1 cursor-pointer group/peek shadow-lg select-none"
+              >
+                <div>
+                  <div className="flex items-center justify-end gap-1.5 text-[11px] font-mono text-[#D4A843] mb-3 group-hover/peek:translate-x-1 transition-transform">
+                    <span>{t('Suivant', 'Next')}</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-white/10 mb-3 bg-black/40">
+                    <ProjectMockup
+                      slug={nextProject.slug}
+                      title={lang === 'fr' ? nextProject.title.fr : nextProject.title.en}
+                      imageSrc={nextProject.image}
+                    />
+                  </div>
+                  <span className="text-[9px] font-mono text-[#D4A843] bg-black/60 px-2 py-0.5 rounded border border-white/10 inline-block mb-2">
+                    {nextProject.year}
+                  </span>
+                  <h4 className="text-xs font-bold text-[#F8FAFC] group-hover/peek:text-[#D4A843] transition-colors line-clamp-2 leading-snug">
+                    {lang === 'fr' ? nextProject.title.fr : nextProject.title.en}
+                  </h4>
+                </div>
+                <div className="pt-3 border-t border-white/[0.08] text-[10px] text-[#94A3B8] font-mono flex items-center justify-between">
+                  <span className="text-[#D4A843]">›</span>
+                  <span>{String(nextIndex + 1).padStart(2, '0')}</span>
+                </div>
+              </div>
+            )}
           </div>
+
+          {/* Quick Peek Preview Chips for Tablet & Mobile (< lg) */}
+          {filtered.length > 1 && (
+            <div className="flex lg:hidden items-center justify-between gap-3 px-1">
+              <button
+                onClick={prevSlide}
+                className="flex items-center gap-1.5 text-xs font-mono text-[#94A3B8] hover:text-[#D4A843] transition-colors truncate max-w-[48%] py-1 cursor-pointer"
+              >
+                <ChevronLeft className="w-3.5 h-3.5 text-[#D4A843] shrink-0" />
+                <span className="truncate">{lang === 'fr' ? prevProject.title.fr : prevProject.title.en}</span>
+              </button>
+              <button
+                onClick={nextSlide}
+                className="flex items-center justify-end gap-1.5 text-xs font-mono text-[#94A3B8] hover:text-[#D4A843] transition-colors truncate max-w-[48%] py-1 ml-auto cursor-pointer"
+              >
+                <span className="truncate">{lang === 'fr' ? nextProject.title.fr : nextProject.title.en}</span>
+                <ChevronRight className="w-3.5 h-3.5 text-[#D4A843] shrink-0" />
+              </button>
+            </div>
+          )}
 
           {/* Carousel Navigation Toolbar */}
           <div className="flex items-center justify-between pt-2">
@@ -344,84 +452,88 @@ export default function Projects() {
         </div>
       )}
 
-      {/* VIEW 2: FULL OVERVIEW MATRIX (Vue d'ensemble) */}
+      {/* VIEW 2: FULL OVERVIEW MATRIX (Vue d'ensemble) WITH 3D TILT */}
       {viewMode === 'overview' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((project, idx) => {
+          {filtered.map((project) => {
             const status = statusConfig[project.status]
 
             return (
-              <div
+              <TiltCard
                 key={project.slug}
+                maxTilt={7}
+                scale={1.02}
+                className="h-full rounded-xl overflow-hidden cursor-pointer"
                 onClick={() => setSelectedProject(project)}
-                className="border border-white/[0.08] hover:border-[#D4A843]/40 rounded-xl bg-[#090C12]/80 backdrop-blur-md overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer flex flex-col justify-between group"
               >
-                {/* Mockup Preview Header */}
-                <div className="relative aspect-video w-full border-b border-white/[0.08] overflow-hidden">
-                  <ProjectMockup
-                    slug={project.slug}
-                    title={lang === 'fr' ? project.title.fr : project.title.en}
-                    imageSrc={project.image}
-                  />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-xs font-semibold text-[#050505] bg-[#D4A843] px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
-                      <Eye className="w-3.5 h-3.5" />
-                      {t('Détails →', 'View Details →')}
-                    </span>
-                  </div>
-
-                  <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
-                    <span className="text-[9px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#D4A843] px-2 py-0.5 rounded">
-                      {project.category === 'pro' ? t('Pro', 'Pro') :
-                       project.category === 'academic' ? t('Académique', 'Academic') :
-                       project.category === 'personal' ? t('SaaS / Perso', 'SaaS / Personal') :
-                       t('Créa & Finance', 'Creative')}
-                    </span>
-                  </div>
-
-                  <div className="absolute top-2.5 right-2.5">
-                    <span className="text-[9px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#CBD5E1] px-2 py-0.5 rounded">
-                      {project.year}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Content */}
-                <div className="p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-base font-bold text-[#F8FAFC] group-hover:text-[#D4A843] transition-colors mb-2 line-clamp-1">
-                      {lang === 'fr' ? project.title.fr : project.title.en}
-                    </h3>
-                    <p className="text-xs text-[#94A3B8] line-clamp-2 leading-relaxed mb-4">
-                      {lang === 'fr' ? project.description.fr : project.description.en}
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex flex-wrap gap-1.5 mb-4">
-                      {project.tags.slice(0, 3).map(tag => (
-                        <span key={tag} className="text-[10px] font-mono text-[#CBD5E1] bg-white/[0.04] border border-white/[0.06] px-2 py-0.5 rounded">
-                          {tag}
-                        </span>
-                      ))}
-                      {project.tags.length > 3 && (
-                        <span className="text-[10px] font-mono text-[#64748B] self-center">
-                          +{project.tags.length - 3}
-                        </span>
-                      )}
+                <div className="border border-white/[0.08] hover:border-[#D4A843]/40 rounded-xl bg-[#090C12]/80 backdrop-blur-md overflow-hidden transition-all duration-300 flex flex-col justify-between group h-full">
+                  {/* Mockup Preview Header */}
+                  <div className="relative aspect-video w-full border-b border-white/[0.08] overflow-hidden">
+                    <ProjectMockup
+                      slug={project.slug}
+                      title={lang === 'fr' ? project.title.fr : project.title.en}
+                      imageSrc={project.image}
+                    />
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="text-xs font-semibold text-[#050505] bg-[#D4A843] px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+                        <Eye className="w-3.5 h-3.5" />
+                        {t('Détails →', 'View Details →')}
+                      </span>
                     </div>
 
-                    <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
-                      <span className="text-[#94A3B8] group-hover:text-[#D4A843] font-medium transition-colors">
-                        {t('Fiche technique →', 'Breakdown →')}
+                    <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+                      <span className="text-[9px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#D4A843] px-2 py-0.5 rounded">
+                        {project.category === 'pro' ? t('Pro', 'Pro') :
+                         project.category === 'academic' ? t('Académique', 'Academic') :
+                         project.category === 'personal' ? t('SaaS / Perso', 'SaaS / Personal') :
+                         t('Créa & Finance', 'Creative')}
                       </span>
-                      <span className={cn('text-[9px] uppercase font-mono px-2 py-0.5 rounded border', status.color)}>
-                        {lang === 'fr' ? status.label.fr : status.label.en}
+                    </div>
+
+                    <div className="absolute top-2.5 right-2.5">
+                      <span className="text-[9px] font-mono bg-black/80 backdrop-blur-md border border-white/15 text-[#CBD5E1] px-2 py-0.5 rounded">
+                        {project.year}
                       </span>
                     </div>
                   </div>
+
+                  {/* Card Content */}
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-base font-bold text-[#F8FAFC] group-hover:text-[#D4A843] transition-colors mb-2 line-clamp-1">
+                        {lang === 'fr' ? project.title.fr : project.title.en}
+                      </h3>
+                      <p className="text-xs text-[#94A3B8] line-clamp-2 leading-relaxed mb-4">
+                        {lang === 'fr' ? project.description.fr : project.description.en}
+                      </p>
+                    </div>
+
+                    <div>
+                      <div className="flex flex-wrap gap-1.5 mb-4">
+                        {project.tags.slice(0, 3).map(tag => (
+                          <span key={tag} className="text-[10px] font-mono text-[#CBD5E1] bg-white/[0.04] border border-white/[0.06] px-2 py-0.5 rounded">
+                            {tag}
+                          </span>
+                        ))}
+                        {project.tags.length > 3 && (
+                          <span className="text-[10px] font-mono text-[#64748B] self-center">
+                            +{project.tags.length - 3}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
+                        <span className="text-[#94A3B8] group-hover:text-[#D4A843] font-medium transition-colors">
+                          {t('Fiche technique →', 'Breakdown →')}
+                        </span>
+                        <span className={cn('text-[9px] uppercase font-mono px-2 py-0.5 rounded border', status.color)}>
+                          {lang === 'fr' ? status.label.fr : status.label.en}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </TiltCard>
             )
           })}
         </div>

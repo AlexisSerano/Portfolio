@@ -12,6 +12,7 @@ import Terminal from '@/components/sections/Terminal'
 import Contact from '@/components/sections/Contact'
 import Footer from '@/components/layout/Footer'
 import ScrollProgress from '@/components/ui/ScrollProgress'
+import GeometricReliefBackground from '@/components/ui/GeometricReliefBackground'
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -44,6 +45,9 @@ export default function Home() {
       {isLoading && mounted && (
         <LoadingScreen onComplete={handleLoadingComplete} />
       )}
+
+      {/* Geometric Relief Background with Gold Traces */}
+      <GeometricReliefBackground />
 
       {/* Atmospheric Golden Ambient Lighting Layers */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
