@@ -70,28 +70,9 @@
   box-shadow: 0 0 40px rgba(212, 168, 67, 0.15);
 }
 
-/* === Background Geometric Gold Accents === */
+/* === Background Geometric System === */
 .bg-geo {
   position: relative;
-}
-
-.bg-geo::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    /* Large gold gradient orb — top left */
-    radial-gradient(ellipse 600px 400px at 8% 12%, rgba(212, 168, 67, 0.07) 0%, transparent 70%),
-    /* Smaller gold accent — top right */
-    radial-gradient(ellipse 400px 300px at 88% 8%, rgba(212, 168, 67, 0.05) 0%, transparent 60%),
-    /* Mid section gold wash */
-    radial-gradient(ellipse 500px 400px at 50% 50%, rgba(212, 168, 67, 0.04) 0%, transparent 65%),
-    /* Bottom left warm glow */
-    radial-gradient(ellipse 450px 350px at 15% 85%, rgba(212, 168, 67, 0.06) 0%, transparent 60%),
-    /* Bottom right subtle */
-    radial-gradient(ellipse 350px 250px at 85% 80%, rgba(212, 168, 67, 0.04) 0%, transparent 55%);
 }
 
 /* Gold grid lines — very subtle geometric feel */

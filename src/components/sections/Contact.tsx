@@ -158,7 +158,7 @@ export default function Contact() {
               {t('M\'envoyer un message', 'Send a message')}
             </h4>
             <p className="text-xs text-[#94A3B8] mb-6">
-              {t('Tu peux utiliser ce formulaire ou m\'écrire directement par mail.', 'Feel free to use this form or email me directly.')}
+              {t('Vous pouvez utiliser ce formulaire ou m\'écrire directement par email.', 'Feel free to use this form or email me directly.')}
             </p>
 
             {status === 'success' ? (
@@ -169,7 +169,7 @@ export default function Contact() {
                 </h5>
                 <p className="text-xs text-[#CBD5E1] leading-relaxed max-w-md mx-auto">
                   {t(
-                    'Ton client mail s\'est ouvert avec le message. Tu peux aussi m\'écrire directement à alexis.seranoo@gmail.com.',
+                    'Votre messagerie s\'est ouverte avec le message pré-rempli. Vous pouvez également m\'écrire directement à alexis.seranoo@gmail.com.',
                     'Your email client opened with the pre-filled message. You can also email alexis.seranoo@gmail.com directly.'
                   )}
                 </p>

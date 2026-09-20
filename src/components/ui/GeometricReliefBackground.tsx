@@ -5,179 +5,271 @@ export default function GeometricReliefBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden z-0 select-none">
       <svg
-        className="w-full h-full opacity-60"
+        className="w-full h-full"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1920 1080"
         preserveAspectRatio="xMidYMid slice"
       >
         <defs>
-          {/* Gold linear and radial gradients */}
-          <linearGradient id="goldEdge" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#D4A843" stopOpacity="0.8" />
-            <stop offset="50%" stopColor="#F5D785" stopOpacity="1" />
-            <stop offset="100%" stopColor="#A3845B" stopOpacity="0.5" />
+          {/* Razor-sharp Gold Linear Gradients for Edges */}
+          <linearGradient id="goldEdgeBright" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#D4A843" stopOpacity="0.85" />
+            <stop offset="35%" stopColor="#F5D785" stopOpacity="1" />
+            <stop offset="70%" stopColor="#D4A843" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#8A6B29" stopOpacity="0.4" />
           </linearGradient>
 
-          <linearGradient id="goldEdgeSoft" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#D4A843" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#A3845B" stopOpacity="0.1" />
+          <linearGradient id="goldEdgeSoft" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#D4A843" stopOpacity="0.5" />
+            <stop offset="50%" stopColor="#F5D785" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#D4A843" stopOpacity="0.3" />
           </linearGradient>
 
-          {/* Facet Relief Gradients (Deep Black to Dark Charcoal with subtle warm bounce) */}
-          <linearGradient id="facetDark1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#141824" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#06080E" stopOpacity="0.98" />
+          <linearGradient id="goldEdgeSubtle" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#D4A843" stopOpacity="0.15" />
+            <stop offset="50%" stopColor="#D4A843" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#D4A843" stopOpacity="0.1" />
           </linearGradient>
 
-          <linearGradient id="facetDark2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#181F2E" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#090C14" stopOpacity="0.98" />
+          {/* Distinct Deep Black & Carbon Facet Fills */}
+          <linearGradient id="facetBlackDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#050507" />
+            <stop offset="100%" stopColor="#080A0F" />
           </linearGradient>
 
-          <linearGradient id="facetDark3" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#0B0E16" stopOpacity="0.98" />
-            <stop offset="60%" stopColor="#1A2130" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#222B3D" stopOpacity="0.9" />
+          <linearGradient id="facetBlackMid" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#07090E" />
+            <stop offset="100%" stopColor="#0B0E16" />
           </linearGradient>
 
-          <linearGradient id="facetGoldWash" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#D4A843" stopOpacity="0.08" />
-            <stop offset="50%" stopColor="#121622" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#05070B" stopOpacity="0.95" />
+          <linearGradient id="facetBlackCarbon" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#06070B" />
+            <stop offset="100%" stopColor="#090C12" />
           </linearGradient>
 
-          {/* Glow filter */}
-          <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          {/* Distinct Brushed Dark Gold Facet Fills — Rich, High Contrast yet Content-Friendly */}
+          <linearGradient id="facetGoldPlane1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#1B150A" stopOpacity="0.95" />
+            <stop offset="50%" stopColor="#281E0D" stopOpacity="0.92" />
+            <stop offset="100%" stopColor="#140F06" stopOpacity="0.98" />
+          </linearGradient>
+
+          <linearGradient id="facetGoldPlane2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#241B0C" stopOpacity="0.92" />
+            <stop offset="60%" stopColor="#181208" stopOpacity="0.95" />
+            <stop offset="100%" stopColor="#0E0A04" stopOpacity="0.98" />
+          </linearGradient>
+
+          <linearGradient id="facetGoldAccent" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stopColor="#2F230E" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#1A1307" stopOpacity="0.95" />
+          </linearGradient>
+
+          {/* Delicate Technical Micro-Hatching Pattern inside Gold Planes */}
+          <pattern id="goldHatch" width="24" height="24" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="0" y2="24" stroke="#D4A843" strokeWidth="0.6" strokeOpacity="0.06" />
+          </pattern>
+
+          <pattern id="goldGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="40" y2="0" stroke="#D4A843" strokeWidth="0.5" strokeOpacity="0.04" />
+            <line x1="0" y1="0" x2="0" y2="40" stroke="#D4A843" strokeWidth="0.5" strokeOpacity="0.04" />
+          </pattern>
+
+          {/* Vertex Node Glow */}
+          <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
           </filter>
         </defs>
 
-        {/* ===============================================================
-            SHAPE 1: TOP RIGHT POLYHEDRON (Near Hero / Header)
-            Faceted 3D relief crystal with illuminated gold traces
-        =============================================================== */}
-        <g className="animate-[floatSlow_18s_ease-in-out_infinite]" transform="translate(1450, 120)">
-          {/* Outer ambient aura */}
-          <circle cx="150" cy="150" r="160" fill="#D4A843" opacity="0.03" filter="url(#goldGlow)" />
+        {/* =================================================================
+            GEOMETRIC ARCHITECTURE: FULL-VIEWPORT BLACK & GOLD DIVISION
+            No isolated floating shapes — entire canvas is structured.
+        ================================================================= */}
 
-          {/* Facet 1 (Top Left) */}
-          <polygon
-            points="150,20 270,90 150,150 50,100"
-            fill="url(#facetDark2)"
-            stroke="url(#goldEdge)"
+        {/* Base Layer: Deep obsidian field */}
+        <rect width="1920" height="1080" fill="#050507" />
+
+        {/* -------------------------------------------------------------
+            ZONE 1: UPPER-LEFT DEEP BLACK CARBON FACET
+        ------------------------------------------------------------- */}
+        <polygon
+          points="0,0 1180,0 760,420 0,340"
+          fill="url(#facetBlackDeep)"
+        />
+
+        {/* -------------------------------------------------------------
+            ZONE 2: UPPER-RIGHT DISTINCT GOLD ARCHITECTURAL PLANE
+            Sharp geometric gold zone with micro-hatch & metallic tone
+        ------------------------------------------------------------- */}
+        <polygon
+          points="1180,0 1920,0 1920,440 1380,320 760,420"
+          fill="url(#facetGoldPlane1)"
+        />
+        {/* Subtle geometric technical hatching on the gold facet */}
+        <polygon
+          points="1180,0 1920,0 1920,440 1380,320 760,420"
+          fill="url(#goldHatch)"
+        />
+
+        {/* -------------------------------------------------------------
+            ZONE 3: CENTER TRIANGULAR MID-ONYX FACET
+        ------------------------------------------------------------- */}
+        <polygon
+          points="0,340 760,420 1140,740 460,880 0,780"
+          fill="url(#facetBlackMid)"
+        />
+
+        {/* -------------------------------------------------------------
+            ZONE 4: LOWER-RIGHT DISTINCT GOLD ARCHITECTURAL PLANE
+            Second bold geometric gold zone balancing the composition
+        ------------------------------------------------------------- */}
+        <polygon
+          points="1380,320 1920,440 1920,1080 1260,1080 1140,740"
+          fill="url(#facetGoldPlane2)"
+        />
+        <polygon
+          points="1380,320 1920,440 1920,1080 1260,1080 1140,740"
+          fill="url(#goldHatch)"
+        />
+
+        {/* -------------------------------------------------------------
+            ZONE 5: LOWER-LEFT MATTE VELVET BLACK FACET
+        ------------------------------------------------------------- */}
+        <polygon
+          points="0,780 460,880 1140,740 1260,1080 0,1080"
+          fill="url(#facetBlackCarbon)"
+        />
+
+        {/* -------------------------------------------------------------
+            ZONE 6: GEOMETRIC ACCENT WEDGE (Angular Golden Intersection)
+        ------------------------------------------------------------- */}
+        <polygon
+          points="760,420 1380,320 1140,740"
+          fill="url(#facetGoldAccent)"
+          opacity="0.8"
+        />
+        <polygon
+          points="760,420 1380,320 1140,740"
+          fill="url(#goldGrid)"
+        />
+
+        {/* =================================================================
+            PRIMARY GOLD DIVISION SEAMS (Laser-sharp, distinct boundaries)
+        ================================================================= */}
+        <g strokeLinecap="round">
+          {/* Main Diagonal Cutting Seams */}
+          <line
+            x1="1180" y1="0"
+            x2="760" y2="420"
+            stroke="url(#goldEdgeBright)"
+            strokeWidth="1.6"
+          />
+          <line
+            x1="760" y1="420"
+            x2="1380" y2="320"
+            stroke="url(#goldEdgeBright)"
+            strokeWidth="1.8"
+          />
+          <line
+            x1="1380" y1="320"
+            x2="1920" y2="440"
+            stroke="url(#goldEdgeSoft)"
+            strokeWidth="1.4"
+          />
+          <line
+            x1="0" y1="340"
+            x2="760" y2="420"
+            stroke="url(#goldEdgeSoft)"
+            strokeWidth="1.3"
+          />
+          <line
+            x1="760" y1="420"
+            x2="1140" y2="740"
+            stroke="url(#goldEdgeBright)"
+            strokeWidth="1.8"
+          />
+          <line
+            x1="1380" y1="320"
+            x2="1140" y2="740"
+            stroke="url(#goldEdgeBright)"
+            strokeWidth="1.5"
+          />
+          <line
+            x1="1140" y1="740"
+            x2="1920" y2="1080"
+            stroke="url(#goldEdgeSoft)"
+            strokeWidth="1.4"
+          />
+          <line
+            x1="1140" y1="740"
+            x2="1260" y2="1080"
+            stroke="url(#goldEdgeBright)"
+            strokeWidth="1.6"
+          />
+          <line
+            x1="0" y1="780"
+            x2="460" y2="880"
+            stroke="url(#goldEdgeSubtle)"
             strokeWidth="1.2"
           />
-          {/* Facet 2 (Top Right) */}
-          <polygon
-            points="150,20 270,90 280,180 150,150"
-            fill="url(#facetGoldWash)"
-            stroke="url(#goldEdge)"
-            strokeWidth="1.2"
+          <line
+            x1="460" y1="880"
+            x2="1140" y2="740"
+            stroke="url(#goldEdgeSoft)"
+            strokeWidth="1.4"
           />
-          {/* Facet 3 (Bottom Right) */}
-          <polygon
-            points="150,150 280,180 230,280 150,260"
-            fill="url(#facetDark1)"
-            stroke="url(#goldEdge)"
-            strokeWidth="1.2"
-          />
-          {/* Facet 4 (Bottom Center) */}
-          <polygon
-            points="150,150 150,260 70,240 50,160"
-            fill="url(#facetDark3)"
-            stroke="url(#goldEdge)"
-            strokeWidth="1.2"
-          />
-          {/* Facet 5 (Left Front) */}
-          <polygon
-            points="50,100 150,150 50,160"
-            fill="url(#facetDark1)"
-            stroke="url(#goldEdge)"
-            strokeWidth="1"
-          />
-          {/* Apex Golden Vertex Nodes */}
-          <circle cx="150" cy="20" r="3" fill="#F5D785" filter="url(#goldGlow)" />
-          <circle cx="270" cy="90" r="2.5" fill="#D4A843" />
-          <circle cx="150" cy="150" r="3.5" fill="#F5D785" filter="url(#goldGlow)" />
-          <circle cx="280" cy="180" r="2" fill="#D4A843" />
-          <circle cx="150" cy="260" r="2.5" fill="#D4A843" />
         </g>
 
-        {/* ===============================================================
-            SHAPE 2: MID-LEFT RELIEF MESH (Near About / Skills)
-            Low-poly dark topological relief with gold seams
-        =============================================================== */}
-        <g className="animate-[floatMid_22s_ease-in-out_infinite]" transform="translate(60, 480)">
-          <circle cx="180" cy="200" r="200" fill="#D4A843" opacity="0.02" filter="url(#goldGlow)" />
-
-          {/* Polygon Triangles forming 3D dark relief surface */}
-          <polygon points="40,120 160,60 220,150" fill="url(#facetDark3)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="160,60 290,90 220,150" fill="url(#facetGoldWash)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="220,150 290,90 340,190" fill="url(#facetDark1)" stroke="url(#goldEdge)" strokeWidth="1.2" />
-          <polygon points="40,120 220,150 140,240" fill="url(#facetDark2)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="220,150 340,190 260,280" fill="url(#facetDark3)" stroke="url(#goldEdge)" strokeWidth="1.2" />
-          <polygon points="140,240 220,150 260,280" fill="url(#facetGoldWash)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="140,240 260,280 180,340" fill="url(#facetDark1)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="40,120 140,240 50,290" fill="url(#facetDark2)" stroke="url(#goldEdgeSoft)" strokeWidth="0.8" />
-
-          {/* Glowing intersections */}
-          <circle cx="220" cy="150" r="3.5" fill="#F5D785" filter="url(#goldGlow)" />
-          <circle cx="260" cy="280" r="2.5" fill="#D4A843" />
-          <circle cx="160" cy="60" r="2" fill="#D4A843" />
-          <circle cx="340" cy="190" r="2.5" fill="#F5D785" />
+        {/* =================================================================
+            SECONDARY ARCHITECTURAL GUIDE LINES (Crisp technical perspective)
+        ================================================================= */}
+        <g stroke="url(#goldEdgeSubtle)" strokeWidth="0.8" strokeDasharray="6,10">
+          <line x1="760" y1="420" x2="760" y2="1080" opacity="0.35" />
+          <line x1="1380" y1="0" x2="1380" y2="320" opacity="0.35" />
+          <line x1="0" y1="420" x2="1920" y2="420" opacity="0.2" />
+          <line x1="0" y1="740" x2="1920" y2="740" opacity="0.2" />
+          <line x1="1180" y1="0" x2="1920" y2="740" opacity="0.25" />
         </g>
 
-        {/* ===============================================================
-            SHAPE 3: LOWER RIGHT ICOSAHEDRAL PRISM (Near Projects / Experience)
-            Floating angled jewel in deep black with gold edges
-        =============================================================== */}
-        <g className="animate-[floatSlow_25s_ease-in-out_infinite]" transform="translate(1500, 720)">
-          <circle cx="160" cy="160" r="180" fill="#D4A843" opacity="0.025" filter="url(#goldGlow)" />
+        {/* =================================================================
+            ARCHITECTURAL VERTEX NODES (Subtle illuminated gold points)
+        ================================================================= */}
+        <g>
+          {/* Main Golden Intersection 1 */}
+          <circle cx="760" cy="420" r="4" fill="#F5D785" filter="url(#nodeGlow)" />
+          <circle cx="760" cy="420" r="1.8" fill="#050507" />
 
-          <polygon points="160,30 250,90 210,190 110,190 70,90" fill="url(#facetDark1)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="160,30 210,190 160,290 110,190" fill="url(#facetDark2)" stroke="url(#goldEdge)" strokeWidth="1.2" />
-          <polygon points="250,90 270,190 210,190" fill="url(#facetGoldWash)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="210,190 270,190 210,260 160,290" fill="url(#facetDark3)" stroke="url(#goldEdge)" strokeWidth="1" />
-          <polygon points="70,90 110,190 50,190" fill="url(#facetDark3)" stroke="url(#goldEdgeSoft)" strokeWidth="0.8" />
-          <polygon points="110,190 160,290 110,260 50,190" fill="url(#facetDark1)" stroke="url(#goldEdge)" strokeWidth="1" />
+          {/* Main Golden Intersection 2 */}
+          <circle cx="1380" cy="320" r="4.5" fill="#F5D785" filter="url(#nodeGlow)" />
+          <circle cx="1380" cy="320" r="2" fill="#050507" />
 
-          {/* Internal diagonal architectural gold ray */}
-          <line x1="160" y1="30" x2="160" y2="290" stroke="#F5D785" strokeWidth="1.4" opacity="0.7" filter="url(#goldGlow)" />
-          <circle cx="160" cy="30" r="3" fill="#F5D785" />
-          <circle cx="160" cy="190" r="3.5" fill="#F5D785" filter="url(#goldGlow)" />
-          <circle cx="160" cy="290" r="3" fill="#D4A843" />
+          {/* Main Golden Intersection 3 */}
+          <circle cx="1140" cy="740" r="4.5" fill="#F5D785" filter="url(#nodeGlow)" />
+          <circle cx="1140" cy="740" r="2" fill="#050507" />
+
+          {/* Secondary Points */}
+          <circle cx="1180" cy="0" r="2.5" fill="#D4A843" />
+          <circle cx="0" cy="340" r="2.5" fill="#D4A843" />
+          <circle cx="460" cy="880" r="3" fill="#D4A843" />
+          <circle cx="1260" cy="1080" r="3" fill="#D4A843" />
+          <circle cx="1920" cy="440" r="3" fill="#D4A843" />
         </g>
 
-        {/* ===============================================================
-            FINE ARCHITECTURAL GOLDEN GUIDE LINES (Connecting geometry)
-        =============================================================== */}
-        <g stroke="url(#goldEdgeSoft)" strokeWidth="0.6" strokeDasharray="4,8" opacity="0.4">
-          <line x1="150" y1="30" x2="300" y2="800" />
-          <line x1="1600" y1="260" x2="1680" y2="760" />
-          <line x1="450" y1="200" x2="1400" y2="200" strokeDasharray="6,12" opacity="0.2" />
-          <line x1="120" y1="850" x2="1750" y2="850" strokeDasharray="8,16" opacity="0.2" />
-        </g>
+        {/* Subtle Light Reflection Glint on Main Seam */}
+        <line
+          x1="760" y1="420"
+          x2="1140" y2="740"
+          stroke="#FFFFFF"
+          strokeWidth="1.2"
+          opacity="0.3"
+          strokeDasharray="40,240"
+          className="animate-pulse"
+        />
       </svg>
-
-      <style jsx>{`
-        @keyframes floatSlow {
-          0%, 100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-24px) rotate(3deg);
-          }
-        }
-        @keyframes floatMid {
-          0%, 100% {
-            transform: translateY(0px) rotate(0deg) scale(1);
-          }
-          50% {
-            transform: translateY(-18px) rotate(-2deg) scale(1.03);
-          }
-        }
-      `}</style>
     </div>
   )
 }
