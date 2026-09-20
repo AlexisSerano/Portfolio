@@ -50,37 +50,37 @@ export default function Contact() {
   return (
     <section id="contact" className="py-28 px-6 max-w-7xl mx-auto relative z-10">
       {/* Header */}
-      <div className="mb-16">
+      <div className="mb-14">
         <span className="text-[#D4A843] font-mono text-xs tracking-widest uppercase mb-3 flex items-center gap-2">
           <span className="w-8 h-px bg-[#D4A843]/50" />
           {t('05 — Contact', '05 — Contact')}
         </span>
         <TextReveal tag="h2" className="text-3xl md:text-5xl font-bold text-[#F8FAFC] tracking-tight leading-tight" stagger={0.03}>
-          {t('Travaillons ensemble.', "Let's work together.")}
+          {t('Me contacter.', 'Get in touch.')}
         </TextReveal>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         {/* Left Column: Direct Links & Info (5 cols) */}
-        <div className="lg:col-span-5 space-y-8">
+        <div className="lg:col-span-5 space-y-6">
           <div>
-            <h3 className="text-xl font-bold text-[#F8FAFC] mb-3">
-              {t('Un projet, une alternance ou un CDI ?', 'A project, apprenticeship or job offer?')}
+            <h3 className="text-xl font-bold text-[#F8FAFC] mb-2">
+              {t('Discutons de votre projet', "Let's talk")}
             </h3>
-            <p className="text-[#94A3B8] text-sm leading-relaxed mb-6">
+            <p className="text-[#94A3B8] text-sm leading-relaxed">
               {t(
-                "Actuellement en alternance chez Carrier Culoz SA et diplômé en 2027, je suis à l'écoute d'opportunités ambitieuses en développement logiciel, architecture full-stack et DevOps.",
-                "Currently an apprentice at Carrier Culoz SA graduating in 2027, I am open to ambitious opportunities in software engineering, full-stack architecture, and DevOps."
+                "En alternance chez Carrier Culoz et diplômé en 2027, je reste à l'écoute d'opportunités en développement web, backend et DevOps.",
+                "Apprentice at Carrier Culoz graduating in 2027, open to software development, backend, and DevOps opportunities."
               )}
             </p>
           </div>
 
           {/* Contact Direct Items */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Email Card with explicit Copy Feedback */}
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-[#D4A843]/30 transition-colors">
+            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-[#D4A843]/40 transition-colors">
               <span className="text-[10px] uppercase font-mono text-[#64748B] block mb-1">
-                {t('Email professionnel', 'Direct Email')}
+                Email
               </span>
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <a
@@ -91,11 +91,11 @@ export default function Contact() {
                 </a>
                 <button
                   onClick={copyEmail}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-white/5 hover:bg-[#D4A843]/10 text-[#94A3B8] hover:text-[#F5D785] border border-white/10 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-white/5 hover:bg-[#D4A843]/15 text-[#94A3B8] hover:text-[#F5D785] border border-white/10 transition-colors cursor-pointer"
                   title={t("Copier l'email", 'Copy email')}
                 >
                   {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-[#D4A843]" />}
-                  <span>{copied ? t('Copié !', 'Copied!') : t('Copier l\'email', 'Copy email')}</span>
+                  <span>{copied ? t('Copié !', 'Copied!') : t('Copier', 'Copy')}</span>
                 </button>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function Contact() {
               href="https://github.com/AlexisSerano"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-[#D4A843]/30 transition-colors flex items-center justify-between group block"
+              className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-[#D4A843]/40 transition-colors flex items-center justify-between group block"
             >
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#64748B] group-hover:text-[#D4A843] transition-colors">
@@ -113,8 +113,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <span className="text-[10px] uppercase font-mono text-[#64748B] block">GitHub</span>
-                  <span className="text-sm text-[#F8FAFC] group-hover:text-[#D4A843] transition-colors">
-                    github.com/AlexisSerano
+                  <span className="text-sm text-[#F8FAFC] group-hover:text-[#D4A843] transition-colors font-mono">
+                    AlexisSerano
                   </span>
                 </div>
               </div>
@@ -127,7 +127,7 @@ export default function Contact() {
             <a
               href={assetPath('/images/Alexis_serano.pdf')}
               target="_blank"
-              className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-[#D4A843]/30 transition-colors flex items-center justify-between group block"
+              className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-[#D4A843]/40 transition-colors flex items-center justify-between group block"
             >
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#64748B] group-hover:text-[#D4A843] transition-colors">
@@ -145,16 +145,20 @@ export default function Contact() {
               </span>
             </a>
           </div>
+
+          <p className="text-xs text-[#64748B] font-mono">
+            {t('Localisation : Culoz (01) & Grenoble (38)', 'Location: Culoz & Grenoble, France')}
+          </p>
         </div>
 
-        {/* Right Column: Functional Contact Form (7 cols) */}
+        {/* Right Column: Clean, Non-AI Contact Form (7 cols) */}
         <div className="lg:col-span-7">
-          <div className="p-6 sm:p-8 rounded-2xl bg-[#090C12]/80 border border-white/[0.08] backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
-            <h4 className="text-lg font-bold text-[#F8FAFC] mb-2">
-              {t('Envoyer un message direct', 'Send a direct message')}
+          <div className="p-6 sm:p-8 rounded-2xl bg-[#090C12]/80 border border-white/[0.08] backdrop-blur-md shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+            <h4 className="text-lg font-bold text-[#F8FAFC] mb-1">
+              {t('M\'envoyer un message', 'Send a message')}
             </h4>
             <p className="text-xs text-[#94A3B8] mb-6">
-              {t('Remplissez le formulaire ci-dessous pour me contacter rapidement.', 'Fill out the form below to reach out directly.')}
+              {t('Tu peux utiliser ce formulaire ou m\'écrire directement par mail.', 'Feel free to use this form or email me directly.')}
             </p>
 
             {status === 'success' ? (
@@ -165,8 +169,8 @@ export default function Contact() {
                 </h5>
                 <p className="text-xs text-[#CBD5E1] leading-relaxed max-w-md mx-auto">
                   {t(
-                    'Votre client de messagerie a été ouvert avec les informations pré-remplies. Vous pouvez également m\'écrire directement à alexis.seranoo@gmail.com.',
-                    'Your email client has been opened with your pre-filled message. You can also email alexis.seranoo@gmail.com directly.'
+                    'Ton client mail s\'est ouvert avec le message. Tu peux aussi m\'écrire directement à alexis.seranoo@gmail.com.',
+                    'Your email client opened with the pre-filled message. You can also email alexis.seranoo@gmail.com directly.'
                   )}
                 </p>
                 <button
@@ -176,7 +180,7 @@ export default function Contact() {
                   }}
                   className="mt-2 text-xs font-mono text-[#D4A843] hover:underline cursor-pointer"
                 >
-                  {t('Envoyer un autre message', 'Send another message')}
+                  {t('Nouveau message', 'New message')}
                 </button>
               </div>
             ) : (
@@ -184,30 +188,30 @@ export default function Contact() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Name */}
                   <div>
-                    <label className="text-[11px] font-mono text-[#94A3B8] uppercase block mb-1.5">
-                      {t('Nom / Entreprise', 'Name / Company')} *
+                    <label className="text-xs text-[#94A3B8] font-medium block mb-1.5">
+                      {t('Nom', 'Name')} *
                     </label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder={t('Ex: Jean Dupont', 'e.g. John Doe')}
+                      placeholder={t('Alexis', 'Alex')}
                       className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.03] border border-white/10 focus:border-[#D4A843] focus:outline-none text-xs text-[#F8FAFC] placeholder-[#64748B] transition-colors"
                     />
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="text-[11px] font-mono text-[#94A3B8] uppercase block mb-1.5">
-                      {t('Adresse Email', 'Email Address')} *
+                    <label className="text-xs text-[#94A3B8] font-medium block mb-1.5">
+                      {t('Email', 'Email')} *
                     </label>
                     <input
                       type="email"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder={t('jean.dupont@example.com', 'john@example.com')}
+                      placeholder="alexis@exemple.com"
                       className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.03] border border-white/10 focus:border-[#D4A843] focus:outline-none text-xs text-[#F8FAFC] placeholder-[#64748B] transition-colors"
                     />
                   </div>
@@ -215,29 +219,29 @@ export default function Contact() {
 
                 {/* Subject */}
                 <div>
-                  <label className="text-[11px] font-mono text-[#94A3B8] uppercase block mb-1.5">
-                    {t('Sujet du message', 'Subject')}
+                  <label className="text-xs text-[#94A3B8] font-medium block mb-1.5">
+                    {t('Sujet (optionnel)', 'Subject (optional)')}
                   </label>
                   <input
                     type="text"
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder={t('Ex: Opportunité CDI / Proposition de projet', 'e.g. Job Opportunity / Project proposal')}
+                    placeholder={t('Projet, alternance, question...', 'Project, opportunity, question...')}
                     className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.03] border border-white/10 focus:border-[#D4A843] focus:outline-none text-xs text-[#F8FAFC] placeholder-[#64748B] transition-colors"
                   />
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="text-[11px] font-mono text-[#94A3B8] uppercase block mb-1.5">
-                    {t('Votre Message', 'Your Message')} *
+                  <label className="text-xs text-[#94A3B8] font-medium block mb-1.5">
+                    {t('Message', 'Message')} *
                   </label>
                   <textarea
                     required
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder={t('Décrivez votre projet ou opportunité...', 'Describe your project or opportunity...')}
+                    placeholder={t('De quoi s\'agit-il ?', 'What would you like to discuss?')}
                     className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.03] border border-white/10 focus:border-[#D4A843] focus:outline-none text-xs text-[#F8FAFC] placeholder-[#64748B] transition-colors resize-none"
                   />
                 </div>
@@ -245,23 +249,25 @@ export default function Contact() {
                 {status === 'error' && (
                   <div className="flex items-center gap-2 text-xs text-rose-400 bg-rose-950/30 p-2.5 rounded border border-rose-500/20">
                     <AlertCircle className="w-4 h-4 shrink-0" />
-                    <span>{t('Veuillez renseigner tous les champs obligatoires.', 'Please complete all required fields.')}</span>
+                    <span>{t('Merci de remplir tous les champs obligatoires.', 'Please complete all required fields.')}</span>
                   </div>
                 )}
 
-                {/* Submit button */}
-                <button
-                  type="submit"
-                  disabled={status === 'submitting'}
-                  className="w-full py-3 px-6 rounded-xl bg-[#D4A843] hover:bg-[#F5D785] text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_25px_rgba(212,168,67,0.3)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>{status === 'submitting' ? t('Préparation...', 'Preparing...') : t('Transmettre mon message', 'Send message')}</span>
-                </button>
+                {/* Submit button & note */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <button
+                    type="submit"
+                    disabled={status === 'submitting'}
+                    className="w-full sm:w-auto py-2.5 px-6 rounded-full bg-[#D4A843] hover:bg-[#F5D785] text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  >
+                    <Send className="w-3.5 h-3.5" />
+                    <span>{status === 'submitting' ? t('Ouverture...', 'Opening...') : t('Envoyer', 'Send')}</span>
+                  </button>
 
-                <p className="text-[11px] text-[#64748B] text-center font-mono pt-2">
-                  {t('Temps de réponse moyen : sous 24h · Culoz & Grenoble', 'Average response time: within 24h')}
-                </p>
+                  <span className="text-[11px] text-[#64748B] font-mono">
+                    {t('Réponse en général sous 24h', 'Usually replies within 24h')}
+                  </span>
+                </div>
               </form>
             )}
           </div>

@@ -27,12 +27,12 @@ export const projects: Project[] = [
   {
     slug: 'alternance-carrier',
     title: {
-      fr: 'Alternance Développeur Embarqué — Carrier Culoz SA',
-      en: 'Embedded Developer Apprenticeship — Carrier Culoz SA',
+      fr: 'Carrier Culoz SA — Régulation d\'automates CVC',
+      en: 'Carrier Culoz SA — Industrial HVAC Automation',
     },
     description: {
-      fr: 'Programmation embarquée sur automates de traitement d\'air industriel et régulation CVC. Migration logicielle Carrel vers STone en Langage ST.',
-      en: 'Embedded programming on industrial air handling unit PLCs and HVAC controls. Software migration from legacy Carrel to STone platform using Structured Text.',
+      fr: 'Programmation sur automates de traitement d\'air en langage ST (Structured Text) et migration logicielle vers la plateforme STone.',
+      en: 'PLC programming for industrial air handling units in Structured Text and software migration to the STone platform.',
     },
     category: 'pro',
     year: '2026-2027',
@@ -43,46 +43,46 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Développeur Embarqué / Automaticien (Alternant BUT3)',
-        en: 'Embedded Developer / PLC Automation Engineer (Apprentice)',
+        fr: 'Développeur Embarqué (Alternance 3e année BUT)',
+        en: 'Embedded Developer (Apprenticeship)',
       },
       duration: {
-        fr: '31/08/2026 – 02/07/2027 (11 mois)',
-        en: 'Aug 2026 – Jul 2027 (11 months)',
+        fr: 'Sept. 2026 – Juil. 2027 (11 mois)',
+        en: 'Sept 2026 – July 2027 (11 months)',
       },
       context: {
-        fr: 'Carrier Culoz SA est un leader industriel dans les systèmes de traitement d\'air et de climatisation tertiaire/industrielle. Dans le cadre de ma 3ème année de BUT Informatique à l\'IUT2 Grenoble, j\'interviens au cœur de la division R&D logicielle pour moderniser les architectures automates.',
-        en: 'Carrier Culoz SA is a worldwide industrial leader in air handling and HVAC solutions. As part of my 3rd year Computer Science degree at IUT2 Grenoble, I contribute to the embedded software R&D division to modernize PLC controller platforms.',
+        fr: 'Dans le cadre de mon alternance chez Carrier Culoz, j\'interviens dans l\'équipe R&D logicielle pour migrer les programmes des automates de traitement d\'air vers une nouvelle plateforme.',
+        en: 'As part of my apprenticeship at Carrier Culoz, I work within the R&D software team to port air handling unit controller programs to a new platform.',
       },
       highlights: {
         fr: [
-          'Portage et migration complète des logiques de pilotage de la plateforme propriétaire Carrel vers la nouvelle plateforme STone.',
-          'Développement de programmes d\'automates en Langage ST (Structured Text) selon la norme internationale IEC 61131-3.',
-          'Gestion des boucles de régulation climatique (température, hygrométrie, débit d\'air, vannes proportionnelles et sécurités incendie).',
-          'Tests et validation sur bancs d\'essai industriels et analyse des protocoles de communication machine-to-machine.',
+          'Migration des logiques de pilotage de l\'ancienne plateforme Carrel vers STone.',
+          'Développement de programmes d\'automates en langage ST (norme IEC 61131-3).',
+          'Gestion des boucles de régulation : température, débit d\'air, vannes et sécurités.',
+          'Tests et validation sur bancs d\'essai industriels.',
         ],
         en: [
-          'Complete porting and software migration of controller routines from legacy Carrel platform to modern STone.',
-          'Development of industrial PLC programs in Structured Text (ST) conforming to the IEC 61131-3 standard.',
-          'Climate control feedback loops implementation (temperature, humidity, air flow, proportional valves, and safety interlocks).',
-          'Industrial test bench validation and telemetry verification across machine-to-machine communication protocols.',
+          'Porting control logic from legacy Carrel platform to STone.',
+          'Developing PLC routines in Structured Text (IEC 61131-3).',
+          'Managing climate control loops: temperature, air flow, valves, and safety triggers.',
+          'Testing and validation on industrial test benches.',
         ],
       },
       learnings: {
-        fr: 'Compétence rare alliant informatique avancée, rigueur industrielle critique et maîtrise des systèmes embarqués en temps réel.',
-        en: 'High-value intersection of modern computer science, strict industrial safety standards, and real-time embedded systems.',
+        fr: 'Comprendre les exigences du temps réel industriel, la rigueur sur le matériel et les normes de sécurité.',
+        en: 'Understanding real-time industrial constraints, hardware reliability, and safety standards.',
       },
     },
   },
   {
     slug: 'stage-chai',
     title: {
-      fr: 'Stage DSI — Centre Hospitalier Alpes-Isère',
-      en: 'IT Internship — Alps-Isère Hospital Center',
+      fr: 'Centre Hospitalier Alpes-Isère — Stage DSI',
+      en: 'Alps-Isère Hospital Center — IT Internship',
     },
     description: {
-      fr: 'Automatisation de l\'infrastructure sous PowerShell, déploiement d\'un cluster Kubernetes en haute disponibilité et gestion de 1800+ utilisateurs.',
-      en: 'Infrastructure automation with PowerShell, high-availability Kubernetes cluster deployment, and directory administration for 1,800+ healthcare users.',
+      fr: 'Automatisation de tâches sous PowerShell, déploiement d\'un cluster Kubernetes et support sur l\'infrastructure de 1 800 utilisateurs.',
+      en: 'PowerShell automation, Kubernetes cluster deployment, and infrastructure support for 1,800 users.',
     },
     category: 'pro',
     year: '2026',
@@ -93,46 +93,46 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Stagiaire Ingénieur Systèmes & Réseaux DSI',
-        en: 'IT Infrastructure & Systems Engineer Intern',
+        fr: 'Stagiaire Systèmes & Réseaux',
+        en: 'Systems & Networks Intern',
       },
       duration: {
         fr: '10 semaines (Avril – Juin 2026)',
         en: '10 weeks (April – June 2026)',
       },
       context: {
-        fr: 'Le Centre Hospitalier Alpes-Isère (CHAI) exploite une infrastructure critique assurant la prise en charge de milliers de patients avec plus de 1800 comptes praticiens et agents hospitaliers.',
-        en: 'The Alps-Isère Hospital Center (CHAI) operates a critical healthcare IT environment supporting thousands of patients and 1,800+ hospital staff accounts.',
+        fr: 'Stage de 10 semaines à la DSI du Centre Hospitalier Alpes-Isère (1 800 comptes agents). Mon rôle : automatiser les opérations récurrentes et tester de nouveaux déploiements conteneurisés.',
+        en: '10-week internship at CHAI hospital IT department (1,800 staff accounts). My role was automating routine tasks and deploying containerized services.',
       },
       highlights: {
         fr: [
-          'Création de scripts PowerShell d\'administration automatisée réduisant les temps de maintenance récurrents de 70%.',
-          'Déploiement d\'un cluster conteneurisé Kubernetes & Docker avec tolérance aux pannes et réplication de charges.',
-          'Administration avancée d\'Active Directory : sécurisation des rôles, gestion des GPO et durcissement des accès.',
-          'Audit et maintenance des bases relationnelles MariaDB pour les applications médicales en production.',
+          'Scripts PowerShell pour automatiser l\'administration des comptes et des postes.',
+          'Déploiement d\'un cluster Kubernetes et Docker en environnement de test.',
+          'Gestion des utilisateurs et des droits sous Active Directory (GPO, sécurisation).',
+          'Maintenance et requêtes SQL sur bases MariaDB d\'applications internes.',
         ],
         en: [
-          'Authored comprehensive PowerShell automation suites reducing recurring admin tasks by 70%.',
-          'Deployed high-availability Docker and Kubernetes container orchestration clusters.',
-          'Advanced Active Directory administration: role-based access control, GPO enforcement, and privilege minimization.',
-          'Audited and fine-tuned MariaDB relational instances supporting hospital medical software in production.',
+          'PowerShell scripts to automate account management and workstation setup.',
+          'Deployed a Kubernetes & Docker cluster in test environment.',
+          'Active Directory user and permissions management (GPOs, hardening).',
+          'Maintenance and SQL queries on internal MariaDB instances.',
         ],
       },
       learnings: {
-        fr: 'Expérience approfondie de la gestion d\'infrastructures de santé hautement sécurisées soumises au secret médical et à des contraintes 24/7 sans interruption.',
-        en: 'Deep exposure to high-security healthcare infrastructure subject to strict uptime guarantees and patient data protection regulations.',
+        fr: 'Gérer des problématiques concrètes sur un grand réseau hospitalier où la continuité de service est primordiale.',
+        en: 'Handling real-world challenges in a large hospital network where uptime and service continuity are critical.',
       },
     },
   },
   {
     slug: 'algofy',
     title: {
-      fr: 'Algofy — Plateforme SaaS de Trading Algorithmique',
-      en: 'Algofy — Algorithmic Trading SaaS Platform',
+      fr: 'Algofy — Trading Algorithmique sur Hyperliquid',
+      en: 'Algofy — Algorithmic Trading on Hyperliquid',
     },
     description: {
-      fr: 'SaaS Fintech complet connecté à Hyperliquid DEX : exécution d\'ordres automatisée en millisecondes, gestion du risque en temps réel, webhooks Telegram et Stripe.',
-      en: 'Full-featured fintech SaaS connected to Hyperliquid DEX: sub-second automated order execution, real-time risk engine, Telegram alerts, and Stripe billing.',
+      fr: 'Plateforme de trading automatisé connectée à Hyperliquid DEX : exécution d\'ordres en millisecondes, alertes Telegram et abonnements Stripe.',
+      en: 'Automated trading platform connected to Hyperliquid DEX: sub-second execution, Telegram alerts, and Stripe subscriptions.',
     },
     category: 'personal',
     year: '2026',
@@ -143,50 +143,48 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Fondateur, Architecte & Développeur Solo (Full-Stack & DevOps)',
-        en: 'Solo Founder, Architect & Full-Stack / DevOps Engineer',
+        fr: 'Projet personnel — Conception & Développement',
+        en: 'Personal Project — Creator & Developer',
       },
       duration: {
-        fr: 'Projet majeur en production continue',
-        en: 'Major production project (Active)',
+        fr: 'En ligne et en fonctionnement continu',
+        en: 'Live and active',
       },
       context: {
-        fr: 'Plateforme SaaS clé en main pour le trading quantitatif non-custodial sur Hyperliquid DEX (L1 décentralisé à haute vitesse). L\'objectif était de concevoir un produit financier fiable exécutant des algorithmes sans intervention humaine.',
-        en: 'End-to-end turnkey SaaS platform for quantitative non-custodial algorithmic trading on Hyperliquid DEX. Engineered for resilient, zero-downtime execution without human intervention.',
+        fr: 'J\'ai développé Algofy pour exécuter mes propres stratégies sur le DEX Hyperliquid sans devoir surveiller les écrans 24h/24, avec un tableau de bord pour piloter les bots à distance.',
+        en: 'I built Algofy to automate my trading strategies on Hyperliquid DEX around the clock, with a dashboard and remote control via Telegram.',
       },
       highlights: {
         fr: [
-          'Architecture conteneurisée Docker Compose (Backend Django Gunicorn, Frontend React Nginx, Base PostgreSQL) avec réseau privé interne.',
-          'Daemons Linux systemd pour l\'exécution des bots 24/7 avec monitoring temps réel et redémarrage automatique en cas de panne réseau.',
-          'Chiffrement symétrique Fernet (AES-256) des clés d\'API Agent en base de données pour une sécurité sans faille.',
-          'Bot Telegram bidirectionnel permettant de piloter les bots à distance, modifier l\'allocation et recevoir les PnL en direct.',
-          'Facturation Stripe Checkout (plans multi-tiers) et système de parrainage avec commissions dynamiques via Stripe Connect.',
-          'Moteur de backtest intégrant les cycles macro Bitcoin (halvings) et détection automatique des bull traps.',
+          'Backend Django REST et frontend React, conteneurisés avec Docker Compose.',
+          'Services Linux systemd tournant 24/7 avec reconnexion automatique en cas de coupure.',
+          'Chiffrement AES-256 des clés API en base PostgreSQL.',
+          'Bot Telegram pour ajuster ses positions, stopper les bots et recevoir les alertes.',
+          'Paiements Stripe Checkout et parrainage via Stripe Connect.',
         ],
         en: [
-          'Docker Compose microservice architecture (Django Gunicorn backend, React Nginx frontend, isolated PostgreSQL).',
-          'Dedicated Linux systemd service daemons ensuring 24/7 bot availability with sub-second reconnection logic.',
-          'Client API Agent private keys encrypted on-the-fly using Fernet AES-256 symmetric cipher prior to database persistence.',
-          'Bidirectional Telegram Bot for remote control, leverage tuning, kill-switch, and real-time fill notifications.',
-          'Tiered subscription billing with Stripe Checkout and affiliate revenue sharing via Stripe Connect.',
-          'Quantitative backtesting engine modeling historical 4-year Bitcoin market cycles and liquidity traps.',
+          'Django REST backend and React frontend containerized with Docker Compose.',
+          'Linux systemd background daemons running 24/7 with auto-reconnect.',
+          'AES-256 encryption for user API keys in PostgreSQL.',
+          'Telegram bot to tweak positions, trigger kill-switch, and get live alerts.',
+          'Stripe Checkout subscriptions and affiliate tracking with Stripe Connect.',
         ],
       },
       learnings: {
-        fr: 'Maîtrise de bout en bout d\'un cycle SaaS complet : sécurité financière, devises temps réel, conformité paiement, et fiabilité Linux serveur.',
-        en: 'Full-lifecycle SaaS mastery: financial security compliance, low-latency API integration, automated billing, and Linux systems engineering.',
+        fr: 'Créer un projet de bout en bout : sécurité des données, interactions avec une API financière et fiabilité d\'un serveur Linux.',
+        en: 'Building an end-to-end product: data security, financial API integration, and Linux server reliability.',
       },
     },
   },
   {
     slug: 'lifeos',
     title: {
-      fr: 'LifeOS — Second Brain & Operating System Personnel',
-      en: 'LifeOS — Second Brain & Personal Operating System',
+      fr: 'LifeOS — Dashboard Personnel & Second Brain',
+      en: 'LifeOS — Personal Dashboard & Second Brain',
     },
     description: {
-      fr: 'Tableau de bord unifié centralisant productivité, finances décentralisées, microservices de trading et suivi des routines avec synchronisation temps réel.',
-      en: 'Unified personal dashboard centralizing productivity, DeFi portfolio, trading microservices, and daily habit tracking with real-time reactive sync.',
+      fr: 'Tableau de bord centralisé pour suivre finances, projets et routines au même endroit avec backend asynchrone FastAPI.',
+      en: 'Centralized dashboard to track finances, projects, and routines in one place with async FastAPI backend.',
     },
     category: 'personal',
     year: '2026',
@@ -197,46 +195,46 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Architecte Logiciel & Développeur',
-        en: 'Software Architect & Full-Stack Developer',
+        fr: 'Projet personnel — Développeur Full-Stack',
+        en: 'Personal Project — Full-Stack Developer',
       },
       duration: {
         fr: 'Développement continu (2025 – Présent)',
         en: 'Ongoing development (2025 – Present)',
       },
       context: {
-        fr: 'Conçu comme un véritable système d\'exploitation personnel, LifeOS unifie plus de 30 modules applicatifs quotidiens (finances, productivité, santé, connaissances) dans une interface ultra-rapide.',
-        en: 'Engineered as a personal operating system, LifeOS aggregates over 30 modular tools (finances, productivity, wellness, knowledge base) in an ultra-responsive interface.',
+        fr: 'Conçu pour regrouper mes données utiles (suivi de portefeuille, tâches quotidiennes, notes) sans dépendre de multiples outils séparés.',
+        en: 'Built to unify personal data (portfolio tracking, daily habits, notes) without switching between multiple apps.',
       },
       highlights: {
         fr: [
-          'Backend asynchrone FastAPI Python couplé à un frontend modulaire React 18 & TypeScript.',
-          'Parseur CSV universel multi-plateformes unifiant les historiques de transactions bancaires et crypto.',
-          'Files de tâches asynchrones Celery orchestrées par un broker Redis pour les calculs d\'analyse financière.',
-          'Architecture modulaire orientée services déployée sous Docker avec persistance PostgreSQL.',
+          'Backend asynchrone avec FastAPI (Python) et frontend modulaire en React / TypeScript.',
+          'Parseur CSV multi-plateformes pour importer ses relevés bancaires et crypto.',
+          'Files de tâches asynchrones Celery avec Redis pour les calculs d\'analyse.',
+          'Déploiement sous Docker avec base de données PostgreSQL.',
         ],
         en: [
-          'Asynchronous FastAPI Python backend paired with a modular React 18 and TypeScript dashboard.',
-          'Universal multi-exchange and bank CSV parser aggregating multi-currency transactional ledgers.',
-          'Asynchronous background job worker queues powered by Celery and Redis broker for quantitative reports.',
-          'Service-oriented modular architecture containerized with Docker and relational PostgreSQL persistence.',
+          'Async Python backend with FastAPI and modular React / TypeScript frontend.',
+          'Multi-platform CSV parser to import bank and crypto statements.',
+          'Asynchronous task queues with Celery and Redis for analytics.',
+          'Docker deployment with PostgreSQL database.',
         ],
       },
       learnings: {
-        fr: 'Création d\'un système sur-mesure combinant haute performance, réactivité asynchrone et modélisation complexe de données personnelles.',
-        en: 'Engineering a custom high-throughput platform combining async Python concurrency, modular UI architecture, and complex data modeling.',
+        fr: 'Structurer une architecture asynchrone en Python et concevoir une interface réactive pour des volumes de données variés.',
+        en: 'Structuring an async Python architecture and building a clean interface for diverse data streams.',
       },
     },
   },
   {
     slug: 'chronia',
     title: {
-      fr: 'Chronia — Application Web d\'Aide à la Personne',
-      en: 'Chronia — Caregiving & Elderly Assistance Platform',
+      fr: 'Chronia — Application d\'Aide à la Personne',
+      en: 'Chronia — Caregiving Assistance Platform',
     },
     description: {
-      fr: 'Solution web ergonomique facilitant le maintien à domicile des seniors et la coordination quotidienne entre familles et auxiliaires de vie.',
-      en: 'Ergonomic assistive web platform designed to streamline daily routines for seniors and facilitate coordination with caregivers and family.',
+      fr: 'Application web pour faciliter le quotidien des seniors et la coordination avec les familles et soignants.',
+      en: 'Assistive web app designed to help seniors with daily routines and coordinate with caregivers and family.',
     },
     category: 'academic',
     year: '2026',
@@ -249,27 +247,27 @@ export const projects: Project[] = [
     },
     details: {
       role: {
-        fr: 'Développeur Web Full-Stack (Projet BUT)',
-        en: 'Full-Stack Web Developer (Academic Project)',
+        fr: 'Développeur Web (Projet BUT)',
+        en: 'Web Developer (Academic Project)',
       },
       duration: {
         fr: 'Semestre 4 BUT Informatique (2026)',
         en: 'Semester 4 CS Degree (2026)',
       },
       context: {
-        fr: 'Développé pour répondre aux enjeux du vieillissement de la population, Chronia propose un portail accessible aux seniors et un tableau de bord collaboratif pour les soignants et familles.',
-        en: 'Developed to address the challenges of elderly independence, Chronia offers an accessible interface for seniors and a collaborative hub for caregivers and families.',
+        fr: 'Projet de BUT Informatique : concevoir une interface accessible aux personnes âgées avec plannings partagés et suivi des soins.',
+        en: 'Computer Science academic project: designing an accessible UI for seniors with shared schedules and care tracking.',
       },
       highlights: {
         fr: [
-          'Interface pensée pour l\'accessibilité numérique (gros contrastes, navigation simplifiée, typographie lisible).',
-          'Gestion de plannings partagés, rappels de prises médicamenteuses et journal de liaison soignants.',
-          'Déploiement en ligne et hébergement sur VPS Linux OVH avec serveur web Apache/PHP et base MySQL.',
+          'Interface adaptée à l\'accessibilité (grands contrastes, navigation simple).',
+          'Planning partagé, rappels et journal de suivi pour les soignants.',
+          'Hébergement sur un VPS Linux avec Apache, PHP et MySQL.',
         ],
         en: [
-          'Dedicated accessibility design system (high-contrast ratios, intuitive navigation, legible typography).',
-          'Shared scheduling calendar, medication reminders, and caregiver daily communication log.',
-          'Deployed live on an OVH Linux VPS with Apache/PHP stack and relational MySQL database.',
+          'High-contrast and accessible interface with simple navigation.',
+          'Shared scheduling, reminders, and daily caregiver log.',
+          'Hosted on a Linux VPS with Apache, PHP, and MySQL.',
         ],
       },
     },
@@ -281,8 +279,8 @@ export const projects: Project[] = [
       en: 'Travel Agency Desktop App (JavaFX)',
     },
     description: {
-      fr: 'Application de bureau en Java pour la gestion et réservation de séjours touristiques avec modélisation POO et persistance JSON.',
-      en: 'Desktop application developed in Java for managing and booking travel packages, featuring modular OOP design and JSON persistence.',
+      fr: 'Logiciel de bureau en Java pour gérer des catalogues de séjours, des clients et des devis avec interface JavaFX.',
+      en: 'Java desktop application to manage travel packages, client accounts, and bookings with JavaFX.',
     },
     category: 'academic',
     year: '2025',
@@ -293,27 +291,27 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Concepteur & Développeur Logiciel Java',
-        en: 'Java Software Designer & Developer',
+        fr: 'Développeur Logiciel Java (Projet BUT)',
+        en: 'Java Software Developer (Academic Project)',
       },
       duration: {
         fr: 'Semestre 3 BUT Informatique (2025)',
         en: 'Semester 3 CS Degree (2025)',
       },
       context: {
-        fr: 'Projet d\'application lourde de gestion commerciale : catalogue de voyages, recherche multicritères, gestion des clients et devis de réservation.',
-        en: 'Desktop software application managing a travel agency catalog, multi-criteria filtering, client accounts, and quotation generation.',
+        fr: 'Projet de gestion commerciale en Java : recherche multicritères, panier et génération de devis de réservation.',
+        en: 'Academic Java software project: travel search filters, cart management, and booking estimates.',
       },
       highlights: {
         fr: [
-          'Architecture orientée objet rigoureuse appliquant les design patterns MVC et DAO.',
-          'Interface graphique fluide sous JavaFX avec styles CSS sur mesure et formulaires dynamiques.',
-          'Système de sérialisation et persistance des données sous format JSON sans dépendance externe lourde.',
+          'Architecture orientée objet en MVC et DAO.',
+          'Interface graphique sous JavaFX avec feuilles de style CSS.',
+          'Sauvegarde et chargement des données au format JSON.',
         ],
         en: [
-          'Rigorous Object-Oriented Architecture implementing MVC and DAO design patterns.',
-          'Smooth desktop GUI built with JavaFX, custom CSS styling, and reactive validation forms.',
-          'Robust serialization and persistence engine utilizing structured JSON file storage.',
+          'Object-oriented architecture using MVC and DAO patterns.',
+          'JavaFX desktop interface with custom CSS styling.',
+          'Data persistence using JSON files.',
         ],
       },
     },
@@ -325,8 +323,8 @@ export const projects: Project[] = [
       en: 'Symfony Web & Android Mobile Redesign',
     },
     description: {
-      fr: 'Écosystème multi-plateformes comprenant un portail d\'administration Symfony et une application native Android interconnectés par API REST.',
-      en: 'Multi-platform ecosystem pairing a Symfony web management portal with a native Android mobile app synchronized via secure REST APIs.',
+      fr: 'Portail web en Symfony et application Android native en Java, synchronisés via une API REST.',
+      en: 'Symfony web management portal and native Android client app synchronized via a REST API.',
     },
     category: 'academic',
     year: '2026',
@@ -337,27 +335,27 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Développeur Multi-Plateforme (Web & Mobile)',
-        en: 'Cross-Platform Developer (Web & Mobile)',
+        fr: 'Développeur Web & Mobile (Projet BUT)',
+        en: 'Web & Mobile Developer (Academic Project)',
       },
       duration: {
         fr: 'Semestre 4 BUT Informatique (2026)',
         en: 'Semester 4 CS Degree (2026)',
       },
       context: {
-        fr: 'Modernisation complète d\'un système d\'information comprenant une refonte web responsive sous Symfony et la création d\'une application mobile native Android.',
-        en: 'Complete modernization of an information system pairing a responsive Symfony web portal with a native Android client app.',
+        fr: 'Projet de BUT : refonte d\'un site web sous Symfony et création d\'une application mobile Android connectée.',
+        en: 'Academic project: Symfony web portal redesign paired with an interconnected native Android app.',
       },
       highlights: {
         fr: [
-          'Back-office web sous framework Symfony avec Doctrine ORM, migrations et validation de formulaires.',
-          'Création d\'endpoints API REST sécurisés pour la transmission de données JSON en temps réel.',
-          'Application mobile Android native en Java avec appels réseau asynchrones et stockage local SQLite.',
+          'Back-office sous Symfony avec Doctrine ORM et migrations.',
+          'API REST pour échanger des données JSON avec l\'application mobile.',
+          'Application Android en Java avec requêtes asynchrones et cache SQLite.',
         ],
         en: [
-          'Full-featured Symfony back-office leveraging Doctrine ORM, automated migrations, and validation.',
-          'Secure REST API endpoints delivering real-time JSON payloads to remote clients.',
-          'Native Android client written in Java featuring asynchronous networking and SQLite local caching.',
+          'Symfony back-office with Doctrine ORM and automated migrations.',
+          'REST API delivering JSON data to the mobile client.',
+          'Native Android app in Java with asynchronous networking and SQLite cache.',
         ],
       },
     },
@@ -365,12 +363,12 @@ export const projects: Project[] = [
   {
     slug: 'chatenger',
     title: {
-      fr: 'Chatenger — Messagerie Web Sécurisée',
-      en: 'Chatenger — Secure Web Messaging',
+      fr: 'Chatenger — Messagerie Web',
+      en: 'Chatenger — Web Messaging',
     },
     description: {
-      fr: 'Application de messagerie instantanée en PHP/MySQL avec gestion des sessions utilisateurs, hachage des identifiants et prévention des failles web.',
-      en: 'Full-stack instant messaging application in PHP/MySQL featuring authenticated user sessions, salted password hashing, and injection protection.',
+      fr: 'Messagerie instantanée en PHP et MySQL avec salons de discussion et gestion des comptes utilisateurs.',
+      en: 'Instant messaging web app in PHP and MySQL with chatrooms and user account management.',
     },
     category: 'academic',
     year: '2023',
@@ -383,27 +381,27 @@ export const projects: Project[] = [
     },
     details: {
       role: {
-        fr: 'Projet Lycée (Terminale NSI) — Développeur Web & Sécurité',
-        en: 'High School Project (Senior Year CS) — Web Developer & Security',
+        fr: 'Projet Lycée (Terminale NSI)',
+        en: 'High School Project (Senior Year CS)',
       },
       duration: {
         fr: 'Terminale Générale NSI (2023)',
         en: 'High School Senior Year (CS / 2023)',
       },
       context: {
-        fr: 'Conçu en classe de Terminale dans le cadre de la spécialité NSI, Chatenger est une messagerie web temps réel mettant l\'accent sur la robustesse du code et la défense contre les vulnérabilités du Top 10 OWASP (injections SQL, failles XSS, CSRF).',
-        en: 'Engineered during high school senior year (NSI CS specialty), Chatenger is a real-time web messenger designed with strict focus on software hardening and OWASP Top 10 vulnerability mitigation.',
+        fr: 'Projet de Terminale NSI : coder une messagerie web avec comptes utilisateurs et protection contre les injections SQL et failles XSS.',
+        en: 'High school senior project (NSI): building a functional web messenger with protection against SQL injections and XSS exploits.',
       },
       highlights: {
         fr: [
-          'Authentification sécurisée avec hachage bcrypt, tokens de session uniques et protection contre les attaques CSRF.',
-          'Filtrage rigoureux des entrées pour neutraliser les injections SQL et failles XSS persistantes.',
-          'Actualisation automatique des salons de discussion par requêtes asynchrones Fetch / AJAX.',
+          'Authentification avec hachage bcrypt et gestion des sessions.',
+          'Protection contre les injections SQL et failles XSS.',
+          'Actualisation automatique des messages via requêtes AJAX / Fetch.',
         ],
         en: [
-          'Hardened user authentication with bcrypt salting, secure cookie flags, and CSRF token defenses.',
-          'Strict input sanitization preventing SQL injection vectors and persistent XSS exploits.',
-          'Asynchronous chatroom polling and message broadcasting powered by vanilla AJAX / Fetch.',
+          'User authentication with bcrypt hashing and session handling.',
+          'Input filtering against SQL injections and XSS exploits.',
+          'Automatic message updates using asynchronous AJAX / Fetch requests.',
         ],
       },
     },
@@ -411,12 +409,12 @@ export const projects: Project[] = [
   {
     slug: 'modele-neurone',
     title: {
-      fr: 'Modèle de Neurone Artificiel & Deep Learning',
-      en: 'Artificial Neuron Model & Deep Learning',
+      fr: 'Modèle de Neurone & Deep Learning',
+      en: 'Neuron Model & Deep Learning',
     },
     description: {
-      fr: 'Modélisation mathématique d\'un neurone artificiel et réseaux de neurones profonds en Python avec TensorFlow et calcul matriciel NumPy.',
-      en: 'Mathematical modeling and implementation of artificial neurons and dense networks using Python, TensorFlow, and vectorized NumPy computations.',
+      fr: 'Expérimentation des bases du deep learning en Python : calcul matriciel NumPy et réseaux de neurones avec TensorFlow.',
+      en: 'Hands-on exploration of deep learning basics in Python: NumPy matrix math and neural networks with TensorFlow.',
     },
     category: 'personal',
     year: '2022',
@@ -427,27 +425,27 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Développeur IA & Algorithmique',
-        en: 'AI & Machine Learning Developer',
+        fr: 'Projet personnel d\'apprentissage',
+        en: 'Self-directed learning project',
       },
       duration: {
-        fr: 'Recherche & Expérimentation personnelle (2022)',
-        en: 'Independent Research Project (2022)',
+        fr: '2022',
+        en: '2022',
       },
       context: {
-        fr: 'Étude pratique des fondements de l\'intelligence artificielle : du perceptron simple codé from scratch avec NumPy jusqu\'aux réseaux de neurones denses avec TensorFlow.',
-        en: 'Practical exploration of foundational AI: from simple single-layer perceptron written from scratch in NumPy to dense feedforward neural nets in TensorFlow.',
+        fr: 'Projet personnel pour comprendre le fonctionnement des réseaux de neurones : coder un perceptron from scratch avant d\'utiliser TensorFlow.',
+        en: 'Personal exploration to understand how neural networks work: coding a perceptron from scratch before moving to TensorFlow.',
       },
       highlights: {
         fr: [
-          'Implémentation manuelle de la rétropropagation du gradient (backpropagation) et fonctions d\'activation (Sigmoïde, ReLU).',
-          'Optimisation des calculs matriciels vectorisés via NumPy pour accélérer les temps d\'entraînement.',
-          'Classification et prédiction de jeux de données avec métriques d\'évaluation de perte (Loss) et précision (Accuracy).',
+          'Calcul de la descente de gradient et fonctions d\'activation (Sigmoïde, ReLU).',
+          'Calculs matriciels vectorisés avec NumPy.',
+          'Entraînement et tests de classification sur jeux de données simples.',
         ],
         en: [
-          'Implemented mathematical backpropagation from scratch including loss derivatives and activation functions (Sigmoid, ReLU).',
-          'Vectorized matrix operations using NumPy for accelerated tensor transformations.',
-          'Model evaluation on classification datasets tracking categorical cross-entropy loss and accuracy curves.',
+          'Implemented gradient descent and activation functions (Sigmoid, ReLU).',
+          'Vectorized matrix operations with NumPy.',
+          'Trained and evaluated simple classification datasets.',
         ],
       },
     },
@@ -455,12 +453,12 @@ export const projects: Project[] = [
   {
     slug: 'gestionnaire-taches-csharp',
     title: {
-      fr: 'Gestionnaire de Tâches C# Windows Forms',
-      en: 'C# Windows Forms Task Manager',
+      fr: 'Gestionnaire de Tâches C#',
+      en: 'C# Task Manager',
     },
     description: {
-      fr: 'Logiciel de bureau Windows en C# .NET permettant l\'organisation et le suivi de tâches avec sérialisation de données JSON.',
-      en: 'Windows desktop utility created with C# and .NET Windows Forms for organized task tracking, status filtering, and structured JSON serialization.',
+      fr: 'Application de bureau Windows en C# pour organiser ses tâches quotidiennes avec sauvegarde locale en JSON.',
+      en: 'Windows desktop task manager in C# .NET with local JSON persistence.',
     },
     category: 'personal',
     year: '2022',
@@ -473,27 +471,27 @@ export const projects: Project[] = [
     },
     details: {
       role: {
-        fr: 'Développeur C# .NET',
-        en: 'C# .NET Desktop Developer',
+        fr: 'Projet personnel',
+        en: 'Personal Project',
       },
       duration: {
-        fr: 'Projet autonome (2022)',
-        en: 'Independent Project (2022)',
+        fr: '2022',
+        en: '2022',
       },
       context: {
-        fr: 'Création d\'un utilitaire de bureau natif Windows pour structurer sa todo list quotidienne avec archivage local et interface réactive.',
-        en: 'Windows native desktop utility designed to organize personal tasks with persistent local storage and responsive UI.',
+        fr: 'Petit utilitaire de bureau développé en C# Windows Forms pour gérer sa liste de tâches avec filtres par priorité.',
+        en: 'Small Windows Forms desktop utility developed in C# to manage daily tasks with priority filters.',
       },
       highlights: {
         fr: [
-          'Développement sous .NET Windows Forms avec gestion d\'événements asynchrones et raccourcis clavier.',
-          'Sérialisation et désérialisation automatique des états de tâches sous format JSON.',
-          'Recherche instantanée et filtres par priorités (Basse, Moyenne, Haute, Terminée).',
+          'Interface Windows Forms avec raccourcis clavier.',
+          'Sauvegarde et chargement des tâches en JSON.',
+          'Filtres par statut et par niveau de priorité.',
         ],
         en: [
-          '.NET Windows Forms interface with event-driven architecture and productivity keyboard shortcuts.',
-          'Automated object serialization/deserialization to disk using JSON structures.',
-          'Instant keyword filtering and multi-level priority tagging (Low, Medium, High, Done).',
+          'Windows Forms UI with keyboard shortcuts.',
+          'Task saving and loading with JSON serialization.',
+          'Filters by status and priority level.',
         ],
       },
     },
@@ -505,8 +503,8 @@ export const projects: Project[] = [
       en: 'Conway\'s Game of Life',
     },
     description: {
-      fr: 'Simulation algorithmique en Python de l\'automate cellulaire de Conway illustrant les comportements émergents et la logique de grille torique.',
-      en: 'Python algorithmic simulation of Conway\'s cellular automaton exploring emergence, neighborhood rules, and efficient 2D grid matrix updates.',
+      fr: 'Simulation en Python de l\'automate cellulaire de Conway avec rendu graphique sous Pygame.',
+      en: 'Python simulation of Conway\'s cellular automaton with Pygame graphical rendering.',
     },
     category: 'personal',
     year: '2023',
@@ -519,27 +517,27 @@ export const projects: Project[] = [
     },
     details: {
       role: {
-        fr: 'Développeur Algorithmique Python',
-        en: 'Python Algorithms Developer',
+        fr: 'Projet personnel',
+        en: 'Personal Project',
       },
       duration: {
-        fr: 'Projet personnel (2023)',
-        en: 'Personal Project (2023)',
+        fr: '2023',
+        en: '2023',
       },
       context: {
-        fr: 'Exploration de la vie artificielle et des mathématiques discrètes à travers le célèbre automate cellulaire à deux dimensions conçu par John Horton Conway.',
-        en: 'Exploration of artificial life and discrete mathematics through John Conway\'s renowned 2D cellular automaton.',
+        fr: 'Projet algorithmique pour explorer les règles de Conway et observer comment des motifs complexes naissent de règles simples.',
+        en: 'Algorithmic project exploring Conway\'s rules and observing how complex patterns emerge from simple rules.',
       },
       highlights: {
         fr: [
-          'Modélisation matricielle de la grille torique (bords connectés) pour une simulation sans limites artificielles.',
-          'Algorithme de calcul du voisinage de Moore (8 cellules adjacentes) avec optimisation des cycles d\'itération.',
-          'Interface interactive permettant de dessiner des configurations initiales (Gliders, Pulsars, Spaceships).',
+          'Calcul du voisinage de Moore sur une grille torique.',
+          'Affichage et contrôle de la vitesse d\'itération avec Pygame.',
+          'Possibilité de dessiner ses propres cellules de départ.',
         ],
         en: [
-          'Toroidal 2D grid simulation connecting edges to avoid artificial boundary constraints.',
-          'Optimized Moore neighborhood evaluation loop (8 adjacent cells) for fast generation steps.',
-          'Interactive UI allowing custom cell seeding (Gliders, Oscillators, Pulsars, Spaceships).',
+          'Moore neighborhood calculation on a 2D toroidal grid.',
+          'Pygame visualization and iteration speed controls.',
+          'Interactive cell drawing to test custom starting seeds.',
         ],
       },
     },
@@ -547,12 +545,12 @@ export const projects: Project[] = [
   {
     slug: 'trading-investissement',
     title: {
-      fr: 'Trading & Investissement Financier',
-      en: 'Trading & Financial Investment',
+      fr: 'Trading & Investissement Crypto',
+      en: 'Trading & Crypto Investment',
     },
     description: {
-      fr: 'Analyse technique approfondie, stratégies de backtesting quantitatif et gestion stricte du ratio risque/bénéfice sur les marchés cryptomonnaies.',
-      en: 'Quantitative technical analysis, backtested risk-adjusted strategies, and systematic capital management on decentralized crypto markets.',
+      fr: 'Pratique de l\'analyse technique, développement d\'outils de suivi et gestion du risque sur les marchés crypto.',
+      en: 'Technical analysis practice, tracking tools development, and risk management across crypto markets.',
     },
     category: 'other',
     year: '2024-2026',
@@ -563,27 +561,27 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Trader Quantitatif Indépendant & Investisseur',
-        en: 'Independent Quantitative Trader & Investor',
+        fr: 'Activité personnelle',
+        en: 'Personal Activity',
       },
       duration: {
         fr: 'Depuis 2024 (Activité continue)',
         en: 'Since 2024 (Active)',
       },
       context: {
-        fr: 'Pratique quotidienne de la finance quantitative et de l\'analyse de marché, reliant mathématiques appliquées, psychologie du risque et automatisation logicielle.',
-        en: 'Daily quantitative financial analysis combining applied mathematics, behavioral risk management, and software automation.',
+        fr: 'Activité personnelle reliant analyse de données de marché, mathématiques et automatisation de stratégies.',
+        en: 'Personal activity combining market data analysis, mathematics, and strategy automation.',
       },
       highlights: {
         fr: [
-          'Élaboration de stratégies basées sur le carnet d\'ordres, la liquidité institutionnelle et les flux on-chain.',
-          'Gestion rigoureuse du risque : calcul de positionnement (position sizing), R:R minimum 1:3 et limitation stricte du drawdown.',
-          'Backtesting systématique sur données historiques pour valider l\'espérance mathématique des setups.',
+          'Étude des flux de liquidité et des données de carnet d\'ordres.',
+          'Règles strictes de gestion du capital (position sizing, ratio risque/gain).',
+          'Backtest de stratégies sur données historiques.',
         ],
         en: [
-          'Formulation of rules-based setups around orderbook imbalances, institutional liquidity pools, and on-chain metrics.',
-          'Disciplined risk management: dynamic position sizing, 1:3+ Risk/Reward ratio, and stringent drawdown caps.',
-          'Systematic backtesting on multi-year historical candles to verify positive mathematical expectancy.',
+          'Study of liquidity flows and order book data.',
+          'Strict capital management rules (position sizing, risk/reward).',
+          'Backtesting strategies on historical candle data.',
         ],
       },
     },
@@ -591,12 +589,12 @@ export const projects: Project[] = [
   {
     slug: 'montage-video',
     title: {
-      fr: 'Montage Vidéo & Création Audiovisuelle',
-      en: 'Video Editing & Audiovisual Production',
+      fr: 'Montage Vidéo & Motion Design',
+      en: 'Video Editing & Motion Design',
     },
     description: {
-      fr: 'Plus de 7 ans d\'expérience dans le montage vidéo narratif, le compositing, le sound design et le graphisme animé sur Adobe Creative Cloud.',
-      en: 'Over 7 years of hands-on experience in video pacing, motion design, color grading, and audio post-production using Adobe Premiere & After Effects.',
+      fr: 'Plus de 7 ans de pratique du montage vidéo, du motion design et du sound design sur Premiere Pro et After Effects.',
+      en: 'Over 7 years of video editing, motion design, and sound design using Premiere Pro and After Effects.',
     },
     category: 'other',
     year: '2017-2026',
@@ -607,27 +605,27 @@ export const projects: Project[] = [
     links: {},
     details: {
       role: {
-        fr: 'Monteur Vidéo & Motion Designer',
-        en: 'Video Editor & Motion Designer',
+        fr: 'Pratique autodidacte & freelance',
+        en: 'Self-taught & freelance',
       },
       duration: {
         fr: '7+ ans de pratique (2017 – Présent)',
         en: '7+ years of experience (2017 – Present)',
       },
       context: {
-        fr: 'Passionné par la narration visuelle et le rythme audiovisuel, j\'ai réalisé des centaines de vidéos (contenus YouTube, courts métrages, animations de logos et commandes freelance).',
-        en: 'Passionate about audiovisual pacing and visual storytelling, having edited hundreds of videos (YouTube features, short form, branded motion design, and freelance commissions).',
+        fr: 'Réalisation de montages vidéo (YouTube, vidéos courtes, projets personnels et commandes freelance). C\'est ce qui m\'a initié au travail sur ordinateur.',
+        en: 'Editing video content (YouTube, short form, personal projects, freelance commissions). This originally sparked my passion for computers.',
       },
       highlights: {
         fr: [
-          'Maîtrise avancée d\'Adobe Premiere Pro (montage dynamique, synchronisation multitrack, étalonnage colorimétrique Lumetri).',
-          'Compositing et animations sous After Effects (motion graphics, transitions cinématiques, titrage animé).',
-          'Sound design minutieux : spatialisation, mixage audio équilibré et habillage sonore immersif.',
+          'Montage et étalonnage sur Adobe Premiere Pro.',
+          'Animations graphiques et titrage sous After Effects.',
+          'Mixage et habillage sonore.',
         ],
         en: [
-          'Advanced proficiency in Adobe Premiere Pro (rapid cutting, multi-camera sync, Lumetri color grading).',
-          'Motion design and VFX compositing in After Effects (keyframe animation, kinetic typography, cinematic wipes).',
-          'Detailed sound design: audio spatialization, spectral cleaning, and immersive background scoring.',
+          'Editing and color grading in Adobe Premiere Pro.',
+          'Motion graphics and kinetic typography in After Effects.',
+          'Audio mixing and sound design.',
         ],
       },
     },

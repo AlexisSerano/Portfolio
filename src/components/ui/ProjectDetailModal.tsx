@@ -188,7 +188,7 @@ export default function ProjectDetailModal({
               <Briefcase className="w-4 h-4 text-[#D4A843] mt-0.5 shrink-0" />
               <div>
                 <span className="text-xs text-[#64748B] block uppercase tracking-wider font-mono">
-                  {t('Rôle / Responsabilité', 'Role / Responsibility')}
+                  {t('Rôle', 'Role')}
                 </span>
                 <span className="text-xs sm:text-sm text-[#F8FAFC] font-medium">
                   {role}
@@ -199,7 +199,7 @@ export default function ProjectDetailModal({
               <Calendar className="w-4 h-4 text-[#D4A843] mt-0.5 shrink-0" />
               <div>
                 <span className="text-xs text-[#64748B] block uppercase tracking-wider font-mono">
-                  {t('Période & Cadre', 'Period & Timeline')}
+                  {t('Période', 'Period')}
                 </span>
                 <span className="text-xs sm:text-sm text-[#F8FAFC] font-medium">
                   {duration}
@@ -211,7 +211,7 @@ export default function ProjectDetailModal({
           {/* Context Section */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#D4A843] mb-2">
-              {t('// Contexte & Enjeux', '// Context & Challenge')}
+              {t('// Contexte', '// Context')}
             </h3>
             <p className="text-sm text-[#CBD5E1] leading-relaxed">
               {context}
@@ -221,7 +221,7 @@ export default function ProjectDetailModal({
           {/* Key Highlights / Achievements */}
           <div>
             <h3 className="text-xs font-mono uppercase tracking-[0.2em] text-[#D4A843] mb-3">
-              {t('// Réalisations Clés & Architecture', '// Key Highlights & Architecture')}
+              {t('// Ce qui a été développé', '// What was built')}
             </h3>
             <ul className="space-y-2.5">
               {highlights.map((item, i) => (
@@ -239,7 +239,7 @@ export default function ProjectDetailModal({
               <Award className="w-5 h-5 text-[#D4A843] mt-0.5 shrink-0" />
               <div>
                 <span className="text-xs font-semibold text-[#F5D785] block mb-1 font-mono">
-                  {t('Valeur & Impact Technique', 'Technical Impact & Takeaway')}
+                  {t("Ce que j'en retiens", 'Key takeaway')}
                 </span>
                 <p className="text-xs sm:text-sm text-[#E2E8F0] leading-relaxed">
                   {learnings}

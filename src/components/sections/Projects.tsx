@@ -325,7 +325,7 @@ export default function Projects() {
                         className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4A843] hover:bg-[#F5D785] text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] cursor-pointer"
                       >
                         <Eye className="w-4 h-4" />
-                        <span>{t('Fiche technique complète', 'View project details')}</span>
+                        <span>{t('Voir le projet', 'View project')}</span>
                       </button>
 
                       <div className="flex items-center gap-2">
@@ -524,7 +524,7 @@ export default function Projects() {
 
                       <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between text-xs">
                         <span className="text-[#94A3B8] group-hover:text-[#D4A843] font-medium transition-colors">
-                          {t('Fiche technique →', 'Breakdown →')}
+                          {t('Voir le projet →', 'View project →')}
                         </span>
                         <span className={cn('text-[9px] uppercase font-mono px-2 py-0.5 rounded border', status.color)}>
                           {lang === 'fr' ? status.label.fr : status.label.en}

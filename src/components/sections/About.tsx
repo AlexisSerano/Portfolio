@@ -216,39 +216,35 @@ export default function About() {
 
         {/* Right Column: Narrative Biography & Philosophy (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="about-fade space-y-4 text-sm text-[#94A3B8] leading-relaxed">
+          <div className="about-fade space-y-3.5 text-sm text-[#94A3B8] leading-relaxed">
             <p>
               {t(
-                "Étudiant en 3ème année de BUT Informatique à l'IUT2 de Grenoble et alternant chez Carrier Culoz SA, je conçois des logiciels robustes à l'intersection du développement moderne, des systèmes distribués et de l'embarqué temps réel.",
-                "Currently in my 3rd year of Computer Science at IUT2 Grenoble and apprentice at Carrier Culoz SA, I build resilient software across modern web systems, distributed infra, and real-time embedded programming."
+                "En 3e année de BUT Informatique à Grenoble et en alternance chez Carrier Culoz, je développe du logiciel : web full-stack, infrastructure Linux et embarqué.",
+                "3rd-year CS student at IUT2 Grenoble and apprentice at Carrier Culoz, I build software across full-stack web, Linux infra, and embedded systems."
               )}
             </p>
             <p>
               {t(
-                "Chez Carrier, je pilote la migration logicielle d'automates industriels de traitement d'air (plateforme propriétaire Carrel vers STone en Langage ST). Auparavant, mon stage au Centre Hospitalier Alpes-Isère m'a permis d'automatiser l'infrastructure sous PowerShell et de déployer des clusters conteneurisés Kubernetes en haute disponibilité pour plus de 1800 utilisateurs.",
-                "At Carrier, I drive the embedded software migration of industrial air handling PLCs from legacy Carrel to modern STone in Structured Text. Previously at Alps-Isère Hospital Center, I automated infrastructure with PowerShell and deployed high-availability Kubernetes clusters supporting 1,800+ users."
+                "Chez Carrier, je migre le logiciel d'automates industriels en langage ST. Lors de mon stage au Centre Hospitalier Alpes-Isère, j'ai automatisé des tâches sous PowerShell et mis en place des clusters Kubernetes pour 1 800 utilisateurs.",
+                "At Carrier, I migrate industrial PLC software in Structured Text. During my internship at CHAI hospital, I automated tasks with PowerShell and set up Kubernetes clusters for 1,800 users."
               )}
             </p>
             <p>
               {t(
-                "En parallèle, je développe des projets SaaS complets comme Algofy (trading algorithmique sur Hyperliquid DEX avec daemons Linux 24/7 et paiements Stripe) et LifeOS (dashboard personnel unifié avec backend asynchrone FastAPI).",
-                "Concurrently, I engineer full-lifecycle SaaS platforms such as Algofy (algorithmic trading on Hyperliquid DEX with 24/7 Linux daemons and Stripe billing) and LifeOS (personal unified dashboard powered by async FastAPI)."
+                "Sur mon temps libre, je développe mes propres projets comme Algofy (trading automatisé sur Hyperliquid) et LifeOS (dashboard personnel avec FastAPI et React).",
+                "On my own time, I build projects like Algofy (automated trading on Hyperliquid) and LifeOS (personal dashboard with FastAPI and React)."
               )}
             </p>
           </div>
 
-          {/* Key Engineering Pillars */}
-          <div className="about-fade pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              t('Architecture & Code propre', 'Clean Architecture'),
-              t('Fiabilité & Automatisation', 'Reliability & Automation'),
-              t('Performance temps réel', 'Real-time Performance'),
-            ].map((pillar, i) => (
-              <div key={i} className="flex items-center gap-2 text-xs text-[#CBD5E1] font-mono">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#D4A843] shrink-0" />
-                <span>{pillar}</span>
-              </div>
-            ))}
+          <div className="about-fade pt-2 text-xs text-[#CBD5E1] font-mono flex items-center gap-2">
+            <span className="text-[#D4A843]">❯</span>
+            <span>
+              {t(
+                "Ce qui me motive : comprendre ce qui tourne sous le capot et automatiser tout ce qui peut l'être.",
+                "What drives me: understanding what happens under the hood and automating everything."
+              )}
+            </span>
           </div>
 
           {/* Interests without emojis, using clean Lucide icons */}

@@ -78,12 +78,12 @@ export default function Terminal() {
   - Email  : <a href="mailto:alexis.seranoo@gmail.com" class="text-[#4A9ECA] hover:underline">alexis.seranoo@gmail.com</a>
   - GitHub : <a href="https://github.com/AlexisSerano" target="_blank" class="text-[#4A9ECA] hover:underline">github.com/AlexisSerano</a>
   - Status : ${t('En alternance chez Carrier Culoz SA', 'Apprenticeship at Carrier Culoz SA')}`,
-    hire: `<span class="text-[#D4A843]">[SECRET] ${t('Vous avez trouvé la commande secrète !', 'You found the secret command!')}</span>
+    hire: `<span class="text-[#D4A843]">[SECRET] ${t('Bien joué, vous avez trouvé la commande secrète !', 'Nice, you found the secret command!')}</span>
 
-  ${t('Si vous êtes recruteur, vous savez déjà que je suis le bon candidat.', 'If you\'re a recruiter, you already know I\'m the right fit.')}
+  ${t('À la recherche d\'un profil motivé pour une opportunité ou un projet ?', 'Looking for a motivated dev for an opportunity or a project?')}
   
   Email: <a href="mailto:alexis.seranoo@gmail.com" class="text-[#4A9ECA] hover:underline">alexis.seranoo@gmail.com</a>
-  ${t('Construisons quelque chose de grand ensemble.', 'Let\'s build something great together.')}`,
+  ${t('Je réponds généralement en moins de 24h.', 'I usually reply within 24 hours.')}`,
     whoami: 'visitor@portfolio: guest [privileges: read-only]',
     sudo: `<span class="text-[#D4A843]">${t('Permission refusée : Alexis est le seul administrateur ici !', 'Permission denied: Alexis is the only root admin here!')}</span>`,
   }

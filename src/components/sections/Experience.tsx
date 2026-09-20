@@ -181,7 +181,7 @@ export default function Experience() {
                           onClick={() => handleOpenProjectModal(exp.projectSlug!)}
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4A843] hover:text-[#F5D785] transition-colors cursor-pointer group/btn"
                         >
-                          <span>{t('Consulter la fiche technique du projet', 'View technical project details')}</span>
+                          <span>{t('Voir le projet associé', 'View associated project')}</span>
                           <span className="transition-transform group-hover/btn:translate-x-1">→</span>
                         </button>
                       </div>

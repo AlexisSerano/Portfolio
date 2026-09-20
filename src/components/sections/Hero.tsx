@@ -20,15 +20,15 @@ if (typeof window !== 'undefined') {
 const typewriterPhrases = {
   fr: [
     'Développeur Full-Stack & DevOps',
-    'Étudiant en 3ème année BUT Informatique',
-    'Alternant @ Carrier Culoz SA',
-    'Créateur de systèmes autonomes',
+    'Alternant chez Carrier Culoz',
+    'Étudiant en BUT Informatique',
+    'Trading algorithmique & backend',
   ],
   en: [
     'Full-Stack & DevOps Developer',
-    '3rd Year Computer Science Student',
-    'Apprentice @ Carrier Culoz SA',
-    'Builder of Autonomous Systems',
+    'Apprentice at Carrier Culoz',
+    'Computer Science Student',
+    'Algorithmic trading & backend',
   ],
 }
 
