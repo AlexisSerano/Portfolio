@@ -1,9 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
+import { useCallback, useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import { useLanguage } from '@/context/LanguageContext'
 import { type Project } from '@/data/projects'
-import { assetPath } from '@/lib/asset'
 import ProjectMockup from '@/components/ui/ProjectMockup'
 import TechIcon from '@/components/ui/TechIcon'
 import { X, ExternalLink, Calendar, Briefcase, CheckCircle2, ChevronLeft, ChevronRight, Award } from 'lucide-react'
@@ -20,6 +19,7 @@ interface ProjectDetailModalProps {
   onNavigate?: (direction: 'prev' | 'next') => void
   hasPrev?: boolean
   hasNext?: boolean
+  transitionDirection?: 'prev' | 'next'
 }
 
 export default function ProjectDetailModal({
@@ -28,25 +28,60 @@ export default function ProjectDetailModal({
   onNavigate,
   hasPrev = false,
   hasNext = false,
+  transitionDirection = 'next',
 }: ProjectDetailModalProps) {
   const { lang, t } = useLanguage()
-  const [mounted, setMounted] = useState(false)
+  const isOpen = project !== null
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const backdropRef = useRef<HTMLDivElement>(null)
+  const bannerRef = useRef<HTMLDivElement>(null)
+  const bodyRef = useRef<HTMLDivElement>(null)
+  const isClosingRef = useRef(false)
+  const previousSlugRef = useRef(project?.slug)
+  const onCloseRef = useRef(onClose)
+  const onNavigateRef = useRef(onNavigate)
+  const navigationRef = useRef({ hasPrev, hasNext })
+  const projectSlug = project?.slug
 
   useEffect(() => {
-    setMounted(true)
+    onCloseRef.current = onClose
+    onNavigateRef.current = onNavigate
+    navigationRef.current = { hasPrev, hasNext }
+  }, [onClose, onNavigate, hasPrev, hasNext])
+
+  const closeModal = useCallback(() => {
+    if (isClosingRef.current) return
+    isClosingRef.current = true
+
+    const dialog = dialogRef.current
+    const backdrop = backdropRef.current
+    if (!dialog || !backdrop || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      onCloseRef.current()
+      return
+    }
+
+    const timeline = gsap.timeline({ onComplete: () => onCloseRef.current() })
+    timeline.to(dialog, {
+      opacity: 0,
+      y: 14,
+      scale: 0.985,
+      filter: 'blur(3px)',
+      duration: 0.22,
+      ease: 'power2.in',
+    }, 0)
+    timeline.to(backdrop, { opacity: 0, duration: 0.22, ease: 'power2.in' }, 0)
   }, [])
 
   useEffect(() => {
-    if (!project) return
+    if (!isOpen) return
 
-    // Notify smooth scroll to lock background
     window.dispatchEvent(new CustomEvent('portfolio-modal-toggle', { detail: { isOpen: true } }))
     document.body.style.overflow = 'hidden'
 
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowLeft' && onNavigate && hasPrev) onNavigate('prev')
-      if (e.key === 'ArrowRight' && onNavigate && hasNext) onNavigate('next')
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeModal()
+      if (event.key === 'ArrowLeft' && navigationRef.current.hasPrev) onNavigateRef.current?.('prev')
+      if (event.key === 'ArrowRight' && navigationRef.current.hasNext) onNavigateRef.current?.('next')
     }
 
     window.addEventListener('keydown', onKeyDown)
@@ -56,9 +91,42 @@ export default function ProjectDetailModal({
       document.body.style.overflow = ''
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [project, onClose, onNavigate, hasPrev, hasNext])
+  }, [isOpen, closeModal])
 
-  if (!project || !mounted) return null
+  useEffect(() => {
+    if (!isOpen) isClosingRef.current = false
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!projectSlug) return
+    if (previousSlugRef.current === projectSlug) return
+
+    previousSlugRef.current = projectSlug
+    isClosingRef.current = false
+
+    const direction = transitionDirection === 'next' ? 1 : -1
+    const elements = [bannerRef.current, bodyRef.current].filter(
+      (element): element is HTMLDivElement => element !== null
+    )
+    const context = gsap.context(() => {
+      gsap.fromTo(elements,
+        { opacity: 0.45, x: direction * 22, filter: 'blur(3px)' },
+        {
+          opacity: 1,
+          x: 0,
+          filter: 'blur(0px)',
+          duration: 0.38,
+          stagger: 0.045,
+          ease: 'power3.out',
+          clearProps: 'filter',
+        }
+      )
+    })
+
+    return () => context.revert()
+  }, [projectSlug, transitionDirection])
+
+  if (!project) return null
 
   const isFr = lang === 'fr'
   const title = isFr ? project.title.fr : project.title.en
@@ -80,13 +148,18 @@ export default function ProjectDetailModal({
     >
       {/* Subtle Backdrop - gentle blur, deep luxury dark */}
       <div
+        ref={backdropRef}
         className="fixed inset-0 bg-black/70 backdrop-blur-[4px] transition-opacity duration-300"
-        onClick={onClose}
+        onClick={closeModal}
       />
 
       {/* Modal Dialog with smooth entrance */}
       <div
+        ref={dialogRef}
         data-lenis-prevent="true"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="project-dialog-title"
         className="relative w-full max-w-3xl max-h-[90vh] flex flex-col bg-[#10141F] border border-[rgba(212,168,67,0.3)] rounded-2xl shadow-[0_25px_70px_rgba(0,0,0,0.85)] overflow-hidden z-10 animate-modal-in"
         onClick={(e) => e.stopPropagation()}
       >
@@ -98,7 +171,7 @@ export default function ProjectDetailModal({
                 onClick={() => onNavigate('prev')}
                 disabled={!hasPrev}
                 aria-label="Projet précédent"
-                className="p-1.5 rounded-full text-[#94A3B8] hover:text-[#D4A843] hover:bg-white/5 disabled:opacity-25 disabled:pointer-events-none transition-colors cursor-pointer"
+                className="p-1.5 rounded-full text-[#94A3B8] hover:text-[#D4A843] hover:bg-white/5 hover:-translate-x-0.5 disabled:opacity-25 disabled:pointer-events-none transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -106,7 +179,7 @@ export default function ProjectDetailModal({
                 onClick={() => onNavigate('next')}
                 disabled={!hasNext}
                 aria-label="Projet suivant"
-                className="p-1.5 rounded-full text-[#94A3B8] hover:text-[#D4A843] hover:bg-white/5 disabled:opacity-25 disabled:pointer-events-none transition-colors cursor-pointer"
+                className="p-1.5 rounded-full text-[#94A3B8] hover:text-[#D4A843] hover:bg-white/5 hover:translate-x-0.5 disabled:opacity-25 disabled:pointer-events-none transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -114,21 +187,20 @@ export default function ProjectDetailModal({
           )}
 
           <button
-            onClick={onClose}
+            onClick={closeModal}
             aria-label="Fermer la fenêtre"
-            className="p-2 rounded-full bg-[#050505]/80 backdrop-blur-md border border-white/10 text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#D4A843] transition-all cursor-pointer shadow-md"
+            className="p-2 rounded-full bg-[#050505]/80 backdrop-blur-md border border-white/10 text-[#94A3B8] hover:text-[#F8FAFC] hover:border-[#D4A843] hover:rotate-90 hover:scale-105 transition-all duration-300 cursor-pointer shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Banner Preview */}
-        <div className="relative aspect-[21/9] w-full bg-[#07090F] overflow-hidden border-b border-white/10 shrink-0">
+        <div ref={bannerRef} className="relative aspect-[21/9] w-full bg-[#07090F] overflow-hidden border-b border-white/10 shrink-0">
           <ProjectMockup
             slug={project.slug}
             title={title}
             imageSrc={project.image}
-            priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#10141F] via-transparent to-black/30 pointer-events-none" />
 
@@ -169,12 +241,13 @@ export default function ProjectDetailModal({
 
         {/* Modal Scrollable Body - receives direct wheel events */}
         <div
+          ref={bodyRef}
           data-lenis-prevent="true"
           className="p-6 sm:p-8 overflow-y-auto flex-1 space-y-6 scroll-smooth overscroll-contain"
         >
           {/* Title & Short Description */}
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] tracking-tight mb-2">
+            <h2 id="project-dialog-title" className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] tracking-tight mb-2">
               {title}
             </h2>
             <p className="text-sm sm:text-base text-[#94A3B8] leading-relaxed">
@@ -268,14 +341,14 @@ export default function ProjectDetailModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="p-4 sm:p-6 bg-[#050505] border-t border-white/10 flex flex-wrap items-center justify-between gap-4 shrink-0">
-          <div className="flex items-center gap-3">
+        <div className="relative flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.08] bg-gradient-to-r from-[#141821] via-[#10141F] to-[#141821] px-4 py-4 sm:px-6 shrink-0 before:absolute before:inset-x-8 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-[#D4A843]/35 before:to-transparent">
+          <div className="flex flex-wrap items-center gap-2.5">
             {project.links.live && (
               <a
                 href={project.links.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4A843] text-[#050505] text-xs sm:text-sm font-semibold hover:shadow-[0_0_25px_rgba(212,168,67,0.4)] transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4A843] text-[#050505] text-xs sm:text-sm font-semibold hover:-translate-y-0.5 hover:bg-[#F5D785] hover:shadow-[0_0_25px_rgba(212,168,67,0.4)] active:translate-y-0 transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5D785]"
               >
                 <span>{t('Accéder au projet en ligne', 'View Live Project')}</span>
                 <ExternalLink className="w-4 h-4" />
@@ -287,7 +360,7 @@ export default function ProjectDetailModal({
                 href={project.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-[#F8FAFC] hover:border-[#D4A843] hover:text-[#D4A843] text-xs sm:text-sm font-medium transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/15 text-[#F8FAFC] hover:-translate-y-0.5 hover:border-[#D4A843] hover:bg-white/[0.03] hover:text-[#D4A843] active:translate-y-0 text-xs sm:text-sm font-medium transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
               >
                 <GithubIcon className="w-4 h-4" />
                 <span>{t('Code Source GitHub', 'GitHub Repository')}</span>
@@ -296,9 +369,10 @@ export default function ProjectDetailModal({
           </div>
 
           <button
-            onClick={onClose}
-            className="text-xs text-[#64748B] hover:text-[#94A3B8] font-mono px-4 py-2 transition-colors ml-auto cursor-pointer"
+            onClick={closeModal}
+            className="group inline-flex items-center gap-2 rounded-full border border-white/[0.08] px-3.5 py-2 text-xs text-[#94A3B8] hover:border-[#D4A843]/40 hover:bg-white/[0.03] hover:text-[#F8FAFC] font-mono transition-all ml-auto cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
           >
+            <X className="h-3.5 w-3.5 text-[#D4A843] transition-transform duration-300 group-hover:rotate-90" />
             {t('Fermer [Échap]', 'Close [Esc]')}
           </button>
         </div>

@@ -31,12 +31,23 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    if (!mobileOpen) return
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileOpen(false)
+    }
+
+    window.addEventListener('keydown', closeOnEscape)
+    return () => window.removeEventListener('keydown', closeOnEscape)
+  }, [mobileOpen])
+
   const scrollTo = (id: string) => {
     setMobileOpen(false)
     const el = document.getElementById(id)
     if (el) {
-      if ((window as any).lenis) {
-        ;(window as any).lenis.scrollTo(el, { duration: 1.2 })
+      if (window.portfolioLenis) {
+        window.portfolioLenis.scrollTo(el, { duration: 1.2 })
       } else {
         el.scrollIntoView({ behavior: 'smooth' })
       }
@@ -45,8 +56,8 @@ export default function Navbar() {
 
   const handleScrollTop = (e: React.MouseEvent) => {
     e.preventDefault()
-    if ((window as any).lenis) {
-      ;(window as any).lenis.scrollTo(0, { duration: 1.2 })
+    if (window.portfolioLenis) {
+      window.portfolioLenis.scrollTo(0, { duration: 1.2 })
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -76,7 +87,7 @@ export default function Navbar() {
               <button
                 key={link.id}
                 onClick={() => scrollTo(link.id)}
-                className="text-sm text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors relative group"
+                className="text-sm text-[#A3A3A3] hover:text-[#F5F5F5] transition-colors relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
                 data-cursor
               >
                 {lang === 'fr' ? link.fr : link.en}
@@ -88,7 +99,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-4">
             <button
               onClick={toggleLang}
-              className="text-xs font-mono text-[#6B6B6B] hover:text-[#D4A843] transition-colors px-3 py-1 rounded-full border border-[rgba(255,255,255,0.06)] hover:border-[rgba(212,168,67,0.3)]"
+              className="text-xs font-mono text-[#6B6B6B] hover:text-[#D4A843] transition-colors px-3 py-1 rounded-full border border-[rgba(255,255,255,0.06)] hover:border-[rgba(212,168,67,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
               data-cursor
             >
               {lang === 'fr' ? 'EN' : 'FR'}
@@ -97,6 +108,7 @@ export default function Navbar() {
             <MagneticButton
               href={assetPath('/images/Alexis_serano.pdf')}
               target="_blank"
+              rel="noopener noreferrer"
               className="text-sm font-semibold px-5 py-2 rounded-full bg-[#D4A843] text-[#050505] hover:shadow-[0_0_30px_rgba(212,168,67,0.3)] transition-shadow"
             >
               {t('Mon CV', 'My Resume')}
@@ -107,6 +119,8 @@ export default function Navbar() {
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
           >
             <span className={cn('w-6 h-[1.5px] bg-[#F5F5F5] transition-all duration-300 origin-center', mobileOpen && 'rotate-45 translate-y-[7.5px]')} />
             <span className={cn('w-6 h-[1.5px] bg-[#F5F5F5] transition-all duration-300', mobileOpen && 'opacity-0')} />
@@ -116,6 +130,9 @@ export default function Navbar() {
       </header>
 
       <div
+        id="mobile-navigation"
+        aria-hidden={!mobileOpen}
+        inert={!mobileOpen}
         className={cn(
           'fixed inset-0 z-40 bg-[#050505]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-8 transition-all duration-500',
           mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'

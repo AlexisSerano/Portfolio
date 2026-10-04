@@ -48,9 +48,9 @@ export default function Terminal() {
     skills: `<span class="text-[#D4A843]">Stack Technique :</span>
   - Embedded : Langage ST, Automates, C/C++
   - Web      : React, Next.js, TypeScript, PHP, Symfony, Node.js
-  - Software : Java, JavaFX, C#, .NET, Python, FastAPI, Django
+  - Software : Java, JavaFX, C#, Python, Django
   - DevOps   : Docker, Kubernetes, PowerShell, Nginx, Linux
-  - Data     : PostgreSQL, MySQL, MariaDB, SQLite, Redis
+  - Data     : PostgreSQL, MySQL, SQLite
   - Creative : Adobe Premiere Pro, After Effects, Photoshop`,
     projects: `<span class="text-[#D4A843]">${t('Projets Clés', 'Key Projects')} :</span>
   0. <span class="text-emerald-400">❯</span> Carrier Culoz SA (Automates, Langage ST)

@@ -38,12 +38,12 @@ export default function MagneticButton({
     gsap.to(ref.current, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.5)' })
   }
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (href && href.startsWith('#')) {
       e.preventDefault()
-      const target = document.querySelector(href)
+      const target = document.querySelector<HTMLElement>(href)
       if (target) {
-        const lenis = (window as any).lenis
+        const lenis = window.portfolioLenis
         if (lenis) {
           lenis.scrollTo(target, { duration: 1.3, offset: -30 })
         } else {
@@ -54,19 +54,37 @@ export default function MagneticButton({
     onClick?.()
   }
 
-  const Tag = href ? 'a' : 'button'
-  const props = href ? { href, target, rel, onClick: handleClick } : { onClick: handleClick }
+  const commonClassName = cn('inline-block', className)
+
+  if (href) {
+    return (
+      <a
+        ref={(element) => { ref.current = element }}
+        href={href}
+        target={target}
+        rel={rel}
+        onClick={handleClick}
+        className={commonClassName}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        data-cursor
+      >
+        {children}
+      </a>
+    )
+  }
 
   return (
-    <Tag
-      {...(props as any)}
-      ref={ref as any}
-      className={cn('inline-block', className)}
+    <button
+      ref={(element) => { ref.current = element }}
+      type="button"
+      onClick={handleClick}
+      className={commonClassName}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       data-cursor
     >
       {children}
-    </Tag>
+    </button>
   )
 }

@@ -20,7 +20,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     })
 
     lenisRef.current = lenis
-    ;(window as any).lenis = lenis
+    window.portfolioLenis = lenis
     lenis.on('scroll', ScrollTrigger.update)
 
     const updateRaf = (time: number) => {
@@ -31,10 +31,13 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     gsap.ticker.lagSmoothing(0)
 
     // Listen for modal state changes to pause/resume background smooth scroll
-    const handleModalToggle = (e: any) => {
-      if (e.detail?.isOpen) {
+    const handleModalToggle = (event: Event) => {
+      if (!(event instanceof CustomEvent)) return
+      const detail: unknown = event.detail
+      if (typeof detail !== 'object' || detail === null || !('isOpen' in detail)) return
+      if (detail?.isOpen === true) {
         lenis.stop()
-      } else {
+      } else if (detail?.isOpen === false) {
         lenis.start()
       }
     }
@@ -45,7 +48,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       window.removeEventListener('portfolio-modal-toggle', handleModalToggle)
       gsap.ticker.remove(updateRaf)
       lenis.destroy()
-      delete (window as any).lenis
+      delete window.portfolioLenis
     }
   }, [])
 

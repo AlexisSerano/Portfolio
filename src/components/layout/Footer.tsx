@@ -1,10 +1,9 @@
 'use client'
-import { Heart } from 'lucide-react'
 import { useLanguage } from '@/context/LanguageContext'
 import { assetPath } from '@/lib/asset'
 
 export default function Footer() {
-  const { lang, t } = useLanguage()
+  const { t } = useLanguage()
 
   const navItems = [
     { label: t('À propos', 'About'), href: '#about' },
@@ -20,8 +19,8 @@ export default function Footer() {
     const id = href.replace('#', '')
     const el = document.getElementById(id)
     if (el) {
-      if ((window as any).lenis) {
-        ;(window as any).lenis.scrollTo(el, { duration: 1.2 })
+      if (window.portfolioLenis) {
+        window.portfolioLenis.scrollTo(el, { duration: 1.2 })
       } else {
         el.scrollIntoView({ behavior: 'smooth' })
       }
@@ -30,8 +29,8 @@ export default function Footer() {
 
   const handleScrollTop = (e: React.MouseEvent) => {
     e.preventDefault()
-    if ((window as any).lenis) {
-      ;(window as any).lenis.scrollTo(0, { duration: 1.2 })
+    if (window.portfolioLenis) {
+      window.portfolioLenis.scrollTo(0, { duration: 1.2 })
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -45,7 +44,7 @@ export default function Footer() {
             <a
               href="#hero"
               onClick={handleScrollTop}
-              className="text-gradient-gold font-bold text-2xl tracking-tight cursor-pointer inline-block"
+              className="text-gradient-gold font-bold text-2xl tracking-tight cursor-pointer inline-block transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
             >
               A.S
             </a>
@@ -67,7 +66,7 @@ export default function Footer() {
                   <a
                     href={item.href}
                     onClick={(e) => handleScrollTo(e, item.href)}
-                    className="text-sm text-[#A3A3A3] hover:text-[#D4A843] transition-colors cursor-pointer"
+                    className="text-sm text-[#A3A3A3] hover:text-[#D4A843] transition-all hover:translate-x-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
                   >
                     {item.label}
                   </a>
@@ -103,7 +102,8 @@ export default function Footer() {
                 <a
                   href={assetPath('/images/Alexis_serano.pdf')}
                   target="_blank"
-                  className="text-sm text-[#A3A3A3] hover:text-[#D4A843] transition-colors"
+                  rel="noopener noreferrer"
+                  className="text-sm text-[#A3A3A3] hover:text-[#D4A843] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
                 >
                   {t('Curriculum Vitae (PDF)', 'Resume / CV (PDF)')}
                 </a>

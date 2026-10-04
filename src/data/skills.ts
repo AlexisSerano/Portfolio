@@ -10,19 +10,19 @@ export const skillCategories: SkillCategory[] = [
   },
   {
     title: { fr: 'Frontend', en: 'Frontend' },
-    techs: ['React', 'Next.js', 'Tailwind CSS', 'HTML5 / CSS3', 'GSAP', 'Framer Motion'],
+    techs: ['React', 'Next.js', 'Tailwind CSS', 'HTML5 / CSS3'],
   },
   {
     title: { fr: 'Backend', en: 'Backend' },
-    techs: ['FastAPI', 'Django REST', 'Symfony', 'Node.js', '.NET', 'JavaFX'],
+    techs: ['Django REST', 'Symfony', 'Node.js', 'JavaFX'],
   },
   {
     title: { fr: 'DevOps & Infra', en: 'DevOps & Infra' },
-    techs: ['Docker', 'Kubernetes', 'Linux', 'Nginx', 'PowerShell', 'Git', 'GitHub Actions'],
+    techs: ['Docker', 'Kubernetes', 'Linux', 'Nginx', 'PowerShell', 'Git'],
   },
   {
     title: { fr: 'Données', en: 'Data' },
-    techs: ['PostgreSQL', 'MySQL', 'MariaDB', 'SQLite', 'Redis'],
+    techs: ['PostgreSQL', 'MySQL', 'SQLite'],
   },
   {
     title: { fr: 'Outils', en: 'Tools' },
@@ -31,8 +31,8 @@ export const skillCategories: SkillCategory[] = [
 ]
 
 export const allTechMarquee = [
-  'React', 'Next.js', 'TypeScript', 'Python', 'FastAPI', 'Django',
-  'Docker', 'Kubernetes', 'PostgreSQL', 'Redis', 'Linux',
+  'React', 'Next.js', 'TypeScript', 'Python', 'Django',
+  'Docker', 'Kubernetes', 'PostgreSQL', 'Linux',
   'PowerShell', 'Java', 'Symfony', 'PHP', 'C#', 'C/C++',
-  'Langage ST', 'Git', 'Nginx', 'Tailwind', 'GSAP',
+  'Langage ST', 'Git', 'Nginx', 'Tailwind',
 ]

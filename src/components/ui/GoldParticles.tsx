@@ -34,7 +34,7 @@ export default function GoldParticles() {
     let animationFrameId: number
     let width = (canvas.width = window.innerWidth)
     let height = (canvas.height = window.innerHeight)
-    let mouse = { x: -1000, y: -1000, active: false }
+    const mouse = { x: -1000, y: -1000, active: false }
 
     const isMobile = width < 768
     const particleCount = isMobile ? 32 : 55
