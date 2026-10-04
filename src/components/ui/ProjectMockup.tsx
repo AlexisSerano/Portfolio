@@ -1,25 +1,64 @@
 'use client'
-import React from 'react'
+import { Activity, ShieldCheck, Terminal, Cpu, Server, LineChart, CheckCircle2 } from 'lucide-react'
 import Image from 'next/image'
 import { assetPath } from '@/lib/asset'
-import { Activity, ShieldCheck, Terminal, Cpu, Database, Server, LineChart, CheckCircle2 } from 'lucide-react'
 
 interface ProjectMockupProps {
   slug: string
   title: string
   imageSrc?: string
-  priority?: boolean
   className?: string
 }
 
-export default function ProjectMockup({ slug, title, imageSrc, priority = false, className = '' }: ProjectMockupProps) {
-  // If a real screenshot exists that isn't just a generic logo, we can use it with fallback or render dedicated mockups
+function ProjectImagePlaceholder({ title, className = '' }: Pick<ProjectMockupProps, 'title' | 'className'>) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`relative h-full w-full overflow-hidden border border-white/[0.06] bg-[#080B11] ${className}`}
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_45%,rgba(212,168,67,0.16),transparent_52%)]" />
+      <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] [background-size:32px_32px]" />
+      <div className="absolute left-1/2 top-[44%] aspect-square w-36 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#D4A843]/15 shadow-[0_0_80px_rgba(212,168,67,0.08)] sm:w-48">
+        <div className="absolute inset-3 rounded-full border border-dashed border-[#D4A843]/20 motion-safe:animate-[spin_36s_linear_infinite]" />
+        <div className="absolute inset-8 rounded-full border border-white/[0.08]" />
+        <div className="absolute inset-[38%] rounded-full bg-gradient-to-br from-[#F5D785]/70 to-[#A3845B]/20 shadow-[0_0_35px_rgba(212,168,67,0.32)]" />
+      </div>
+      <div className="absolute bottom-[27%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4A843]/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#080B11] via-[#080B11]/90 to-transparent p-4 pt-10 sm:p-6 sm:pt-12">
+        <h4 className="truncate text-sm font-semibold text-[#F8FAFC]">{title}</h4>
+        <p className="mt-1 text-xs font-mono text-[#64748B]">Application logicielle</p>
+      </div>
+    </div>
+  )
+}
+
+export default function ProjectMockup({ slug, title, imageSrc, className = '' }: ProjectMockupProps) {
+  const hasProjectImage = imageSrc !== undefined && !imageSrc.startsWith('IMAGE_PLACEHOLDER:')
+
+  if (hasProjectImage) {
+    return (
+      <div className={`group/project-image relative h-full w-full overflow-hidden bg-[#080B11] ${className}`}>
+        <Image
+          src={assetPath(imageSrc)}
+          alt=""
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-transform duration-700 ease-out group-hover/project-image:scale-105"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05070C]/55 via-transparent to-[#05070C]/10" />
+      </div>
+    )
+  }
+
+  if (imageSrc?.startsWith('IMAGE_PLACEHOLDER:')) {
+    return <ProjectImagePlaceholder title={title} className={className} />
+  }
+
   const isCarrier = slug === 'alternance-carrier'
   const isStageCHAI = slug === 'stage-chai'
   const isAlgofy = slug === 'algofy'
   const isLifeOS = slug === 'lifeos'
   const isChatenger = slug === 'chatenger'
-  const isChronia = slug === 'chronia'
 
   // Algofy: Trading SaaS Platform UI Mockup
   if (isAlgofy) {
@@ -149,7 +188,7 @@ export default function ProjectMockup({ slug, title, imageSrc, priority = false,
                   <span className="text-[8px] text-emerald-400 block mt-0.5">CONSIGNE: 21.0 °C</span>
                 </div>
                 <div className="p-2 rounded bg-black/40 border border-white/5">
-                  <span className="text-[9px] text-[#94A3B8] block">DÉBIT D'AIR</span>
+                  <span className="text-[9px] text-[#94A3B8] block">DÉBIT D&apos;AIR</span>
                   <span className="text-base font-bold text-white">4 850 m³/h</span>
                   <span className="text-[8px] text-emerald-400 block mt-0.5">VANNE: 64%</span>
                 </div>
@@ -169,7 +208,7 @@ export default function ProjectMockup({ slug, title, imageSrc, priority = false,
                 </div>
                 <div className="flex items-center gap-1.5 text-emerald-400">
                   <CheckCircle2 className="w-3 h-3 shrink-0" />
-                  <span>Validation sur banc d'essai industriel</span>
+                  <span>Validation sur banc d&apos;essai industriel</span>
                 </div>
               </div>
             </div>
@@ -244,7 +283,7 @@ export default function ProjectMockup({ slug, title, imageSrc, priority = false,
               <span className="text-emerald-400">Automatisation (-70% temps)</span>
             </div>
             <div className="space-y-1 text-[9px] text-[#94A3B8] font-mono">
-              <p className="text-sky-300">PS &gt; Invoke-HospitalUserSync -Domain "CHAI.LOCAL" -AuditReport</p>
+              <p className="text-sky-300">PS &gt; Invoke-HospitalUserSync -Domain &quot;CHAI.LOCAL&quot; -AuditReport</p>
               <p>&gt; Scan 1842 comptes médicaux... 100% vérifiés</p>
               <p>&gt; Rotation des certificats SSL/TLS Kubernetes effectuée</p>
               <p className="text-emerald-400">&gt; Cluster Status: HEALTHY [Control-Plane: OK, Workers: OK]</p>
@@ -353,31 +392,5 @@ export default function ProjectMockup({ slug, title, imageSrc, priority = false,
     )
   }
 
-  // Fallback: If image exists, display image nicely framed
-  if (imageSrc) {
-    return (
-      <div className={`relative w-full h-full bg-[#080808] overflow-hidden ${className}`}>
-        <Image
-          src={assetPath(imageSrc)}
-          alt={title}
-          fill
-          className="object-cover"
-          priority={priority}
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-black/30 to-transparent" />
-      </div>
-    )
-  }
-
-  // Generic clean developer window preview
-  return (
-    <div className={`relative w-full h-full bg-[#0A0A0A] border border-white/[0.06] flex items-center justify-center p-6 ${className}`}>
-      <div className="text-center">
-        <Terminal className="w-8 h-8 text-[#D4A843] mx-auto mb-2 opacity-80" />
-        <h4 className="text-sm font-semibold text-[#F8FAFC]">{title}</h4>
-        <p className="text-xs text-[#64748B] font-mono mt-1">Application logicielle</p>
-      </div>
-    </div>
-  )
+  return <ProjectImagePlaceholder title={title} className={className} />
 }

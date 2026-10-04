@@ -14,6 +14,7 @@ export interface Project {
   year: string
   status: 'production' | 'in-progress' | 'completed'
   featured: boolean
+  // Search IMAGE_PLACEHOLDER to replace project image paths.
   image: string
   tags: string[]
   links: {
@@ -38,7 +39,7 @@ export const projects: Project[] = [
     year: '2026-2027',
     status: 'in-progress',
     featured: true,
-    image: '/images/projects/carrier-card.svg',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/carrier-card.svg',
     tags: ['Langage ST', 'Automates Programmables', 'HVAC / CVC', 'STone', 'Carrel', 'Systèmes Embarqués'],
     links: {},
     details: {
@@ -88,7 +89,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'completed',
     featured: true,
-    image: '/images/projects/stage-chai.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/stage-chai.png',
     tags: ['PowerShell', 'Kubernetes', 'Docker', 'Active Directory', 'MariaDB', 'DevOps'],
     links: {},
     details: {
@@ -138,7 +139,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'production',
     featured: true,
-    image: '/images/projects/algofy.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/algofy.png',
     tags: ['Django REST', 'React/Vite', 'Docker', 'PostgreSQL', 'Hyperliquid API', 'Stripe', 'Telegram Bot', 'AES-256'],
     links: {},
     details: {
@@ -190,7 +191,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'in-progress',
     featured: true,
-    image: '/images/projects/lifeos.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/lifeos.png',
     tags: ['FastAPI', 'React/TypeScript', 'PostgreSQL', 'Redis', 'Celery', 'Docker'],
     links: {},
     details: {
@@ -240,7 +241,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'completed',
     featured: false,
-    image: '/images/projects/chronia.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/chronia.png',
     tags: ['PHP', 'SQL', 'JavaScript', 'HTML/CSS', 'Responsive Design'],
     links: {
       live: 'http://vps-e885b886.vps.ovh.net/chronia/',
@@ -286,7 +287,7 @@ export const projects: Project[] = [
     year: '2025',
     status: 'completed',
     featured: false,
-    image: '/images/projects/agence-voyages.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/agence-voyages.png',
     tags: ['Java', 'JavaFX', 'POO Avancée', 'JSON', 'IHM GUI', 'Design Patterns'],
     links: {},
     details: {
@@ -330,7 +331,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'completed',
     featured: false,
-    image: '/images/projects/refonte-mobile.jpg',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/refonte-mobile.jpg',
     tags: ['Android Studio', 'Java Mobile', 'Symfony PHP', 'API REST', 'Doctrine ORM'],
     links: {},
     details: {
@@ -374,7 +375,7 @@ export const projects: Project[] = [
     year: '2023',
     status: 'completed',
     featured: false,
-    image: '/images/projects/chatenger.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/chatenger.png',
     tags: ['PHP', 'MySQL', 'JavaScript', 'Sécurité Web', 'XSS/CSRF Shield'],
     links: {
       github: 'https://github.com/AlexisSerano/Chatenger/tree/main',
@@ -420,7 +421,7 @@ export const projects: Project[] = [
     year: '2022',
     status: 'completed',
     featured: false,
-    image: '/images/projects/modele-neurone.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/modele-neurone.png',
     tags: ['Python', 'TensorFlow', 'NumPy', 'Deep Learning', 'Calcul Matriciel'],
     links: {},
     details: {
@@ -451,98 +452,6 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'gestionnaire-taches-csharp',
-    title: {
-      fr: 'Gestionnaire de Tâches C#',
-      en: 'C# Task Manager',
-    },
-    description: {
-      fr: 'Application de bureau Windows en C# pour organiser ses tâches quotidiennes avec sauvegarde locale en JSON.',
-      en: 'Windows desktop task manager in C# .NET with local JSON persistence.',
-    },
-    category: 'personal',
-    year: '2022',
-    status: 'completed',
-    featured: false,
-    image: '/images/projects/gestionnaire-taches.png',
-    tags: ['C#', '.NET Framework', 'Windows Forms', 'JSON Serialization'],
-    links: {
-      github: 'https://github.com/AlexisSerano/Task-managerV1-ByKys3n',
-    },
-    details: {
-      role: {
-        fr: 'Projet personnel',
-        en: 'Personal Project',
-      },
-      duration: {
-        fr: '2022',
-        en: '2022',
-      },
-      context: {
-        fr: 'Petit utilitaire de bureau développé en C# Windows Forms pour gérer sa liste de tâches avec filtres par priorité.',
-        en: 'Small Windows Forms desktop utility developed in C# to manage daily tasks with priority filters.',
-      },
-      highlights: {
-        fr: [
-          'Interface Windows Forms avec raccourcis clavier.',
-          'Sauvegarde et chargement des tâches en JSON.',
-          'Filtres par statut et par niveau de priorité.',
-        ],
-        en: [
-          'Windows Forms UI with keyboard shortcuts.',
-          'Task saving and loading with JSON serialization.',
-          'Filters by status and priority level.',
-        ],
-      },
-    },
-  },
-  {
-    slug: 'jeu-de-la-vie',
-    title: {
-      fr: 'Jeu de la Vie de Conway',
-      en: 'Conway\'s Game of Life',
-    },
-    description: {
-      fr: 'Simulation en Python de l\'automate cellulaire de Conway avec rendu graphique sous Pygame.',
-      en: 'Python simulation of Conway\'s cellular automaton with Pygame graphical rendering.',
-    },
-    category: 'personal',
-    year: '2023',
-    status: 'completed',
-    featured: false,
-    image: '/images/projects/jeu-de-la-vie.gif',
-    tags: ['Python', 'Automate Cellulaire', 'Algorithmique', 'Pygame'],
-    links: {
-      github: 'https://github.com/AlexisSerano/Jeu-de-la-vie',
-    },
-    details: {
-      role: {
-        fr: 'Projet personnel',
-        en: 'Personal Project',
-      },
-      duration: {
-        fr: '2023',
-        en: '2023',
-      },
-      context: {
-        fr: 'Projet algorithmique pour explorer les règles de Conway et observer comment des motifs complexes naissent de règles simples.',
-        en: 'Algorithmic project exploring Conway\'s rules and observing how complex patterns emerge from simple rules.',
-      },
-      highlights: {
-        fr: [
-          'Calcul du voisinage de Moore sur une grille torique.',
-          'Affichage et contrôle de la vitesse d\'itération avec Pygame.',
-          'Possibilité de dessiner ses propres cellules de départ.',
-        ],
-        en: [
-          'Moore neighborhood calculation on a 2D toroidal grid.',
-          'Pygame visualization and iteration speed controls.',
-          'Interactive cell drawing to test custom starting seeds.',
-        ],
-      },
-    },
-  },
-  {
     slug: 'trading-investissement',
     title: {
       fr: 'Trading & Investissement Crypto',
@@ -556,7 +465,7 @@ export const projects: Project[] = [
     year: '2024-2026',
     status: 'in-progress',
     featured: false,
-    image: '/images/projects/trading.png',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/trading.png',
     tags: ['Analyse Technique', 'Gestion de Risque', 'Finance Quant', 'DeFi / DEX'],
     links: {},
     details: {
@@ -600,7 +509,7 @@ export const projects: Project[] = [
     year: '2017-2026',
     status: 'in-progress',
     featured: false,
-    image: '/images/projects/montage-video.jpg',
+    image: 'IMAGE_PLACEHOLDER: /images/projects/montage-video.jpg',
     tags: ['Premiere Pro', 'After Effects', 'Photoshop', 'Motion Design', 'Sound Design'],
     links: {},
     details: {

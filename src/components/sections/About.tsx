@@ -4,7 +4,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
 import TextReveal from '@/components/ui/TextReveal'
-import TechIcon from '@/components/ui/TechIcon'
 import TiltCard from '@/components/ui/TiltCard'
 import {
   MapPin,
@@ -19,7 +18,6 @@ import {
   Film,
   Coins,
   Rocket,
-  CheckCircle2
 } from 'lucide-react'
 import Image from 'next/image'
 import { assetPath } from '@/lib/asset'
@@ -273,4 +271,3 @@ export default function About() {
     </section>
   )
 }
-

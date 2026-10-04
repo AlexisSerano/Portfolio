@@ -22,7 +22,7 @@ export default function TextReveal({
   stagger = 0.05,
   delay = 0,
 }: TextRevealProps) {
-  const containerRef = useRef<HTMLElement>(null)
+  const containerRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const container = containerRef.current
@@ -54,9 +54,12 @@ export default function TextReveal({
   }, [children, stagger, delay])
 
   const words = children.split(' ')
+  const setContainerRef = (element: HTMLElement | null) => {
+    containerRef.current = element
+  }
 
   return (
-    <Tag ref={containerRef as any} className={className}>
+    <Tag ref={setContainerRef} className={className}>
       {words.map((word, i) => (
         <span key={i} className="inline-block overflow-hidden mr-[0.3em]">
           <span className="word-inner inline-block">{word}</span>

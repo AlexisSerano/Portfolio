@@ -20,12 +20,16 @@ export default function Home() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
-    // If previously loaded in this session, skip intro immediately
-    const hasLoaded = sessionStorage.getItem('portfolio_intro_played')
-    if (hasLoaded) {
-      setIsLoading(false)
-    }
+    const frame = window.requestAnimationFrame(() => {
+      setMounted(true)
+      try {
+        if (sessionStorage.getItem('portfolio_intro_played')) setIsLoading(false)
+      } catch (error) {
+        console.error('Unable to read the portfolio intro state.', error)
+      }
+    })
+
+    return () => window.cancelAnimationFrame(frame)
   }, [])
 
   const handleLoadingComplete = useCallback(() => {
@@ -33,7 +37,9 @@ export default function Home() {
     if (typeof window !== 'undefined') {
       try {
         sessionStorage.setItem('portfolio_intro_played', 'true')
-      } catch (_) {}
+      } catch (error) {
+        console.error('Unable to save the portfolio intro state.', error)
+      }
       setTimeout(() => {
         ScrollTrigger.refresh()
       }, 100)

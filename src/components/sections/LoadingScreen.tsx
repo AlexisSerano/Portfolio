@@ -43,10 +43,10 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
   }, [onComplete])
 
   // Instant skip button handler
-  const handleInstantSkip = () => {
+  const handleInstantSkip = useCallback(() => {
     isClosingRef.current = true
     onComplete()
-  }
+  }, [onComplete])
 
   // Keyboard shortcut: Escape to skip
   useEffect(() => {
@@ -57,7 +57,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [onComplete])
+  }, [handleInstantSkip])
 
   // Main animation timeline using gsap.context for flawless React StrictMode support
   useEffect(() => {

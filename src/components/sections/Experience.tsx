@@ -4,7 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
 import TextReveal from '@/components/ui/TextReveal'
-import { experiences, type Experience as ExperienceType } from '@/data/experiences'
+import { experiences } from '@/data/experiences'
 import TiltCard from '@/components/ui/TiltCard'
 import { cn } from '@/lib/utils'
 import {
@@ -14,7 +14,6 @@ import {
   School,
   TrendingUp,
   Film,
-  ExternalLink
 } from 'lucide-react'
 
 if (typeof window !== 'undefined') {
@@ -196,4 +195,3 @@ export default function Experience() {
     </section>
   )
 }
-

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
@@ -53,8 +53,10 @@ export default function Projects() {
   const [viewMode, setViewMode] = useState<ViewMode>('carousel')
   const [carouselIndex, setCarouselIndex] = useState(0)
   const [slideDirection, setSlideDirection] = useState<'next' | 'prev' | 'none'>('none')
+  const [modalDirection, setModalDirection] = useState<'prev' | 'next'>('next')
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const slideRef = useRef<HTMLDivElement>(null)
+  const overviewRef = useRef<HTMLDivElement>(null)
 
   const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter)
   const currentProject = filtered[carouselIndex] || filtered[0]
@@ -64,48 +66,63 @@ export default function Projects() {
   const prevProject = filtered[prevIndex]
   const nextProject = filtered[nextIndex]
 
-  // Reset carousel index when filter changes
-  useEffect(() => {
-    setCarouselIndex(0)
-    setSlideDirection('none')
-  }, [filter])
-
   // Animate slide change with momentum
   useEffect(() => {
     if (slideRef.current && viewMode === 'carousel') {
       const xOffset = slideDirection === 'next' ? 24 : slideDirection === 'prev' ? -24 : 0
-      gsap.fromTo(slideRef.current,
-        { opacity: 0, x: xOffset, scale: 0.98 },
-        { opacity: 1, x: 0, scale: 1, duration: 0.45, ease: 'power3.out' }
-      )
+      const context = gsap.context(() => {
+        gsap.fromTo(slideRef.current,
+          { opacity: 0, x: xOffset, scale: 0.98 },
+          { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: 'power3.out' }
+        )
+
+        gsap.fromTo(slideRef.current?.querySelectorAll('.project-reveal') ?? [],
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.35, stagger: 0.035, delay: 0.08, ease: 'power2.out' }
+        )
+      }, slideRef)
+
+      return () => context.revert()
     }
   }, [carouselIndex, viewMode, slideDirection])
 
+  useEffect(() => {
+    if (viewMode !== 'overview' || !overviewRef.current) return
+
+    const context = gsap.context(() => {
+      gsap.fromTo(overviewRef.current?.querySelectorAll('.project-overview-card') ?? [],
+        { opacity: 0, y: 22, scale: 0.97 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.45, stagger: 0.055, ease: 'power3.out' }
+      )
+    }, overviewRef)
+
+    return () => context.revert()
+  }, [filter, viewMode])
+
   // Listen for global open project event from Experience section
   useEffect(() => {
-    const handleGlobalOpen = (e: any) => {
-      const slug = e.detail?.slug
-      if (slug) {
-        const found = projects.find(p => p.slug === slug)
-        if (found) {
-          setSelectedProject(found)
-        }
-      }
+    const handleGlobalOpen = (event: Event) => {
+      if (!(event instanceof CustomEvent)) return
+      const detail: unknown = event.detail
+      if (typeof detail !== 'object' || detail === null || !('slug' in detail) || typeof detail.slug !== 'string') return
+
+      const found = projects.find(p => p.slug === detail.slug)
+      if (found) setSelectedProject(found)
     }
 
     window.addEventListener('portfolio-open-project', handleGlobalOpen)
     return () => window.removeEventListener('portfolio-open-project', handleGlobalOpen)
   }, [])
 
-  const nextSlide = useCallback(() => {
+  const nextSlide = () => {
     setSlideDirection('next')
     setCarouselIndex((prev) => (prev + 1) % filtered.length)
-  }, [filtered.length])
+  }
 
-  const prevSlide = useCallback(() => {
+  const prevSlide = () => {
     setSlideDirection('prev')
     setCarouselIndex((prev) => (prev - 1 + filtered.length) % filtered.length)
-  }, [filtered.length])
+  }
 
   const handleNavigateModal = (direction: 'prev' | 'next') => {
     if (!selectedProject) return
@@ -113,8 +130,10 @@ export default function Projects() {
     if (currentIndex === -1) return
 
     if (direction === 'prev' && currentIndex > 0) {
+      setModalDirection('prev')
       setSelectedProject(filtered[currentIndex - 1])
     } else if (direction === 'next' && currentIndex < filtered.length - 1) {
+      setModalDirection('next')
       setSelectedProject(filtered[currentIndex + 1])
     }
   }
@@ -141,8 +160,9 @@ export default function Projects() {
         <div className="flex items-center bg-white/[0.03] border border-white/[0.08] p-1 rounded-full self-start md:self-auto">
           <button
             onClick={() => setViewMode('carousel')}
+            aria-pressed={viewMode === 'carousel'}
             className={cn(
-              'flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer',
+              'flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]',
               viewMode === 'carousel'
                 ? 'bg-[#D4A843] text-[#050505] shadow-[0_0_20px_rgba(212,168,67,0.3)]'
                 : 'text-[#94A3B8] hover:text-white'
@@ -154,8 +174,9 @@ export default function Projects() {
 
           <button
             onClick={() => setViewMode('overview')}
+            aria-pressed={viewMode === 'overview'}
             className={cn(
-              'flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer',
+              'flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]',
               viewMode === 'overview'
                 ? 'bg-[#D4A843] text-[#050505] shadow-[0_0_20px_rgba(212,168,67,0.3)]'
                 : 'text-[#94A3B8] hover:text-white'
@@ -175,9 +196,14 @@ export default function Projects() {
         {filters.map(f => (
           <button
             key={f.key}
-            onClick={() => setFilter(f.key)}
+            onClick={() => {
+              setFilter(f.key)
+              setCarouselIndex(0)
+              setSlideDirection('none')
+            }}
+            aria-pressed={filter === f.key}
             className={cn(
-              'text-xs px-4 py-2 rounded-full transition-all duration-300 cursor-pointer font-medium',
+              'text-xs px-4 py-2 rounded-full transition-all duration-300 cursor-pointer font-medium hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]',
               filter === f.key
                 ? 'text-[#050505] bg-[#D4A843] shadow-[0_0_20px_rgba(212,168,67,0.25)]'
                 : 'text-[#94A3B8] hover:text-[#F8FAFC] border border-white/5 hover:border-white/15 bg-white/[0.02]'
@@ -197,6 +223,12 @@ export default function Projects() {
             {filtered.length > 1 && prevProject && (
               <div
                 onClick={prevSlide}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    prevSlide()
+                  }
+                }}
                 role="button"
                 tabIndex={0}
                 aria-label={t(`Voir projet précédent: ${prevProject.title.fr}`, `View previous project: ${prevProject.title.en}`)}
@@ -242,7 +274,6 @@ export default function Projects() {
                       slug={currentProject.slug}
                       title={lang === 'fr' ? currentProject.title.fr : currentProject.title.en}
                       imageSrc={currentProject.image}
-                      priority
                     />
 
                     {/* Badges on mockup */}
@@ -284,16 +315,16 @@ export default function Projects() {
                         </span>
                       </div>
 
-                      <h3 className="text-xl sm:text-2xl font-bold text-[#F8FAFC] tracking-tight mb-3">
+                      <h3 className="project-reveal text-xl sm:text-2xl font-bold text-[#F8FAFC] tracking-tight mb-3">
                         {lang === 'fr' ? currentProject.title.fr : currentProject.title.en}
                       </h3>
 
-                      <p className="text-sm text-[#94A3B8] leading-relaxed mb-6">
+                      <p className="project-reveal text-sm text-[#94A3B8] leading-relaxed mb-6">
                         {lang === 'fr' ? currentProject.description.fr : currentProject.description.en}
                       </p>
 
                       {/* Highlights snippet */}
-                      <div className="space-y-2 mb-6">
+                      <div className="project-reveal space-y-2 mb-6">
                         {currentProject.details.highlights[lang === 'fr' ? 'fr' : 'en'].slice(0, 2).map((item, idx) => (
                           <div key={idx} className="flex items-start gap-2 text-xs text-[#CBD5E1]">
                             <span className="text-[#D4A843] mt-0.5">❯</span>
@@ -303,7 +334,7 @@ export default function Projects() {
                       </div>
 
                       {/* Tech stack tags with authentic SVG TechIcon */}
-                      <div className="flex flex-wrap gap-2 mb-8">
+                      <div className="project-reveal flex flex-wrap gap-2 mb-8">
                         {currentProject.tags.slice(0, 5).map(tag => (
                           <span key={tag} className="inline-flex items-center gap-1.5 text-[11px] font-mono text-[#CBD5E1] bg-white/[0.04] border border-white/[0.08] px-2.5 py-1 rounded">
                             <TechIcon name={tag} size={14} />
@@ -319,10 +350,10 @@ export default function Projects() {
                     </div>
 
                     {/* Actions & Modal Trigger */}
-                    <div className="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
+                    <div className="project-reveal pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
                       <button
                         onClick={() => setSelectedProject(currentProject)}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4A843] hover:bg-[#F5D785] text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] cursor-pointer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#D4A843] hover:bg-[#F5D785] hover:-translate-y-0.5 active:translate-y-0 text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5D785] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090C12]"
                       >
                         <Eye className="w-4 h-4" />
                         <span>{t('Voir le projet', 'View project')}</span>
@@ -362,6 +393,12 @@ export default function Projects() {
             {filtered.length > 1 && nextProject && (
               <div
                 onClick={nextSlide}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    nextSlide()
+                  }
+                }}
                 role="button"
                 tabIndex={0}
                 aria-label={t(`Voir projet suivant: ${nextProject.title.fr}`, `View next project: ${nextProject.title.en}`)}
@@ -421,8 +458,9 @@ export default function Projects() {
                 <button
                   key={p.slug}
                   onClick={() => setCarouselIndex(idx)}
+                  aria-current={idx === carouselIndex ? 'true' : undefined}
                   className={cn(
-                    'h-2 rounded-full transition-all cursor-pointer',
+                  'h-2 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843] focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505]',
                     idx === carouselIndex
                       ? 'w-8 bg-[#D4A843]'
                       : 'w-2 bg-white/20 hover:bg-white/40'
@@ -435,14 +473,14 @@ export default function Projects() {
             <div className="flex items-center gap-3">
               <button
                 onClick={prevSlide}
-                className="p-2.5 rounded-full border border-white/10 hover:border-[#D4A843] bg-white/[0.02] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors cursor-pointer"
+                className="p-2.5 rounded-full border border-white/10 hover:border-[#D4A843] hover:-translate-x-0.5 active:translate-x-0 bg-white/[0.02] text-[#94A3B8] hover:text-[#F8FAFC] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
                 aria-label="Projet précédent"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={nextSlide}
-                className="p-2.5 rounded-full border border-white/10 hover:border-[#D4A843] bg-white/[0.02] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors cursor-pointer"
+                className="p-2.5 rounded-full border border-white/10 hover:border-[#D4A843] hover:translate-x-0.5 active:translate-x-0 bg-white/[0.02] text-[#94A3B8] hover:text-[#F8FAFC] transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
                 aria-label="Projet suivant"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -454,19 +492,28 @@ export default function Projects() {
 
       {/* VIEW 2: FULL OVERVIEW MATRIX (Vue d'ensemble) WITH 3D TILT */}
       {viewMode === 'overview' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={overviewRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((project) => {
             const status = statusConfig[project.status]
 
             return (
               <TiltCard
                 key={project.slug}
-                maxTilt={7}
-                scale={1.02}
-                className="h-full rounded-xl overflow-hidden cursor-pointer"
+                maxTilt={5}
+                scale={1.015}
+                className="project-overview-card h-full rounded-xl overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"
                 onClick={() => setSelectedProject(project)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    setSelectedProject(project)
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                aria-label={t(`Voir le projet : ${project.title.fr}`, `View project: ${project.title.en}`)}
               >
-                <div className="border border-white/[0.08] hover:border-[#D4A843]/40 rounded-xl bg-[#090C12]/80 backdrop-blur-md overflow-hidden transition-all duration-300 flex flex-col justify-between group h-full">
+                <div className="border border-white/[0.08] hover:border-[#D4A843]/50 rounded-xl bg-[#090C12]/80 backdrop-blur-md overflow-hidden transition-all duration-500 flex flex-col justify-between group h-full group-hover:shadow-[0_18px_50px_rgba(0,0,0,0.38)]">
                   {/* Mockup Preview Header */}
                   <div className="relative aspect-video w-full border-b border-white/[0.08] overflow-hidden">
                     <ProjectMockup
@@ -544,10 +591,10 @@ export default function Projects() {
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
         onNavigate={handleNavigateModal}
+        transitionDirection={modalDirection}
         hasPrev={hasPrev}
         hasNext={hasNext}
       />
     </section>
   )
 }
-

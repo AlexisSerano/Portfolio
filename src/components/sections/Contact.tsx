@@ -3,7 +3,7 @@ import { useState, type FormEvent } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import TextReveal from '@/components/ui/TextReveal'
 import { assetPath } from '@/lib/asset'
-import { Mail, FileText, Copy, Check, Send, CheckCircle2, AlertCircle } from 'lucide-react'
+import { FileText, Copy, Check, Send, CheckCircle2, AlertCircle } from 'lucide-react'
 
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -22,10 +22,14 @@ export default function Contact() {
   })
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
 
-  const copyEmail = () => {
-    navigator.clipboard.writeText('alexis.seranoo@gmail.com')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2200)
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('alexis.seranoo@gmail.com')
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2200)
+    } catch (error) {
+      console.error('Unable to copy the contact email to the clipboard.', error)
+    }
   }
 
   const handleSubmit = (e: FormEvent) => {
@@ -127,6 +131,7 @@ export default function Contact() {
             <a
               href={assetPath('/images/Alexis_serano.pdf')}
               target="_blank"
+              rel="noopener noreferrer"
               className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-[#D4A843]/40 transition-colors flex items-center justify-between group block"
             >
               <div className="flex items-center gap-3">
@@ -258,7 +263,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="w-full sm:w-auto py-2.5 px-6 rounded-full bg-[#D4A843] hover:bg-[#F5D785] text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full sm:w-auto py-2.5 px-6 rounded-full bg-[#D4A843] hover:bg-[#F5D785] hover:-translate-y-0.5 active:translate-y-0 text-[#050505] font-semibold text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(212,168,67,0.25)] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5D785] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090C12]"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>{status === 'submitting' ? t('Ouverture...', 'Opening...') : t('Envoyer', 'Send')}</span>
@@ -276,4 +281,3 @@ export default function Contact() {
     </section>
   )
 }
-
