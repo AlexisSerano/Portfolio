@@ -153,7 +153,7 @@ export default function SwissCalibreWidget() {
         <div className="absolute bottom-8 -left-6 text-left pointer-events-none">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-            <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#94A3B8]">03 // INFRA &amp; DEVOPS</span>
+            <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#94A3B8]">03 // SYSTÈMES &amp; INFRA</span>
           </div>
           <span className="text-xs font-semibold text-[#F8FAFC] block mt-0.5 pl-3.5 border-l border-sky-400/40">
             K3s · Docker · AD (1 800 pros)

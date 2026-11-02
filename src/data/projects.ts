@@ -39,7 +39,7 @@ export const projects: Project[] = [
     year: '2026-2027',
     status: 'in-progress',
     featured: true,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/carrier-card.svg',
+    image: '/images/projects/carrier-card.svg',
     tags: ['Alpine.js', 'Tailwind CSS', 'API REST', 'Cybersécurité (CRA)', 'OTP Auth', 'Carel STone', 'Langage ST', 'Git/GitHub'],
     links: {},
     details: {
@@ -78,8 +78,8 @@ export const projects: Project[] = [
   {
     slug: 'stage-chai',
     title: {
-      fr: 'CH Alpes-Isère (CHAI) — DevOps K3s, Automatisation AD/Exchange & Intranet',
-      en: 'Alps-Isère Hospital (CHAI) — K3s DevOps, AD/Exchange Automation & Intranet',
+      fr: 'CH Alpes-Isère (CHAI) — Déploiement K3s, Automatisation AD/Exchange & Intranet',
+      en: 'Alps-Isère Hospital (CHAI) — K3s Deployment, AD/Exchange Automation & Intranet',
     },
     description: {
       fr: 'Déploiement d’un cluster Kubernetes (K3s) sur 2 nœuds avec Nginx Load Balancer et Docker Compose, scripts PowerShell Active Directory/Exchange (1 800 pros) et refonte Intranet (23 apps).',
@@ -89,13 +89,13 @@ export const projects: Project[] = [
     year: '2026',
     status: 'completed',
     featured: true,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/stage-chai.png',
+    image: '/images/projects/stage-chai.png',
     tags: ['Kubernetes (K3s)', 'Docker Compose', 'Nginx LB', 'PowerShell', 'Active Directory', 'Exchange', 'WordPress'],
     links: {},
     details: {
       role: {
-        fr: 'Stagiaire Déploiement, DevOps & Automatisation (DSI)',
-        en: 'Deployment, DevOps & Automation Intern (Hospital IT)',
+        fr: 'Stagiaire Déploiement & Automatisation (DSI)',
+        en: 'Deployment & Automation Intern (Hospital IT)',
       },
       duration: {
         fr: 'Mai 2026 – Juin 2026',
@@ -139,7 +139,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'production',
     featured: true,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/algofy.png',
+    image: '/images/projects/algofy.png',
     tags: ['Django REST', 'React/Vite', 'Docker', 'PostgreSQL', 'Hyperliquid API', 'Stripe', 'Telegram Bot', 'AES-256'],
     links: {},
     details: {
@@ -191,7 +191,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'in-progress',
     featured: true,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/lifeos.png',
+    image: '/images/projects/lifeos.png',
     tags: ['FastAPI', 'React/TypeScript', 'PostgreSQL', 'Docker', 'Python'],
     links: {},
     details: {
@@ -241,7 +241,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'completed',
     featured: false,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/chronia.png',
+    image: '/images/projects/chronia.png',
     tags: ['PHP', 'SQL', 'JavaScript', 'HTML/CSS', 'Responsive Design'],
     links: {
       live: 'http://vps-e885b886.vps.ovh.net/chronia/',
@@ -287,7 +287,7 @@ export const projects: Project[] = [
     year: '2025',
     status: 'completed',
     featured: false,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/agence-voyages.png',
+    image: '/images/projects/agence-voyages.png',
     tags: ['Java', 'JavaFX', 'POO Avancée', 'JSON', 'IHM GUI', 'Design Patterns'],
     links: {},
     details: {
@@ -331,7 +331,7 @@ export const projects: Project[] = [
     year: '2026',
     status: 'completed',
     featured: false,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/refonte-mobile.jpg',
+    image: '/images/projects/refonte-mobile.jpg',
     tags: ['Android Studio', 'Java Mobile', 'Symfony PHP', 'API REST', 'Doctrine ORM'],
     links: {},
     details: {
@@ -375,7 +375,7 @@ export const projects: Project[] = [
     year: '2023',
     status: 'completed',
     featured: false,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/chatenger.png',
+    image: '/images/projects/chatenger.png',
     tags: ['PHP', 'MySQL', 'JavaScript', 'Sécurité Web', 'XSS/CSRF Shield'],
     links: {
       github: 'https://github.com/AlexisSerano/Chatenger/tree/main',
@@ -421,7 +421,7 @@ export const projects: Project[] = [
     year: '2022',
     status: 'completed',
     featured: false,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/modele-neurone.png',
+    image: '/images/projects/modele-neurone.png',
     tags: ['Python', 'TensorFlow', 'NumPy', 'Deep Learning', 'Calcul Matriciel'],
     links: {},
     details: {
@@ -465,7 +465,7 @@ export const projects: Project[] = [
     year: '2024-2026',
     status: 'in-progress',
     featured: false,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/trading.png',
+    image: '/images/projects/trading.png',
     tags: ['Analyse Technique', 'Gestion de Risque', 'Finance Quant', 'DeFi / DEX'],
     links: {},
     details: {
@@ -509,7 +509,7 @@ export const projects: Project[] = [
     year: '2017-2026',
     status: 'in-progress',
     featured: false,
-    image: 'IMAGE_PLACEHOLDER: /images/projects/montage-video.jpg',
+    image: '/images/projects/montage-video.jpg',
     tags: ['Premiere Pro', 'After Effects', 'Photoshop', 'Motion Design', 'Sound Design'],
     links: {},
     details: {

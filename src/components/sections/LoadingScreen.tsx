@@ -185,7 +185,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
 
         {/* Subtitle */}
         <p className="loader-subtitle text-[#6B6B6B] uppercase tracking-[0.3em] text-[0.7rem] sm:text-xs font-mono font-medium opacity-0">
-          Développeur Full-Stack &amp; DevOps
+          Développeur Logiciel &amp; Full-Stack
         </p>
 
         {/* Golden line progress bar */}

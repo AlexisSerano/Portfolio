@@ -27,7 +27,7 @@ export default function Terminal() {
     help: `${t('Commandes disponibles', 'Available commands')} :
   <span class="text-[#D4A843]">about</span>       : ${t('Présentation & Bachelor 180 ECTS', 'Profile & Bachelor 180 ECTS')}
   <span class="text-[#D4A843]">carrier</span>     : ${t('Développeur Logiciel R&D @ Carrier', 'R&D Software Developer @ Carrier')}
-  <span class="text-[#D4A843]">chai</span>        : ${t('Développeur & DevOps @ DSI CH Alpes-Isère', 'Developer & DevOps @ CHAI Hospital')}
+  <span class="text-[#D4A843]">chai</span>        : ${t('Stage Déploiement & Automatisation @ DSI CHAI', 'Deployment & Automation Intern @ CHAI Hospital')}
   <span class="text-[#D4A843]">suisse</span>      : ${t('Mobilité Genève & Vaud (Juillet 2027)', 'Geneva & Vaud Mobility (July 2027)')}
   <span class="text-[#D4A843]">skills</span>      : ${t('Stack technologique complète', 'Full tech stack')}
   <span class="text-[#D4A843]">projects</span>    : ${t('Liste des projets', 'Project list')}
@@ -37,10 +37,10 @@ export default function Terminal() {
   <span class="text-[#D4A843]">hire</span>        : ???
   <span class="text-[#D4A843]">clear</span>       : ${t('Efface l\'écran', 'Clear screen')}`,
     about: `<span class="text-emerald-400">Alexis Serano — Développeur Logiciel (Bachelor 180 ECTS)</span>
-  - ${t('Développeur Logiciel R&D chez', 'R&D Software Developer at')} <span class="text-[#D4A843]">Carrier</span> (NYSE: CARR, ~58 000 collab.)
+  - ${t('Développeur Logiciel R&D chez', 'R&D Software Developer at')} <span class="text-[#D4A843]">Carrier</span> (NYSE: CARR, 47 000 employés)
   - ${t('B.U.T. Informatique (Grade de Bachelor - 180 ECTS) — Université Grenoble Alpes', 'Bachelor in Computer Science (180 ECTS) — UGA Grenoble')}
   - ${t('Mobilité', 'Mobility')} : Cantons de Genève & Vaud (${t('Disponible dès juillet 2027', 'Available July 2027')}) | Permis B
-  - ${t('Spécialités : Backend, DevOps, APIs, Web Embarqué & Cybersécurité (CRA)', 'Specialties: Backend, DevOps, APIs, Embedded Web & Cybersecurity (CRA)')}`,
+  - ${t('Spécialités : Full-Stack, Backend, APIs, Web Embarqué & Cybersécurité (CRA)', 'Specialties: Full-Stack, Backend, APIs, Embedded Web & Cybersecurity (CRA)')}`,
     carrier: `<span class="text-emerald-400">[Carrier — Culoz, FR] — ${t('Développeur Logiciel R&D', 'R&D Software Developer')} (Août 2026 – Juil. 2027)</span>
   → ${t('Interfaces web de commissioning (HTML, Tailwind CSS, Alpine.js, API REST)', 'Web commissioning interfaces (HTML, Tailwind CSS, Alpine.js, REST API)')}
   → ${t('Conformité Cyber Resilience Act (CRA - échéance déc. 2027)', 'Cyber Resilience Act (CRA - Dec 2027) compliance')}
@@ -52,13 +52,13 @@ export default function Terminal() {
   → ${t('Refonte portail intranet regroupant 23 applications métiers + guide RH', 'Intranet portal redesign grouping 23 business apps + HR guide')}
   → ${t('Cluster Kubernetes (K3s) à 2 nœuds + Nginx Load Balancer + Docker Compose', '2-node Kubernetes (K3s) cluster + Nginx Load Balancer + Docker Compose')}`,
     suisse: `<span class="text-emerald-400">[Mobilité Suisse Romande — Disponible dès Juillet 2027]</span>
-  - ${t('Zones cibles', 'Target areas')} : <span class="text-[#D4A843]">Cantons de Genève & Vaud</span> (Lausanne, Nyon, Morges, Genève)
+  - ${t('Zones cibles', 'Target areas')} : <span class="text-[#D4A843]">Cantons de Genève & Vaud</span>
   - ${t('Diplôme', 'Degree')} : B.U.T. Informatique — Grade de Bachelor (180 ECTS)
-  - ${t('Profil', 'Profile')} : Développeur Logiciel Full-Stack, Backend, DevOps & R&D`,
+  - ${t('Profil', 'Profile')} : Développeur Logiciel Full-Stack, Backend & R&D`,
     skills: `<span class="text-[#D4A843]">Stack Technique :</span>
   - Web & API  : React, Next.js, TypeScript, Tailwind CSS, Alpine.js, Node.js, Symfony, REST
   - Backend    : Python (Django, FastAPI), C#, Java, C/C++, PHP
-  - DevOps/Sys : Docker, Kubernetes (K3s), Nginx, Linux, PowerShell, Active Directory, Exchange
+  - Systèmes   : Docker, Kubernetes (K3s), Nginx, Linux, PowerShell, Active Directory, Exchange
   - R&D & Sec  : Carel STone, Langage ST (IEC 61131-3), Cyber Resilience Act (CRA), Auth OTP
   - Data       : PostgreSQL, MySQL, SQLite`,
     projects: `<span class="text-[#D4A843]">${t('Projets Clés', 'Key Projects')} :</span>

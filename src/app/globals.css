@@ -11,6 +11,9 @@
     --text-secondary: #94A3B8;
     --text-muted: #64748B;
     --text-dim: #334155;
+    --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   }
 
   html {

@@ -147,13 +147,13 @@ export default function About() {
 
         <div className="space-y-1">
           <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono flex items-center gap-1.5">
-            <span>GE · VD</span>
+            <span>24/7</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
-            {t('Mobilité Suisse (Juil. 2027)', 'Swiss Mobility (July 2027)')}
+            {t('Systèmes & APIs', 'Systems & APIs')}
           </div>
-          <div className="text-[11px] text-[#64748B]">Genève &amp; Vaud · Permis B</div>
+          <div className="text-[11px] text-[#64748B]">Docker · Linux · REST</div>
         </div>
       </div>
 
@@ -178,7 +178,7 @@ export default function About() {
                 <div>
                   <h3 className="text-lg font-bold text-[#F8FAFC]">Alexis Serano</h3>
                   <p className="text-xs text-[#D4A843] font-mono">
-                    {t('Développeur Full-Stack & DevOps', 'Full-Stack & DevOps Developer')}
+                    {t('Développeur Logiciel & Full-Stack', 'Software & Full-Stack Developer')}
                   </p>
                   <p className="text-[11px] text-[#64748B]">20 ans · Permis B</p>
                 </div>
@@ -195,7 +195,7 @@ export default function About() {
                 </div>
                 <div className="flex items-center gap-2.5">
                   <MapPin className="w-4 h-4 text-[#D4A843] shrink-0" />
-                  <span>{t('Mobilité : Cantons de Genève & Vaud (Juil. 2027) · Permis B', 'Mobility: Geneva & Vaud (July 2027) · Driver License')}</span>
+                  <span>{t('Cantons de Genève & Vaud · Permis B', 'Geneva & Vaud Cantons · Driver License')}</span>
                 </div>
               </div>
 
@@ -204,7 +204,7 @@ export default function About() {
                 <div className="flex items-center gap-2 text-xs text-[#CBD5E1]">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <span className="font-medium text-[#F5D785]">
-                    {t('Disponible dès juillet 2027 · Suisse romande (Genève / Vaud)', 'Available July 2027 · Switzerland (Geneva / Vaud)')}
+                    {t('Disponible dès juillet 2027 (Genève & Vaud)', 'Available July 2027 (Geneva & Vaud)')}
                   </span>
                 </div>
               </div>

@@ -33,6 +33,23 @@ function ProjectImagePlaceholder({ title, className = '' }: Pick<ProjectMockupPr
 }
 
 export default function ProjectMockup({ slug, title, imageSrc, className = '' }: ProjectMockupProps) {
+  const cleanPath = imageSrc?.replace(/^IMAGE_PLACEHOLDER:\s*/i, '').trim()
+
+  if (cleanPath && cleanPath.startsWith('/')) {
+    return (
+      <div className={`relative w-full h-full bg-[#080B11] overflow-hidden select-none ${className}`}>
+        <Image
+          src={assetPath(cleanPath)}
+          alt={title}
+          fill
+          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#080B11]/60 via-transparent to-black/20 pointer-events-none" />
+      </div>
+    )
+  }
+
   const isCarrier = slug === 'alternance-carrier'
   const isStageCHAI = slug === 'stage-chai'
   const isAlgofy = slug === 'algofy'

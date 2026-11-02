@@ -105,25 +105,6 @@ export const experiences: Experience[] = [
   },
   {
     title: {
-      fr: 'Algofy & Trading Algorithmique Quantitatif',
-      en: 'Algofy & Quantitative Algorithmic Trading',
-    },
-    subtitle: {
-      fr: 'Conception & Développement Full-Stack · Exécution 24/7 sur Hyperliquid DEX',
-      en: 'Full-Stack Design & Engineering · 24/7 Execution on Hyperliquid DEX',
-    },
-    description: {
-      fr: 'Développement d’une plateforme SaaS de trading automatisée (Django, React.js) intégrant backtesting, gestion stricte du risque (Stop-Loss / Take-Profit) et chiffrement AES-256 des clés API.',
-      en: 'Built an automated trading SaaS platform (Django, React.js) featuring backtesting, risk management (Stop-Loss / Take-Profit), and AES-256 API key encryption.',
-    },
-    date: '2024 → PRÉSENT',
-    tags: ['Django', 'React.js', 'API REST', 'AES-256', 'Backtesting', 'Risk Management'],
-    current: true,
-    projectSlug: 'algofy',
-    icon: 'TrendingUp',
-  },
-  {
-    title: {
       fr: 'Baccalauréat Général — Mathématiques & NSI',
       en: 'French General Baccalaureate — Mathematics & Computer Science',
     },

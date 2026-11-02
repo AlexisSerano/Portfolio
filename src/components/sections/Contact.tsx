@@ -73,8 +73,8 @@ export default function Contact() {
             </h3>
             <p className="text-[#94A3B8] text-sm leading-relaxed">
               {t(
-                "Développeur Logiciel R&D chez Carrier et diplômé d'un B.U.T. Informatique (Grade de Bachelor - 180 ECTS) en juillet 2027, je suis disponible pour des opportunités en Suisse romande (Cantons de Genève & Vaud) ainsi qu'en France.",
-                "R&D Software Developer at Carrier graduating with a Bachelor in Computer Science (180 ECTS) in July 2027, available for opportunities in Western Switzerland (Geneva & Vaud) and France."
+                "Développeur Logiciel R&D chez Carrier et diplômé d'un B.U.T. Informatique (Grade de Bachelor - 180 ECTS) en juillet 2027, je suis disponible pour des opportunités dans les cantons de Genève et de Vaud ainsi qu'en France.",
+                "R&D Software Developer at Carrier graduating with a Bachelor in Computer Science (180 ECTS) in July 2027, available for opportunities in the Cantons of Geneva and Vaud as well as France."
               )}
             </p>
           </div>
@@ -152,7 +152,7 @@ export default function Contact() {
           </div>
 
           <p className="text-xs text-[#64748B] font-mono">
-            {t('Mobilité : Cantons de Genève & Vaud (Juil. 2027) · Permis B', 'Mobility: Geneva & Vaud (July 2027) · Driver License')}
+            {t('Cantons de Genève & Vaud · Permis B', 'Geneva & Vaud Cantons · Driver License')}
           </p>
         </div>
 

@@ -21,7 +21,7 @@ export const skillCategories: SkillCategory[] = [
     techs: ['Django REST', 'FastAPI', 'Symfony', 'Node.js', 'API REST'],
   },
   {
-    title: { fr: 'DevOps & Infrastructure', en: 'DevOps & Infrastructure' },
+    title: { fr: 'Systèmes, Réseaux & Outils', en: 'Systems, Networks & Tools' },
     subtitle: { fr: 'Conteneurs, clusters K3s & scripts système', en: 'Containers, K3s clusters & system scripts' },
     techs: ['Docker', 'Kubernetes (K3s)', 'Linux', 'Nginx', 'PowerShell', 'Git / GitHub'],
   },

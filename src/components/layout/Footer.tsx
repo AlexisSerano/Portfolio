@@ -50,8 +50,8 @@ export default function Footer() {
             </a>
             <p className="text-[#A3A3A3] text-sm mt-3 max-w-xs leading-relaxed">
               {t(
-                'Développeur Logiciel R&D @ Carrier & B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Mobilité : Cantons de Genève & Vaud (Juil. 2027).',
-                'R&D Software Developer @ Carrier & Bachelor in Computer Science (180 ECTS). Mobility: Geneva & Vaud (July 2027).'
+                'Développeur Logiciel R&D @ Carrier & B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Full-Stack, Backend, APIs & Cybersécurité.',
+                'R&D Software Developer @ Carrier & Bachelor in Computer Science (180 ECTS). Full-Stack, Backend, APIs & Cybersecurity.'
               )}
             </p>
           </div>
@@ -122,7 +122,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center mt-8 gap-4">
           <p className="text-xs text-[#6B6B6B] font-mono">
-            © 2026 Alexis Serano. {t('Mobilité Genève & Vaud · Culoz & Grenoble.', 'Geneva & Vaud Mobility · Culoz & Grenoble.')}
+            © 2026 Alexis Serano. {t('Tous droits réservés.', 'All rights reserved.')}
           </p>
           <p className="text-xs text-[#6B6B6B] flex items-center gap-1 font-mono">
             {t('Conçu avec Next.js 16, TypeScript & GSAP', 'Built with Next.js 16, TypeScript & GSAP')}

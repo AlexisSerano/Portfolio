@@ -21,15 +21,15 @@ if (typeof window !== 'undefined') {
 const typewriterPhrases = {
   fr: [
     'Développeur Logiciel R&D @ Carrier',
-    'Backend, DevOps, APIs & Cybersécurité (CRA)',
+    'Développement Full-Stack, Backend & APIs REST',
     'B.U.T. Informatique — Grade de Bachelor (180 ECTS)',
-    'Mobilité Genève & Vaud · Disponible dès Juillet 2027',
+    'Architecture Logicielle, Linux & Systèmes Embarqués',
   ],
   en: [
     'R&D Software Developer @ Carrier',
-    'Backend, DevOps, APIs & Cybersecurity (CRA)',
+    'Full-Stack, Backend & REST API Development',
     'Bachelor in Computer Science (180 ECTS)',
-    'Geneva & Vaud Mobility · Available July 2027',
+    'Software Architecture, Linux & Embedded Systems',
   ],
 }
 
@@ -172,7 +172,7 @@ export default function Hero() {
 
             <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono bg-emerald-950/30 border border-emerald-500/25 px-3 py-1 rounded-full">
               <MapPin className="w-3 h-3" />
-              <span>{t('Mobilité : Cantons de Genève & Vaud (Juil. 2027)', 'Mobility: Geneva & Vaud (July 2027)')}</span>
+              <span>{t('Cantons de Genève & Vaud (Juil. 2027)', 'Geneva & Vaud Cantons (July 2027)')}</span>
             </div>
 
             <div className="flex items-center gap-1.5 text-xs text-[#94A3B8] font-mono bg-white/[0.03] border border-white/[0.08] px-3 py-1 rounded-full">
@@ -199,8 +199,8 @@ export default function Hero() {
           {/* Bio */}
           <p className="hero-bio text-[#94A3B8] text-sm sm:text-base max-w-xl mb-8 leading-relaxed opacity-0">
             {t(
-              'Développeur Logiciel en R&D chez Carrier (4M de régulateurs/an, conformité CRA, OTP) et en 3e année de B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Je travaille sur le backend, le DevOps (Docker, K3s), les APIs et l’embarqué.',
-              'R&D Software Developer at Carrier (4M controllers/yr, CRA compliance, OTP) and final-year CS Bachelor student (180 ECTS). I work across backend, DevOps (Docker, K3s), APIs, and embedded systems.'
+              'Développeur Logiciel en R&D chez Carrier (4M de régulateurs/an, conformité CRA, OTP) et en 3e année de B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Je conçois des applications Full-Stack, des architectures Backend, des APIs et du logiciel embarqué.',
+              'R&D Software Developer at Carrier (4M controllers/yr, CRA compliance, OTP) and final-year CS Bachelor student (180 ECTS). I build Full-Stack applications, Backend architectures, APIs, and embedded software.'
             )}
           </p>
 
