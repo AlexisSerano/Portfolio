@@ -96,7 +96,16 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('portfolio-open-cmdk'))}
+              className="text-xs font-mono text-[#94A3B8] hover:text-[#D4A843] transition-colors px-2.5 py-1 rounded-full border border-white/[0.08] hover:border-[#D4A843]/30 bg-white/[0.02] flex items-center gap-1.5 cursor-pointer"
+              title={t('Palette de commandes (Ctrl+K)', 'Command Palette (Ctrl+K)')}
+              data-cursor
+            >
+              <span>⌘K</span>
+            </button>
+
             <button
               onClick={toggleLang}
               className="text-xs font-mono text-[#6B6B6B] hover:text-[#D4A843] transition-colors px-3 py-1 rounded-full border border-[rgba(255,255,255,0.06)] hover:border-[rgba(212,168,67,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A843]"

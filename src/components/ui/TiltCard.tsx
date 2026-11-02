@@ -27,41 +27,55 @@ export default function TiltCard({
   tabIndex,
   'aria-label': ariaLabel,
 }: TiltCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null)
+    const cardRef = useRef<HTMLDivElement>(null)
   const glareRef = useRef<HTMLDivElement>(null)
   const edgeRef = useRef<HTMLDivElement>(null)
+  const rectRef = useRef<DOMRect | null>(null)
+  const rafRef = useRef<number>(0)
+
+  const handleMouseEnter = () => {
+    if (cardRef.current) {
+      rectRef.current = cardRef.current.getBoundingClientRect()
+      cardRef.current.style.transition = 'transform 120ms ease-out'
+    }
+  }
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return
-    const rect = cardRef.current.getBoundingClientRect()
-    const width = rect.width
-    const height = rect.height
+    const clientX = e.clientX
+    const clientY = e.clientY
 
-    const mouseX = e.clientX - rect.left
-    const mouseY = e.clientY - rect.top
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    rafRef.current = requestAnimationFrame(() => {
+      if (!cardRef.current) return
+      const rect = rectRef.current || cardRef.current.getBoundingClientRect()
+      const width = rect.width || 1
+      const height = rect.height || 1
 
-    const xPct = (mouseX / width - 0.5) * 2 // -1 to 1
-    const yPct = (mouseY / height - 0.5) * 2 // -1 to 1
+      const mouseX = clientX - rect.left
+      const mouseY = clientY - rect.top
 
-    const rotateX = -yPct * maxTilt
-    const rotateY = xPct * maxTilt
+      const xPct = (mouseX / width - 0.5) * 2
+      const yPct = (mouseY / height - 0.5) * 2
 
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, 1)`
-    const position = `${(mouseX / width) * 100}% ${(mouseY / height) * 100}%`
-    if (glareRef.current) {
-      glareRef.current.style.background = `radial-gradient(400px circle at ${position}, rgba(245, 215, 133, 0.22), transparent 70%)`
-      glareRef.current.style.opacity = String(glareOpacity)
-    }
-    if (edgeRef.current) {
-      edgeRef.current.style.background = `radial-gradient(350px circle at ${position}, rgba(212, 168, 67, 0.4), transparent 60%)`
-    }
-  }
+      const rotateX = -yPct * maxTilt
+      const rotateY = xPct * maxTilt
 
-  const handleMouseEnter = () => {
-    if (cardRef.current) cardRef.current.style.transition = 'transform 120ms ease-out'
+      cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, 1)`
+      const position = `${(mouseX / width) * 100}% ${(mouseY / height) * 100}%`
+      if (glareRef.current) {
+        glareRef.current.style.background = `radial-gradient(400px circle at ${position}, rgba(245, 215, 133, 0.22), transparent 70%)`
+        glareRef.current.style.opacity = String(glareOpacity)
+      }
+      if (edgeRef.current) {
+        edgeRef.current.style.background = `radial-gradient(350px circle at ${position}, rgba(212, 168, 67, 0.4), transparent 60%)`
+      }
+    })
   }
 
   const handleMouseLeave = () => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    rectRef.current = null
     if (cardRef.current) {
       cardRef.current.style.transition = 'transform 500ms cubic-bezier(0.23, 1, 0.32, 1)'
       cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)'

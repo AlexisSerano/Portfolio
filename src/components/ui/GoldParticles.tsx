@@ -129,22 +129,35 @@ export default function GoldParticles() {
         if (p.x < -10) p.x = width + 10
         if (p.x > width + 10) p.x = -10
 
-        // Draw glowing particle
+                // Draw glowing particle without expensive shadowBlur
+        if (p.size > 1.8) {
+          ctx.beginPath()
+          ctx.arc(p.x, p.y, p.size * 2.4, 0, Math.PI * 2)
+          ctx.fillStyle = `${p.color}${currentAlpha * 0.18})`
+          ctx.fill()
+        }
+
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
         ctx.fillStyle = `${p.color}${currentAlpha})`
-
-        if (p.size > 2) {
-          ctx.shadowBlur = 6
-          ctx.shadowColor = 'rgba(212, 168, 67, 0.7)'
-        } else {
-          ctx.shadowBlur = 0
-        }
-
         ctx.fill()
+
+        // Subtle golden constellation lines near cursor
+        if (mouse.active && !isMobile) {
+          const dxM = p.x - mouse.x
+          const dyM = p.y - mouse.y
+          const distM = Math.sqrt(dxM * dxM + dyM * dyM)
+          if (distM < 150) {
+            ctx.beginPath()
+            ctx.moveTo(p.x, p.y)
+            ctx.lineTo(mouse.x, mouse.y)
+            ctx.strokeStyle = `rgba(212, 168, 67, ${(1 - distM / 150) * 0.14})`
+            ctx.lineWidth = 0.6
+            ctx.stroke()
+          }
+        }
       }
 
-      ctx.shadowBlur = 0
       animationFrameId = requestAnimationFrame(render)
     }
 

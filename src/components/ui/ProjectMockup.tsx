@@ -33,32 +33,17 @@ function ProjectImagePlaceholder({ title, className = '' }: Pick<ProjectMockupPr
 }
 
 export default function ProjectMockup({ slug, title, imageSrc, className = '' }: ProjectMockupProps) {
-  const hasProjectImage = imageSrc !== undefined && !imageSrc.startsWith('IMAGE_PLACEHOLDER:')
-
-  if (hasProjectImage) {
-    return (
-      <div className={`group/project-image relative h-full w-full overflow-hidden bg-[#080B11] ${className}`}>
-        <Image
-          src={assetPath(imageSrc)}
-          alt=""
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover transition-transform duration-700 ease-out group-hover/project-image:scale-105"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#05070C]/55 via-transparent to-[#05070C]/10" />
-      </div>
-    )
-  }
-
-  if (imageSrc?.startsWith('IMAGE_PLACEHOLDER:')) {
-    return <ProjectImagePlaceholder title={title} className={className} />
-  }
-
   const isCarrier = slug === 'alternance-carrier'
   const isStageCHAI = slug === 'stage-chai'
   const isAlgofy = slug === 'algofy'
   const isLifeOS = slug === 'lifeos'
   const isChatenger = slug === 'chatenger'
+  const isChronia = slug === 'chronia'
+  const isAgenceJavaFX = slug === 'agence-voyages-javafx'
+  const isRefonteMobile = slug === 'refonte-mobile-web'
+  const isModeleNeurone = slug === 'modele-neurone'
+  const isTrading = slug === 'trading-investissement'
+  const isMontageVideo = slug === 'montage-video'
 
   // Algofy: Trading SaaS Platform UI Mockup
   if (isAlgofy) {
@@ -162,76 +147,75 @@ export default function ProjectMockup({ slug, title, imageSrc, className = '' }:
     )
   }
 
-  // Carrier Culoz SA: Industrial Embedded STone SCADA Mockup
+  // Carrier R&D: Web Commissioning (Alpine.js / REST), OTP Security (4M units/yr, CRA) & Carel STone
   if (isCarrier) {
     return (
       <div className={`relative w-full h-full bg-[#060911] text-[#CBD5E1] font-mono text-[11px] select-none overflow-hidden flex flex-col ${className}`}>
         <div className="h-7 bg-[#0B101C] border-b border-white/[0.08] px-3 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2 text-[10px]">
             <Cpu className="w-3.5 h-3.5 text-[#D4A843]" />
-            <span className="font-bold text-[#F8FAFC]">CARRIER CULOZ SA // STone PLATFORM</span>
+            <span className="font-bold text-[#F8FAFC]">CARRIER R&amp;D // COMMISSIONING &amp; CAREL STone</span>
           </div>
           <span className="text-[9px] bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">
-            PLC ONLINE · IEC 61131-3
+            CRA READY · OTP 4M/YR
           </span>
         </div>
 
         <div className="flex-1 p-3 grid grid-cols-12 gap-2">
-          {/* Left SCADA Gauges */}
+          {/* Left: Web Commissioning & OTP Auth */}
           <div className="col-span-6 flex flex-col gap-2">
             <div className="bg-white/[0.02] border border-white/[0.06] p-2.5 rounded">
-              <span className="text-[9px] text-[#64748B] uppercase block mb-1.5">REGULATION BOUCLE CVC</span>
+              <span className="text-[9px] text-[#64748B] uppercase block mb-1.5">WEB COMMISSIONING (ALPINE.JS / REST)</span>
               <div className="grid grid-cols-2 gap-2 text-center">
                 <div className="p-2 rounded bg-black/40 border border-white/5">
-                  <span className="text-[9px] text-[#94A3B8] block">TEMPÉRATURE</span>
-                  <span className="text-base font-bold text-[#D4A843]">21.4 °C</span>
-                  <span className="text-[8px] text-emerald-400 block mt-0.5">CONSIGNE: 21.0 °C</span>
+                  <span className="text-[9px] text-[#94A3B8] block">FAMILLES AUTOMATES</span>
+                  <span className="text-xs font-bold text-[#D4A843]">Micro PC3 · Aero</span>
+                  <span className="text-[8px] text-emerald-400 block mt-0.5">3 Familles Sécurisées</span>
                 </div>
                 <div className="p-2 rounded bg-black/40 border border-white/5">
-                  <span className="text-[9px] text-[#94A3B8] block">DÉBIT D&apos;AIR</span>
-                  <span className="text-base font-bold text-white">4 850 m³/h</span>
-                  <span className="text-[8px] text-emerald-400 block mt-0.5">VANNE: 64%</span>
+                  <span className="text-[9px] text-[#94A3B8] block">AUTHENTIFICATION</span>
+                  <span className="text-xs font-bold text-white">OTP Dynamique</span>
+                  <span className="text-[8px] text-emerald-400 block mt-0.5">4M Régulateurs/an</span>
                 </div>
               </div>
             </div>
 
             <div className="bg-white/[0.02] border border-white/[0.06] p-2 rounded flex-1">
-              <span className="text-[9px] text-[#64748B] uppercase block mb-1">MIGRATION CARREL → STone</span>
+              <span className="text-[9px] text-[#64748B] uppercase block mb-1">CYBER RESILIENCE ACT (CRA) &amp; STone</span>
               <div className="space-y-1 text-[9px]">
                 <div className="flex items-center gap-1.5 text-emerald-400">
                   <CheckCircle2 className="w-3 h-3 shrink-0" />
-                  <span>Portage des blocs fonctions PID</span>
+                  <span>Remplacement PIN 4 chiffres → OTP API/Console</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-emerald-400">
                   <CheckCircle2 className="w-3 h-3 shrink-0" />
-                  <span>Gestion des alarmes incendie &amp; gel</span>
+                  <span>Migration C-Suite → Carel STone (IEC 61131-3)</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-emerald-400">
                   <CheckCircle2 className="w-3 h-3 shrink-0" />
-                  <span>Validation sur banc d&apos;essai industriel</span>
+                  <span>Formation Git / GitHub (5 développeurs R&amp;D)</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right: Code editor Langage ST preview */}
+          {/* Right: Code editor Langage ST & REST API preview */}
           <div className="col-span-6 bg-black/60 border border-white/[0.08] p-2.5 rounded flex flex-col justify-between">
             <div className="flex items-center justify-between text-[9px] text-[#64748B] border-b border-white/5 pb-1 mb-1.5">
-              <span>Main_HVAC_Control.st</span>
-              <span className="text-[#D4A843]">Langage ST</span>
+              <span>CRA_Auth_STone.st</span>
+              <span className="text-[#D4A843]">Carel STone · ST</span>
             </div>
             <pre className="text-[9px] text-[#94A3B8] leading-relaxed overflow-hidden font-mono">
-              <span className="text-rose-400">IF</span> bSafetyInterlock = <span className="text-amber-400">FALSE</span> <span className="text-rose-400">THEN</span>{'\n'}
-              {'  '}<span className="text-[#D4A843]">rOutPID</span> := FB_PID(Setpoint := rSetPoint,{'\n'}
-              {'                  '}Actual := rCurrentTemp);{'\n'}
-              {'  '}Vanne_Proportionnelle := rOutPID;{'\n'}
+              <span className="text-rose-400">IF</span> FB_VerifyOTP(Token := sApiOtpToken) <span className="text-rose-400">THEN</span>{'\n'}
+              {'  '}<span className="text-[#D4A843]">bCommissioningAuth</span> := <span className="text-amber-400">TRUE</span>;{'\n'}
+              {'  '}rOutPID := FB_HVAC_Loop(rSetPoint, rTemp);{'\n'}
               <span className="text-rose-400">ELSE</span>{'\n'}
-              {'  '}Vanne_Proportionnelle := 0.0;{'\n'}
-              {'  '}bAlarmActive := <span className="text-amber-400">TRUE</span>;{'\n'}
+              {'  '}bCommissioningAuth := <span className="text-amber-400">FALSE</span>;{'\n'}
+              {'  '}HttpStatus := 401; <span className="text-[#64748B]">// CRA Guard</span>{'\n'}
               <span className="text-rose-400">END_IF;</span>
             </pre>
             <div className="text-[8px] text-emerald-400/90 pt-1 border-t border-white/5">
-              ✓ Compilation STone 0 erreurs · Temps cycle: 20ms
+              ✓ Conformité CRA (Déc. 2027) · API REST &amp; STone OK
             </div>
           </div>
         </div>
@@ -239,37 +223,37 @@ export default function ProjectMockup({ slug, title, imageSrc, className = '' }:
     )
   }
 
-  // Stage DSI CHAI: Kubernetes & PowerShell Hospital System Mockup
+  // Stage DSI CHAI: K3s High-Availability, AD/Exchange Optimization & Intranet 23 Apps
   if (isStageCHAI) {
     return (
       <div className={`relative w-full h-full bg-[#080C14] text-[#CBD5E1] font-mono text-[11px] select-none overflow-hidden flex flex-col ${className}`}>
         <div className="h-7 bg-[#0F172A] border-b border-white/[0.08] px-3 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2 text-[10px]">
             <Server className="w-3.5 h-3.5 text-sky-400" />
-            <span className="font-bold text-[#F8FAFC]">DSI CH ALPES-ISÈRE // INFRASTRUCTURE CRITIQUE</span>
+            <span className="font-bold text-[#F8FAFC]">DSI CH ALPES-ISÈRE // K3s HA &amp; AUTOMATION</span>
           </div>
           <span className="text-[9px] bg-sky-950/60 text-sky-400 border border-sky-500/30 px-2 py-0.5 rounded">
-            HA 24/7 · 1800+ USERS
+            1 800 PROS · 23 APPS
           </span>
         </div>
 
         <div className="flex-1 p-3 grid grid-cols-12 gap-2">
-          {/* Top Row: Kubernetes & AD metrics */}
+          {/* Top Row: K3s, AD/Exchange & Intranet */}
           <div className="col-span-12 grid grid-cols-3 gap-2">
             <div className="p-2 rounded bg-white/[0.02] border border-white/[0.06]">
-              <span className="text-[9px] text-[#64748B] block">CLUSTER KUBERNETES</span>
-              <span className="text-xs font-bold text-white">4 Nœuds · 48 Pods</span>
-              <span className="text-[8px] text-emerald-400 block">Uptime: 99.98%</span>
+              <span className="text-[9px] text-[#64748B] block">KUBERNETES (K3s)</span>
+              <span className="text-xs font-bold text-white">2 Nœuds · Nginx LB</span>
+              <span className="text-[8px] text-emerald-400 block">Docker Compose</span>
             </div>
             <div className="p-2 rounded bg-white/[0.02] border border-white/[0.06]">
-              <span className="text-[9px] text-[#64748B] block">ACTIVE DIRECTORY</span>
-              <span className="text-xs font-bold text-[#D4A843]">1 840 Comptes</span>
-              <span className="text-[8px] text-sky-400 block">GPO Hospitalières Sync</span>
+              <span className="text-[9px] text-[#64748B] block">AD &amp; EXCHANGE</span>
+              <span className="text-xs font-bold text-[#D4A843]">1 800 Professionnels</span>
+              <span className="text-[8px] text-sky-400 block">Hashtables · Automap Off</span>
             </div>
             <div className="p-2 rounded bg-white/[0.02] border border-white/[0.06]">
-              <span className="text-[9px] text-[#64748B] block">BASES MARIADB</span>
-              <span className="text-xs font-bold text-emerald-400">Haute Dispo Sync</span>
-              <span className="text-[8px] text-[#94A3B8] block">Dossiers Patients Sécurisés</span>
+              <span className="text-[9px] text-[#64748B] block">PORTAIL INTRANET</span>
+              <span className="text-xs font-bold text-emerald-400">23 Apps Métiers</span>
+              <span className="text-[8px] text-[#94A3B8] block">Astra · ACF · CPT UI</span>
             </div>
           </div>
 
@@ -278,15 +262,15 @@ export default function ProjectMockup({ slug, title, imageSrc, className = '' }:
             <div className="flex items-center justify-between text-[9px] text-[#64748B] border-b border-white/5 pb-1 mb-1">
               <span className="flex items-center gap-1">
                 <Terminal className="w-3 h-3 text-sky-400" />
-                <span>PS C:\DSI-Automation\CHAI-Maintenance.ps1</span>
+                <span>PS C:\DSI-CHAI\AD-Exchange-Normalizer.ps1</span>
               </span>
-              <span className="text-emerald-400">Automatisation (-70% temps)</span>
+              <span className="text-emerald-400">Indexation O(1) · Zéro lenteur Outlook</span>
             </div>
             <div className="space-y-1 text-[9px] text-[#94A3B8] font-mono">
-              <p className="text-sky-300">PS &gt; Invoke-HospitalUserSync -Domain &quot;CHAI.LOCAL&quot; -AuditReport</p>
-              <p>&gt; Scan 1842 comptes médicaux... 100% vérifiés</p>
-              <p>&gt; Rotation des certificats SSL/TLS Kubernetes effectuée</p>
-              <p className="text-emerald-400">&gt; Cluster Status: HEALTHY [Control-Plane: OK, Workers: OK]</p>
+              <p className="text-sky-300">PS &gt; Invoke-CHAIActiveDirectoryAudit -Users 1800 -DisableAutomapping</p>
+              <p>&gt; Normalisation AD &amp; indexation Hashtables Exchange terminées</p>
+              <p>&gt; Cluster K3s (2 nœuds) + Nginx Load Balancer + Docker : ONLINE</p>
+              <p className="text-emerald-400">&gt; Intranet : 23 applications métiers regroupées + Guide RH livré</p>
             </div>
           </div>
         </div>
@@ -315,7 +299,7 @@ export default function ProjectMockup({ slug, title, imageSrc, className = '' }:
                 <span className="text-[9px] text-[#64748B] block">PARSER MULTI-EXCHANGE</span>
                 <span className="text-xs font-bold text-white">Hyperliquid + CEX + Bank</span>
               </div>
-              <span className="text-[9px] text-emerald-400">FastAPI Async · Celery</span>
+              <span className="text-[9px] text-emerald-400">FastAPI · Python</span>
             </div>
             <div className="p-2 rounded bg-white/[0.02] border border-white/[0.06] flex-1">
               <span className="text-[9px] text-[#64748B] block mb-1">ROUTINES &amp; HABIT TRACKING</span>
@@ -331,15 +315,15 @@ export default function ProjectMockup({ slug, title, imageSrc, className = '' }:
           </div>
 
           <div className="col-span-5 bg-black/60 border border-white/[0.08] p-2 rounded flex flex-col justify-between">
-            <span className="text-[9px] text-[#D4A843] uppercase block mb-1">STACK MICROSERVICES</span>
+            <span className="text-[9px] text-[#D4A843] uppercase block mb-1">ARCHITECTURE</span>
             <div className="space-y-1 text-[9px] text-[#94A3B8]">
-              <p>• FastAPI Async Core</p>
-              <p>• Redis Message Broker</p>
-              <p>• Celery Worker Queues</p>
-              <p>• PostgreSQL Persistence</p>
+              <p>• FastAPI (Python)</p>
+              <p>• React &amp; TypeScript</p>
+              <p>• Parseur CSV Bancaire</p>
+              <p>• PostgreSQL &amp; Docker</p>
             </div>
             <div className="text-[8px] text-emerald-400 pt-1 border-t border-white/5">
-              Docker Compose: 6 containers
+              Docker Compose · PostgreSQL
             </div>
           </div>
         </div>
@@ -386,6 +370,139 @@ export default function ProjectMockup({ slug, title, imageSrc, className = '' }:
               <span>Requêtes Fetch / AJAX asynchrones</span>
               <span className="text-emerald-400">PHP 8 / MySQL</span>
             </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Chronia: Assisted Living & Agenda Web Platform (PHP / JS / SQL / Agile)
+  if (isChronia) {
+    return (
+      <div className={`relative w-full h-full bg-[#080B12] text-[#CBD5E1] font-mono text-[11px] select-none overflow-hidden flex flex-col ${className}`}>
+        <div className="h-7 bg-[#0E1420] border-b border-white/[0.08] px-3 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2 text-[10px]">
+            <Activity className="w-3.5 h-3.5 text-[#D4A843]" />
+            <span className="font-bold text-[#F8FAFC]">CHRONIA // PLATEFORME AIDE À LA PERSONNE</span>
+          </div>
+          <span className="text-[9px] bg-amber-950/50 text-[#D4A843] border border-[#D4A843]/30 px-2 py-0.5 rounded">
+            ÉQUIPE AGILE · 6 DEVS
+          </span>
+        </div>
+        <div className="flex-1 p-3 grid grid-cols-12 gap-2">
+          <div className="col-span-7 flex flex-col gap-2">
+            <div className="p-2 rounded bg-white/[0.02] border border-white/[0.06]">
+              <span className="text-[9px] text-[#64748B] block">AGENDA PARTAGÉ AIDANTS / PROCHES</span>
+              <div className="mt-1.5 space-y-1 text-[9px]">
+                <div className="flex justify-between p-1 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-300">
+                  <span>09:30 · Visite Infirmière</span>
+                  <span>Confirmé ✓</span>
+                </div>
+                <div className="flex justify-between p-1 rounded bg-white/5 text-[#CBD5E1]">
+                  <span>14:00 · Téléconsultation Médecin</span>
+                  <span className="text-[#D4A843]">Rappel SMS</span>
+                </div>
+              </div>
+            </div>
+            <div className="p-2 rounded bg-white/[0.02] border border-white/[0.06] flex-1 flex items-center justify-between">
+              <div>
+                <span className="text-[9px] text-[#64748B] block">ACCESSIBILITÉ SENIOR</span>
+                <span className="text-xs font-bold text-white">Contraste AAA · UI Simplifiée</span>
+              </div>
+              <span className="text-[9px] text-emerald-400">WCAG 2.1</span>
+            </div>
+          </div>
+          <div className="col-span-5 bg-black/60 border border-white/[0.08] p-2.5 rounded flex flex-col justify-between">
+            <span className="text-[9px] text-[#D4A843] uppercase block">ARCHITECTURE MVC</span>
+            <div className="space-y-1 text-[9px] text-[#94A3B8]">
+              <p>• PHP 8 Architecture MVC</p>
+              <p>• Base Relationnelle SQL</p>
+              <p>• JavaScript Dynamique</p>
+              <p>• Gestion des rôles &amp; droits</p>
+            </div>
+            <div className="text-[8px] text-emerald-400 pt-1 border-t border-white/5">
+              IUT2 Grenoble · SAE S3
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Refonte Mobile & Web (Java Android & Symfony REST API)
+  if (isRefonteMobile) {
+    return (
+      <div className={`relative w-full h-full bg-[#070A10] text-[#CBD5E1] font-mono text-[11px] select-none overflow-hidden flex flex-col ${className}`}>
+        <div className="h-7 bg-[#0D131F] border-b border-white/[0.08] px-3 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2 text-[10px]">
+            <Cpu className="w-3.5 h-3.5 text-emerald-400" />
+            <span className="font-bold text-[#F8FAFC]">ANDROID JAVA &amp; SYMFONY REST API</span>
+          </div>
+          <span className="text-[9px] bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded">
+            JSON SYNC · MVC
+          </span>
+        </div>
+        <div className="flex-1 p-3 grid grid-cols-12 gap-2">
+          <div className="col-span-5 bg-white/[0.02] border border-white/[0.08] rounded-lg p-2.5 flex flex-col justify-between">
+            <span className="text-[9px] text-[#D4A843] uppercase">CLIENT MOBILE (JAVA)</span>
+            <div className="my-auto space-y-1.5 text-[9px]">
+              <div className="p-1.5 rounded bg-black/50 border border-white/5 text-white">
+                📱 Catalogue &amp; Filtres Temps Réel
+              </div>
+              <div className="p-1.5 rounded bg-black/50 border border-white/5 text-emerald-400">
+                ✓ Cache Offline &amp; Auth Token
+              </div>
+            </div>
+            <span className="text-[8px] text-[#64748B]">Android Studio SDK</span>
+          </div>
+          <div className="col-span-7 bg-black/60 border border-white/[0.08] rounded-lg p-2.5 flex flex-col justify-between">
+            <div className="flex justify-between text-[9px] text-[#64748B] border-b border-white/5 pb-1">
+              <span>GET /api/v1/resources</span>
+              <span className="text-emerald-400">200 OK · 14ms</span>
+            </div>
+            <pre className="text-[9px] text-[#94A3B8] leading-relaxed font-mono">
+              {'{\n'}
+              {'  "framework": "Symfony 6",\n'}
+              {'  "orm": "Doctrine SQL",\n'}
+              {'  "status": "synchronized"\n'}
+              {'}'}
+            </pre>
+            <div className="text-[8px] text-[#D4A843] pt-1 border-t border-white/5">
+              Architecture Client/Serveur découplée
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Agence Voyages JavaFX, Modele Neurone, Trading, Montage Video
+  if (isAgenceJavaFX || isModeleNeurone || isTrading || isMontageVideo) {
+    return (
+      <div className={`relative w-full h-full bg-[#070A10] text-[#CBD5E1] font-mono text-[11px] select-none overflow-hidden flex flex-col ${className}`}>
+        <div className="h-7 bg-[#0E131F] border-b border-white/[0.08] px-3 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-2 text-[10px]">
+            <Terminal className="w-3.5 h-3.5 text-[#D4A843]" />
+            <span className="font-bold text-[#F8FAFC] truncate">{title}</span>
+          </div>
+          <span className="text-[9px] text-[#D4A843] border border-[#D4A843]/30 px-2 py-0.5 rounded bg-[#D4A843]/10">
+            {isAgenceJavaFX ? 'JAVA / JAVAFX' : isModeleNeurone ? 'TENSORFLOW / AI' : isTrading ? 'QUANT / CRYPTO' : 'ADOBE SUITE'}
+          </span>
+        </div>
+        <div className="flex-1 p-3 grid grid-cols-12 gap-2 items-center">
+          <div className="col-span-12 bg-white/[0.02] border border-white/[0.06] rounded-lg p-3 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[9px] text-[#64748B] uppercase">ARCHITECTURE &amp; RÉALISATION</span>
+              <span className="text-[9px] text-emerald-400 flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3" /> Validé
+              </span>
+            </div>
+            <p className="text-xs text-white font-sans leading-relaxed">
+              {isAgenceJavaFX && 'Application desktop orientée objet (MVC, JavaFX, JUnit) pour la planification de séjours et réservations.'}
+              {isModeleNeurone && 'Entraînement de réseaux de neurones profonds sous Python (TensorFlow, Keras, NumPy) et visualisation des courbes de perte.'}
+              {isTrading && 'Analyse quantitative, gestion stricte du risque (Stop-Loss / Sizing) et automatisation de stratégies sur marchés crypto.'}
+              {isMontageVideo && '7+ ans de réalisation vidéo, motion design 60fps, sound design et étalonnage sous Premiere Pro & After Effects.'}
+            </p>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ import Footer from '@/components/layout/Footer'
 import ScrollProgress from '@/components/ui/ScrollProgress'
 import GeometricReliefBackground from '@/components/ui/GeometricReliefBackground'
 import GoldParticles from '@/components/ui/GoldParticles'
+import CommandPalette from '@/components/ui/CommandPalette'
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
@@ -62,6 +63,7 @@ export default function Home() {
       {/* Main Content */}
       <div className="relative min-h-screen z-10">
         <ScrollProgress />
+        <CommandPalette />
         <Navbar />
         <main>
           <Hero />

@@ -119,41 +119,41 @@ export default function About() {
       >
         <div className="space-y-1">
           <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono">
-            <Counter value={1} suffix=" an" />
+            <Counter value={4} suffix="M / an" />
           </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
-            {t("D'expérience pro", 'Pro experience')}
+            {t('Régulateurs sécurisés', 'Controllers secured')}
           </div>
-          <div className="text-[11px] text-[#64748B]">Carrier Culoz SA &amp; DSI CHAI</div>
+          <div className="text-[11px] text-[#64748B]">Carrier R&amp;D · Auth OTP &amp; CRA</div>
         </div>
 
         <div className="space-y-1">
           <div className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] font-mono">
-            <Counter value={11} suffix="+" />
+            <Counter value={1800} suffix="+" />
           </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
-            {t('Projets réalisés', 'Projects built')}
+            {t('Professionnels couverts', 'Staff supported')}
           </div>
-          <div className="text-[11px] text-[#64748B]">SaaS, Embarqué, Web &amp; IA</div>
+          <div className="text-[11px] text-[#64748B]">DSI CHAI · K3s HA &amp; 23 Apps</div>
         </div>
 
         <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] font-mono">BUT3</div>
+          <div className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] font-mono">180 ECTS</div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
-            {t('Informatique', 'Computer Science')}
+            {t('Grade de Bachelor', 'Bachelor Degree')}
           </div>
-          <div className="text-[11px] text-[#64748B]">IUT2 Université Grenoble</div>
+          <div className="text-[11px] text-[#64748B]">B.U.T. Informatique — UGA</div>
         </div>
 
         <div className="space-y-1">
           <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono flex items-center gap-1.5">
-            <span>24/7</span>
+            <span>GE · VD</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
           </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
-            {t('Systèmes autonomes', 'Autonomous systems')}
+            {t('Mobilité Suisse (Juil. 2027)', 'Swiss Mobility (July 2027)')}
           </div>
-          <div className="text-[11px] text-[#64748B]">Trading &amp; Daemons Linux</div>
+          <div className="text-[11px] text-[#64748B]">Genève &amp; Vaud · Permis B</div>
         </div>
       </div>
 
@@ -187,24 +187,24 @@ export default function About() {
               <div className="space-y-2.5 text-xs text-[#94A3B8] pt-4 border-t border-white/[0.06]">
                 <div className="flex items-center gap-2.5">
                   <Building2 className="w-4 h-4 text-[#D4A843] shrink-0" />
-                  <span>{t('Alternance chez Carrier Culoz SA (R&D STone)', 'Apprenticeship @ Carrier Culoz SA (STone R&D)')}</span>
+                  <span>{t('Développeur Logiciel R&D @ Carrier (NYSE : CARR)', 'R&D Software Developer @ Carrier (NYSE: CARR)')}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <GraduationCap className="w-4 h-4 text-[#D4A843] shrink-0" />
-                  <span>BUT Informatique — IUT2 Grenoble</span>
+                  <span>{t('B.U.T. Informatique (Grade de Bachelor - 180 ECTS) — UGA', 'Bachelor in Computer Science (180 ECTS) — UGA')}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <MapPin className="w-4 h-4 text-[#D4A843] shrink-0" />
-                  <span>Culoz (01) &amp; Grenoble (38)</span>
+                  <span>{t('Mobilité : Cantons de Genève & Vaud (Juil. 2027) · Permis B', 'Mobility: Geneva & Vaud (July 2027) · Driver License')}</span>
                 </div>
               </div>
 
-              {/* Improved Dynamic Professional Status (replaces old "Disponible 2027") */}
+              {/* Improved Dynamic Professional Status */}
               <div className="mt-6 pt-4 border-t border-white/[0.06]">
                 <div className="flex items-center gap-2 text-xs text-[#CBD5E1]">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                   <span className="font-medium text-[#F5D785]">
-                    {t('En alternance Carrier · Ouvert aux opportunités (CDI / Missions dès 2027)', 'Carrier Apprentice · Open to opportunities (Full-time / Projects)')}
+                    {t('Disponible dès juillet 2027 · Suisse romande (Genève / Vaud)', 'Available July 2027 · Switzerland (Geneva / Vaud)')}
                   </span>
                 </div>
               </div>
@@ -217,20 +217,20 @@ export default function About() {
           <div className="about-fade space-y-3.5 text-sm text-[#94A3B8] leading-relaxed">
             <p>
               {t(
-                "En 3e année de BUT Informatique à Grenoble et en alternance chez Carrier Culoz, je développe du logiciel : web full-stack, infrastructure Linux et embarqué.",
-                "3rd-year CS student at IUT2 Grenoble and apprentice at Carrier Culoz, I build software across full-stack web, Linux infra, and embedded systems."
+                "En 3e année de B.U.T. Informatique (Grade de Bachelor - 180 ECTS) à l'Université Grenoble Alpes, je développe du logiciel côté backend, des interfaces web embarquées et des outils d'automatisation.",
+                "Final-year Computer Science student (Bachelor Degree - 180 ECTS) at Université Grenoble Alpes, I build backend software, embedded web interfaces, and automation tools."
               )}
             </p>
             <p>
               {t(
-                "Chez Carrier, je migre le logiciel d'automates industriels en langage ST. Lors de mon stage au Centre Hospitalier Alpes-Isère, j'ai automatisé des tâches sous PowerShell et mis en place des clusters Kubernetes pour 1 800 utilisateurs.",
-                "At Carrier, I migrate industrial PLC software in Structured Text. During my internship at CHAI hospital, I automated tasks with PowerShell and set up Kubernetes clusters for 1,800 users."
+                "En R&D chez Carrier (47 000 employés, 21,75 Mrd$ CA), je refonds l'application web de commissioning (Alpine.js, Tailwind, API REST), conçois l'authentification OTP sur 3 familles de régulateurs (4M d'unités/an) pour le Cyber Resilience Act (CRA), et migre la régulation vers Carel STone.",
+                "In R&D at Carrier (47,000 employees, $21.75B revenue), I redesign the web commissioning app (Alpine.js, Tailwind, REST API), build OTP authentication across 3 controller families (4M units/year) for the Cyber Resilience Act (CRA), and migrate PLC logic to Carel STone."
               )}
             </p>
             <p>
               {t(
-                "Sur mon temps libre, je développe mes propres projets comme Algofy (trading automatisé sur Hyperliquid) et LifeOS (dashboard personnel avec FastAPI et React).",
-                "On my own time, I build projects like Algofy (automated trading on Hyperliquid) and LifeOS (personal dashboard with FastAPI and React)."
+                "Lors de mon stage à la DSI du Centre Hospitalier Alpes-Isère (1 800 professionnels), j'ai mis en place un cluster Kubernetes (K3s) sur 2 nœuds avec Nginx et Docker, automatisé l'Active Directory / Exchange en PowerShell et refondu l'intranet regroupant 23 applications métiers.",
+                "During my internship at the CHAI Hospital IT Department (1,800 staff), I set up a 2-node Kubernetes (K3s) cluster with Nginx and Docker, automated Active Directory / Exchange via PowerShell, and rebuilt the intranet grouping 23 business apps."
               )}
             </p>
           </div>
@@ -245,18 +245,18 @@ export default function About() {
             </span>
           </div>
 
-          {/* Interests without emojis, using clean Lucide icons */}
+          {/* Interests — Editorial flow with gold dots, no boxy AI pills */}
           <div className="about-fade pt-6 border-t border-white/[0.08]">
             <h4 className="text-xs uppercase tracking-[0.15em] text-[#64748B] font-mono mb-3.5">
-              {t('Centres d\'intérêt & passions', 'Interests & Passions')}
+              {t('Centres d\'intérêt', 'Interests')}
             </h4>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5">
               {interests.map((item, i) => {
                 const IconComponent = item.icon
                 return (
                   <div
                     key={i}
-                    className="flex items-center gap-2 text-xs text-[#CBD5E1] hover:text-[#F5D785] px-3 py-1.5 rounded-lg border border-white/[0.06] hover:border-[#D4A843]/30 bg-white/[0.02] transition-colors"
+                    className="flex items-center gap-2 text-xs text-[#CBD5E1] hover:text-[#F5D785] transition-colors cursor-default"
                   >
                     <IconComponent className="w-3.5 h-3.5 text-[#D4A843]" />
                     <span>{item.label}</span>

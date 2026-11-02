@@ -53,19 +53,25 @@ export default function Skills() {
         </TextReveal>
       </div>
 
-      {/* Skills Grid — 6 categories, clean icon + text flow without boxy rectangles */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
+      {/* Skills Grid — Editorial open layout, zero boxy rectangles */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12 mb-16">
         {skillCategories.map((cat, i) => (
           <div key={i} className="skill-group opacity-0">
-            {/* Category title with subtle line */}
-            <div className="flex items-center gap-3 mb-4 pb-2 border-b border-white/[0.08]">
+            {/* Category title with architectural top rule */}
+            <div className="flex items-center gap-3 pt-4 mb-1.5 border-t border-white/[0.12]">
               <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#D4A843] font-semibold">
                 {lang === 'fr' ? cat.title.fr : cat.title.en}
               </span>
               <span className="text-[10px] font-mono text-[#64748B] ml-auto">0{i + 1}</span>
             </div>
 
-            {/* Tech list: Authentic icon + label, completely borderless & modern */}
+            {cat.subtitle && (
+              <p className="text-[11px] font-mono text-[#64748B] mb-4">
+                {lang === 'fr' ? cat.subtitle.fr : cat.subtitle.en}
+              </p>
+            )}
+
+            {/* Tech list: Authentic icon + label, borderless */}
             <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
               {cat.techs.map(tech => (
                 <div

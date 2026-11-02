@@ -25,33 +25,42 @@ export default function Terminal() {
 
   const commands: Record<string, string> = {
     help: `${t('Commandes disponibles', 'Available commands')} :
-  <span class="text-[#D4A843]">about</span>       : ${t('Présentation', 'About me')}
-  <span class="text-[#D4A843]">carrier</span>     : ${t('Alternance chez Carrier Culoz SA', 'Apprenticeship at Carrier Culoz SA')}
-  <span class="text-[#D4A843]">skills</span>      : ${t('Stack technologique', 'Tech stack')}
+  <span class="text-[#D4A843]">about</span>       : ${t('Présentation & Bachelor 180 ECTS', 'Profile & Bachelor 180 ECTS')}
+  <span class="text-[#D4A843]">carrier</span>     : ${t('Développeur Logiciel R&D @ Carrier', 'R&D Software Developer @ Carrier')}
+  <span class="text-[#D4A843]">chai</span>        : ${t('Développeur & DevOps @ DSI CH Alpes-Isère', 'Developer & DevOps @ CHAI Hospital')}
+  <span class="text-[#D4A843]">suisse</span>      : ${t('Mobilité Genève & Vaud (Juillet 2027)', 'Geneva & Vaud Mobility (July 2027)')}
+  <span class="text-[#D4A843]">skills</span>      : ${t('Stack technologique complète', 'Full tech stack')}
   <span class="text-[#D4A843]">projects</span>    : ${t('Liste des projets', 'Project list')}
   <span class="text-[#D4A843]">algofy</span>      : ${t('Détails Algofy', 'Algofy details')}
   <span class="text-[#D4A843]">lifeos</span>      : ${t('Détails LifeOS', 'LifeOS details')}
   <span class="text-[#D4A843]">contact</span>     : ${t('Coordonnées', 'Contact info')}
   <span class="text-[#D4A843]">hire</span>        : ???
   <span class="text-[#D4A843]">clear</span>       : ${t('Efface l\'écran', 'Clear screen')}`,
-    about: `<span class="text-emerald-400">Alexis Serano</span>
-  - ${t('En alternance chez', 'Apprenticeship at')} <span class="text-[#D4A843]">Carrier Culoz SA</span> (${t('Programmation embarquée', 'Embedded programming')})
-  - ${t('Étudiant en 3ème année de BUT Informatique à l\'IUT2 de Grenoble', '3rd year CS student at IUT2 Grenoble')}
-  - ${t('Localisation', 'Location')} : Culoz (01) & Grenoble (38) | ${t('Permis B', 'Driver\'s License')}
-  - ${t('Passionné par le dev applicatif, l\'embarqué, le DevOps et l\'IA', 'Passionate about software dev, embedded systems, DevOps and AI')}`,
-    carrier: `<span class="text-emerald-400">[Carrier Culoz SA] — ${t('Alternance Développeur Embarqué', 'Embedded Developer Apprenticeship')}</span>
-  <span class="text-[#D4A843]">${t('Période', 'Period')} :</span> 31/08/2026 → 02/07/2027
-  <span class="text-[#D4A843]">${t('Missions', 'Missions')} :</span>
-  → ${t('Programmation embarquée sur automates (HVAC)', 'Embedded PLC programming (HVAC)')}
-  → ${t('Migration logicielle Carrel → STone', 'Software migration Carrel → STone')}
-  → ${t('Langage Structured Text (IEC 61131-3)', 'Structured Text language (IEC 61131-3)')}`,
+    about: `<span class="text-emerald-400">Alexis Serano — Développeur Logiciel (Bachelor 180 ECTS)</span>
+  - ${t('Développeur Logiciel R&D chez', 'R&D Software Developer at')} <span class="text-[#D4A843]">Carrier</span> (NYSE: CARR, ~58 000 collab.)
+  - ${t('B.U.T. Informatique (Grade de Bachelor - 180 ECTS) — Université Grenoble Alpes', 'Bachelor in Computer Science (180 ECTS) — UGA Grenoble')}
+  - ${t('Mobilité', 'Mobility')} : Cantons de Genève & Vaud (${t('Disponible dès juillet 2027', 'Available July 2027')}) | Permis B
+  - ${t('Spécialités : Backend, DevOps, APIs, Web Embarqué & Cybersécurité (CRA)', 'Specialties: Backend, DevOps, APIs, Embedded Web & Cybersecurity (CRA)')}`,
+    carrier: `<span class="text-emerald-400">[Carrier — Culoz, FR] — ${t('Développeur Logiciel R&D', 'R&D Software Developer')} (Août 2026 – Juil. 2027)</span>
+  → ${t('Interfaces web de commissioning (HTML, Tailwind CSS, Alpine.js, API REST)', 'Web commissioning interfaces (HTML, Tailwind CSS, Alpine.js, REST API)')}
+  → ${t('Conformité Cyber Resilience Act (CRA - échéance déc. 2027)', 'Cyber Resilience Act (CRA - Dec 2027) compliance')}
+  → ${t('Authentification OTP sur 3 familles d\'automates (4M de régulateurs/an)', 'OTP authentication across 3 PLC families (4M controllers/year)')}
+  → ${t('Migration C-Suite → Carel STone & formation Git/GitHub (5 développeurs)', 'C-Suite → Carel STone migration & Git/GitHub training (5 developers)')}`,
+    chai: `<span class="text-emerald-400">[CH Alpes-Isère] — ${t('Stage Déploiement & Automatisation (Mai – Juin 2026)', 'Deployment & Automation Intern (May – June 2026)')}</span>
+  → ${t('Automatisation PowerShell Active Directory (1 800 professionnels)', 'PowerShell Active Directory automation (1,800 professionals)')}
+  → ${t('Optimisation Exchange (Hashtables O(1), désactivation Automapping Outlook)', 'Exchange optimization (O(1) Hashtables, Outlook Automapping disabled)')}
+  → ${t('Refonte portail intranet regroupant 23 applications métiers + guide RH', 'Intranet portal redesign grouping 23 business apps + HR guide')}
+  → ${t('Cluster Kubernetes (K3s) à 2 nœuds + Nginx Load Balancer + Docker Compose', '2-node Kubernetes (K3s) cluster + Nginx Load Balancer + Docker Compose')}`,
+    suisse: `<span class="text-emerald-400">[Mobilité Suisse Romande — Disponible dès Juillet 2027]</span>
+  - ${t('Zones cibles', 'Target areas')} : <span class="text-[#D4A843]">Cantons de Genève & Vaud</span> (Lausanne, Nyon, Morges, Genève)
+  - ${t('Diplôme', 'Degree')} : B.U.T. Informatique — Grade de Bachelor (180 ECTS)
+  - ${t('Profil', 'Profile')} : Développeur Logiciel Full-Stack, Backend, DevOps & R&D`,
     skills: `<span class="text-[#D4A843]">Stack Technique :</span>
-  - Embedded : Langage ST, Automates, C/C++
-  - Web      : React, Next.js, TypeScript, PHP, Symfony, Node.js
-  - Software : Java, JavaFX, C#, Python, Django
-  - DevOps   : Docker, Kubernetes, PowerShell, Nginx, Linux
-  - Data     : PostgreSQL, MySQL, SQLite
-  - Creative : Adobe Premiere Pro, After Effects, Photoshop`,
+  - Web & API  : React, Next.js, TypeScript, Tailwind CSS, Alpine.js, Node.js, Symfony, REST
+  - Backend    : Python (Django, FastAPI), C#, Java, C/C++, PHP
+  - DevOps/Sys : Docker, Kubernetes (K3s), Nginx, Linux, PowerShell, Active Directory, Exchange
+  - R&D & Sec  : Carel STone, Langage ST (IEC 61131-3), Cyber Resilience Act (CRA), Auth OTP
+  - Data       : PostgreSQL, MySQL, SQLite`,
     projects: `<span class="text-[#D4A843]">${t('Projets Clés', 'Key Projects')} :</span>
   0. <span class="text-emerald-400">❯</span> Carrier Culoz SA (Automates, Langage ST)
   1. <span class="text-emerald-400">❯</span> Stage DSI CHAI (PowerShell, K8s)
@@ -68,12 +77,12 @@ export default function Terminal() {
   → ${t('Chiffrement AES-256/Fernet', 'AES-256/Fernet encryption')}
   → ${t('Monétisation Stripe + Affiliation Connect', 'Stripe monetization + Connect affiliates')}
   → ${t('Alertes temps réel via Bot Telegram', 'Real-time alerts via Telegram Bot')}`,
-    lifeos: `<span class="text-emerald-400">[LifeOS] — ${t('Operating System Personnel', 'Personal Operating System')}</span>
-  <span class="text-[#D4A843]">Stack :</span> FastAPI • React/TypeScript • PostgreSQL • Redis • Celery • Docker
+    lifeos: `<span class="text-emerald-400">[LifeOS] — ${t('Dashboard Personnel', 'Personal Dashboard')}</span>
+  <span class="text-[#D4A843]">Stack :</span> FastAPI • React/TypeScript • PostgreSQL • Docker
   → +30 modules (Journal, Nutrition, ${t('Santé', 'Health')}, Finances...)
   → ${t('Parseur CSV multi-exchanges', 'Multi-exchange CSV parser')}
-  → ${t('Bots de trading autonomes', 'Autonomous trading bots')}
-  → ${t('Architecture Docker Compose', 'Docker Compose architecture')}`,
+  → ${t('Suivi de portefeuille & routines', 'Portfolio & routine tracking')}
+  → ${t('Déploiement Docker Compose', 'Docker Compose deployment')}`,
     contact: `<span class="text-emerald-400">${t('Contact & Liens', 'Contact & Links')} :</span>
   - Email  : <a href="mailto:alexis.seranoo@gmail.com" class="text-[#4A9ECA] hover:underline">alexis.seranoo@gmail.com</a>
   - GitHub : <a href="https://github.com/AlexisSerano" target="_blank" class="text-[#4A9ECA] hover:underline">github.com/AlexisSerano</a>
@@ -122,7 +131,7 @@ export default function Terminal() {
     }
   }, [lines])
 
-  const quickCmds = ['about', 'carrier', 'skills', 'projects', 'algofy', 'lifeos', 'contact', 'hire', 'clear']
+  const quickCmds = ['about', 'carrier', 'chai', 'suisse', 'skills', 'projects', 'algofy', 'lifeos', 'contact', 'hire', 'clear']
 
   return (
     <section id="terminal" className="py-24 px-6 max-w-3xl mx-auto">

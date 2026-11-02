@@ -73,13 +73,55 @@ export default function TechIcon({ name, className = 'w-4 h-4', size = 18 }: Tec
     )
   }
 
-  // Kubernetes
-  if (norm.includes('kubernetes') || norm === 'k8s') {
+    //Kubernetes
+  if (norm.includes('kubernetes') || norm === 'k8s' || norm.includes('k3s')) {
     return (
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
         <path d="M12 2L3 7.2V17.6L12 22.8L21 17.6V7.2L12 2Z" stroke="#326CE5" strokeWidth="1.5" strokeLinejoin="round" fill="none" />
         <circle cx="12" cy="12.4" r="3.5" stroke="#326CE5" strokeWidth="1.5" fill="none" />
         <path d="M12 9V5.5M9 14L6 16.5M15 14L18 16.5M7 10.5L4 8.5M17 10.5L20 8.5M12 16V19.5" stroke="#326CE5" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    )
+  }
+
+  // Alpine.js
+  if (norm.includes('alpine')) {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+        <path d="M17.5 6L22 10.5L17.5 15L13 10.5L17.5 6Z" fill="#77C1D2" />
+        <path d="M6.5 6L15.5 15H6.5L2 10.5L6.5 6Z" fill="#2D3441" stroke="#77C1D2" strokeWidth="1.2" />
+      </svg>
+    )
+  }
+
+  // Cybersécurité / CRA / OTP / AES-256 / Shield
+  if (norm.includes('cyber') || norm.includes('cra') || norm.includes('otp') || norm.includes('aes') || norm.includes('sécurité') || norm.includes('shield') || norm.includes('bcrypt')) {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+        <path d="M12 2L4 5.5v6c0 5.3 3.4 10.2 8 11.5 4.6-1.3 8-6.2 8-11.5v-6L12 2z" fill="#D4A843" opacity="0.18" stroke="#D4A843" strokeWidth="1.5" />
+        <path d="M9 12l2 2 4-4" stroke="#F5D785" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+
+  // Active Directory / Exchange
+  if (norm.includes('active directory') || norm.includes('exchange')) {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+        <rect x="3" y="3" width="8" height="8" rx="1.5" fill="#00A4EF" />
+        <rect x="13" y="3" width="8" height="8" rx="1.5" fill="#00A4EF" opacity="0.75" />
+        <rect x="3" y="13" width="8" height="8" rx="1.5" fill="#00A4EF" opacity="0.75" />
+        <rect x="13" y="13" width="8" height="8" rx="1.5" fill="#00A4EF" opacity="0.5" />
+      </svg>
+    )
+  }
+
+  // API REST / Celery / Agile
+  if (norm.includes('api rest') || norm.includes('celery') || norm.includes('agile')) {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+        <circle cx="12" cy="12" r="9" stroke="#10B981" strokeWidth="1.5" strokeDasharray="3 2" />
+        <circle cx="12" cy="12" r="3.5" fill="#10B981" />
       </svg>
     )
   }

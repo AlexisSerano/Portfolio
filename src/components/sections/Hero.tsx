@@ -4,8 +4,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLanguage } from '@/context/LanguageContext'
 import MagneticButton from '@/components/ui/MagneticButton'
+import SwissCalibreWidget from '@/components/ui/SwissCalibreWidget'
 import { assetPath } from '@/lib/asset'
-import { Mail, Copy, Check } from 'lucide-react'
+import { Mail, Copy, Check, MapPin } from 'lucide-react'
 
 const GithubIcon = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -19,16 +20,16 @@ if (typeof window !== 'undefined') {
 
 const typewriterPhrases = {
   fr: [
-    'Développeur Full-Stack & DevOps',
-    'Alternant chez Carrier Culoz',
-    'Étudiant en BUT Informatique',
-    'Trading algorithmique & backend',
+    'Développeur Logiciel R&D @ Carrier',
+    'Backend, DevOps, APIs & Cybersécurité (CRA)',
+    'B.U.T. Informatique — Grade de Bachelor (180 ECTS)',
+    'Mobilité Genève & Vaud · Disponible dès Juillet 2027',
   ],
   en: [
-    'Full-Stack & DevOps Developer',
-    'Apprentice at Carrier Culoz',
-    'Computer Science Student',
-    'Algorithmic trading & backend',
+    'R&D Software Developer @ Carrier',
+    'Backend, DevOps, APIs & Cybersecurity (CRA)',
+    'Bachelor in Computer Science (180 ECTS)',
+    'Geneva & Vaud Mobility · Available July 2027',
   ],
 }
 
@@ -158,88 +159,102 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} id="hero" className="relative min-h-screen flex flex-col justify-center px-6 max-w-7xl mx-auto">
-      {/* Status badges */}
-      <div className="hero-status flex flex-wrap items-center gap-3 mb-6 opacity-0">
-        <div className="flex items-center gap-2 bg-[#D4A843]/10 border border-[#D4A843]/25 px-3 py-1 rounded-full">
-          <span className="w-2 h-2 rounded-full bg-[#D4A843]" style={{ animation: 'glow-pulse 2s ease-in-out infinite' }} />
-          <span className="text-xs text-[#F5D785] tracking-wide font-medium">
-            {t('Alternant @ Carrier Culoz SA', 'Apprentice @ Carrier Culoz SA')}
-          </span>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div className="lg:col-span-7">
+          {/* Status badges */}
+          <div className="hero-status flex flex-wrap items-center gap-2.5 mb-6 opacity-0">
+            <div className="flex items-center gap-2 bg-[#D4A843]/10 border border-[#D4A843]/25 px-3 py-1 rounded-full">
+              <span className="w-2 h-2 rounded-full bg-[#D4A843]" style={{ animation: 'glow-pulse 2s ease-in-out infinite' }} />
+              <span className="text-xs text-[#F5D785] tracking-wide font-medium">
+                {t('Développeur Logiciel R&D @ Carrier', 'R&D Software Developer @ Carrier')}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono bg-emerald-950/30 border border-emerald-500/25 px-3 py-1 rounded-full">
+              <MapPin className="w-3 h-3" />
+              <span>{t('Mobilité : Cantons de Genève & Vaud (Juil. 2027)', 'Mobility: Geneva & Vaud (July 2027)')}</span>
+            </div>
+
+            <div className="flex items-center gap-1.5 text-xs text-[#94A3B8] font-mono bg-white/[0.03] border border-white/[0.08] px-3 py-1 rounded-full">
+              <span className="text-[#D4A843] font-bold">1 an</span> {t("d'expérience · Bachelor (180 ECTS)", 'pro exp · Bachelor (180 ECTS)')}
+            </div>
+          </div>
+
+          {/* Name — refined typography */}
+          <div ref={nameRef} className="mb-4">
+            <h1 className="font-bold leading-[1.05] tracking-[-0.035em]" style={{ fontSize: 'clamp(3rem, 8vw, 6.8rem)' }}>
+              <span className="text-[#F8FAFC]">{splitName('Alexis')}</span>
+              <br />
+              <span className="text-[#F8FAFC]">{splitName('Serano')}</span>
+              <span className="hero-dot text-gradient-gold inline-block opacity-0">.</span>
+            </h1>
+          </div>
+
+          {/* Typewriter */}
+          <div className="mb-4 h-8 flex items-center">
+            <span ref={typewriterRef} className="text-[#94A3B8] text-lg font-mono" />
+            <span ref={cursorRef} className="inline-block w-[2px] h-5 bg-[#D4A843] ml-1" />
+          </div>
+
+          {/* Bio */}
+          <p className="hero-bio text-[#94A3B8] text-sm sm:text-base max-w-xl mb-8 leading-relaxed opacity-0">
+            {t(
+              'Développeur Logiciel en R&D chez Carrier (4M de régulateurs/an, conformité CRA, OTP) et en 3e année de B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Je travaille sur le backend, le DevOps (Docker, K3s), les APIs et l’embarqué.',
+              'R&D Software Developer at Carrier (4M controllers/yr, CRA compliance, OTP) and final-year CS Bachelor student (180 ECTS). I work across backend, DevOps (Docker, K3s), APIs, and embedded systems.'
+            )}
+          </p>
+
+          {/* Actions */}
+          <div className="hero-actions flex flex-wrap items-center gap-4 opacity-0">
+            <MagneticButton
+              href="#projects"
+              className="px-6 py-3 rounded-full bg-[#D4A843] text-[#050505] font-semibold text-sm hover:shadow-[0_0_30px_rgba(212,168,67,0.35)] transition-all cursor-pointer"
+            >
+              {t('Explorer mes projets', 'Explore my projects')}
+            </MagneticButton>
+
+            <MagneticButton
+              href={assetPath('/images/Alexis_serano.pdf')}
+              target="_blank"
+              className="px-6 py-3 rounded-full border border-white/15 text-[#CBD5E1] text-sm font-medium hover:border-[#D4A843] hover:text-[#D4A843] transition-all cursor-pointer"
+            >
+              {t('Consulter mon CV', 'View my Resume')}
+            </MagneticButton>
+
+            {/* Clear Email Copy Button with Feedback */}
+            <button
+              onClick={copyEmail}
+              className="h-11 px-4 rounded-full border border-white/10 hover:border-[#D4A843]/40 bg-white/[0.02] hover:bg-[#D4A843]/10 flex items-center gap-2 text-xs text-[#94A3B8] hover:text-[#F5D785] transition-all cursor-pointer"
+              title={t("Copier l'adresse email", 'Copy email address')}
+            >
+              {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-[#D4A843]" />}
+              <span className="font-mono">{copiedEmail ? t('Email copié !', 'Email copied!') : 'alexis.seranoo@gmail.com'}</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              <a
+                href="https://github.com/AlexisSerano"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-[#64748B] hover:text-[#D4A843] hover:border-[rgba(212,168,67,0.3)] transition-all"
+                title="GitHub"
+              >
+                <GithubIcon className="w-4 h-4" />
+              </a>
+              <a
+                href="mailto:alexis.seranoo@gmail.com"
+                className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-[#64748B] hover:text-[#D4A843] hover:border-[rgba(212,168,67,0.3)] transition-all"
+                title="Email"
+              >
+                <Mail className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center gap-1.5 text-xs text-[#94A3B8] font-mono bg-white/[0.03] border border-white/[0.08] px-3 py-1 rounded-full">
-          <span className="text-[#D4A843] font-bold">1 an</span> {t("d'expérience professionnelle", 'pro experience')}
-        </div>
-      </div>
-
-      {/* Name — refined typography */}
-      <div ref={nameRef} className="mb-4">
-        <h1 className="font-bold leading-[1.05] tracking-[-0.035em]" style={{ fontSize: 'clamp(3rem, 8vw, 6.8rem)' }}>
-          <span className="text-[#F8FAFC]">{splitName('Alexis')}</span>
-          <br />
-          <span className="text-[#F8FAFC]">{splitName('Serano')}</span>
-          <span className="hero-dot text-gradient-gold inline-block opacity-0">.</span>
-        </h1>
-      </div>
-
-      {/* Typewriter */}
-      <div className="mb-4 h-8 flex items-center">
-        <span ref={typewriterRef} className="text-[#94A3B8] text-lg font-mono" />
-        <span ref={cursorRef} className="inline-block w-[2px] h-5 bg-[#D4A843] ml-1" />
-      </div>
-
-      {/* Bio */}
-      <p className="hero-bio text-[#64748B] text-base max-w-xl mb-8 opacity-0">
-        {t(
-          'Architecture logicielle · Infrastructure · Trading algorithmique & embarqué',
-          'Software Architecture · Infrastructure · Algorithmic Trading & Embedded'
-        )}
-      </p>
-
-      {/* Actions */}
-      <div className="hero-actions flex flex-wrap items-center gap-4 opacity-0">
-        <MagneticButton
-          href="#projects"
-          className="px-6 py-3 rounded-full bg-[#D4A843] text-[#050505] font-semibold text-sm hover:shadow-[0_0_30px_rgba(212,168,67,0.35)] transition-all cursor-pointer"
-        >
-          {t('Explorer mes projets', 'Explore my projects')}
-        </MagneticButton>
-
-        <MagneticButton
-          href={assetPath('/images/Alexis_serano.pdf')}
-          target="_blank"
-          className="px-6 py-3 rounded-full border border-white/15 text-[#CBD5E1] text-sm font-medium hover:border-[#D4A843] hover:text-[#D4A843] transition-all cursor-pointer"
-        >
-          {t('Consulter mon CV', 'View my Resume')}
-        </MagneticButton>
-
-        {/* Clear Email Copy Button with Feedback */}
-        <button
-          onClick={copyEmail}
-          className="h-11 px-4 rounded-full border border-white/10 hover:border-[#D4A843]/40 bg-white/[0.02] hover:bg-[#D4A843]/10 flex items-center gap-2 text-xs text-[#94A3B8] hover:text-[#F5D785] transition-all cursor-pointer"
-          title={t("Copier l'adresse email", 'Copy email address')}
-        >
-          {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-[#D4A843]" />}
-          <span className="font-mono">{copiedEmail ? t('Email copié !', 'Email copied!') : 'alexis.seranoo@gmail.com'}</span>
-        </button>
-
-        <div className="flex items-center gap-2">
-          <a
-            href="https://github.com/AlexisSerano"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-[#64748B] hover:text-[#D4A843] hover:border-[rgba(212,168,67,0.3)] transition-all"
-            title="GitHub"
-          >
-            <GithubIcon className="w-4 h-4" />
-          </a>
-          <a
-            href="mailto:alexis.seranoo@gmail.com"
-            className="w-11 h-11 rounded-full border border-white/10 flex items-center justify-center text-[#64748B] hover:text-[#D4A843] hover:border-[rgba(212,168,67,0.3)] transition-all"
-            title="Email"
-          >
-            <Mail className="w-4 h-4" />
-          </a>
+        {/* Right Column: Swiss Horology & Engineering Telemetry Widget */}
+        <div className="lg:col-span-5 flex justify-center">
+          <SwissCalibreWidget />
         </div>
       </div>
 

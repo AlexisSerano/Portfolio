@@ -73,8 +73,8 @@ export default function Contact() {
             </h3>
             <p className="text-[#94A3B8] text-sm leading-relaxed">
               {t(
-                "En alternance chez Carrier Culoz et diplômé en 2027, je reste à l'écoute d'opportunités en développement web, backend et DevOps.",
-                "Apprentice at Carrier Culoz graduating in 2027, open to software development, backend, and DevOps opportunities."
+                "Développeur Logiciel R&D chez Carrier et diplômé d'un B.U.T. Informatique (Grade de Bachelor - 180 ECTS) en juillet 2027, je suis disponible pour des opportunités en Suisse romande (Cantons de Genève & Vaud) ainsi qu'en France.",
+                "R&D Software Developer at Carrier graduating with a Bachelor in Computer Science (180 ECTS) in July 2027, available for opportunities in Western Switzerland (Geneva & Vaud) and France."
               )}
             </p>
           </div>
@@ -152,7 +152,7 @@ export default function Contact() {
           </div>
 
           <p className="text-xs text-[#64748B] font-mono">
-            {t('Localisation : Culoz (01) & Grenoble (38)', 'Location: Culoz & Grenoble, France')}
+            {t('Mobilité : Cantons de Genève & Vaud (Juil. 2027) · Permis B', 'Mobility: Geneva & Vaud (July 2027) · Driver License')}
           </p>
         </div>
 

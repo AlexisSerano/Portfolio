@@ -155,14 +155,33 @@ export default function Experience() {
                     </h3>
 
                     {/* Subtitle */}
-                    <p className="text-xs text-[#94A3B8] mb-3 ml-9">
+                    <p className="text-xs text-[#94A3B8] mb-2 ml-9">
                       {lang === 'fr' ? exp.subtitle.fr : exp.subtitle.en}
                     </p>
 
+                    {/* Company Context */}
+                    {exp.companyContext && (
+                      <p className="text-[11px] font-mono text-[#D4A843]/85 mb-3 ml-9 italic">
+                        {lang === 'fr' ? exp.companyContext.fr : exp.companyContext.en}
+                      </p>
+                    )}
+
                     {/* Description */}
-                    <p className="text-sm text-[#CBD5E1] mb-4 leading-relaxed ml-9">
+                    <p className="text-sm text-[#CBD5E1] mb-3 leading-relaxed ml-9">
                       {lang === 'fr' ? exp.description.fr : exp.description.en}
                     </p>
+
+                    {/* Detailed Highlights (from CV) */}
+                    {exp.highlights && (
+                      <ul className="space-y-1.5 mb-4 ml-9">
+                        {(lang === 'fr' ? exp.highlights.fr : exp.highlights.en).map((bullet, idx) => (
+                          <li key={idx} className="text-xs text-[#94A3B8] leading-relaxed flex items-start gap-2">
+                            <span className="text-[#D4A843] mt-0.5 shrink-0">❯</span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 ml-9">

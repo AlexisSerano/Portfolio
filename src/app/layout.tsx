@@ -28,13 +28,13 @@ const fontMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Alexis Serano | Développeur Full-Stack & DevOps',
-  description: "Portfolio d'Alexis Serano, alternant chez Carrier Culoz SA et étudiant en 3ème année BUT Informatique. Développement logiciel, Full-Stack, DevOps et systèmes autonomes.",
-  keywords: ['Alexis Serano', 'Développeur', 'Full-Stack', 'DevOps', 'Portfolio', 'Carrier Culoz', 'BUT Informatique', 'Grenoble'],
+  title: 'Alexis Serano | Développeur Logiciel R&D, Full-Stack & DevOps (Genève & Vaud)',
+  description: "Portfolio d'Alexis Serano, Développeur Logiciel R&D chez Carrier (4M d'unités/an, CRA, OTP) et B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Mobilité Genève & Vaud dès juillet 2027.",
+  keywords: ['Alexis Serano', 'Développeur Logiciel', 'Full-Stack', 'DevOps', 'Genève', 'Vaud', 'Suisse', 'Carrier R&D', 'Bachelor 180 ECTS', 'Kubernetes K3s'],
   authors: [{ name: 'Alexis Serano' }],
   openGraph: {
-    title: 'Alexis Serano | Développeur Full-Stack & DevOps',
-    description: "Portfolio d'Alexis Serano — Développeur Full-Stack & DevOps",
+    title: 'Alexis Serano | Développeur Logiciel R&D, Full-Stack & DevOps',
+    description: "Portfolio d'Alexis Serano — Développeur Logiciel R&D @ Carrier · Bachelor 180 ECTS · Mobilité Genève & Vaud",
     type: 'website',
     locale: 'fr_FR',
   },
