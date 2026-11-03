@@ -145,15 +145,14 @@ export default function About() {
           <div className="text-[11px] text-[#64748B]">B.U.T. Informatique — UGA</div>
         </div>
 
-        <div className="space-y-1">
-          <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono flex items-center gap-1.5">
-            <span>24/7</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <div className="space-y-1">
+          <div className="text-2xl sm:text-3xl font-bold text-[#D4A843] font-mono">
+            <Counter value={10} suffix="+" />
           </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
-            {t('Systèmes & APIs', 'Systems & APIs')}
+            {t('Projets réalisés', 'Completed projects')}
           </div>
-          <div className="text-[11px] text-[#64748B]">Docker · Linux · REST</div>
+          <div className="text-[11px] text-[#64748B]">SaaS, Web, Mobile &amp; Embarqué</div>
         </div>
       </div>
 
@@ -233,16 +232,6 @@ export default function About() {
                 "During my internship at the CHAI Hospital IT Department (1,800 staff), I set up a 2-node Kubernetes (K3s) cluster with Nginx and Docker, automated Active Directory / Exchange via PowerShell, and rebuilt the intranet grouping 23 business apps."
               )}
             </p>
-          </div>
-
-          <div className="about-fade pt-2 text-xs text-[#CBD5E1] font-mono flex items-center gap-2">
-            <span className="text-[#D4A843]">❯</span>
-            <span>
-              {t(
-                "Ce qui me motive : comprendre ce qui tourne sous le capot et automatiser tout ce qui peut l'être.",
-                "What drives me: understanding what happens under the hood and automating everything."
-              )}
-            </span>
           </div>
 
           {/* Interests — Editorial flow with gold dots, no boxy AI pills */}
