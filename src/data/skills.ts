@@ -30,10 +30,10 @@ export const skillCategories: SkillCategory[] = [
     subtitle: { fr: 'Bases SQL & annuaire Active Directory', en: 'SQL databases & Active Directory' },
     techs: ['PostgreSQL', 'MySQL', 'SQLite', 'Active Directory', 'Exchange'],
   },
-  {
+    {
     title: { fr: 'Sécurité & Création', en: 'Security & Media' },
     subtitle: { fr: 'Norme CRA, authentification OTP & vidéo', en: 'CRA standard, OTP auth & video' },
-    techs: ['Cybersécurité (CRA)', 'OTP / SSO Auth', 'AES-256 / Bcrypt', 'Méthodes Agiles', 'Premiere Pro', 'After Effects'],
+    techs: ['Cybersécurité (CRA)', 'OTP Auth', 'AES-256 / Bcrypt', 'Méthodes Agiles', 'Premiere Pro', 'After Effects'],
   },
 ]
 

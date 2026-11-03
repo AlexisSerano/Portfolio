@@ -55,17 +55,17 @@ export const projects: Project[] = [
         fr: 'Au sein du centre R&D de Carrier à Culoz (leader mondial CVC : 47 000 employés, 21,75 Mrd$ CA, ~150 pays), je développe les briques logicielles et sécuritaires des régulateurs industriels pour répondre aux exigences du Cyber Resilience Act (CRA — échéance déc. 2027).',
         en: 'Within Carrier’s R&D center in Culoz (global HVAC leader: 47,000 employees, $21.75B revenue, ~150 countries), I engineer software and security layers for industrial controllers to meet European Cyber Resilience Act (CRA) standards.',
       },
-      highlights: {
+            highlights: {
         fr: [
           'Refonte de l’application web de commissioning (Alpine.js, Tailwind CSS) consommant l’API REST de l’automate pour sécuriser 3 familles (Micro PC3, AeroConnect, etc.) — conformité CRA.',
           'Conception d’une architecture d’authentification OTP remplaçant le mot de passe à 4 chiffres identique sur un parc de 4 millions de régulateurs vendus/an (sécurisation console & routes API).',
-          'Migration de la régulation du legacy C-Suite vers Carel STone en langage ST (norme IEC 61131-3).',
+          'Migration de la régulation du legacy C-Suite vers Carel STone (Langage ST).',
           'Initiation et formation de 5 développeurs R&D aux workflows Git/GitHub (branches, issues, pull requests).',
         ],
         en: [
           'Redesigned the web commissioning application (Alpine.js, Tailwind CSS) consuming the PLC REST API to secure 3 controller families (Micro PC3, AeroConnect, etc.) for CRA compliance.',
           'Engineered an OTP authentication architecture replacing the static 4-digit PIN across a fleet of 4M controllers sold/year, securing console access and API endpoints.',
-          'Migrated HVAC control routines from legacy C-Suite to Carel STone in Structured Text (IEC 61131-3).',
+          'Migrated HVAC control routines from legacy C-Suite to Carel STone (Structured Text).',
           'Onboarded and trained 5 R&D developers on modern Git/GitHub workflows (branching, issues, pull requests).',
         ],
       },
@@ -105,16 +105,16 @@ export const projects: Project[] = [
         fr: 'Au sein de la DSI du Centre Hospitalier Alpes-Isère (1 800 professionnels, 50 structures extra-hospitalières, ~300 lits), mise en place de conteneurs et automatisation de l’administration système.',
         en: 'Within the IT Department of Alps-Isère Hospital (1,800 healthcare professionals, 50 outpatient centers, ~300 beds), container deployment and system administration automation.',
       },
-      highlights: {
+            highlights: {
         fr: [
           'Script PowerShell de normalisation Active Directory pour mettre en conformité l’annuaire de 1 800 professionnels.',
-          'Optimisation de la gestion de la messagerie Exchange via indexation en mémoire (Hashtables) et désactivation de l’automapping Outlook sur les postes clients.',
+          'Optimisation de la gestion de la messagerie Exchange en implémentant des structures de données, éliminant les ralentissements liés à l’automontage Outlook sur les postes clients.',
           'Refonte de l’accueil de l’Intranet (WordPress, Astra, ACF, CPT UI) regroupant 23 applications métiers + guide d’administration pour l’équipe RH.',
           'Mise en place d’une infrastructure conteneurisée : Docker Compose, Nginx Load Balancer et orchestration Kubernetes (K3s) sur 2 nœuds virtuels.',
         ],
         en: [
           'PowerShell Active Directory normalization script to standardize accounts for 1,800 hospital staff members.',
-          'Exchange mailbox management optimization using in-memory Hashtables and disabled Outlook automapping on client workstations.',
+          'Exchange mailbox management optimization using data structures and disabled Outlook automapping to remove slowdowns on client workstations.',
           'Hospital Intranet home portal redesign (WordPress, Astra, ACF, CPT UI) grouping 23 internal applications, with admin guide for HR.',
           'Containerized infrastructure setup: Docker Compose, Nginx Load Balancer, and Kubernetes (K3s) orchestration across 2 virtual nodes.',
         ],

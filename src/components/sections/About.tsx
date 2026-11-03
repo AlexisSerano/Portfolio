@@ -127,14 +127,14 @@ export default function About() {
           <div className="text-[11px] text-[#64748B]">Carrier R&amp;D · Auth OTP &amp; CRA</div>
         </div>
 
-        <div className="space-y-1">
+                <div className="space-y-1">
           <div className="text-2xl sm:text-3xl font-bold text-[#F8FAFC] font-mono">
             <Counter value={1800} suffix="+" />
           </div>
           <div className="text-xs text-[#94A3B8] uppercase tracking-wider font-medium">
             {t('Professionnels couverts', 'Staff supported')}
           </div>
-          <div className="text-[11px] text-[#64748B]">DSI CHAI · K3s HA &amp; 23 Apps</div>
+          <div className="text-[11px] text-[#64748B]">DSI CHAI · K3s &amp; 23 Apps</div>
         </div>
 
         <div className="space-y-1">
@@ -184,9 +184,9 @@ export default function About() {
               </div>
 
               <div className="space-y-2.5 text-xs text-[#94A3B8] pt-4 border-t border-white/[0.06]">
-                <div className="flex items-center gap-2.5">
+                                <div className="flex items-center gap-2.5">
                   <Building2 className="w-4 h-4 text-[#D4A843] shrink-0" />
-                  <span>{t('Développeur Logiciel R&D @ Carrier (NYSE : CARR)', 'R&D Software Developer @ Carrier (NYSE: CARR)')}</span>
+                  <span>{t('Développeur Logiciel R&D @ Carrier', 'R&D Software Developer @ Carrier')}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <GraduationCap className="w-4 h-4 text-[#D4A843] shrink-0" />

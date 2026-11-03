@@ -36,8 +36,8 @@ export default function Terminal() {
   <span class="text-[#D4A843]">contact</span>     : ${t('Coordonnées', 'Contact info')}
   <span class="text-[#D4A843]">hire</span>        : ???
   <span class="text-[#D4A843]">clear</span>       : ${t('Efface l\'écran', 'Clear screen')}`,
-    about: `<span class="text-emerald-400">Alexis Serano — Développeur Logiciel (Bachelor 180 ECTS)</span>
-  - ${t('Développeur Logiciel R&D chez', 'R&D Software Developer at')} <span class="text-[#D4A843]">Carrier</span> (NYSE: CARR, 47 000 employés)
+        about: `<span class="text-emerald-400">Alexis Serano — Développeur Logiciel (Bachelor 180 ECTS)</span>
+  - ${t('Développeur Logiciel R&D chez', 'R&D Software Developer at')} <span class="text-[#D4A843]">Carrier</span> (47 000 employés)
   - ${t('B.U.T. Informatique (Grade de Bachelor - 180 ECTS) — Université Grenoble Alpes', 'Bachelor in Computer Science (180 ECTS) — UGA Grenoble')}
   - ${t('Mobilité', 'Mobility')} : Cantons de Genève & Vaud (${t('Disponible dès juillet 2027', 'Available July 2027')}) | Permis B
   - ${t('Spécialités : Full-Stack, Backend, APIs, Web Embarqué & Cybersécurité (CRA)', 'Specialties: Full-Stack, Backend, APIs, Embedded Web & Cybersecurity (CRA)')}`,
@@ -48,7 +48,7 @@ export default function Terminal() {
   → ${t('Migration C-Suite → Carel STone & formation Git/GitHub (5 développeurs)', 'C-Suite → Carel STone migration & Git/GitHub training (5 developers)')}`,
     chai: `<span class="text-emerald-400">[CH Alpes-Isère] — ${t('Stage Déploiement & Automatisation (Mai – Juin 2026)', 'Deployment & Automation Intern (May – June 2026)')}</span>
   → ${t('Automatisation PowerShell Active Directory (1 800 professionnels)', 'PowerShell Active Directory automation (1,800 professionals)')}
-  → ${t('Optimisation Exchange (Hashtables O(1), désactivation Automapping Outlook)', 'Exchange optimization (O(1) Hashtables, Outlook Automapping disabled)')}
+  → ${t('Optimisation Exchange (structures de données, désactivation Automapping Outlook)', 'Exchange optimization (data structures, Outlook Automapping disabled)')}
   → ${t('Refonte portail intranet regroupant 23 applications métiers + guide RH', 'Intranet portal redesign grouping 23 business apps + HR guide')}
   → ${t('Cluster Kubernetes (K3s) à 2 nœuds + Nginx Load Balancer + Docker Compose', '2-node Kubernetes (K3s) cluster + Nginx Load Balancer + Docker Compose')}`,
     suisse: `<span class="text-emerald-400">[Mobilité Suisse Romande — Disponible dès Juillet 2027]</span>
@@ -59,7 +59,7 @@ export default function Terminal() {
   - Web & API  : React, Next.js, TypeScript, Tailwind CSS, Alpine.js, Node.js, Symfony, REST
   - Backend    : Python (Django, FastAPI), C#, Java, C/C++, PHP
   - Systèmes   : Docker, Kubernetes (K3s), Nginx, Linux, PowerShell, Active Directory, Exchange
-  - R&D & Sec  : Carel STone, Langage ST (IEC 61131-3), Cyber Resilience Act (CRA), Auth OTP
+  - R&D & Sec  : Carel STone, Langage ST, Cyber Resilience Act (CRA), Auth OTP
   - Data       : PostgreSQL, MySQL, SQLite`,
     projects: `<span class="text-[#D4A843]">${t('Projets Clés', 'Key Projects')} :</span>
   0. <span class="text-emerald-400">❯</span> Carrier Culoz SA (Automates, Langage ST)
