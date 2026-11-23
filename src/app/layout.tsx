@@ -1,22 +1,59 @@
 import type { Metadata } from 'next'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { LanguageProvider } from '@/context/LanguageContext'
+import { ThemeProvider } from '@/context/ThemeContext'
 import SmoothScroll from '@/components/layout/SmoothScroll'
-import CursorFollower from '@/components/ui/CursorFollower'
-import InactivityDetector from '@/components/ui/InactivityDetector'
 import './globals.css'
 
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+})
+
 export const metadata: Metadata = {
-  title: 'Alexis Serano | Développeur Logiciel R&D & Full-Stack (Genève & Vaud)',
-  description: "Portfolio d'Alexis Serano, Développeur Logiciel R&D chez Carrier (4M d'unités/an, CRA, OTP) et B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Cantons de Genève & Vaud dès juillet 2027.",
-  keywords: ['Alexis Serano', 'Développeur Logiciel', 'Full-Stack', 'Backend', 'Genève', 'Vaud', 'Suisse', 'Carrier R&D', 'Bachelor 180 ECTS', 'Kubernetes K3s'],
+  title: 'Alexis Serano — Développeur Logiciel R&D & Full-Stack',
+  description:
+    "Portfolio d'Alexis Serano, Développeur Logiciel R&D chez Carrier (4M d'unités/an, conformité CRA, OTP) et B.U.T. Informatique (Grade de Bachelor - 180 ECTS). Disponible dès juillet 2027 sur Genève et Vaud.",
+  keywords: [
+    'Alexis Serano',
+    'Développeur Logiciel',
+    'Full-Stack',
+    'Backend',
+    'Genève',
+    'Vaud',
+    'Suisse',
+    'Carrier R&D',
+    'Bachelor 180 ECTS',
+    'Kubernetes K3s',
+  ],
   authors: [{ name: 'Alexis Serano' }],
   openGraph: {
-    title: 'Alexis Serano | Développeur Logiciel R&D & Full-Stack',
-    description: "Portfolio d'Alexis Serano — Développeur Logiciel R&D @ Carrier · Bachelor 180 ECTS · Cantons de Genève & Vaud",
+    title: 'Alexis Serano — Développeur Logiciel R&D & Full-Stack',
+    description:
+      'Développeur Logiciel R&D chez Carrier · Bachelor Informatique (180 ECTS) · Mobilité Genève & Vaud (juillet 2027)',
     type: 'website',
     locale: 'fr_FR',
   },
 }
+
+const themeInitScript = `
+(function() {
+  try {
+    var saved = localStorage.getItem('portfolio-theme');
+    var theme = saved === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+`
 
 export default function RootLayout({
   children,
@@ -24,25 +61,22 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html
+      lang="fr"
+      data-theme="light"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="grain bg-geo bg-grid font-sans antialiased">
-        <LanguageProvider>
-          <SmoothScroll>
-            <CursorFollower />
-            <InactivityDetector />
-            {children}
-          </SmoothScroll>
-        </LanguageProvider>
+      <body className="antialiased selection:bg-[var(--accent-soft)] selection:text-[var(--ink)]">
+        <ThemeProvider>
+          <LanguageProvider>
+            <SmoothScroll>{children}</SmoothScroll>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
 }
-

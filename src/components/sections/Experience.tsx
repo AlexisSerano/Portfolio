@@ -1,215 +1,140 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import { useLanguage } from '@/context/LanguageContext'
-import TextReveal from '@/components/ui/TextReveal'
-import { experiences } from '@/data/experiences'
-import TiltCard from '@/components/ui/TiltCard'
-import { cn } from '@/lib/utils'
-import {
-  Building2,
-  Activity,
-  GraduationCap,
-  School,
-  TrendingUp,
-  Film,
-} from 'lucide-react'
+import FadeIn from '@/components/ui/FadeIn'
+import { ArrowUpRight } from 'lucide-react'
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+interface WorkEntry {
+  period: { fr: string; en: string }
+  location: string
+  role: { fr: string; en: string }
+  company: string
+  context: { fr: string; en: string }
+  bullets: { fr: string[]; en: string[] }
+  stack: string
+  projectSlug: string
 }
 
-const iconMap = {
-  Building2,
-  Activity,
-  GraduationCap,
-  School,
-  TrendingUp,
-  Film,
-}
+const workEntries: WorkEntry[] = [
+  {
+    period: { fr: 'Août 2026 – Juil. 2027', en: 'Aug 2026 – Jul 2027' },
+    location: 'Culoz, France',
+    role: { fr: 'Développeur Logiciel R&D (Alternance)', en: 'R&D Software Developer (Apprenticeship)' },
+    company: 'Carrier',
+    context: {
+      fr: 'Service Recherche & Développement · Leader mondial de la climatisation (47 000 employés, 21,75 Mrd$ CA, ~150 pays, 4M d’unités vendues/an)',
+      en: 'Research & Development · Global HVAC leader (47,000 employees, $21.75B revenue, ~150 countries, 4M units sold/yr)',
+    },
+    bullets: {
+      fr: [
+        'Refonte de l’application web de commissioning (Alpine.js, Tailwind CSS) consommant l’API REST de l’automate pour sécuriser plusieurs familles de régulateurs (Micro PC3, AeroConnect) dans le cadre du Cyber Resilience Act (échéance déc. 2027).',
+        'Conception d’une architecture d’authentification OTP remplaçant le mot de passe statique à 4 chiffres sur un parc de 4 millions de régulateurs vendus par an, sécurisant l’accès console et les routes API.',
+        'Participation à la migration de la régulation du legacy C-Suite vers Carel STone (Langage ST) ; initiation et formation de 5 développeurs R&D aux workflows Git et GitHub (branches, issues, pull requests).',
+      ],
+      en: [
+        'Redesigning the web commissioning application (Alpine.js, Tailwind CSS) consuming the PLC REST API to secure multiple controller families (Micro PC3, AeroConnect) for European Cyber Resilience Act compliance (Dec 2027 deadline).',
+        'Architecting OTP authentication replacing the static 4-digit PIN across a fleet of 4 million controllers sold per year, securing console access and API endpoints.',
+        'Contributing to the control logic migration from legacy C-Suite to Carel STone (Structured Text); onboarding and training 5 R&D developers on Git and GitHub workflows (branching, issues, pull requests).',
+      ],
+    },
+    stack: 'Alpine.js · Tailwind CSS · API REST · Cybersécurité (CRA) · Auth OTP · Carel STone · Langage ST · Git/GitHub',
+    projectSlug: 'alternance-carrier',
+  },
+  {
+    period: { fr: 'Mai – Juin 2026', en: 'May – Jun 2026' },
+    location: 'St-Égrève, France',
+    role: { fr: 'Stage — Déploiement & Automatisation', en: 'Deployment & Automation Intern' },
+    company: 'Centre Hospitalier Alpes-Isère (CHAI)',
+    context: {
+      fr: 'Direction des Systèmes d’Information · Établissement public de santé (1 800 professionnels, 50 structures extra-hospitalières, ~300 lits)',
+      en: 'IT & Infrastructure Department · Public healthcare institution (1,800 professionals, 50 outpatient centers, ~300 beds)',
+    },
+    bullets: {
+      fr: [
+        'Développement d’un script d’automatisation PowerShell de normalisation Active Directory pour fiabiliser et mettre en conformité l’annuaire couvrant 1 800 professionnels.',
+        'Optimisation de la gestion de la messagerie Exchange et de l’indexation des requêtes annuaire (Hashtables) avec désactivation de l’automapping Outlook, éliminant les ralentissements sur les postes clients.',
+        'Refonte complète de la page d’accueil de l’Intranet sous WordPress (Astra, ACF, CPT UI) intégrant 23 applications métiers, accompagnée d’un guide d’administration garantissant l’autonomie de l’équipe RH.',
+        'Déploiement d’une architecture DevOps en haute disponibilité (Docker Compose, Nginx Load Balancer, réplication MariaDB et orchestration Kubernetes / K3s sur 2 nœuds virtuels).',
+      ],
+      en: [
+        'Developed a PowerShell Active Directory normalization script to standardize and audit accounts across 1,800 healthcare staff members.',
+        'Optimized Exchange mailbox management and directory query indexing (Hashtables) while disabling Outlook automapping to eliminate client workstation slowdowns.',
+        'Redesigned the hospital Intranet home portal on WordPress (Astra, ACF, CPT UI) integrating 23 internal applications, with an administration guide enabling HR autonomy.',
+        'Deployed a high-availability DevOps stack (Docker Compose, Nginx Load Balancer, MariaDB replication, and 2-node Kubernetes / K3s orchestration).',
+      ],
+    },
+    stack: 'Kubernetes (K3s) · Docker Compose · Nginx · MariaDB · PowerShell · Active Directory · Exchange · WordPress',
+    projectSlug: 'stage-chai',
+  },
+]
 
 export default function Experience() {
   const { lang, t } = useLanguage()
-  const sectionRef = useRef<HTMLElement>(null)
-  const lineRef = useRef<HTMLDivElement>(null)
 
-  // Animate the golden line fill on scroll
-  useEffect(() => {
-    if (!lineRef.current || !sectionRef.current) return
-
-    gsap.fromTo(lineRef.current,
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 60%',
-          end: 'bottom 40%',
-          scrub: 0.3,
-        },
-      }
-    )
-  }, [])
-
-  // Animate cards
-  useEffect(() => {
-    if (!sectionRef.current) return
-    const items = sectionRef.current.querySelectorAll('.timeline-item')
-
-    items.forEach((item, i) => {
-      const direction = i % 2 === 0 ? -30 : 30
-      gsap.fromTo(item,
-        { opacity: 0, x: direction },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: item,
-            start: 'top 85%',
-            toggleActions: 'play none none none',
-          },
-        }
-      )
-    })
-  }, [])
-
-  const handleOpenProjectModal = (slug: string) => {
+  const openProject = (slug: string) => {
     window.dispatchEvent(new CustomEvent('portfolio-open-project', { detail: { slug } }))
   }
 
   return (
-    <section ref={sectionRef} id="experience" className="py-28 px-6 max-w-7xl mx-auto relative z-10">
-      {/* Header */}
-      <div className="mb-14">
-        <span className="text-[#D4A843] font-mono text-xs tracking-widest uppercase mb-3 flex items-center gap-2">
-          <span className="w-8 h-px bg-[#D4A843]/50" />
-          {t('03 — Parcours', '03 — Journey')}
-        </span>
-        <TextReveal tag="h2" className="text-3xl md:text-5xl font-bold text-[#F8FAFC] tracking-tight leading-tight" stagger={0.03}>
-          {t('Expériences & formation.', 'Experience & education.')}
-        </TextReveal>
-      </div>
+    <section id="experience" className="scroll-mt-20 py-14 sm:py-20 max-w-[920px] mx-auto px-6">
+      <FadeIn>
+        <h2 className="text-[19px] sm:text-[21px] font-semibold tracking-[-0.024em] text-[var(--ink)] mb-10 sm:mb-12">
+          {t('Expérience professionnelle', 'Work experience')}
+        </h2>
+      </FadeIn>
 
-      {/* Timeline */}
-      <div className="relative">
-        {/* Center line */}
-        <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[2px] bg-white/[0.06]">
-          <div
-            ref={lineRef}
-            className="absolute top-0 left-0 w-full origin-top"
-            style={{
-              background: 'linear-gradient(180deg, #D4A843, #A3845B)',
-              height: '100%',
-              transform: 'scaleY(0)',
-            }}
-          />
-        </div>
-
-        {/* Items */}
-        <div className="space-y-12">
-          {experiences.map((exp, i) => {
-            const IconComponent = iconMap[exp.icon] || Building2
-
-            return (
-              <div
-                key={i}
-                className={cn(
-                  'timeline-item relative opacity-0',
-                  'pl-12 md:pl-0',
-                  i % 2 === 0 ? 'md:pr-[52%]' : 'md:pl-[52%]'
-                )}
-              >
-                {/* Dot on timeline */}
-                <div className={cn(
-                  'absolute top-6 w-3 h-3 rounded-full border-2 z-10',
-                  'left-[10px] md:left-1/2 md:-translate-x-1/2',
-                  exp.current
-                    ? 'bg-[#D4A843] border-[#D4A843] shadow-[0_0_12px_rgba(212,168,67,0.5)]'
-                    : 'bg-[#0A0A0A] border-white/20'
-                )} />
-
-                {/* Card with 3D Tilt */}
-                <TiltCard maxTilt={6} scale={1.01} className="rounded-xl overflow-hidden">
-                  <div className="glass rounded-xl p-6 hover:border-[rgba(212,168,67,0.35)] transition-all duration-300 group">
-                    {/* Date + Badge */}
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-[#D4A843] font-mono text-xs font-semibold">{exp.date}</span>
-                      {exp.current && (
-                        <span className="text-[0.6rem] uppercase tracking-widest text-[#D4A843] bg-[#D4A843]/10 px-2 py-0.5 rounded-full border border-[#D4A843]/20"
-                          style={{ animation: 'glow-pulse 2s ease-in-out infinite' }}>
-                          {t('En cours', 'Current')}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Title with sleek Lucide Icon */}
-                    <h3 className="text-lg font-bold text-[#F8FAFC] mb-1 flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-[#D4A843] shrink-0">
-                        <IconComponent className="w-3.5 h-3.5" />
-                      </div>
-                      <span>{lang === 'fr' ? exp.title.fr : exp.title.en}</span>
-                    </h3>
-
-                    {/* Subtitle */}
-                    <p className="text-xs text-[#94A3B8] mb-2 ml-9">
-                      {lang === 'fr' ? exp.subtitle.fr : exp.subtitle.en}
-                    </p>
-
-                    {/* Company Context */}
-                    {exp.companyContext && (
-                      <p className="text-[11px] font-mono text-[#D4A843]/85 mb-3 ml-9 italic">
-                        {lang === 'fr' ? exp.companyContext.fr : exp.companyContext.en}
-                      </p>
-                    )}
-
-                    {/* Description */}
-                    <p className="text-sm text-[#CBD5E1] mb-3 leading-relaxed ml-9">
-                      {lang === 'fr' ? exp.description.fr : exp.description.en}
-                    </p>
-
-                    {/* Detailed Highlights (from CV) */}
-                    {exp.highlights && (
-                      <ul className="space-y-1.5 mb-4 ml-9">
-                        {(lang === 'fr' ? exp.highlights.fr : exp.highlights.en).map((bullet, idx) => (
-                          <li key={idx} className="text-xs text-[#94A3B8] leading-relaxed flex items-start gap-2">
-                            <span className="text-[#D4A843] mt-0.5 shrink-0">❯</span>
-                            <span>{bullet}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 ml-9">
-                      {exp.tags.map(tag => (
-                        <span key={tag} className="text-[0.65rem] font-mono text-[#94A3B8] bg-white/[0.03] border border-white/[0.06] px-2 py-0.5 rounded">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Interactive Button: Opens Project Modal cleanly (no 404!) */}
-                    {exp.projectSlug && (
-                      <div className="ml-9 mt-4 pt-3 border-t border-white/[0.06]">
-                        <button
-                          onClick={() => handleOpenProjectModal(exp.projectSlug!)}
-                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4A843] hover:text-[#F5D785] transition-colors cursor-pointer group/btn"
-                        >
-                          <span>{t('Voir le projet associé', 'View associated project')}</span>
-                          <span className="transition-transform group-hover/btn:translate-x-1">→</span>
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </TiltCard>
+      <div className="space-y-14 sm:space-y-16">
+        {workEntries.map((entry, idx) => (
+          <FadeIn key={entry.projectSlug} delay={idx * 0.06}>
+            <article className="grid grid-cols-1 md:grid-cols-[185px_1fr] gap-2 md:gap-10 items-baseline">
+              {/* Left Column: Calm Tabular Dates & Location */}
+              <div className="text-[13.5px] leading-relaxed">
+                <div className="text-[var(--ink-secondary)] tabular-nums font-medium md:font-normal">
+                  {lang === 'fr' ? entry.period.fr : entry.period.en}
+                </div>
+                <div className="text-[var(--ink-muted)] text-[13px]">{entry.location}</div>
               </div>
-            )
-          })}
-        </div>
+
+              {/* Right Column: Role, Context, Achievements, Stack */}
+              <div>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <h3 className="text-[16px] sm:text-[17px] font-semibold text-[var(--ink)] tracking-[-0.018em]">
+                    {lang === 'fr' ? entry.role.fr : entry.role.en}{' '}
+                    <span className="text-[var(--ink-muted)] font-normal">·</span>{' '}
+                    <span>{entry.company}</span>
+                  </h3>
+
+                  <button
+                    type="button"
+                    onClick={() => openProject(entry.projectSlug)}
+                    className="link-editorial inline-flex items-center gap-0.5 text-[13px] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer"
+                  >
+                    <span>{t('Détails', 'Details')}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <p className="mt-1 text-[13.5px] text-[var(--ink-muted)] leading-relaxed">
+                  {lang === 'fr' ? entry.context.fr : entry.context.en}
+                </p>
+
+                <ul className="mt-4 space-y-2.5 text-[14.5px] leading-[1.65] text-[var(--ink-secondary)]">
+                  {(lang === 'fr' ? entry.bullets.fr : entry.bullets.en).map((bullet, bIdx) => (
+                    <li key={bIdx} className="pl-4 relative">
+                      <span
+                        aria-hidden="true"
+                        className="absolute left-0 top-[0.68em] w-1.5 h-[1px] bg-[var(--ink-muted)]"
+                      />
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-4 text-[13px] text-[var(--ink-muted)] leading-relaxed">{entry.stack}</p>
+              </div>
+            </article>
+          </FadeIn>
+        ))}
       </div>
     </section>
   )

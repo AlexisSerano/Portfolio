@@ -1,108 +1,133 @@
 'use client'
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useLanguage } from '@/context/LanguageContext'
-import TextReveal from '@/components/ui/TextReveal'
-import MarqueeText from '@/components/ui/MarqueeText'
-import TechIcon from '@/components/ui/TechIcon'
-import { skillCategories, allTechMarquee } from '@/data/skills'
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
+import { useLanguage } from '@/context/LanguageContext'
+import FadeIn from '@/components/ui/FadeIn'
 
 export default function Skills() {
   const { lang, t } = useLanguage()
-  const sectionRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    if (!sectionRef.current) return
-    const groups = sectionRef.current.querySelectorAll('.skill-group')
+  const skillRows = [
+    {
+      label: { fr: 'Logiciel & Backend', en: 'Software & Backend' },
+      items: {
+        fr: 'Python (Django, FastAPI), PHP (Symfony), JavaScript & TypeScript (Node.js, React, Next.js, Alpine.js), Java, C/C++, Langage ST (Carel STone), APIs REST',
+        en: 'Python (Django, FastAPI), PHP (Symfony), JavaScript & TypeScript (Node.js, React, Next.js, Alpine.js), Java, C/C++, Structured Text (Carel STone), REST APIs',
+      },
+    },
+    {
+      label: { fr: 'DevOps, Infra & Données', en: 'DevOps, Infra & Data' },
+      items: {
+        fr: 'Docker, Kubernetes (K3s), Nginx, Linux, PowerShell, Active Directory, Exchange, PostgreSQL, MySQL / MariaDB, SQLite, Git & GitHub',
+        en: 'Docker, Kubernetes (K3s), Nginx, Linux, PowerShell, Active Directory, Exchange, PostgreSQL, MySQL / MariaDB, SQLite, Git & GitHub',
+      },
+    },
+    {
+      label: { fr: 'Sécurité & Méthodes', en: 'Security & Practices' },
+      items: {
+        fr: 'Cybersécurité industrielle (Cyber Resilience Act), Authentification OTP / SSO, Chiffrement AES-256 & Bcrypt, Méthodes Agiles',
+        en: 'Industrial cybersecurity (Cyber Resilience Act), OTP / SSO authentication, AES-256 & Bcrypt encryption, Agile methodologies',
+      },
+    },
+    {
+      label: { fr: 'Langues', en: 'Languages' },
+      items: {
+        fr: 'Français (Natif) · Anglais (B2) · Espagnol (A2)',
+        en: 'French (Native) · English (B2) · Spanish (A2)',
+      },
+    },
+  ]
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(groups,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-          },
-        }
-      )
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
+  const educationRows = [
+    {
+      period: '2024 – 2027',
+      title: {
+        fr: 'B.U.T. Informatique — Grade de Bachelor (180 ECTS)',
+        en: 'Bachelor of Technology in Computer Science (180 ECTS)',
+      },
+      place: {
+        fr: 'I.U.T.2 Université Grenoble Alpes · Parcours Réalisation d’Applications (conception, développement, validation)',
+        en: 'IUT2 Université Grenoble Alpes · Software Engineering track (architecture, full-stack development, Linux & databases)',
+      },
+    },
+    {
+      period: '2021 – 2024',
+      title: {
+        fr: 'Baccalauréat Général — Mathématiques & NSI',
+        en: 'General Baccalaureate — Mathematics & Computer Science',
+      },
+      place: {
+        fr: 'Spécialités Mathématiques et Numérique & Sciences Informatiques · Mention Assez Bien',
+        en: 'Mathematics and Computer Science specialties · With Honors',
+      },
+    },
+  ]
 
   return (
-    <section ref={sectionRef} id="skills" className="py-28 px-6 max-w-7xl mx-auto relative z-10">
-      {/* Header */}
-      <div className="mb-14">
-        <span className="text-[#D4A843] font-mono text-xs tracking-widest uppercase mb-3 flex items-center gap-2">
-          <span className="w-8 h-px bg-[#D4A843]/50" />
-          {t('02 — Compétences', '02 — Skills')}
-        </span>
-        <TextReveal tag="h2" className="text-3xl md:text-5xl font-bold text-[#F8FAFC] tracking-tight leading-tight" stagger={0.03}>
-          {t('Stack technique.', 'Tech stack.')}
-        </TextReveal>
-      </div>
+    <section id="skills" className="scroll-mt-20 py-14 sm:py-20 max-w-[920px] mx-auto px-6 space-y-20">
+      {/* Technical Skills */}
+      <div>
+        <FadeIn>
+          <h2 className="text-[19px] sm:text-[21px] font-semibold tracking-[-0.024em] text-[var(--ink)] mb-8 sm:mb-10">
+            {t('Compétences', 'Technical skills')}
+          </h2>
+        </FadeIn>
 
-      {/* Skills Grid — Editorial open layout, zero boxy rectangles */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12 mb-16">
-        {skillCategories.map((cat, i) => (
-          <div key={i} className="skill-group opacity-0">
-            {/* Category title with architectural top rule */}
-            <div className="flex items-center gap-3 pt-4 mb-1.5 border-t border-white/[0.12]">
-              <span className="text-xs font-mono uppercase tracking-[0.18em] text-[#D4A843] font-semibold">
-                {lang === 'fr' ? cat.title.fr : cat.title.en}
-              </span>
-              <span className="text-[10px] font-mono text-[#64748B] ml-auto">0{i + 1}</span>
-            </div>
-
-            {cat.subtitle && (
-              <p className="text-[11px] font-mono text-[#64748B] mb-4">
-                {lang === 'fr' ? cat.subtitle.fr : cat.subtitle.en}
-              </p>
-            )}
-
-            {/* Tech list: Authentic icon + label, borderless */}
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
-              {cat.techs.map(tech => (
-                <div
-                  key={tech}
-                  className="flex items-center gap-2.5 py-1 text-xs text-[#94A3B8] hover:text-[#F8FAFC] transition-colors group cursor-default"
-                >
-                  <div className="shrink-0 transition-transform duration-200 group-hover:scale-115">
-                    <TechIcon name={tech} size={18} />
-                  </div>
-                  <span className="truncate group-hover:text-[#F5D785] transition-colors font-medium">
-                    {tech}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Tech Marquee */}
-      <div className="border-t border-white/[0.08] pt-6">
-        <MarqueeText speed={35} className="opacity-40 hover:opacity-80 transition-opacity duration-500">
-          {allTechMarquee.map((tech, i) => (
-            <span key={i} className="inline-flex items-center gap-2 text-xs font-mono text-[#64748B] hover:text-[#D4A843] mx-6 whitespace-nowrap transition-colors">
-              <TechIcon name={tech} size={15} />
-              <span>{tech}</span>
-            </span>
+        <div className="space-y-6">
+          {skillRows.map((row, idx) => (
+            <FadeIn key={row.label.en} delay={idx * 0.04}>
+              <div className="grid grid-cols-1 md:grid-cols-[185px_1fr] gap-1 md:gap-10 items-baseline">
+                <h3 className="text-[14px] font-medium text-[var(--ink)]">
+                  {lang === 'fr' ? row.label.fr : row.label.en}
+                </h3>
+                <p className="text-[14.5px] leading-[1.65] text-[var(--ink-secondary)]">
+                  {lang === 'fr' ? row.items.fr : row.items.en}
+                </p>
+              </div>
+            </FadeIn>
           ))}
-        </MarqueeText>
+        </div>
+      </div>
+
+      {/* Education & Personal Interests */}
+      <div>
+        <FadeIn>
+          <h2 className="text-[19px] sm:text-[21px] font-semibold tracking-[-0.024em] text-[var(--ink)] mb-8 sm:mb-10">
+            {t('Formation & centres d’intérêt', 'Education & interests')}
+          </h2>
+        </FadeIn>
+
+        <div className="space-y-8">
+          {educationRows.map((edu, idx) => (
+            <FadeIn key={edu.period} delay={idx * 0.04}>
+              <div className="grid grid-cols-1 md:grid-cols-[185px_1fr] gap-1 md:gap-10 items-baseline">
+                <span className="text-[13.5px] tabular-nums text-[var(--ink-muted)]">{edu.period}</span>
+                <div>
+                  <h3 className="text-[15.5px] font-semibold text-[var(--ink)] tracking-[-0.015em]">
+                    {lang === 'fr' ? edu.title.fr : edu.title.en}
+                  </h3>
+                  <p className="mt-0.5 text-[14px] text-[var(--ink-secondary)] leading-relaxed">
+                    {lang === 'fr' ? edu.place.fr : edu.place.en}
+                  </p>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+
+          <FadeIn delay={0.1}>
+            <div className="grid grid-cols-1 md:grid-cols-[185px_1fr] gap-1 md:gap-10 items-baseline pt-2">
+              <span className="text-[13.5px] text-[var(--ink-muted)]">
+                {t('Centres d’intérêt', 'Interests')}
+              </span>
+              <p className="text-[14.5px] text-[var(--ink-secondary)] leading-relaxed">
+                {t(
+                  'Horlogerie · Trading & investissement · Culture japonaise · Montage vidéo & motion design',
+                  'Watchmaking · Trading & investing · Japanese culture · Video editing & motion design'
+                )}
+              </p>
+            </div>
+          </FadeIn>
+        </div>
       </div>
     </section>
   )
 }
-

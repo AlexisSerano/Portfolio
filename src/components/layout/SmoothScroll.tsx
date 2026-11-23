@@ -1,43 +1,37 @@
 'use client'
-import { useEffect, useRef, type ReactNode } from 'react'
-import Lenis from 'lenis'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
+import { useEffect, type ReactNode } from 'react'
+import Lenis from 'lenis'
 
 export default function SmoothScroll({ children }: { children: ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null)
-
   useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.85,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       smoothWheel: true,
     })
 
-    lenisRef.current = lenis
     window.portfolioLenis = lenis
-    lenis.on('scroll', ScrollTrigger.update)
 
-    const updateRaf = (time: number) => {
-      lenis.raf(time * 1000)
+    let rafId = 0
+    const raf = (time: number) => {
+      lenis.raf(time)
+      rafId = window.requestAnimationFrame(raf)
     }
+    rafId = window.requestAnimationFrame(raf)
 
-    gsap.ticker.add(updateRaf)
-    gsap.ticker.lagSmoothing(0)
-
-    // Listen for modal state changes to pause/resume background smooth scroll
     const handleModalToggle = (event: Event) => {
       if (!(event instanceof CustomEvent)) return
       const detail: unknown = event.detail
       if (typeof detail !== 'object' || detail === null || !('isOpen' in detail)) return
-      if (detail?.isOpen === true) {
+      if (detail.isOpen === true) {
         lenis.stop()
-      } else if (detail?.isOpen === false) {
+      } else if (detail.isOpen === false) {
         lenis.start()
       }
     }
@@ -46,7 +40,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
     return () => {
       window.removeEventListener('portfolio-modal-toggle', handleModalToggle)
-      gsap.ticker.remove(updateRaf)
+      window.cancelAnimationFrame(rafId)
       lenis.destroy()
       delete window.portfolioLenis
     }

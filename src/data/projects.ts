@@ -320,12 +320,12 @@ export const projects: Project[] = [
   {
     slug: 'refonte-mobile-web',
     title: {
-      fr: 'Refonte Web Symfony & Mobile Android',
-      en: 'Symfony Web & Android Mobile Redesign',
+      fr: 'Gestion de Stages — Back-Office Symfony & Mobile Android',
+      en: 'Internship Management — Symfony Back-Office & Android App',
     },
     description: {
-      fr: 'Portail web en Symfony et application Android native en Java, synchronisés via une API REST.',
-      en: 'Symfony web management portal and native Android client app synchronized via a REST API.',
+      fr: 'Projet agile (6 personnes) : portail web Symfony et application Android native en Java synchronisés via une API REST.',
+      en: 'Agile team project (6 developers): Symfony web management portal and native Java Android app synchronized via a REST API.',
     },
     category: 'academic',
     year: '2026',
