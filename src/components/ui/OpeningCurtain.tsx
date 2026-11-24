@@ -13,7 +13,7 @@ export default function OpeningCurtain() {
   const finish = useCallback(() => {
     setPhase('done')
     try {
-      window.sessionStorage.setItem('portfolio_curtain_v7', '1')
+      window.sessionStorage.setItem('portfolio_curtain_v8', '1')
     } catch {
       // Ignore storage errors
     }
@@ -27,7 +27,7 @@ export default function OpeningCurtain() {
 
     let alreadyPlayed = false
     try {
-      alreadyPlayed = window.sessionStorage.getItem('portfolio_curtain_v7') === '1'
+      alreadyPlayed = window.sessionStorage.getItem('portfolio_curtain_v8') === '1'
     } catch {
       alreadyPlayed = false
     }
@@ -38,8 +38,8 @@ export default function OpeningCurtain() {
     }
 
     const startId = window.requestAnimationFrame(() => setPhase('intro'))
-    const splitTimer = window.setTimeout(() => setPhase('splitting'), 760)
-    const doneTimer = window.setTimeout(() => finish(), 1420)
+    const splitTimer = window.setTimeout(() => setPhase('splitting'), 740)
+    const doneTimer = window.setTimeout(() => finish(), 1380)
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') finish()
@@ -64,50 +64,46 @@ export default function OpeningCurtain() {
       role="presentation"
       className="fixed inset-0 z-[120] pointer-events-auto select-none overflow-hidden cursor-pointer"
     >
-      {/* Top Obsidian Curtain */}
       <motion.div
         initial={{ y: '0%' }}
         animate={{ y: isSplitting ? '-100%' : '0%' }}
-        transition={{ duration: 0.64, ease: splitEase }}
-        className="absolute inset-x-0 top-0 h-1/2 bg-[#08080B] will-change-transform"
+        transition={{ duration: 0.62, ease: splitEase }}
+        className="absolute inset-x-0 top-0 h-1/2 bg-[#07070B] will-change-transform"
       />
 
-      {/* Bottom Obsidian Curtain */}
       <motion.div
         initial={{ y: '0%' }}
         animate={{ y: isSplitting ? '100%' : '0%' }}
-        transition={{ duration: 0.64, ease: splitEase }}
-        className="absolute inset-x-0 bottom-0 h-1/2 bg-[#08080B] will-change-transform"
+        transition={{ duration: 0.62, ease: splitEase }}
+        className="absolute inset-x-0 bottom-0 h-1/2 bg-[#07070B] will-change-transform"
       />
 
-      {/* Center Wordmark & Razor Seam */}
       <motion.div
         initial={{ opacity: 1 }}
         animate={{ opacity: isSplitting ? 0 : 1 }}
-        transition={{ duration: 0.22, ease: 'easeOut' }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
         className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
       >
         <div className="overflow-hidden pb-2">
           <motion.div
             initial={{ y: '115%' }}
             animate={{ y: '0%' }}
-            transition={{ duration: 0.52, ease: revealEase }}
-            className="text-[22px] sm:text-[28px] font-bold tracking-[-0.035em] text-[#F5F2EC]"
+            transition={{ duration: 0.5, ease: revealEase }}
+            className="text-[23px] sm:text-[29px] font-bold tracking-[-0.036em] text-[#F8F5F7]"
             style={{ fontFamily: 'var(--font-display), sans-serif' }}
           >
-            Alexis <span className="text-[#D6C09E]">Serano</span>
+            Alexis <span className="text-[#F29EB2]">Serano.</span>
           </motion.div>
         </div>
 
-        {/* Fine Champagne -> Smoked Sakura Seam */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.62, delay: 0.08, ease: [0.65, 0, 0.35, 1] }}
-          className="w-44 sm:w-56 h-[1px] origin-center will-change-transform"
+          transition={{ duration: 0.6, delay: 0.06, ease: [0.65, 0, 0.35, 1] }}
+          className="w-48 sm:w-60 h-[1px] origin-center will-change-transform"
           style={{
             background:
-              'linear-gradient(90deg, transparent 0%, #D6C09E 45%, #CFA0A8 75%, transparent 100%)',
+              'linear-gradient(90deg, transparent 0%, #F29EB2 50%, transparent 100%)',
           }}
         />
       </motion.div>

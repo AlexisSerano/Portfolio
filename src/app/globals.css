@@ -2,95 +2,78 @@
 
 @custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
 
-/* Default: Shunbun Obsidian — Sumi Black, Brushed Champagne & Smoked Sakura */
+/* Default: Midnight Obsidian + Luminous Sakura Rose (Zero Brown) */
 :root,
 [data-theme='dark'] {
-  --bg: #08080B;
-  --surface: #121218;
-  --surface-hover: #191922;
-  --surface-card: rgba(19, 19, 25, 0.78);
-  --surface-tile: rgba(10, 10, 14, 0.72);
-  --ink: #F5F2EC;
-  --ink-secondary: #A49F98;
-  --ink-muted: #6C6863;
-  --accent: #D6C09E;
-  --accent-hover: #E3CFAF;
-  --accent-fg: #09090C;
-  --accent-soft: rgba(214, 192, 158, 0.12);
-  --sakura: #CFA0A8;
-  --sakura-soft: rgba(207, 160, 168, 0.09);
-  --divider: rgba(245, 242, 236, 0.065);
-  --shadow-card:
-    inset 0 1px 0 rgba(245, 242, 236, 0.075),
-    inset 0 0 0 1px rgba(245, 242, 236, 0.03),
-    0 20px 44px -16px rgba(0, 0, 0, 0.65);
+  --bg: #07070B;
+  --surface: #111118;
+  --surface-hover: #181822;
+  --surface-elevated: #13131C;
+  --ink: #F8F5F7;
+  --ink-secondary: #ACA5B2;
+  --ink-muted: #706978;
+  --accent: #F29EB2;
+  --accent-hover: #F7B5C5;
+  --accent-deep: #D97690;
+  --accent-fg: #0D070A;
+  --accent-soft: rgba(242, 158, 178, 0.12);
+  --accent-border: rgba(242, 158, 178, 0.26);
+  --divider: rgba(248, 245, 247, 0.075);
+
   --shadow-stage:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 24px 56px -14px rgba(0, 0, 0, 0.78);
-  --shadow-sheet: -28px 0 72px -12px rgba(0, 0, 0, 0.82);
-  --nav-bg: rgba(8, 8, 11, 0.76);
+    0 2px 6px rgba(0, 0, 0, 0.45),
+    0 28px 60px -16px rgba(0, 0, 0, 0.82);
+  --shadow-modal:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 32px 80px -12px rgba(0, 0, 0, 0.85);
+  --nav-bg: rgba(7, 7, 11, 0.74);
 
-  /* Rich dark studio stages */
-  --stage-carrier: linear-gradient(140deg, #15141C 0%, #19151B 52%, #12131A 100%);
-  --stage-algofy: linear-gradient(140deg, #101A18 0%, #13151C 100%);
-  --stage-lifeos: linear-gradient(140deg, #171523 0%, #14131B 100%);
-  --stage-chai: linear-gradient(140deg, #141720 0%, #18141A 100%);
-  --stage-stages: linear-gradient(140deg, #141821 0%, #16151C 100%);
+  /* Stage atmospheres — subtle sakura/indigo/emerald night tones */
+  --stage-carrier: linear-gradient(140deg, #16121C 0%, #1C131B 52%, #11131C 100%);
+  --stage-algofy: linear-gradient(140deg, #101A19 0%, #14131C 100%);
+  --stage-lifeos: linear-gradient(140deg, #171424 0%, #17121C 100%);
+  --stage-chai: linear-gradient(140deg, #131621 0%, #1B131B 100%);
+  --stage-stages: linear-gradient(140deg, #141722 0%, #19131C 100%);
 
-  --beam-champagne: rgba(214, 192, 158, 0.085);
-  --beam-sakura: rgba(207, 160, 168, 0.065);
-  --cursor-glow: rgba(214, 192, 158, 0.04);
-  --spotlight-fill: radial-gradient(
-    460px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(214, 192, 158, 0.08),
-    rgba(207, 160, 168, 0.035) 38%,
-    transparent 72%
-  );
+  --bloom-primary: rgba(242, 158, 178, 0.12);
+  --bloom-secondary: rgba(196, 132, 204, 0.06);
+  --line-glow: 0 0 18px rgba(242, 158, 178, 0.55);
   color-scheme: dark;
 }
 
-/* Optional Light Theme: Warm Washi Ivory + Espresso Ink + Champagne Bronze */
+/* Secondary Light Mode: Sakura Porcelain + Deep Rose Ink (Visible Sakura Aura & Trail) */
 [data-theme='light'] {
-  --bg: #F6F4EF;
-  --surface: #ECE8E0;
-  --surface-hover: #E3DDD3;
-  --surface-card: rgba(255, 255, 255, 0.86);
-  --surface-tile: #F5F2EC;
-  --ink: #121216;
-  --ink-secondary: #4E4B47;
-  --ink-muted: #827D76;
-  --accent: #8A6B3F;
-  --accent-hover: #725731;
-  --accent-fg: #FAF8F5;
-  --accent-soft: rgba(138, 107, 63, 0.10);
-  --sakura: #A86E78;
-  --sakura-soft: rgba(168, 110, 120, 0.09);
-  --divider: rgba(18, 18, 22, 0.07);
-  --shadow-card:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1px 2px rgba(18, 18, 22, 0.04),
-    0 16px 36px -14px rgba(18, 18, 22, 0.08);
+  --bg: #FAF6F8;
+  --surface: #F2E9EE;
+  --surface-hover: #EADCE4;
+  --surface-elevated: #FFFFFF;
+  --ink: #161218;
+  --ink-secondary: #534A57;
+  --ink-muted: #877C8C;
+  --accent: #C94A6A;
+  --accent-hover: #B23B59;
+  --accent-deep: #A33350;
+  --accent-fg: #FFF9FB;
+  --accent-soft: rgba(201, 74, 106, 0.11);
+  --accent-border: rgba(201, 74, 106, 0.26);
+  --divider: rgba(22, 18, 24, 0.08);
+
   --shadow-stage:
-    0 2px 4px rgba(18, 18, 22, 0.05),
-    0 22px 48px -14px rgba(18, 18, 22, 0.13);
-  --shadow-sheet: -24px 0 64px -12px rgba(18, 18, 22, 0.16);
-  --nav-bg: rgba(246, 244, 239, 0.80);
+    0 2px 6px rgba(32, 16, 24, 0.05),
+    0 24px 52px -16px rgba(32, 16, 24, 0.13);
+  --shadow-modal:
+    0 32px 80px -16px rgba(32, 16, 24, 0.22);
+  --nav-bg: rgba(250, 246, 248, 0.78);
 
-  --stage-carrier: linear-gradient(140deg, #EFEAE1 0%, #EFE6E7 55%, #EAECEF 100%);
-  --stage-algofy: linear-gradient(140deg, #E5EEEB 0%, #ECEAE4 100%);
-  --stage-lifeos: linear-gradient(140deg, #EAE8F2 0%, #EFECE6 100%);
-  --stage-chai: linear-gradient(140deg, #E8ECF1 0%, #EFEAE5 100%);
-  --stage-stages: linear-gradient(140deg, #E9EDF2 0%, #EFECE6 100%);
+  --stage-carrier: linear-gradient(140deg, #F5E6EC 0%, #EFE8F2 55%, #ECEEF5 100%);
+  --stage-algofy: linear-gradient(140deg, #E5F0EC 0%, #F3E8EE 100%);
+  --stage-lifeos: linear-gradient(140deg, #EBE8F5 0%, #F5E7EE 100%);
+  --stage-chai: linear-gradient(140deg, #EAEFF5 0%, #F4E7ED 100%);
+  --stage-stages: linear-gradient(140deg, #EBF0F6 0%, #F4E8EE 100%);
 
-  --beam-champagne: rgba(186, 154, 104, 0.11);
-  --beam-sakura: rgba(196, 140, 150, 0.085);
-  --cursor-glow: rgba(186, 154, 104, 0.05);
-  --spotlight-fill: radial-gradient(
-    460px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(186, 154, 104, 0.09),
-    rgba(196, 140, 150, 0.045) 38%,
-    transparent 72%
-  );
+  --bloom-primary: rgba(226, 112, 142, 0.20);
+  --bloom-secondary: rgba(196, 132, 188, 0.11);
+  --line-glow: 0 0 14px rgba(201, 74, 106, 0.35);
   color-scheme: light;
 }
 
@@ -110,8 +93,8 @@
     letter-spacing: -0.011em;
     overflow-x: hidden;
     transition:
-      background-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
-      color 260ms cubic-bezier(0.22, 1, 0.36, 1);
+      background-color 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 280ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   h1,
@@ -119,7 +102,7 @@
   h3,
   h4 {
     font-family: var(--font-display), var(--font-inter), -apple-system, sans-serif;
-    letter-spacing: -0.032em;
+    letter-spacing: -0.033em;
     color: var(--ink);
   }
 
@@ -133,31 +116,24 @@
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: var(--divider);
+    background: var(--accent-border);
     border-radius: 999px;
   }
 }
 
-.surface-sculpted {
-  background-color: var(--surface-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: var(--shadow-card);
-}
-
-/* Subtle metallic champagne -> warm ivory display text sheen */
-.text-sheen {
+/* Pearl -> Luminous Sakura Display Sheen */
+.text-sakura-sheen {
   background-image: linear-gradient(
-    118deg,
-    var(--ink) 18%,
+    115deg,
+    var(--ink) 12%,
     var(--accent) 62%,
-    var(--sakura) 96%
+    var(--accent-deep) 98%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -166,7 +142,7 @@
 
 .link-editorial {
   text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--ink-muted) 45%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--ink-muted) 42%, transparent);
   text-underline-offset: 3.5px;
   text-decoration-thickness: 1px;
   transition:
@@ -192,34 +168,38 @@
   transform: scale(0.975);
 }
 
-@keyframes studioDriftA {
+@keyframes sakuraRotateSlow {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.04);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes auraPulse {
   0%,
   100% {
     transform: translate3d(0%, 0%, 0) scale(1);
+    opacity: 0.85;
   }
   50% {
-    transform: translate3d(4%, 3%, 0) scale(1.06);
+    transform: translate3d(3%, 2%, 0) scale(1.08);
+    opacity: 1;
   }
 }
 
-@keyframes studioDriftB {
-  0%,
-  100% {
-    transform: translate3d(0%, 0%, 0) scale(1);
-  }
-  50% {
-    transform: translate3d(-4%, 4%, 0) scale(1.08);
-  }
-}
-
-.animate-studio-a {
-  animation: studioDriftA 18s ease-in-out infinite;
+.animate-sakura-bloom {
+  animation: sakuraRotateSlow 110s linear infinite;
   will-change: transform;
 }
 
-.animate-studio-b {
-  animation: studioDriftB 22s ease-in-out infinite;
-  will-change: transform;
+.animate-aura-pulse {
+  animation: auraPulse 12s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {

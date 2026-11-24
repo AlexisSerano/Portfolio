@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import Magnetic from '@/components/ui/Magnetic'
-import SpotlightCard from '@/components/ui/SpotlightCard'
 import { assetPath } from '@/lib/asset'
 import { ArrowUpRight, Check, Copy } from 'lucide-react'
 
@@ -29,13 +28,13 @@ export default function Hero() {
       id="top"
       className="relative min-h-[calc(100svh-3.5rem)] flex flex-col justify-center py-12 sm:py-16 max-w-[1120px] mx-auto px-6"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-        {/* Left Column (7 cols): Monumental Display Presence */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+        {/* Left Column (7 cols): Monumental Typography & Actions */}
         <div className="lg:col-span-7">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.1, ease: easeOutExpo }}
+            transition={{ duration: 0.55, delay: 0.08, ease: easeOutExpo }}
             className="text-[13.5px] sm:text-[14px] font-medium text-[var(--accent)] tracking-[-0.01em] mb-3"
           >
             {t(
@@ -44,16 +43,15 @@ export default function Hero() {
             )}
           </motion.p>
 
-          {/* Monumental Staggered Masked Display Title */}
           <h1
-            className="font-extrabold tracking-[-0.044em] leading-[0.98]"
-            style={{ fontSize: 'clamp(3.2rem, 6.8vw, 5.75rem)' }}
+            className="font-extrabold tracking-[-0.045em] leading-[0.97]"
+            style={{ fontSize: 'clamp(3.3rem, 7vw, 6rem)' }}
           >
             <span className="block overflow-hidden pb-1">
               <motion.span
                 initial={{ y: '108%' }}
                 animate={{ y: '0%' }}
-                transition={{ duration: 0.72, delay: 0.14, ease: easeOutExpo }}
+                transition={{ duration: 0.72, delay: 0.12, ease: easeOutExpo }}
                 className="block text-[var(--ink)] will-change-transform"
               >
                 Alexis
@@ -63,10 +61,10 @@ export default function Hero() {
               <motion.span
                 initial={{ y: '108%' }}
                 animate={{ y: '0%' }}
-                transition={{ duration: 0.72, delay: 0.22, ease: easeOutExpo }}
+                transition={{ duration: 0.72, delay: 0.2, ease: easeOutExpo }}
                 className="block will-change-transform"
               >
-                <span className="text-sheen">Serano.</span>
+                <span className="text-sakura-sheen">Serano.</span>
               </motion.span>
             </span>
           </h1>
@@ -74,8 +72,8 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.3, ease: easeOutExpo }}
-            className="mt-3 text-[17px] sm:text-[20px] font-semibold tracking-[-0.022em] text-[var(--ink)]"
+            transition={{ duration: 0.55, delay: 0.28, ease: easeOutExpo }}
+            className="mt-3 text-[17.5px] sm:text-[20px] font-semibold tracking-[-0.022em] text-[var(--ink)]"
           >
             {t(
               'Développeur Logiciel & Full-Stack · R&D chez Carrier',
@@ -86,7 +84,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.36, ease: easeOutExpo }}
+            transition={{ duration: 0.6, delay: 0.34, ease: easeOutExpo }}
             className="mt-5 space-y-3.5 text-[15px] sm:text-[15.75px] leading-[1.68] text-[var(--ink-secondary)] max-w-[590px]"
           >
             <p>
@@ -103,19 +101,18 @@ export default function Hero() {
             </p>
           </motion.div>
 
-          {/* Magnetic CTAs & Direct Coordinates */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.44, ease: easeOutExpo }}
+            transition={{ duration: 0.6, delay: 0.42, ease: easeOutExpo }}
             className="mt-8 flex flex-wrap items-center gap-3.5"
           >
-            <Magnetic strength={0.2}>
+            <Magnetic strength={0.22}>
               <a
                 href={assetPath('/images/Alexis_serano.pdf')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-5 py-3 rounded-[10px] bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[13.5px] font-semibold pressable shadow-[0_10px_28px_-8px_rgba(214,192,158,0.35)]"
+                className="inline-flex items-center gap-1.5 px-5 py-3 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[13.5px] font-semibold pressable shadow-[0_10px_28px_-6px_rgba(242,158,178,0.42)]"
               >
                 <span>{t('Consulter mon CV', 'Read my Resume')}</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -126,7 +123,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="surface-sculpted inline-flex items-center gap-2 px-4 py-3 rounded-[10px] hover:bg-[var(--surface-hover)] text-[var(--ink)] text-[13.5px] font-medium cursor-pointer pressable"
+                className="inline-flex items-center gap-2 px-4.5 py-3 rounded-full bg-[var(--surface)] hover:bg-[var(--surface-hover)] text-[var(--ink)] text-[13.5px] font-medium cursor-pointer pressable"
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {copied ? (
@@ -150,7 +147,7 @@ export default function Hero() {
                       transition={{ duration: 0.14 }}
                       className="inline-flex items-center gap-1.5"
                     >
-                      <Copy className="w-3.5 h-3.5 text-[var(--ink-muted)]" />
+                      <Copy className="w-3.5 h-3.5 text-[var(--accent)]" />
                       <span>alexis.seranoo@gmail.com</span>
                     </motion.span>
                   )}
@@ -175,92 +172,78 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column (5 cols): Retina Portrait & Sculpted Impact Card */}
+        {/* Right Column (5 cols): Open-Space Floating Portrait & Unboxed Key Figures */}
         <motion.div
-          initial={{ opacity: 0, y: 20, scale: 0.985 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.75, delay: 0.24, ease: easeOutExpo }}
-          className="lg:col-span-5"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.22, ease: easeOutExpo }}
+          className="lg:col-span-5 lg:pl-6"
         >
-          <SpotlightCard className="rounded-[22px] p-5 sm:p-6">
-            {/* Top Row: Crisp Vertical Portrait (Retina 2.4x) + Swiss Essentials */}
-            <div className="flex items-center gap-4 sm:gap-5">
-              <div
-                className="relative w-[108px] h-[138px] sm:w-[122px] sm:h-[156px] rounded-[14px] overflow-hidden shrink-0 bg-[#101116]"
-                style={{ boxShadow: '0 10px 24px -8px rgba(0,0,0,0.45)' }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={assetPath('/images/alexis-portrait.jpg')}
-                  alt="Alexis Serano"
-                  width={313}
-                  height={679}
-                  className="w-full h-full object-cover object-[center_46%] contrast-[1.03] saturate-[0.94]"
-                  fetchPriority="high"
-                />
+          {/* Portrait + Open Identity */}
+          <div className="flex items-center gap-5 sm:gap-6">
+            <div
+              className="relative w-[116px] h-[150px] sm:w-[134px] sm:h-[172px] rounded-[22px] overflow-hidden shrink-0"
+              style={{
+                boxShadow:
+                  '0 22px 48px -12px rgba(0, 0, 0, 0.45), 0 0 36px -12px var(--bloom-primary)',
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={assetPath('/images/alexis-portrait.jpg')}
+                alt="Alexis Serano"
+                width={313}
+                height={679}
+                className="w-full h-full object-cover object-[center_46%] contrast-[1.03] saturate-[0.95]"
+                fetchPriority="high"
+              />
+            </div>
+
+            <div className="space-y-2 text-[13.5px]">
+              <div className="text-[16px] font-bold text-[var(--ink)] tracking-[-0.02em]">
+                {t('Frontière genevoise', 'Geneva border')}
               </div>
+              <p className="text-[var(--ink-secondary)] leading-relaxed">
+                {t('20 ans · Nationalité française', '20 y/o · French national')}
+                <br />
+                {t('Permis B · Éligible Permis G', 'Driver license · Permit G')}
+                <br />
+                <span className="text-[var(--accent)] font-medium">
+                  {t('Disponible dès juillet 2027', 'Available from July 2027')}
+                </span>
+              </p>
+            </div>
+          </div>
 
-              <div className="min-w-0 flex-1 space-y-2.5">
-                <div>
-                  <div className="text-[16px] sm:text-[17px] font-bold text-[var(--ink)] tracking-[-0.02em]">
-                    Alexis Serano
-                  </div>
-                  <div className="text-[12.5px] font-medium text-[var(--accent)] mt-0.5">
-                    {t('20 ans · Nationalité française', '20 y/o · French national')}
-                  </div>
-                </div>
-
-                <dl className="space-y-1.5 text-[12.5px] leading-snug pt-1 border-t border-[var(--divider)]">
-                  <div className="flex justify-between gap-2">
-                    <dt className="text-[var(--ink-muted)]">{t('Mobilité', 'Location')}</dt>
-                    <dd className="text-[var(--ink)] font-medium text-right">Genève & Vaud</dd>
-                  </div>
-                  <div className="flex justify-between gap-2">
-                    <dt className="text-[var(--ink-muted)]">{t('Disponibilité', 'Availability')}</dt>
-                    <dd className="text-[var(--ink)] font-medium text-right">
-                      {t('Juillet 2027', 'July 2027')}
-                    </dd>
-                  </div>
-                  <div className="flex justify-between gap-2">
-                    <dt className="text-[var(--ink-muted)]">{t('Permis', 'Permits')}</dt>
-                    <dd className="text-[var(--ink-secondary)] text-right">
-                      {t('Permis B · Permis G', 'Driver · Permit G')}
-                    </dd>
-                  </div>
-                </dl>
+          {/* Open Unboxed Key Figures — Zero Rectangular Cages */}
+          <div className="mt-9 pt-7 border-t border-[var(--divider)] grid grid-cols-3 gap-5">
+            <div>
+              <div className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.035em] text-[var(--accent)] tabular-nums leading-none">
+                4M<span className="text-[14px] font-medium text-[var(--ink-muted)]">/an</span>
+              </div>
+              <div className="mt-2 text-[12px] text-[var(--ink-secondary)] leading-snug">
+                {t('Régulateurs sécurisés chez Carrier', 'Controllers secured at Carrier')}
               </div>
             </div>
 
-            {/* 3 Sculpted Engineering Figures */}
-            <div className="mt-4 grid grid-cols-3 gap-2.5">
-              <div className="rounded-[12px] bg-[var(--surface-tile)] p-3 sm:p-3.5">
-                <div className="text-[17px] sm:text-[19px] font-bold tracking-[-0.03em] text-[var(--accent)] tabular-nums">
-                  4M<span className="text-[12.5px] font-medium text-[var(--ink-muted)]">/an</span>
-                </div>
-                <div className="mt-0.5 text-[11.5px] text-[var(--ink-secondary)] leading-snug">
-                  {t('Régulateurs Carrier', 'Carrier controllers')}
-                </div>
+            <div>
+              <div className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.035em] text-[var(--ink)] tabular-nums leading-none">
+                1 800
               </div>
-
-              <div className="rounded-[12px] bg-[var(--surface-tile)] p-3 sm:p-3.5">
-                <div className="text-[17px] sm:text-[19px] font-bold tracking-[-0.03em] text-[var(--ink)] tabular-nums">
-                  1 800
-                </div>
-                <div className="mt-0.5 text-[11.5px] text-[var(--ink-secondary)] leading-snug">
-                  {t('Pros couverts CHAI', 'Hospital staff')}
-                </div>
-              </div>
-
-              <div className="rounded-[12px] bg-[var(--surface-tile)] p-3 sm:p-3.5">
-                <div className="text-[17px] sm:text-[19px] font-bold tracking-[-0.03em] text-[var(--ink)] tabular-nums">
-                  180
-                </div>
-                <div className="mt-0.5 text-[11.5px] text-[var(--ink-secondary)] leading-snug">
-                  {t('Crédits ECTS Bachelor', 'ECTS Bachelor')}
-                </div>
+              <div className="mt-2 text-[12px] text-[var(--ink-secondary)] leading-snug">
+                {t('Professionnels couverts au CHAI', 'Hospital staff supported')}
               </div>
             </div>
-          </SpotlightCard>
+
+            <div>
+              <div className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.035em] text-[var(--ink)] tabular-nums leading-none">
+                180
+              </div>
+              <div className="mt-2 text-[12px] text-[var(--ink-secondary)] leading-snug">
+                {t('Crédits ECTS · Grade Bachelor', 'ECTS · Bachelor Degree')}
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

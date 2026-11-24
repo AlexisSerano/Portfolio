@@ -8,7 +8,7 @@ import { assetPath } from '@/lib/asset'
 import { Sun, Moon, ArrowUpRight } from 'lucide-react'
 
 const navItems = [
-  { href: '#experience', id: 'experience', fr: 'Expérience', en: 'Experience' },
+  { href: '#experience', id: 'experience', fr: 'Parcours', en: 'Journey' },
   { href: '#projects', id: 'projects', fr: 'Projets', en: 'Projects' },
   { href: '#skills', id: 'skills', fr: 'Compétences', en: 'Skills' },
   { href: '#contact', id: 'contact', fr: 'Contact', en: 'Contact' },
@@ -22,7 +22,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 260, damping: 32, restDelta: 0.001 })
+  const scaleX = useSpring(scrollYProgress, { stiffness: 280, damping: 34, restDelta: 0.001 })
 
   useEffect(() => {
     const onScroll = () => {
@@ -99,11 +99,10 @@ export default function Navbar() {
           Alexis Serano
         </a>
 
-        {/* Center Spring Navigation */}
         <nav
           aria-label={t('Navigation principale', 'Primary navigation')}
           onMouseLeave={() => setHoveredHref(null)}
-          className="hidden md:flex items-center gap-0.5 p-1 rounded-[10px]"
+          className="hidden md:flex items-center gap-0.5 p-1 rounded-full"
         >
           {navItems.map((item) => {
             const isHighlighted = highlightedHref === item.href
@@ -114,7 +113,7 @@ export default function Navbar() {
                 href={item.href}
                 onClick={(e) => scrollTo(e, item.href)}
                 onMouseEnter={() => setHoveredHref(item.href)}
-                className={`relative px-3.5 py-1.5 text-[13.5px] transition-colors rounded-[8px] ${
+                className={`relative px-3.5 py-1.5 text-[13.5px] transition-colors rounded-full ${
                   isHighlighted || isActive
                     ? 'text-[var(--ink)] font-medium'
                     : 'text-[var(--ink-secondary)] hover:text-[var(--ink)]'
@@ -124,7 +123,7 @@ export default function Navbar() {
                   <motion.span
                     layoutId="nav-pill"
                     transition={{ type: 'spring', stiffness: 440, damping: 35 }}
-                    className="absolute inset-0 rounded-[8px] bg-[var(--surface)] -z-10"
+                    className="absolute inset-0 rounded-full bg-[var(--accent-soft)] -z-10"
                   />
                 )}
                 {lang === 'fr' ? item.fr : item.en}
@@ -133,13 +132,12 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Right Controls */}
         <div className="flex items-center gap-1.5">
           <button
             type="button"
             onClick={toggleLang}
             aria-label={t('Passer en anglais', 'Switch to French')}
-            className="px-2 py-1 rounded-[7px] text-[12.5px] font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-colors cursor-pointer pressable"
+            className="px-2 py-1 rounded-full text-[12.5px] font-medium text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-colors cursor-pointer pressable"
           >
             <span className={lang === 'fr' ? 'text-[var(--ink)] font-semibold' : 'text-[var(--ink-muted)]'}>FR</span>
             <span className="mx-1 text-[var(--ink-muted)] opacity-50">/</span>
@@ -151,10 +149,10 @@ export default function Navbar() {
             onClick={toggleTheme}
             aria-label={
               theme === 'dark'
-                ? t('Activer le thème clair', 'Switch to light theme')
-                : t('Activer le thème sombre', 'Switch to dark theme')
+                ? t('Activer le thème clair Sakura', 'Switch to Sakura light theme')
+                : t('Activer le thème sombre Sakura', 'Switch to Sakura dark theme')
             }
-            className="w-8 h-8 rounded-[7px] flex items-center justify-center text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-colors cursor-pointer pressable"
+            className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--ink-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent-soft)] transition-colors cursor-pointer pressable"
           >
             {theme === 'dark' ? <Sun className="w-[15px] h-[15px]" /> : <Moon className="w-[15px] h-[15px]" />}
           </button>
@@ -163,7 +161,7 @@ export default function Navbar() {
             href={assetPath('/images/Alexis_serano.pdf')}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-1 surface-sculpted inline-flex items-center gap-1 px-3 py-1.5 rounded-[8px] hover:bg-[var(--surface-hover)] text-[13px] font-medium text-[var(--ink)] cursor-pointer pressable"
+            className="ml-1 inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[var(--surface)] hover:bg-[var(--accent-soft)] text-[13px] font-medium text-[var(--ink)] cursor-pointer pressable"
           >
             <span>CV</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-[var(--accent)]" />
@@ -171,14 +169,14 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Razor-thin 1px Champagne -> Smoked Sakura Scroll Thread */}
+      {/* Luminous 1px Sakura Scroll Thread */}
       <motion.div
         aria-hidden="true"
         style={{
           scaleX,
-          background: 'linear-gradient(90deg, var(--accent) 0%, var(--sakura) 100%)',
+          background: 'linear-gradient(90deg, var(--accent) 0%, var(--accent-deep) 100%)',
         }}
-        className="h-[1px] w-full origin-left opacity-70 will-change-transform"
+        className="h-[1px] w-full origin-left opacity-80 will-change-transform"
       />
     </header>
   )

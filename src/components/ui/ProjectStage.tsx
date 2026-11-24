@@ -95,7 +95,7 @@ export default function ProjectStage({
   const parallaxY = useTransform(
     scrollYProgress,
     [0, 1],
-    interactive || prefersReducedMotion ? [0, 0] : [-9, 9]
+    interactive || prefersReducedMotion ? [0, 0] : [-10, 10]
   )
 
   const stageBg = stageBackgrounds[slug] ?? 'var(--surface)'
@@ -105,15 +105,12 @@ export default function ProjectStage({
     return (
       <div
         ref={stageRef}
-        className="w-full rounded-[20px] p-5 sm:p-8 transition-all"
-        style={{
-          background: stageBg,
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
-        }}
+        className="w-full rounded-[22px] p-5 sm:p-8 transition-all"
+        style={{ background: stageBg }}
       >
         <motion.div
           style={{ y: parallaxY, boxShadow: 'var(--shadow-stage)' }}
-          className="w-full rounded-[14px] bg-[var(--surface-card)] backdrop-blur-md p-5 sm:p-7 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 will-change-transform"
+          className="w-full rounded-[15px] bg-[var(--surface-elevated)] p-5 sm:p-7 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 will-change-transform"
         >
           <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[var(--divider)]">
             <div className="flex items-center gap-3.5">
@@ -127,7 +124,7 @@ export default function ProjectStage({
                 {t('Commissioning Web & Conformité CRA', 'Web Commissioning & CRA Security')}
               </span>
             </div>
-            <span className="text-[12.5px] font-medium text-[var(--accent)] tabular-nums">
+            <span className="text-[12.5px] font-semibold text-[var(--accent)] tabular-nums">
               {t('4 000 000 régulateurs / an', '4,000,000 controllers / yr')}
             </span>
           </div>
@@ -143,7 +140,7 @@ export default function ProjectStage({
                     e.stopPropagation()
                     setSelectedCtrl(idx)
                   }}
-                  className={`relative px-3 py-1.5 rounded-[8px] text-[12.5px] font-medium transition-colors cursor-pointer ${
+                  className={`relative px-3.5 py-1.5 rounded-full text-[12.5px] font-medium transition-colors cursor-pointer ${
                     isSelected
                       ? 'text-[var(--ink)]'
                       : 'text-[var(--ink-muted)] hover:text-[var(--ink-secondary)]'
@@ -151,9 +148,9 @@ export default function ProjectStage({
                 >
                   {isSelected && (
                     <motion.span
-                      layoutId={`carrier-ctrl-${interactive ? 'sheet' : 'stage'}`}
+                      layoutId={`carrier-ctrl-${interactive ? 'modal' : 'stage'}`}
                       transition={{ type: 'spring', stiffness: 450, damping: 36 }}
-                      className="absolute inset-0 rounded-[8px] bg-[var(--surface-tile)] -z-0"
+                      className="absolute inset-0 rounded-full bg-[var(--accent-soft)] -z-0"
                     />
                   )}
                   <span className="relative z-10">{ctrl.name}</span>
@@ -162,8 +159,8 @@ export default function ProjectStage({
             })}
           </div>
 
-          <div className={`mt-4 grid grid-cols-1 ${interactive ? 'gap-2.5' : 'sm:grid-cols-3 gap-3'}`}>
-            <div className="rounded-[10px] bg-[var(--surface-tile)] p-4">
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="rounded-[12px] bg-[var(--bg)] p-4">
               <div className="text-[12px] text-[var(--ink-muted)]">
                 {t('Famille sélectionnée', 'Selected family')}
               </div>
@@ -173,7 +170,7 @@ export default function ProjectStage({
               </div>
             </div>
 
-            <div className="rounded-[10px] bg-[var(--surface-tile)] p-4">
+            <div className="rounded-[12px] bg-[var(--bg)] p-4">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-[12px] text-[var(--ink-muted)]">
                   {t('Authentification OTP', 'OTP Authentication')}
@@ -209,7 +206,7 @@ export default function ProjectStage({
               </div>
             </div>
 
-            <div className="rounded-[10px] bg-[var(--surface-tile)] p-4">
+            <div className="rounded-[12px] bg-[var(--bg)] p-4">
               <div className="text-[12px] text-[var(--ink-muted)]">
                 {t('Interface & Runtime', 'Interface & Runtime')}
               </div>
@@ -227,15 +224,12 @@ export default function ProjectStage({
     return (
       <div
         ref={stageRef}
-        className={`w-full rounded-[20px] ${compact ? 'p-4 sm:p-5' : 'p-5 sm:p-7'} transition-all`}
-        style={{
-          background: stageBg,
-          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
-        }}
+        className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-5 sm:p-7'} transition-all`}
+        style={{ background: stageBg }}
       >
         <motion.div
           style={{ y: parallaxY, boxShadow: 'var(--shadow-stage)' }}
-          className="w-full rounded-[13px] bg-[var(--surface-card)] backdrop-blur-md p-5 sm:p-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 will-change-transform"
+          className="w-full rounded-[14px] bg-[var(--surface-elevated)] p-5 sm:p-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 will-change-transform"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-2 pb-4 border-b border-[var(--divider)]">
             <div>
@@ -246,7 +240,7 @@ export default function ProjectStage({
                 {t('DSI · St-Égrève (1 800 professionnels)', 'Hospital IT · 1,800 staff')}
               </div>
             </div>
-            <span className="text-[12px] font-medium text-[var(--accent)] tabular-nums">
+            <span className="text-[12px] font-semibold text-[var(--accent)] tabular-nums">
               {t('50 structures · ~300 lits', '50 facilities · ~300 beds')}
             </span>
           </div>
@@ -262,7 +256,7 @@ export default function ProjectStage({
                     e.stopPropagation()
                     setSelectedPillar(idx)
                   }}
-                  className={`relative px-3 py-1.5 rounded-[8px] text-[12px] font-medium transition-colors cursor-pointer ${
+                  className={`relative px-3 py-1.5 rounded-full text-[12px] font-medium transition-colors cursor-pointer ${
                     isSelected
                       ? 'text-[var(--ink)]'
                       : 'text-[var(--ink-muted)] hover:text-[var(--ink-secondary)]'
@@ -270,9 +264,9 @@ export default function ProjectStage({
                 >
                   {isSelected && (
                     <motion.span
-                      layoutId={`chai-pillar-${interactive ? 'sheet' : 'stage'}`}
+                      layoutId={`chai-pillar-${interactive ? 'modal' : 'stage'}`}
                       transition={{ type: 'spring', stiffness: 450, damping: 36 }}
-                      className="absolute inset-0 rounded-[8px] bg-[var(--surface-tile)] -z-0"
+                      className="absolute inset-0 rounded-full bg-[var(--accent-soft)] -z-0"
                     />
                   )}
                   <span className="relative z-10">{lang === 'fr' ? item.tab.fr : item.tab.en}</span>
@@ -288,7 +282,7 @@ export default function ProjectStage({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.16 }}
-              className="mt-3.5 rounded-[10px] bg-[var(--surface-tile)] p-4"
+              className="mt-3.5 rounded-[12px] bg-[var(--bg)] p-4"
             >
               <div className="text-[13.5px] font-semibold text-[var(--ink)]">
                 {lang === 'fr' ? pillar.metric.fr : pillar.metric.en}
@@ -316,15 +310,12 @@ export default function ProjectStage({
   return (
     <div
       ref={stageRef}
-      className={`w-full rounded-[20px] ${compact ? 'p-4 sm:p-5' : 'p-4 sm:p-7'} overflow-hidden transition-all`}
-      style={{
-        background: stageBg,
-        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
-      }}
+      className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-4 sm:p-7'} overflow-hidden transition-all`}
+      style={{ background: stageBg }}
     >
       <motion.div
         style={{ y: parallaxY, boxShadow: 'var(--shadow-stage)' }}
-        className={`w-full overflow-hidden rounded-[10px] sm:rounded-[12px] bg-[var(--surface-card)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.015] will-change-transform ${
+        className={`w-full overflow-hidden rounded-[11px] sm:rounded-[13px] bg-[var(--surface-elevated)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.015] will-change-transform ${
           compact ? 'aspect-[2.05/1]' : ''
         }`}
       >
