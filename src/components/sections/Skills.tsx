@@ -63,48 +63,12 @@ const skillGroups: SkillGroup[] = [
 ]
 
 const interests = [
-  {
-    title: { fr: 'Japon & culture contemporaine', en: 'Japan & contemporary culture' },
-    desc: {
-      fr: 'Esthétique, architecture minimaliste et culture pop japonaise.',
-      en: 'Aesthetics, minimalist architecture, and Japanese pop culture.',
-    },
-  },
-  {
-    title: { fr: 'Horlogerie', en: 'Watchmaking' },
-    desc: {
-      fr: 'Mécanique de précision, mouvements manufacturés et sens du détail.',
-      en: 'Precision mechanics, manufacture movements, and craft.',
-    },
-  },
-  {
-    title: { fr: 'Trading & finance quant', en: 'Trading & quant finance' },
-    desc: {
-      fr: 'Analyse de marché, gestion du risque et automatisation de stratégies.',
-      en: 'Market structure analysis, risk management, and algorithmic execution.',
-    },
-  },
-  {
-    title: { fr: 'Entrepreneuriat', en: 'Entrepreneurship' },
-    desc: {
-      fr: 'Conception de produits logiciels utiles, de l’idée à la mise en production.',
-      en: 'Building independent software products from concept to production.',
-    },
-  },
-  {
-    title: { fr: 'Longévité & performance', en: 'Longevity & fitness' },
-    desc: {
-      fr: 'Musculation, discipline quotidienne et optimisation de la santé sur le long terme.',
-      en: 'Strength training, daily discipline, and long-term health optimization.',
-    },
-  },
-  {
-    title: { fr: 'Montage & motion design', en: 'Video & motion design' },
-    desc: {
-      fr: '7+ ans sur Premiere Pro et After Effects — rythme, animation et habillage.',
-      en: '7+ years in Premiere Pro and After Effects — pacing, motion, and sound.',
-    },
-  },
+  { fr: 'Culture japonaise', en: 'Japanese culture' },
+  { fr: 'Horlogerie', en: 'Watchmaking' },
+  { fr: 'Trading & investissement', en: 'Trading & investing' },
+  { fr: 'Entrepreneuriat', en: 'Entrepreneurship' },
+  { fr: 'Longévité & sport', en: 'Longevity & fitness' },
+  { fr: 'Montage vidéo & motion design', en: 'Video editing & motion design' },
 ]
 
 export default function Skills() {
@@ -112,7 +76,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="scroll-mt-20 py-20 sm:py-28 max-w-[1120px] mx-auto px-6 space-y-24">
-      {/* Open-Space Technical Stack — Accurate Categories & Highlighted Core Techs */}
+      {/* Open-Space Technical Stack */}
       <div>
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-12">
           <SectionHeading
@@ -186,27 +150,20 @@ export default function Skills() {
         </div>
       </div>
 
-      {/* Expressive Open-Space Personal Interests (No Longer Hidden!) */}
+      {/* Sober, Expressive Personal Interests — Clean Bold Statements Without Filler Fluff */}
       <div>
         <SectionHeading
-          title={t('Au-delà du code', 'Beyond engineering')}
-          subtitle={t(
-            'Ce qui nourrit ma curiosité, ma rigueur et ma façon de concevoir des produits.',
-            'What shapes my curiosity, discipline, and eye for product craft.'
-          )}
-          className="mb-12"
+          title={t('Centres d’intérêt', 'Personal interests')}
+          className="mb-10"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-9">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-6">
           {interests.map((item, idx) => (
-            <FadeIn key={item.title.en} delay={idx * 0.04}>
-              <div className="group pl-4 border-l border-[var(--accent-border)] hover:border-[var(--accent)] transition-colors">
-                <h3 className="text-[16px] font-bold text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors tracking-[-0.02em]">
-                  {lang === 'fr' ? item.title.fr : item.title.en}
-                </h3>
-                <p className="mt-1.5 text-[14px] leading-[1.62] text-[var(--ink-secondary)]">
-                  {lang === 'fr' ? item.desc.fr : item.desc.en}
-                </p>
+            <FadeIn key={item.en} delay={idx * 0.04}>
+              <div className="group py-2 pl-4 border-l-2 border-[var(--accent-border)] hover:border-[var(--accent)] transition-colors">
+                <span className="text-[17px] sm:text-[18px] font-bold text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors tracking-[-0.022em] inline-block transition-transform duration-300 group-hover:translate-x-1">
+                  {lang === 'fr' ? item.fr : item.en}
+                </span>
               </div>
             </FadeIn>
           ))}

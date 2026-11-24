@@ -502,12 +502,12 @@ export const projects: Project[] = [
       en: 'Video Editing & Motion Design',
     },
     description: {
-      fr: 'Plus de 7 ans de pratique du montage vidéo, du motion design et du sound design sur Premiere Pro et After Effects.',
-      en: 'Over 7 years of video editing, motion design, and sound design using Premiere Pro and After Effects.',
+      fr: 'Pratique du montage vidéo, du motion design et du sound design sur Premiere Pro et After Effects.',
+      en: 'Video editing, motion design, and sound design using Premiere Pro and After Effects.',
     },
     category: 'other',
-    year: '2017-2026',
-    status: 'in-progress',
+    year: '2017-2024',
+    status: 'completed',
     featured: false,
     image: '/images/projects/montage-video.jpg',
     tags: ['Premiere Pro', 'After Effects', 'Photoshop', 'Motion Design', 'Sound Design'],
@@ -518,8 +518,8 @@ export const projects: Project[] = [
         en: 'Self-taught & freelance',
       },
       duration: {
-        fr: '7+ ans de pratique (2017 – Présent)',
-        en: '7+ years of experience (2017 – Present)',
+        fr: '2017 – 2024',
+        en: '2017 – 2024',
       },
       context: {
         fr: 'Réalisation de montages vidéo (YouTube, vidéos courtes, projets personnels et commandes freelance). C\'est ce qui m\'a initié au travail sur ordinateur.',

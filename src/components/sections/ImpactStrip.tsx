@@ -32,12 +32,12 @@ export default function ImpactStrip() {
       },
     },
     {
-      figure: '23',
-      suffix: { fr: ' apps', en: ' apps' },
+      figure: '1',
+      suffix: { fr: ' an', en: ' yr' },
       accent: false,
       label: {
-        fr: 'Applications métiers unifiées sur le nouveau portail intranet hospitalier',
-        en: 'Internal business apps unified on the redesigned hospital intranet',
+        fr: 'D’expérience en R&D internationale (Carrier) et en DSI hospitalière (CHAI)',
+        en: 'Experience across international R&D (Carrier) and hospital IT (CHAI)',
       },
     },
     {

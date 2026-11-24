@@ -18,6 +18,9 @@
   --accent-fg: #0D070A;
   --accent-soft: rgba(242, 158, 178, 0.12);
   --accent-border: rgba(242, 158, 178, 0.26);
+  --accent-shadow: rgba(242, 158, 178, 0.42);
+  --petal-color: #F4A4B8;
+  --cursor-aura: rgba(242, 158, 178, 0.135);
   --divider: rgba(248, 245, 247, 0.075);
 
   --shadow-stage:
@@ -41,39 +44,42 @@
   color-scheme: dark;
 }
 
-/* Secondary Light Mode: Sakura Porcelain + Deep Rose Ink (Visible Sakura Aura & Trail) */
+/* Secondary Light Mode: Sakura Porcelain + Vivid Sakura Rose (Strong Visible Aura & Trail) */
 [data-theme='light'] {
-  --bg: #FAF6F8;
-  --surface: #F2E9EE;
-  --surface-hover: #EADCE4;
+  --bg: #FAF5F7;
+  --surface: #F2E7ED;
+  --surface-hover: #EAD8E2;
   --surface-elevated: #FFFFFF;
   --ink: #161218;
-  --ink-secondary: #534A57;
-  --ink-muted: #877C8C;
-  --accent: #C94A6A;
-  --accent-hover: #B23B59;
-  --accent-deep: #A33350;
+  --ink-secondary: #514755;
+  --ink-muted: #84778A;
+  --accent: #CE3D64;
+  --accent-hover: #B52F53;
+  --accent-deep: #9E2445;
   --accent-fg: #FFF9FB;
-  --accent-soft: rgba(201, 74, 106, 0.11);
-  --accent-border: rgba(201, 74, 106, 0.26);
-  --divider: rgba(22, 18, 24, 0.08);
+  --accent-soft: rgba(206, 61, 100, 0.12);
+  --accent-border: rgba(206, 61, 100, 0.30);
+  --accent-shadow: rgba(206, 61, 100, 0.34);
+  --petal-color: #D8486E;
+  --cursor-aura: rgba(232, 78, 120, 0.28);
+  --divider: rgba(22, 18, 24, 0.085);
 
   --shadow-stage:
     0 2px 6px rgba(32, 16, 24, 0.05),
     0 24px 52px -16px rgba(32, 16, 24, 0.13);
   --shadow-modal:
     0 32px 80px -16px rgba(32, 16, 24, 0.22);
-  --nav-bg: rgba(250, 246, 248, 0.78);
+  --nav-bg: rgba(250, 245, 247, 0.82);
 
-  --stage-carrier: linear-gradient(140deg, #F5E6EC 0%, #EFE8F2 55%, #ECEEF5 100%);
-  --stage-algofy: linear-gradient(140deg, #E5F0EC 0%, #F3E8EE 100%);
-  --stage-lifeos: linear-gradient(140deg, #EBE8F5 0%, #F5E7EE 100%);
-  --stage-chai: linear-gradient(140deg, #EAEFF5 0%, #F4E7ED 100%);
-  --stage-stages: linear-gradient(140deg, #EBF0F6 0%, #F4E8EE 100%);
+  --stage-carrier: linear-gradient(140deg, #F5E2EA 0%, #EFE6F2 55%, #EBEEF6 100%);
+  --stage-algofy: linear-gradient(140deg, #E4EFEA 0%, #F4E4EC 100%);
+  --stage-lifeos: linear-gradient(140deg, #EAE6F5 0%, #F5E4EC 100%);
+  --stage-chai: linear-gradient(140deg, #E9EEF5 0%, #F5E4EC 100%);
+  --stage-stages: linear-gradient(140deg, #EAEFF6 0%, #F5E5ED 100%);
 
-  --bloom-primary: rgba(226, 112, 142, 0.20);
-  --bloom-secondary: rgba(196, 132, 188, 0.11);
-  --line-glow: 0 0 14px rgba(201, 74, 106, 0.35);
+  --bloom-primary: rgba(230, 92, 130, 0.28);
+  --bloom-secondary: rgba(196, 118, 180, 0.15);
+  --line-glow: 0 0 16px rgba(206, 61, 100, 0.42);
   color-scheme: light;
 }
 

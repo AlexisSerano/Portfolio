@@ -69,7 +69,7 @@ const archiveLensMeta: Record<
   'montage-video': {
     screenshot: '/images/projects/montage-video.jpg',
     eyebrow: 'Premiere Pro · After Effects',
-    headline: { fr: '7+ ans de montage, motion & sound design', en: '7+ yrs of editing & motion design' },
+    headline: { fr: 'Montage vidéo, motion & sound design', en: 'Video editing, motion & sound design' },
     gradient: 'linear-gradient(135deg, #1D1422 0%, #14131B 100%)',
   },
 }

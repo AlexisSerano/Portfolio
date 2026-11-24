@@ -4,8 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 import {
   AnimatePresence,
   motion,
-  useMotionValue,
-  useSpring,
   useScroll,
   useTransform,
   useReducedMotion,
@@ -25,9 +23,7 @@ export default function Hero() {
   const [heroReady, setHeroReady] = useState(false)
 
   const sectionRef = useRef<HTMLElement>(null)
-  const portraitRef = useRef<HTMLDivElement>(null)
 
-  // Cinema camera scroll-recede transition as user scrolls out of Hero
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
@@ -35,12 +31,6 @@ export default function Hero() {
   const heroScale = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [1, 1] : [1, 0.96])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.85], prefersReducedMotion ? [1, 1] : [1, 0.28])
   const heroY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, 44])
-
-  // Subtle 3D portrait spring parallax
-  const rawRotateX = useMotionValue(0)
-  const rawRotateY = useMotionValue(0)
-  const rotateX = useSpring(rawRotateX, { stiffness: 260, damping: 24, mass: 0.4 })
-  const rotateY = useSpring(rawRotateY, { stiffness: 260, damping: 24, mass: 0.4 })
 
   useEffect(() => {
     if (prefersReducedMotion) {
@@ -58,20 +48,6 @@ export default function Hero() {
     }
   }, [prefersReducedMotion])
 
-  const handlePortraitMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (prefersReducedMotion || e.pointerType === 'touch' || !portraitRef.current) return
-    const rect = portraitRef.current.getBoundingClientRect()
-    const nx = (e.clientX - rect.left) / rect.width - 0.5
-    const ny = (e.clientY - rect.top) / rect.height - 0.5
-    rawRotateY.set(nx * 10)
-    rawRotateX.set(-ny * 10)
-  }
-
-  const handlePortraitLeave = () => {
-    rawRotateX.set(0)
-    rawRotateY.set(0)
-  }
-
   const handleCopyEmail = async () => {
     try {
       await navigator.clipboard.writeText('alexis.seranoo@gmail.com')
@@ -84,6 +60,34 @@ export default function Hero() {
 
   const cvLabel = t('Consulter mon CV', 'Read my Resume')
 
+  const profileSpecs = [
+    {
+      label: t('Mobilité cible', 'Target location'),
+      value: t('Cantons de Genève & Vaud', 'Geneva & Vaud Cantons'),
+      accent: true,
+    },
+    {
+      label: t('Disponibilité', 'Availability'),
+      value: t('CDI dès juillet 2027', 'Full-time from July 2027'),
+      accent: false,
+    },
+    {
+      label: t('Poste actuel', 'Current role'),
+      value: t('Développeur Logiciel R&D · Carrier', 'R&D Software Developer · Carrier'),
+      accent: false,
+    },
+    {
+      label: t('Cursus', 'Education'),
+      value: t('B.U.T. Informatique — Bachelor (180 ECTS)', 'CS Bachelor Degree (180 ECTS)'),
+      accent: false,
+    },
+    {
+      label: t('Statut & mobilité', 'Work eligibility'),
+      value: t('Français · Permis B · Éligible Permis G', 'French · Driver license · Permit G'),
+      accent: false,
+    },
+  ]
+
   return (
     <section
       ref={sectionRef}
@@ -92,7 +96,7 @@ export default function Hero() {
     >
       <motion.div
         style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
-        className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center origin-top will-change-transform"
+        className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-end origin-top will-change-transform"
       >
         {/* Left Column (7 cols): Kinetic Display Title + Bio + Magnetic CTAs */}
         <div className="lg:col-span-7">
@@ -103,17 +107,16 @@ export default function Hero() {
             className="text-[13.5px] sm:text-[14px] font-medium text-[var(--accent)] tracking-[-0.01em] mb-3"
           >
             {t(
-              'Cantons de Genève & Vaud · CDI dès juillet 2027 · Éligible Permis G',
-              'Geneva & Vaud Cantons · Full-time from July 2027 · Swiss Permit G eligible'
+              'Frontière genevoise · Disponible dès juillet 2027 · Genève & Vaud',
+              'Geneva border · Available from July 2027 · Geneva & Vaud'
             )}
           </motion.p>
 
           <h1
             aria-label="Alexis Serano."
             className="font-extrabold tracking-[-0.046em] leading-[0.95]"
-            style={{ fontSize: 'clamp(3.5rem, 7.6vw, 6.4rem)' }}
+            style={{ fontSize: 'clamp(3.6rem, 7.8vw, 6.5rem)' }}
           >
-            {/* Staggered Character-Level GPU Rise on First Name */}
             <span aria-hidden="true" className="flex overflow-hidden pb-1">
               {firstNameChars.map((ch, idx) => (
                 <motion.span
@@ -132,7 +135,6 @@ export default function Hero() {
               ))}
             </span>
 
-            {/* Luminous Sakura Sheen Last Name */}
             <span aria-hidden="true" className="block overflow-hidden pb-2">
               <motion.span
                 initial={{ y: '115%' }}
@@ -188,7 +190,7 @@ export default function Hero() {
                 href={assetPath('/images/Alexis_serano.pdf')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="roll-btn group inline-flex items-center gap-1.5 px-5.5 py-3 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[13.5px] font-semibold pressable shadow-[0_12px_32px_-6px_rgba(242,158,178,0.45)]"
+                className="roll-btn group inline-flex items-center gap-1.5 px-5.5 py-3 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[13.5px] font-semibold pressable shadow-[0_12px_32px_-6px_var(--accent-shadow)]"
               >
                 <span className="roll-clip">
                   <span className="roll-primary">{cvLabel}</span>
@@ -253,68 +255,27 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column (5 cols): 3D Perspective Portrait + Open Swiss Credentials */}
+        {/* Right Column (5 cols): Pure Typographic Swiss Profile Ledger (No Public Photo) */}
         <motion.div
-          initial={{ opacity: 0, y: 22 }}
-          animate={heroReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
-          transition={{ duration: 0.8, delay: 0.22, ease: easeOutExpo }}
-          className="lg:col-span-5 lg:pl-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={heroReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.26, ease: easeOutExpo }}
+          className="lg:col-span-5 lg:pl-8 lg:pb-2"
         >
-          <div className="flex items-center gap-5 sm:gap-6" style={{ perspective: '900px' }}>
-            <motion.div
-              ref={portraitRef}
-              onPointerMove={handlePortraitMove}
-              onPointerLeave={handlePortraitLeave}
-              style={{
-                rotateX,
-                rotateY,
-                transformStyle: 'preserve-3d',
-                boxShadow:
-                  '0 24px 52px -12px rgba(0, 0, 0, 0.52), 0 0 42px -10px var(--bloom-primary)',
-              }}
-              className="group/pic relative w-[120px] h-[156px] sm:w-[138px] sm:h-[178px] rounded-[22px] overflow-hidden shrink-0 will-change-transform ring-1 ring-[var(--accent-border)]"
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={assetPath('/images/alexis-portrait.jpg')}
-                alt="Alexis Serano"
-                width={313}
-                height={679}
-                className="w-full h-full object-cover object-[center_46%] contrast-[1.03] saturate-[0.95] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/pic:scale-[1.04]"
-                fetchPriority="high"
-              />
-            </motion.div>
-
-            <div className="space-y-2 text-[13.5px]">
-              <div className="text-[16.5px] font-bold text-[var(--ink)] tracking-[-0.02em]">
-                {t('Frontière genevoise', 'Geneva border')}
+          <dl className="divide-y divide-[var(--divider)] border-y border-[var(--divider)]">
+            {profileSpecs.map((spec) => (
+              <div key={spec.label} className="py-3.5 flex items-baseline justify-between gap-4 text-[13.5px]">
+                <dt className="text-[var(--ink-muted)] shrink-0">{spec.label}</dt>
+                <dd
+                  className={`text-right font-medium ${
+                    spec.accent ? 'text-[var(--accent)] font-semibold' : 'text-[var(--ink)]'
+                  }`}
+                >
+                  {spec.value}
+                </dd>
               </div>
-              <p className="text-[var(--ink-secondary)] leading-relaxed">
-                {t('20 ans · Nationalité française', '20 y/o · French national')}
-                <br />
-                {t('Permis B · Éligible Permis G', 'Driver license · Permit G')}
-                <br />
-                <span className="text-[var(--accent)] font-medium">
-                  {t('Disponible dès juillet 2027', 'Available from July 2027')}
-                </span>
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-[var(--divider)] grid grid-cols-2 gap-6 text-[13px]">
-            <div>
-              <div className="text-[var(--ink-muted)]">{t('Poste actuel', 'Current role')}</div>
-              <div className="mt-1 font-semibold text-[var(--ink)]">
-                {t('Alternant R&D · Carrier', 'R&D Apprentice · Carrier')}
-              </div>
-            </div>
-            <div>
-              <div className="text-[var(--ink-muted)]">{t('Langues', 'Languages')}</div>
-              <div className="mt-1 font-semibold text-[var(--ink)]">
-                {t('Français · Anglais B2', 'French · English B2')}
-              </div>
-            </div>
-          </div>
+            ))}
+          </dl>
         </motion.div>
       </motion.div>
     </section>

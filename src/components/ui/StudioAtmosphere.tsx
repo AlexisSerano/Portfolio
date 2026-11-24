@@ -16,7 +16,7 @@ interface PetalState {
   tumbleSpeed: number
   swayPhase: number
   swayAmp: number
-  opacity: number
+  baseOpacity: number
 }
 
 interface TrailPoint {
@@ -38,9 +38,9 @@ function paintStaticBloom(canvas: HTMLCanvasElement, isLight: boolean) {
 
   const halo = c.createRadialGradient(half, half, 0, half, half, half)
   if (isLight) {
-    halo.addColorStop(0, 'rgba(224, 108, 138, 0.21)')
-    halo.addColorStop(0.44, 'rgba(204, 132, 184, 0.09)')
-    halo.addColorStop(0.78, 'rgba(224, 108, 138, 0)')
+    halo.addColorStop(0, 'rgba(228, 86, 126, 0.32)')
+    halo.addColorStop(0.45, 'rgba(206, 114, 174, 0.15)')
+    halo.addColorStop(0.80, 'rgba(228, 86, 126, 0)')
   } else {
     halo.addColorStop(0, 'rgba(242, 158, 178, 0.135)')
     halo.addColorStop(0.44, 'rgba(196, 132, 204, 0.055)')
@@ -57,16 +57,16 @@ function paintStaticBloom(canvas: HTMLCanvasElement, isLight: boolean) {
 
   fc.translate(half, half)
   fc.scale(1.48, 1.48)
-  const strokeRgb = isLight ? '201, 74, 106' : '242, 158, 178'
+  const strokeRgb = isLight ? '206, 61, 100' : '242, 158, 178'
 
   for (let k = 0; k < 5; k++) {
     fc.save()
     fc.rotate((k * 72 * Math.PI) / 180)
 
     const pGrad = fc.createLinearGradient(0, -10, 0, -172)
-    pGrad.addColorStop(0, `rgba(${strokeRgb}, 0.015)`)
-    pGrad.addColorStop(0.55, `rgba(${strokeRgb}, ${isLight ? 0.105 : 0.07})`)
-    pGrad.addColorStop(1, `rgba(${strokeRgb}, ${isLight ? 0.18 : 0.12})`)
+    pGrad.addColorStop(0, `rgba(${strokeRgb}, ${isLight ? 0.03 : 0.015})`)
+    pGrad.addColorStop(0.55, `rgba(${strokeRgb}, ${isLight ? 0.17 : 0.07})`)
+    pGrad.addColorStop(1, `rgba(${strokeRgb}, ${isLight ? 0.28 : 0.12})`)
 
     fc.beginPath()
     fc.moveTo(0, -10)
@@ -78,35 +78,35 @@ function paintStaticBloom(canvas: HTMLCanvasElement, isLight: boolean) {
 
     fc.fillStyle = pGrad
     fc.fill()
-    fc.strokeStyle = `rgba(${strokeRgb}, ${isLight ? 0.19 : 0.13})`
-    fc.lineWidth = 0.8
+    fc.strokeStyle = `rgba(${strokeRgb}, ${isLight ? 0.30 : 0.13})`
+    fc.lineWidth = isLight ? 0.95 : 0.8
     fc.stroke()
 
     fc.beginPath()
     fc.moveTo(0, -12)
     fc.lineTo(0, -64)
-    fc.strokeStyle = `rgba(${strokeRgb}, ${isLight ? 0.16 : 0.10})`
-    fc.lineWidth = 0.6
+    fc.strokeStyle = `rgba(${strokeRgb}, ${isLight ? 0.24 : 0.10})`
+    fc.lineWidth = 0.65
     fc.stroke()
 
     fc.beginPath()
-    fc.arc(0, -66, 1.6, 0, Math.PI * 2)
-    fc.fillStyle = `rgba(${strokeRgb}, ${isLight ? 0.25 : 0.17})`
+    fc.arc(0, -66, 1.7, 0, Math.PI * 2)
+    fc.fillStyle = `rgba(${strokeRgb}, ${isLight ? 0.36 : 0.17})`
     fc.fill()
 
     fc.restore()
   }
 
   fc.beginPath()
-  fc.arc(0, 0, 4.2, 0, Math.PI * 2)
-  fc.fillStyle = `rgba(${strokeRgb}, ${isLight ? 0.19 : 0.14})`
+  fc.arc(0, 0, 4.4, 0, Math.PI * 2)
+  fc.fillStyle = `rgba(${strokeRgb}, ${isLight ? 0.28 : 0.14})`
   fc.fill()
 
   fc.setTransform(1, 0, 0, 1, 0, 0)
   fc.globalCompositeOperation = 'destination-in'
   const mask = fc.createRadialGradient(half, half, size * 0.08, half, half, size * 0.44)
   mask.addColorStop(0, 'rgba(0,0,0,0.95)')
-  mask.addColorStop(0.65, 'rgba(0,0,0,0.42)')
+  mask.addColorStop(0.65, 'rgba(0,0,0,0.45)')
   mask.addColorStop(1, 'rgba(0,0,0,0)')
   fc.fillStyle = mask
   fc.fillRect(0, 0, size, size)
@@ -122,45 +122,14 @@ export default function StudioAtmosphere() {
   const cursorOrbRef = useRef<HTMLDivElement>(null)
   const petalRefs = useRef<(SVGSVGElement | null)[]>([])
 
-  // Bake static Sakura bloom once (and re-bake only when theme attribute toggles)
-  useEffect(() => {
-    const paint = () => {
-      if (!bloomCanvasRef.current) return
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light'
-      paintStaticBloom(bloomCanvasRef.current, isLight)
-    }
-    paint()
-
-    const obs = new MutationObserver(paint)
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
-    return () => obs.disconnect()
-  }, [])
-
   // Zero-rasterization GPU compositor loop for 3D petals + auto-sleeping dirty-rect ribbon
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return
-    }
+    const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     let width = window.innerWidth
     let height = window.innerHeight
-
-    const trailCanvas = trailCanvasRef.current
-    const ctx = trailCanvas?.getContext('2d', { alpha: true, desynchronized: true }) ?? null
-
-    const resize = () => {
-      width = window.innerWidth
-      height = window.innerHeight
-      if (trailCanvas) {
-        // dpr = 1 purposefully for soft glow trail: 4x fewer pixels to fill in Brave!
-        trailCanvas.width = width
-        trailCanvas.height = height
-      }
-    }
-    resize()
-    window.addEventListener('resize', resize, { passive: true })
-
     const activePetals = width < 640 ? 7 : PETAL_COUNT
+
     const petals: PetalState[] = Array.from({ length: PETAL_COUNT }, (_, i) => {
       const depth = i % 3
       const size = depth === 0 ? 11 : depth === 1 ? 15 : 20
@@ -178,19 +147,47 @@ export default function StudioAtmosphere() {
         tumbleSpeed: 0.75 + Math.random() * 0.7,
         swayPhase: Math.random() * Math.PI * 2,
         swayAmp: 0.24 + Math.random() * 0.26,
-        opacity: i >= activePetals ? 0 : depth === 0 ? 0.18 : depth === 1 ? 0.28 : 0.21,
+        baseOpacity: i >= activePetals ? 0 : depth === 0 ? 0.18 : depth === 1 ? 0.28 : 0.21,
       }
     })
 
-    // Initialize petal static sizes & opacities once
-    for (let i = 0; i < PETAL_COUNT; i++) {
-      const el = petalRefs.current[i]
-      if (!el) continue
-      const p = petals[i]
-      el.style.width = `${p.size}px`
-      el.style.height = `${p.size}px`
-      el.style.opacity = String(p.opacity)
+    const syncThemeVisuals = () => {
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light'
+      if (bloomCanvasRef.current) {
+        paintStaticBloom(bloomCanvasRef.current, isLight)
+      }
+      const mult = isLight ? 1.65 : 1
+      for (let i = 0; i < PETAL_COUNT; i++) {
+        const el = petalRefs.current[i]
+        if (!el) continue
+        const p = petals[i]
+        el.style.width = `${p.size}px`
+        el.style.height = `${p.size}px`
+        el.style.opacity = isReduced ? '0' : String(Math.min(p.baseOpacity * mult, 0.52))
+      }
     }
+
+    syncThemeVisuals()
+    const obs = new MutationObserver(syncThemeVisuals)
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+
+    if (isReduced) {
+      return () => obs.disconnect()
+    }
+
+    const trailCanvas = trailCanvasRef.current
+    const ctx = trailCanvas?.getContext('2d', { alpha: true, desynchronized: true }) ?? null
+
+    const resize = () => {
+      width = window.innerWidth
+      height = window.innerHeight
+      if (trailCanvas) {
+        trailCanvas.width = width
+        trailCanvas.height = height
+      }
+    }
+    resize()
+    window.addEventListener('resize', resize, { passive: true })
 
     let pointerActive = false
     let targetX = width * 0.5
@@ -201,7 +198,6 @@ export default function StudioAtmosphere() {
     let prevY = targetY
     const trail: TrailPoint[] = []
 
-    // Dirty rectangle bounds so we NEVER clear the whole screen!
     let dirtyMinX = 0
     let dirtyMinY = 0
     let dirtyMaxX = 0
@@ -230,14 +226,13 @@ export default function StudioAtmosphere() {
       const dt = Math.min(Math.max((now - lastNow) / 16.6667, 0.1), 2.5)
       lastNow = now
 
-      // 1. Update pure-GPU cursor orb + dirty-rect ribbon ONLY when needed
       if (pointerActive) {
         const lerpFactor = 1 - Math.pow(1 - 0.25, dt)
         smoothX += (targetX - smoothX) * lerpFactor
         smoothY += (targetY - smoothY) * lerpFactor
 
         if (cursorOrbRef.current) {
-          cursorOrbRef.current.style.transform = `translate3d(${smoothX - 240}px, ${smoothY - 240}px, 0)`
+          cursorOrbRef.current.style.transform = `translate3d(${smoothX - 250}px, ${smoothY - 250}px, 0)`
         }
 
         const dx = smoothX - prevX
@@ -261,7 +256,6 @@ export default function StudioAtmosphere() {
         prevY = smoothY
       }
 
-      // Clear ONLY the previous dirty box & draw ribbon ONLY if trail has points!
       if (ctx) {
         if (hasDirtyRect) {
           ctx.clearRect(
@@ -274,7 +268,7 @@ export default function StudioAtmosphere() {
         }
 
         for (let i = trail.length - 1; i >= 0; i--) {
-          trail[i].age += 0.036 * dt
+          trail[i].age += 0.035 * dt
           if (trail[i].age >= 1) trail.splice(i, 1)
         }
 
@@ -289,10 +283,10 @@ export default function StudioAtmosphere() {
             if (pt.x > maxX) maxX = pt.x
             if (pt.y > maxY) maxY = pt.y
           }
-          dirtyMinX = Math.max(0, Math.floor(minX - 18))
-          dirtyMinY = Math.max(0, Math.floor(minY - 18))
-          dirtyMaxX = Math.min(width, Math.ceil(maxX + 18))
-          dirtyMaxY = Math.min(height, Math.ceil(maxY + 18))
+          dirtyMinX = Math.max(0, Math.floor(minX - 20))
+          dirtyMinY = Math.max(0, Math.floor(minY - 20))
+          dirtyMaxX = Math.min(width, Math.ceil(maxX + 20))
+          dirtyMaxY = Math.min(height, Math.ceil(maxY + 20))
           hasDirtyRect = true
 
           const isLight = document.documentElement.getAttribute('data-theme') === 'light'
@@ -312,11 +306,12 @@ export default function StudioAtmosphere() {
             ctx.lineTo(last.x, last.y)
 
             const weight = 0.25 + startFrac * 0.75
-            const alpha = (isLight ? 0.068 : 0.056) * (0.6 + startFrac)
+            // Boosted Light Mode pigment & contrast so the Sakura cursor ribbon pops clearly on white!
+            const alpha = (isLight ? 0.165 : 0.056) * (0.6 + startFrac)
             ctx.strokeStyle = isLight
-              ? `rgba(204, 72, 108, ${alpha})`
+              ? `rgba(218, 56, 102, ${alpha})`
               : `rgba(244, 166, 185, ${alpha})`
-            ctx.lineWidth = weight * 10
+            ctx.lineWidth = weight * (isLight ? 12 : 10)
             ctx.lineCap = 'round'
             ctx.lineJoin = 'round'
             ctx.stroke()
@@ -324,7 +319,6 @@ export default function StudioAtmosphere() {
         }
       }
 
-      // 2. Update 3D petals via pure GPU compositor transforms (0 bytes pixel repaint!)
       const damping = Math.pow(0.96, dt)
       for (let i = 0; i < activePetals; i++) {
         const p = petals[i]
@@ -369,6 +363,7 @@ export default function StudioAtmosphere() {
     rafId = window.requestAnimationFrame(tick)
 
     return () => {
+      obs.disconnect()
       window.removeEventListener('resize', resize)
       window.removeEventListener('pointermove', onPointerMove)
       window.cancelAnimationFrame(rafId)
@@ -395,19 +390,19 @@ export default function StudioAtmosphere() {
         }}
       />
 
-      {/* Pure-GPU Cursor Ambient Halo (translate3d only, zero per-frame gradient fill) */}
+      {/* Pure-GPU Cursor Ambient Halo — Uses High-Contrast --cursor-aura in Light Mode */}
       <div
         ref={cursorOrbRef}
-        className="hidden md:block absolute top-0 left-0 w-[480px] h-[480px] rounded-full opacity-0 transition-opacity duration-300 will-change-transform"
+        className="hidden md:block absolute top-0 left-0 w-[500px] h-[500px] rounded-full opacity-0 transition-opacity duration-300 will-change-transform"
         style={{
-          background: 'radial-gradient(circle, var(--bloom-primary) 0%, transparent 66%)',
+          background: 'radial-gradient(circle, var(--cursor-aura) 0%, transparent 64%)',
         }}
       />
 
-      {/* Dirty-Rect Auto-Sleeping Silk Ribbon Canvas (dpr = 1, 0ms when mouse idle!) */}
+      {/* Dirty-Rect Auto-Sleeping Silk Ribbon Canvas */}
       <canvas ref={trailCanvasRef} className="hidden md:block absolute inset-0" />
 
-      {/* 12 Hardware-Composited 3D Sakura Petals (0 pixel repaint!) */}
+      {/* 12 Hardware-Composited 3D Sakura Petals */}
       <div className="absolute inset-0" style={{ perspective: '600px' }}>
         {Array.from({ length: PETAL_COUNT }).map((_, i) => (
           <svg
@@ -416,7 +411,7 @@ export default function StudioAtmosphere() {
               petalRefs.current[i] = el
             }}
             viewBox="-12 -12 24 24"
-            className="absolute top-0 left-0 will-change-transform text-[var(--accent)]"
+            className="absolute top-0 left-0 will-change-transform text-[var(--petal-color)]"
             style={{ opacity: 0 }}
           >
             <path
