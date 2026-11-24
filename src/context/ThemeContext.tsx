@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useCallback, useSyncExternalStore, type ReactNode } from 'react'
 
-export type Theme = 'light' | 'dark'
+export type Theme = 'dark' | 'light'
 
 interface ThemeContextValue {
   theme: Theme
@@ -20,24 +20,24 @@ function subscribe(listener: () => void) {
 }
 
 function getSnapshot(): Theme {
-  if (typeof document === 'undefined') return 'light'
-  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+  if (typeof document === 'undefined') return 'dark'
+  return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'
 }
 
 function getServerSnapshot(): Theme {
-  return 'light'
+  return 'dark'
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 
   const toggleTheme = useCallback(() => {
-    const next: Theme = getSnapshot() === 'light' ? 'dark' : 'light'
+    const next: Theme = getSnapshot() === 'dark' ? 'light' : 'dark'
     document.documentElement.setAttribute('data-theme', next)
     try {
-      window.localStorage.setItem('portfolio-theme', next)
+      window.localStorage.setItem('portfolio-theme-v7', next)
     } catch {
-      // Ignore storage errors in restricted environments
+      // Ignore storage errors
     }
     listeners.forEach((listener) => listener())
   }, [])

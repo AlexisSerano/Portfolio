@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/context/LanguageContext'
 import FadeIn from '@/components/ui/FadeIn'
+import SpotlightCard from '@/components/ui/SpotlightCard'
 import { ArrowUpRight } from 'lucide-react'
 
 interface WorkEntry {
@@ -76,63 +77,65 @@ export default function Experience() {
   }
 
   return (
-    <section id="experience" className="scroll-mt-20 py-14 sm:py-20 max-w-[920px] mx-auto px-6">
+    <section id="experience" className="scroll-mt-20 py-16 sm:py-24 max-w-[1120px] mx-auto px-6">
       <FadeIn>
-        <h2 className="text-[19px] sm:text-[21px] font-semibold tracking-[-0.024em] text-[var(--ink)] mb-10 sm:mb-12">
+        <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.035em] text-[var(--ink)] mb-10 sm:mb-12">
           {t('Expérience professionnelle', 'Work experience')}
         </h2>
       </FadeIn>
 
-      <div className="space-y-14 sm:space-y-16">
+      <div className="space-y-7 sm:space-y-8">
         {workEntries.map((entry, idx) => (
           <FadeIn key={entry.projectSlug} delay={idx * 0.06}>
-            <article className="grid grid-cols-1 md:grid-cols-[185px_1fr] gap-2 md:gap-10 items-baseline">
-              {/* Left Column: Calm Tabular Dates & Location */}
-              <div className="text-[13.5px] leading-relaxed">
-                <div className="text-[var(--ink-secondary)] tabular-nums font-medium md:font-normal">
-                  {lang === 'fr' ? entry.period.fr : entry.period.en}
-                </div>
-                <div className="text-[var(--ink-muted)] text-[13px]">{entry.location}</div>
-              </div>
-
-              {/* Right Column: Role, Context, Achievements, Stack */}
-              <div>
-                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <h3 className="text-[16px] sm:text-[17px] font-semibold text-[var(--ink)] tracking-[-0.018em]">
-                    {lang === 'fr' ? entry.role.fr : entry.role.en}{' '}
-                    <span className="text-[var(--ink-muted)] font-normal">·</span>{' '}
-                    <span>{entry.company}</span>
-                  </h3>
-
-                  <button
-                    type="button"
-                    onClick={() => openProject(entry.projectSlug)}
-                    className="link-editorial inline-flex items-center gap-0.5 text-[13px] text-[var(--ink-muted)] hover:text-[var(--ink)] cursor-pointer"
-                  >
-                    <span>{t('Détails', 'Details')}</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </button>
+            <SpotlightCard className="rounded-[20px] p-6 sm:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-[185px_1fr] gap-3 md:gap-8 items-baseline">
+                <div className="text-[13.5px] leading-relaxed">
+                  <div className="font-semibold text-[var(--accent)] tabular-nums">
+                    {lang === 'fr' ? entry.period.fr : entry.period.en}
+                  </div>
+                  <div className="text-[var(--ink-muted)] text-[13px] mt-0.5">{entry.location}</div>
                 </div>
 
-                <p className="mt-1 text-[13.5px] text-[var(--ink-muted)] leading-relaxed">
-                  {lang === 'fr' ? entry.context.fr : entry.context.en}
-                </p>
+                <div>
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
+                    <h3 className="text-[17.5px] sm:text-[19px] font-bold text-[var(--ink)] tracking-[-0.022em] leading-snug">
+                      {lang === 'fr' ? entry.role.fr : entry.role.en}{' '}
+                      <span className="text-[var(--ink-muted)] font-normal">·</span>{' '}
+                      <span className="text-[var(--accent)]">{entry.company}</span>
+                    </h3>
 
-                <ul className="mt-4 space-y-2.5 text-[14.5px] leading-[1.65] text-[var(--ink-secondary)]">
-                  {(lang === 'fr' ? entry.bullets.fr : entry.bullets.en).map((bullet, bIdx) => (
-                    <li key={bIdx} className="pl-4 relative">
-                      <span
-                        aria-hidden="true"
-                        className="absolute left-0 top-[0.68em] w-1.5 h-[1px] bg-[var(--ink-muted)]"
-                      />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                    <button
+                      type="button"
+                      onClick={() => openProject(entry.projectSlug)}
+                      className="shrink-0 self-start inline-flex items-center gap-1 px-3 py-1 rounded-[8px] bg-[var(--accent-soft)] hover:bg-[var(--accent)] text-[var(--accent)] hover:text-[var(--accent-fg)] text-[12.5px] font-medium cursor-pointer pressable"
+                    >
+                      <span>{t('Étude de cas', 'Case study')}</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
 
-                <p className="mt-4 text-[13px] text-[var(--ink-muted)] leading-relaxed">{entry.stack}</p>
+                  <p className="mt-1.5 text-[13.5px] text-[var(--ink-muted)] leading-relaxed">
+                    {lang === 'fr' ? entry.context.fr : entry.context.en}
+                  </p>
+
+                  <ul className="mt-4 space-y-2.5 text-[14.5px] leading-[1.66] text-[var(--ink-secondary)]">
+                    {(lang === 'fr' ? entry.bullets.fr : entry.bullets.en).map((bullet, bIdx) => (
+                      <li key={bIdx} className="pl-4 relative">
+                        <span
+                          aria-hidden="true"
+                          className="absolute left-0 top-[0.68em] w-1.5 h-[1.5px] bg-[var(--accent)] opacity-70"
+                        />
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <p className="mt-4 pt-3.5 border-t border-[var(--divider)] text-[12.5px] text-[var(--ink-muted)] leading-relaxed">
+                    {entry.stack}
+                  </p>
+                </div>
               </div>
-            </article>
+            </SpotlightCard>
           </FadeIn>
         ))}
       </div>

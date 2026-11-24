@@ -1,3 +1,5 @@
+import OpeningCurtain from '@/components/ui/OpeningCurtain'
+import StudioAtmosphere from '@/components/ui/StudioAtmosphere'
 import Navbar from '@/components/layout/Navbar'
 import Hero from '@/components/sections/Hero'
 import Experience from '@/components/sections/Experience'
@@ -8,16 +10,20 @@ import Footer from '@/components/layout/Footer'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)]">
-      <Navbar />
-      <main>
-        <Hero />
-        <Experience />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
-      <Footer />
+    <div className="relative min-h-screen bg-[var(--bg)] text-[var(--ink)]">
+      <OpeningCurtain />
+      <StudioAtmosphere />
+      <div className="relative z-10">
+        <Navbar />
+        <main>
+          <Hero />
+          <Experience />
+          <Projects />
+          <Skills />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </div>
   )
 }

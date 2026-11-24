@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google'
 import { LanguageProvider } from '@/context/LanguageContext'
 import { ThemeProvider } from '@/context/ThemeContext'
 import SmoothScroll from '@/components/layout/SmoothScroll'
@@ -9,6 +9,12 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+})
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display',
 })
 
 const jetbrainsMono = JetBrains_Mono({
@@ -46,11 +52,11 @@ export const metadata: Metadata = {
 const themeInitScript = `
 (function() {
   try {
-    var saved = localStorage.getItem('portfolio-theme');
-    var theme = saved === 'dark' ? 'dark' : 'light';
+    var saved = localStorage.getItem('portfolio-theme-v7');
+    var theme = saved === 'light' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', theme);
   } catch (e) {
-    document.documentElement.setAttribute('data-theme', 'light');
+    document.documentElement.setAttribute('data-theme', 'dark');
   }
 })();
 `
@@ -63,8 +69,8 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      data-theme="light"
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      data-theme="dark"
+      className={`${inter.variable} ${jakarta.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>

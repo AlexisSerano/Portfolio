@@ -1,8 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import FadeIn from '@/components/ui/FadeIn'
+import SpotlightCard from '@/components/ui/SpotlightCard'
 import ProjectStage from '@/components/ui/ProjectStage'
 import ProjectDetailModal from '@/components/ui/ProjectDetailModal'
 import { projects, type Project } from '@/data/projects'
@@ -10,18 +12,26 @@ import { ArrowUpRight } from 'lucide-react'
 
 const flagshipOrder = [
   'alternance-carrier',
-  'stage-chai',
   'algofy',
   'lifeos',
+  'stage-chai',
   'refonte-mobile-web',
 ]
 
 export default function Projects() {
   const { lang, t } = useLanguage()
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [hoveredArchive, setHoveredArchive] = useState<string | null>(null)
+
+  const bySlug = (slug: string) => projects.find((p) => p.slug === slug)
+  const carrierProject = bySlug('alternance-carrier')
+  const algofyProject = bySlug('algofy')
+  const lifeosProject = bySlug('lifeos')
+  const chaiProject = bySlug('stage-chai')
+  const stagesProject = bySlug('refonte-mobile-web')
 
   const flagshipProjects = flagshipOrder
-    .map((slug) => projects.find((p) => p.slug === slug))
+    .map((slug) => bySlug(slug))
     .filter((p): p is Project => Boolean(p))
 
   const archiveProjects = projects.filter((p) => !flagshipOrder.includes(p.slug))
@@ -55,107 +65,140 @@ export default function Projects() {
     }
   }
 
-  return (
-    <section id="projects" className="scroll-mt-20 py-14 sm:py-20 max-w-[920px] mx-auto px-6">
-      <FadeIn>
-        <div className="mb-10 sm:mb-14">
-          <h2 className="text-[19px] sm:text-[21px] font-semibold tracking-[-0.024em] text-[var(--ink)]">
-            {t('Projets sélectionnés', 'Selected projects')}
-          </h2>
-          <p className="mt-1 text-[14.5px] text-[var(--ink-muted)]">
-            {t(
-              'Applications R&D, infrastructures critiques et produits développés de bout en bout.',
-              'R&D software, critical infrastructure, and end-to-end products.'
-            )}
+  const renderFlagshipCard = (project: Project, compact = false) => {
+    const title = lang === 'fr' ? project.title.fr : project.title.en
+    const desc = lang === 'fr' ? project.description.fr : project.description.en
+
+    return (
+      <article
+        role="button"
+        tabIndex={0}
+        onClick={() => setSelectedProject(project)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setSelectedProject(project)
+          }
+        }}
+        aria-label={t(`Ouvrir le projet ${project.title.fr}`, `Open project ${project.title.en}`)}
+        className="group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded-[20px] flex flex-col h-full"
+      >
+        <ProjectStage slug={project.slug} title={title} compact={compact} />
+
+        <div className="mt-4 px-1 flex-1 flex flex-col">
+          <div className="flex items-baseline justify-between gap-4">
+            <h3 className="text-[17.5px] sm:text-[19px] font-bold tracking-[-0.022em] text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">
+              {title}
+            </h3>
+            <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[var(--ink-muted)] group-hover:text-[var(--accent)] tabular-nums shrink-0 transition-colors">
+              <span>{project.year}</span>
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </span>
+          </div>
+
+          <p className="mt-1.5 text-[14.5px] leading-[1.65] text-[var(--ink-secondary)] max-w-[760px]">
+            {desc}
           </p>
+
+          <p className="mt-2.5 text-[12.5px] text-[var(--ink-muted)] leading-relaxed">
+            {project.tags.slice(0, compact ? 5 : 8).join(' · ')}
+          </p>
+        </div>
+      </article>
+    )
+  }
+
+  return (
+    <section id="projects" className="scroll-mt-20 py-16 sm:py-24 max-w-[1120px] mx-auto px-6">
+      <FadeIn>
+        <div className="mb-10 sm:mb-14 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+          <div>
+            <h2 className="text-[26px] sm:text-[32px] font-bold tracking-[-0.035em] text-[var(--ink)]">
+              {t('Projets sélectionnés', 'Selected projects')}
+            </h2>
+            <p className="mt-1 text-[14.5px] text-[var(--ink-secondary)]">
+              {t(
+                'Applications R&D, infrastructures critiques et produits développés de bout en bout.',
+                'R&D software, critical infrastructure, and end-to-end products.'
+              )}
+            </p>
+          </div>
+          <span className="text-[12.5px] text-[var(--ink-muted)]">
+            {t('Cliquez sur un projet pour lire l’étude de cas', 'Click any project to read the case study')}
+          </span>
         </div>
       </FadeIn>
 
-      {/* 5 Flagship Showcases — Open Typography + Soft Tonal Stages */}
-      <div className="space-y-16 sm:space-y-24">
-        {flagshipProjects.map((project) => {
-          const title = lang === 'fr' ? project.title.fr : project.title.en
-          const desc = lang === 'fr' ? project.description.fr : project.description.en
+      {/* Bento Showcase */}
+      <div className="space-y-14 sm:space-y-16">
+        {carrierProject && <FadeIn>{renderFlagshipCard(carrierProject, false)}</FadeIn>}
 
-          return (
-            <FadeIn key={project.slug}>
-              <article
-                role="button"
-                tabIndex={0}
-                onClick={() => setSelectedProject(project)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    setSelectedProject(project)
-                  }
-                }}
-                aria-label={t(`Ouvrir le projet ${project.title.fr}`, `Open project ${project.title.en}`)}
-                className="group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] rounded-[14px]"
-              >
-                <ProjectStage slug={project.slug} title={title} />
+        {algofyProject && lifeosProject && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-stretch">
+            <FadeIn>{renderFlagshipCard(algofyProject, true)}</FadeIn>
+            <FadeIn delay={0.06}>{renderFlagshipCard(lifeosProject, true)}</FadeIn>
+          </div>
+        )}
 
-                <div className="mt-5 px-0.5">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <h3 className="text-[17px] sm:text-[18.5px] font-semibold tracking-[-0.02em] text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">
-                      {title}
-                    </h3>
-                    <span className="inline-flex items-center gap-1 text-[13.5px] text-[var(--ink-muted)] tabular-nums shrink-0">
-                      <span>{project.year}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--ink)]" />
-                    </span>
-                  </div>
-
-                  <p className="mt-1.5 text-[14.5px] sm:text-[15px] leading-[1.65] text-[var(--ink-secondary)] max-w-[740px]">
-                    {desc}
-                  </p>
-
-                  <p className="mt-2.5 text-[13px] text-[var(--ink-muted)] leading-relaxed">
-                    {project.tags.join(' · ')}
-                  </p>
-                </div>
-              </article>
-            </FadeIn>
-          )
-        })}
+        {chaiProject && stagesProject && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-8 items-stretch">
+            <FadeIn>{renderFlagshipCard(chaiProject, true)}</FadeIn>
+            <FadeIn delay={0.06}>{renderFlagshipCard(stagesProject, true)}</FadeIn>
+          </div>
+        )}
       </div>
 
-      {/* Pure-Text Editorial Archive (Rauno Freiberg Sibling-Dimming Spotlight Hover) */}
-      <div className="mt-20 sm:mt-28">
+      {/* Spring-Gliding Spotlight Archive */}
+      <div className="mt-20 sm:mt-24">
         <FadeIn>
-          <h3 className="text-[16px] font-semibold tracking-[-0.018em] text-[var(--ink)] mb-5">
+          <h3 className="text-[19px] sm:text-[21px] font-bold tracking-[-0.026em] text-[var(--ink)] mb-5">
             {t('Autres projets & travaux', 'Other projects & work')}
           </h3>
         </FadeIn>
 
-        <div className="group/archive space-y-0.5">
-          {archiveProjects.map((project, idx) => {
-            const title = lang === 'fr' ? project.title.fr : project.title.en
-            const desc = lang === 'fr' ? project.description.fr : project.description.en
+        <FadeIn delay={0.05}>
+          <SpotlightCard className="rounded-[20px] p-2 sm:p-3">
+            <div onMouseLeave={() => setHoveredArchive(null)} className="group/archive">
+              {archiveProjects.map((project) => {
+                const title = lang === 'fr' ? project.title.fr : project.title.en
+                const desc = lang === 'fr' ? project.description.fr : project.description.en
+                const isHovered = hoveredArchive === project.slug
 
-            return (
-              <FadeIn key={project.slug} delay={idx * 0.03}>
-                <div className="-mx-3.5">
+                return (
                   <button
+                    key={project.slug}
                     type="button"
+                    onMouseEnter={() => setHoveredArchive(project.slug)}
                     onClick={() => setSelectedProject(project)}
-                    className="w-full text-left py-3.5 px-3.5 rounded-[10px] hover:bg-[var(--surface)] transition-all duration-200 group-hover/archive:opacity-55 hover:!opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                    className="relative w-full text-left py-3.5 px-4 rounded-[12px] transition-opacity duration-200 group-hover/archive:opacity-55 hover:!opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                   >
-                    <div className="flex items-baseline justify-between gap-4">
-                      <span className="text-[14.5px] font-medium text-[var(--ink)]">{title}</span>
-                      <span className="inline-flex items-center gap-1 text-[13px] text-[var(--ink-muted)] tabular-nums shrink-0">
-                        <span>{project.year}</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </span>
+                    {isHovered && (
+                      <motion.span
+                        layoutId="archive-spotlight"
+                        transition={{ type: 'spring', stiffness: 460, damping: 38 }}
+                        className="absolute inset-0 rounded-[12px] bg-[var(--surface-tile)] -z-0"
+                      />
+                    )}
+                    <div className="relative z-10">
+                      <div className="flex items-baseline justify-between gap-4">
+                        <span className="text-[14.5px] font-semibold text-[var(--ink)]">
+                          {title}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-[13px] text-[var(--ink-muted)] tabular-nums shrink-0">
+                          <span>{project.year}</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </span>
+                      </div>
+                      <p className="mt-0.5 text-[13.5px] text-[var(--ink-secondary)] leading-relaxed max-w-[780px]">
+                        {desc}
+                      </p>
                     </div>
-                    <p className="mt-0.5 text-[13.5px] text-[var(--ink-secondary)] leading-relaxed max-w-[680px]">
-                      {desc}
-                    </p>
                   </button>
-                </div>
-              </FadeIn>
-            )
-          })}
-        </div>
+                )
+              })}
+            </div>
+          </SpotlightCard>
+        </FadeIn>
       </div>
 
       <ProjectDetailModal
