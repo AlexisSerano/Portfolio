@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import FadeIn from '@/components/ui/FadeIn'
+import SectionHeading from '@/components/ui/SectionHeading'
 import ProjectStage from '@/components/ui/ProjectStage'
 import ProjectDetailModal from '@/components/ui/ProjectDetailModal'
 import { projects, type Project } from '@/data/projects'
+import { assetPath } from '@/lib/asset'
 import { ArrowUpRight } from 'lucide-react'
 
 const flagshipOrder = [
@@ -20,6 +22,7 @@ const flagshipOrder = [
 export default function Projects() {
   const { lang, t } = useLanguage()
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [navDirection, setNavDirection] = useState<number>(1)
   const [hoveredArchive, setHoveredArchive] = useState<string | null>(null)
 
   const bySlug = (slug: string) => projects.find((p) => p.slug === slug)
@@ -44,12 +47,30 @@ export default function Projects() {
         return
       }
       const found = projects.find((p) => p.slug === detail.slug)
-      if (found) setSelectedProject(found)
+      if (found) {
+        setNavDirection(1)
+        setSelectedProject(found)
+      }
     }
 
     window.addEventListener('portfolio-open-project', handleGlobalOpen)
     return () => window.removeEventListener('portfolio-open-project', handleGlobalOpen)
   }, [])
+
+  // Warm screenshot cache as soon as any modal opens so <- / -> navigation is 0ms instant
+  useEffect(() => {
+    if (!selectedProject) return
+    const preloadPaths = [
+      '/images/projects/algofy.png',
+      '/images/projects/lifeos.png',
+      '/images/projects/refonte-mobile.jpg',
+      '/images/projects/chronia.png',
+    ]
+    for (const p of preloadPaths) {
+      const img = new window.Image()
+      img.src = assetPath(p)
+    }
+  }, [selectedProject])
 
   const selectedIndex = selectedProject ? orderedAll.findIndex((p) => p.slug === selectedProject.slug) : -1
   const hasPrev = selectedIndex > 0
@@ -58,8 +79,10 @@ export default function Projects() {
   const handleNavigate = (direction: 'prev' | 'next') => {
     if (selectedIndex === -1) return
     if (direction === 'prev' && hasPrev) {
+      setNavDirection(-1)
       setSelectedProject(orderedAll[selectedIndex - 1])
     } else if (direction === 'next' && hasNext) {
+      setNavDirection(1)
       setSelectedProject(orderedAll[selectedIndex + 1])
     }
   }
@@ -72,10 +95,14 @@ export default function Projects() {
       <article
         role="button"
         tabIndex={0}
-        onClick={() => setSelectedProject(project)}
+        onClick={() => {
+          setNavDirection(1)
+          setSelectedProject(project)
+        }}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault()
+            setNavDirection(1)
             setSelectedProject(project)
           }
         }}
@@ -86,12 +113,12 @@ export default function Projects() {
 
         <div className="mt-4 px-1 flex-1 flex flex-col">
           <div className="flex items-baseline justify-between gap-4">
-            <h3 className="text-[18px] sm:text-[19.5px] font-bold tracking-[-0.024em] text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors">
+            <h3 className="text-[18px] sm:text-[19.5px] font-bold tracking-[-0.024em] text-[var(--ink)] group-hover:text-[var(--accent)] transition-colors duration-200">
               {title}
             </h3>
-            <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[var(--ink-muted)] group-hover:text-[var(--accent)] tabular-nums shrink-0 transition-colors">
+            <span className="inline-flex items-center gap-1 text-[13px] font-medium text-[var(--ink-muted)] group-hover:text-[var(--accent)] tabular-nums shrink-0 transition-colors duration-200">
               <span>{project.year}</span>
-              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </span>
           </div>
 
@@ -109,24 +136,18 @@ export default function Projects() {
 
   return (
     <section id="projects" className="scroll-mt-20 py-20 sm:py-28 max-w-[1120px] mx-auto px-6">
-      <FadeIn>
-        <div className="mb-12 sm:mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
-          <div>
-            <h2 className="text-[28px] sm:text-[36px] font-bold tracking-[-0.036em] text-[var(--ink)]">
-              {t('Projets sélectionnés', 'Selected projects')}
-            </h2>
-            <p className="mt-1.5 text-[15px] text-[var(--ink-secondary)]">
-              {t(
-                'Applications R&D, infrastructures critiques et produits développés de bout en bout.',
-                'R&D software, critical infrastructure, and end-to-end products.'
-              )}
-            </p>
-          </div>
-          <span className="text-[13px] text-[var(--accent)] font-medium">
-            {t('Cliquer sur un projet pour ouvrir l’aperçu complet', 'Click any project to open full view')}
-          </span>
-        </div>
-      </FadeIn>
+      <div className="mb-12 sm:mb-16 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <SectionHeading
+          title={t('Projets sélectionnés', 'Selected projects')}
+          subtitle={t(
+            'Applications R&D, infrastructures critiques et produits développés de bout en bout.',
+            'R&D software, critical infrastructure, and end-to-end products.'
+          )}
+        />
+        <span className="text-[13px] text-[var(--accent)] font-medium">
+          {t('Cliquer sur un projet pour ouvrir l’aperçu complet', 'Click any project to open full view')}
+        </span>
+      </div>
 
       <div className="space-y-16 sm:space-y-20">
         {carrierProject && <FadeIn>{renderFlagshipCard(carrierProject, false)}</FadeIn>}
@@ -146,7 +167,7 @@ export default function Projects() {
         )}
       </div>
 
-      {/* Open-Space Spotlight Archive (Zero Enclosing Box) */}
+      {/* Open-Space Spotlight Archive with Glide Micro-Physics */}
       <div className="mt-24 sm:mt-28">
         <FadeIn>
           <h3 className="text-[20px] sm:text-[22px] font-bold tracking-[-0.028em] text-[var(--ink)] mb-6">
@@ -169,27 +190,30 @@ export default function Projects() {
                   key={project.slug}
                   type="button"
                   onMouseEnter={() => setHoveredArchive(project.slug)}
-                  onClick={() => setSelectedProject(project)}
-                  className="relative w-full text-left py-4 px-4 transition-opacity duration-200 group-hover/archive:opacity-55 hover:!opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                  onClick={() => {
+                    setNavDirection(1)
+                    setSelectedProject(project)
+                  }}
+                  className="group/row relative w-full text-left py-4 px-4 transition-opacity duration-200 group-hover/archive:opacity-55 hover:!opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                 >
                   {isHovered && (
                     <motion.span
                       layoutId="archive-spotlight"
-                      transition={{ type: 'spring', stiffness: 460, damping: 38 }}
+                      transition={{ type: 'spring', stiffness: 480, damping: 38 }}
                       className="absolute inset-x-0 inset-y-1 rounded-[14px] bg-[var(--accent-soft)] -z-0"
                     />
                   )}
                   <div className="relative z-10">
                     <div className="flex items-baseline justify-between gap-4">
-                      <span className="text-[15px] font-semibold text-[var(--ink)]">
+                      <span className="text-[15px] font-semibold text-[var(--ink)] group-hover/row:text-[var(--accent)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-1.5 inline-block">
                         {title}
                       </span>
                       <span className="inline-flex items-center gap-1 text-[13px] text-[var(--accent)] tabular-nums shrink-0">
                         <span>{project.year}</span>
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5" />
                       </span>
                     </div>
-                    <p className="mt-0.5 text-[14px] text-[var(--ink-secondary)] leading-relaxed max-w-[780px]">
+                    <p className="mt-0.5 text-[14px] text-[var(--ink-secondary)] leading-relaxed max-w-[780px] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-1.5">
                       {desc}
                     </p>
                   </div>
@@ -202,6 +226,7 @@ export default function Projects() {
 
       <ProjectDetailModal
         project={selectedProject}
+        direction={navDirection}
         onClose={() => setSelectedProject(null)}
         onNavigate={handleNavigate}
         hasPrev={hasPrev}

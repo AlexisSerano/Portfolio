@@ -9,7 +9,7 @@ interface FadeInProps {
   className?: string
 }
 
-const easeOutCubic = [0.22, 1, 0.36, 1] as const
+const easeOutExpo = [0.16, 1, 0.3, 1] as const
 
 export default function FadeIn({ children, delay = 0, className }: FadeInProps) {
   const prefersReducedMotion = useReducedMotion()
@@ -20,10 +20,10 @@ export default function FadeIn({ children, delay = 0, className }: FadeInProps) 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.46, delay, ease: easeOutCubic }}
+      viewport={{ once: true, amount: 0.06, margin: '0px 0px -20px 0px' }}
+      transition={{ duration: 0.62, delay, ease: easeOutExpo }}
       className={className}
     >
       {children}

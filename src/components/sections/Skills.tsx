@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/context/LanguageContext'
 import FadeIn from '@/components/ui/FadeIn'
+import SectionHeading from '@/components/ui/SectionHeading'
 
 interface TechItem {
   name: string
@@ -113,26 +114,20 @@ export default function Skills() {
     <section id="skills" className="scroll-mt-20 py-20 sm:py-28 max-w-[1120px] mx-auto px-6 space-y-24">
       {/* Open-Space Technical Stack — Accurate Categories & Highlighted Core Techs */}
       <div>
-        <FadeIn>
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-12">
-            <div>
-              <h2 className="text-[28px] sm:text-[36px] font-bold tracking-[-0.036em] text-[var(--ink)]">
-                {t('Compétences techniques', 'Technical skills')}
-              </h2>
-              <p className="mt-1.5 text-[15px] text-[var(--ink-secondary)]">
-                {t(
-                  'Technologies principales mises en avant et outils pratiqués en production.',
-                  'Core technologies highlighted alongside daily production tools.'
-                )}
-              </p>
-            </div>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-12">
+          <SectionHeading
+            title={t('Compétences techniques', 'Technical skills')}
+            subtitle={t(
+              'Technologies principales mises en avant et outils pratiqués en production.',
+              'Core technologies highlighted alongside daily production tools.'
+            )}
+          />
 
-            <div className="inline-flex items-center gap-2 text-[12.5px] text-[var(--ink-muted)]">
-              <span className="w-2 h-2 rotate-45 bg-[var(--accent)] inline-block" />
-              <span>{t('Technologie principale', 'Core technology')}</span>
-            </div>
+          <div className="inline-flex items-center gap-2 text-[12.5px] text-[var(--ink-muted)]">
+            <span className="w-2 h-2 rotate-45 bg-[var(--accent)] inline-block" />
+            <span>{t('Technologie principale', 'Core technology')}</span>
           </div>
-        </FadeIn>
+        </div>
 
         <div className="divide-y divide-[var(--divider)] border-y border-[var(--divider)]">
           {skillGroups.map((group, idx) => (
@@ -193,19 +188,14 @@ export default function Skills() {
 
       {/* Expressive Open-Space Personal Interests (No Longer Hidden!) */}
       <div>
-        <FadeIn>
-          <div className="mb-12">
-            <h2 className="text-[28px] sm:text-[36px] font-bold tracking-[-0.036em] text-[var(--ink)]">
-              {t('Au-delà du code', 'Beyond engineering')}
-            </h2>
-            <p className="mt-1.5 text-[15px] text-[var(--ink-secondary)]">
-              {t(
-                'Ce qui nourrit ma curiosité, ma rigueur et ma façon de concevoir des produits.',
-                'What shapes my curiosity, discipline, and eye for product craft.'
-              )}
-            </p>
-          </div>
-        </FadeIn>
+        <SectionHeading
+          title={t('Au-delà du code', 'Beyond engineering')}
+          subtitle={t(
+            'Ce qui nourrit ma curiosité, ma rigueur et ma façon de concevoir des produits.',
+            'What shapes my curiosity, discipline, and eye for product craft.'
+          )}
+          className="mb-12"
+        />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-9">
           {interests.map((item, idx) => (

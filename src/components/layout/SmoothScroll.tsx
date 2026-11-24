@@ -9,11 +9,13 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       return
     }
 
+    // Tuned lerp for zero-latency input response and 120Hz/240Hz frame-rate independence
     const lenis = new Lenis({
-      duration: 0.85,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      lerp: 0.115,
+      wheelMultiplier: 0.96,
       orientation: 'vertical',
       smoothWheel: true,
+      syncTouch: false,
     })
 
     window.portfolioLenis = lenis

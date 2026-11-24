@@ -4,6 +4,7 @@ import { useState, type FormEvent } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import FadeIn from '@/components/ui/FadeIn'
 import Magnetic from '@/components/ui/Magnetic'
+import SectionHeading from '@/components/ui/SectionHeading'
 import { assetPath } from '@/lib/asset'
 import { ArrowUpRight, Check, Copy } from 'lucide-react'
 
@@ -45,9 +46,7 @@ export default function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Open Left Column (5 cols) */}
           <div className="lg:col-span-5">
-            <h2 className="text-[28px] sm:text-[36px] font-bold tracking-[-0.036em] text-[var(--ink)]">
-              {t('Me contacter', 'Get in touch')}
-            </h2>
+            <SectionHeading title={t('Me contacter', 'Get in touch')} />
             <p className="mt-3 text-[15px] leading-[1.68] text-[var(--ink-secondary)]">
               {t(
                 'Disponible dès juillet 2027 pour un CDI en développement logiciel sur les cantons de Genève ou de Vaud (nationalité française, permis de conduire, éligible au Permis G frontalier).',
@@ -176,9 +175,14 @@ export default function Contact() {
                   <Magnetic strength={0.2} className="inline-block">
                     <button
                       type="submit"
-                      className="px-6 py-3 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[14px] font-semibold cursor-pointer pressable shadow-[0_10px_28px_-6px_rgba(242,158,178,0.4)]"
+                      className="roll-btn px-6 py-3 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[14px] font-semibold cursor-pointer pressable shadow-[0_10px_28px_-6px_rgba(242,158,178,0.4)]"
                     >
-                      {t('Envoyer le message', 'Send message')}
+                      <span className="roll-clip">
+                        <span className="roll-primary">{t('Envoyer le message', 'Send message')}</span>
+                        <span className="roll-clone" aria-hidden="true">
+                          {t('Envoyer le message', 'Send message')}
+                        </span>
+                      </span>
                     </button>
                   </Magnetic>
                 </div>

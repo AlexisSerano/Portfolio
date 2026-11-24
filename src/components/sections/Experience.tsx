@@ -1,9 +1,10 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useScroll, useSpring } from 'framer-motion'
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import FadeIn from '@/components/ui/FadeIn'
+import SectionHeading from '@/components/ui/SectionHeading'
 import { ArrowUpRight } from 'lucide-react'
 
 interface JourneyItem {
@@ -115,7 +116,9 @@ export default function Experience() {
     target: trackRef,
     offset: ['start 72%', 'end 68%'],
   })
-  const scaleY = useSpring(scrollYProgress, { stiffness: 180, damping: 30, restDelta: 0.001 })
+  const scaleY = useSpring(scrollYProgress, { stiffness: 420, damping: 42, mass: 0.25, restDelta: 0.001 })
+  const tipTop = useTransform(scaleY, [0, 1], ['0%', '100%'])
+  const tipOpacity = useTransform(scaleY, [0, 0.02, 0.98, 1], [0, 1, 1, 0])
 
   const openProject = (slug: string) => {
     window.dispatchEvent(new CustomEvent('portfolio-open-project', { detail: { slug } }))
@@ -123,19 +126,14 @@ export default function Experience() {
 
   return (
     <section id="experience" className="scroll-mt-20 py-20 sm:py-28 max-w-[1120px] mx-auto px-6">
-      <FadeIn>
-        <div className="mb-14 sm:mb-18">
-          <h2 className="text-[28px] sm:text-[36px] font-bold tracking-[-0.036em] text-[var(--ink)]">
-            {t('Parcours & formation', 'Experience & education')}
-          </h2>
-          <p className="mt-1.5 text-[15px] text-[var(--ink-secondary)]">
-            {t(
-              'Expériences en R&D industrielle, infrastructure hospitalière et cursus universitaire.',
-              'Industrial R&D engineering, healthcare IT infrastructure, and academic degree.'
-            )}
-          </p>
-        </div>
-      </FadeIn>
+      <SectionHeading
+        title={t('Parcours & formation', 'Experience & education')}
+        subtitle={t(
+          'Expériences en R&D industrielle, infrastructure hospitalière et cursus universitaire.',
+          'Industrial R&D engineering, healthcare IT infrastructure, and academic degree.'
+        )}
+        className="mb-14 sm:mb-18"
+      />
 
       {/* Open-Space Journey Connected by Scroll-Driven Luminous Sakura Line */}
       <div ref={trackRef} className="relative">
@@ -145,16 +143,25 @@ export default function Experience() {
           className="absolute left-[5px] md:left-[208px] top-2 bottom-2 w-[1px] bg-[var(--divider)]"
         />
 
-        {/* Scroll-Scrubbed Luminous Sakura Thread ("Ligne Directrice") */}
-        <motion.div
-          aria-hidden="true"
-          style={{
-            scaleY,
-            background: 'linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%)',
-            boxShadow: 'var(--line-glow)',
-          }}
-          className="absolute left-[5px] md:left-[208px] top-2 bottom-2 w-[1.5px] origin-top will-change-transform"
-        />
+        {/* Scroll-Scrubbed Luminous Sakura Thread ("Ligne Directrice") + Leading Spark */}
+        <div aria-hidden="true" className="absolute left-[5px] md:left-[208px] top-2 bottom-2 w-[1.5px]">
+          <motion.div
+            style={{
+              scaleY,
+              background: 'linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%)',
+              boxShadow: 'var(--line-glow)',
+            }}
+            className="w-full h-full origin-top will-change-transform"
+          />
+          <motion.span
+            style={{
+              top: tipTop,
+              opacity: tipOpacity,
+              boxShadow: '0 0 14px 3px var(--accent)',
+            }}
+            className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-[var(--ink)] will-change-transform"
+          />
+        </div>
 
         <div className="space-y-14 sm:space-y-16">
           {journeyItems.map((item, idx) => (

@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { AnimatePresence, motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import { assetPath } from '@/lib/asset'
 import { RefreshCw } from 'lucide-react'
@@ -86,31 +86,18 @@ export default function ProjectStage({
   const [selectedPillar, setSelectedPillar] = useState<number>(0)
   const [otpIndex, setOtpIndex] = useState<number>(0)
 
-  const stageRef = useRef<HTMLDivElement>(null)
-  const prefersReducedMotion = useReducedMotion()
-  const { scrollYProgress } = useScroll({
-    target: stageRef,
-    offset: ['start end', 'end start'],
-  })
-  const parallaxY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    interactive || prefersReducedMotion ? [0, 0] : [-10, 10]
-  )
-
   const stageBg = stageBackgrounds[slug] ?? 'var(--surface)'
 
   if (slug === 'alternance-carrier') {
     const active = controllers[selectedCtrl]
     return (
       <div
-        ref={stageRef}
-        className="w-full rounded-[22px] p-5 sm:p-8 transition-all"
+        className="w-full rounded-[22px] p-5 sm:p-8 transition-shadow duration-300"
         style={{ background: stageBg }}
       >
-        <motion.div
-          style={{ y: parallaxY, boxShadow: 'var(--shadow-stage)' }}
-          className="w-full rounded-[15px] bg-[var(--surface-elevated)] p-5 sm:p-7 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 will-change-transform"
+        <div
+          style={{ boxShadow: 'var(--shadow-stage)' }}
+          className="w-full rounded-[15px] bg-[var(--surface-elevated)] p-5 sm:p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
         >
           <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[var(--divider)]">
             <div className="flex items-center gap-3.5">
@@ -149,7 +136,7 @@ export default function ProjectStage({
                   {isSelected && (
                     <motion.span
                       layoutId={`carrier-ctrl-${interactive ? 'modal' : 'stage'}`}
-                      transition={{ type: 'spring', stiffness: 450, damping: 36 }}
+                      transition={{ type: 'spring', stiffness: 460, damping: 36 }}
                       className="absolute inset-0 rounded-full bg-[var(--accent-soft)] -z-0"
                     />
                   )}
@@ -164,10 +151,20 @@ export default function ProjectStage({
               <div className="text-[12px] text-[var(--ink-muted)]">
                 {t('Famille sélectionnée', 'Selected family')}
               </div>
-              <div className="mt-1 text-[14.5px] font-semibold text-[var(--ink)]">{active.name}</div>
-              <div className="mt-0.5 text-[12.5px] text-[var(--ink-secondary)]">
-                {lang === 'fr' ? active.family.fr : active.family.en}
-              </div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={active.id}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <div className="mt-1 text-[14.5px] font-semibold text-[var(--ink)]">{active.name}</div>
+                  <div className="mt-0.5 text-[12.5px] text-[var(--ink-secondary)]">
+                    {lang === 'fr' ? active.family.fr : active.family.en}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             <div className="rounded-[12px] bg-[var(--bg)] p-4">
@@ -182,7 +179,7 @@ export default function ProjectStage({
                     setOtpIndex((prev) => (prev + 1) % otpSamples.length)
                   }}
                   aria-label={t('Renouveler le jeton OTP', 'Rotate OTP token')}
-                  className="text-[var(--ink-muted)] hover:text-[var(--accent)] transition-colors cursor-pointer p-0.5"
+                  className="text-[var(--ink-muted)] hover:text-[var(--accent)] transition-transform duration-300 active:rotate-180 cursor-pointer p-0.5"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
                 </button>
@@ -214,7 +211,7 @@ export default function ProjectStage({
               <div className="mt-0.5 text-[12.5px] text-[var(--ink-secondary)]">{active.runtime}</div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     )
   }
@@ -223,13 +220,12 @@ export default function ProjectStage({
     const pillar = chaiPillars[selectedPillar]
     return (
       <div
-        ref={stageRef}
-        className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-5 sm:p-7'} transition-all`}
+        className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-5 sm:p-7'} transition-shadow duration-300`}
         style={{ background: stageBg }}
       >
-        <motion.div
-          style={{ y: parallaxY, boxShadow: 'var(--shadow-stage)' }}
-          className="w-full rounded-[14px] bg-[var(--surface-elevated)] p-5 sm:p-6 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 will-change-transform"
+        <div
+          style={{ boxShadow: 'var(--shadow-stage)' }}
+          className="w-full rounded-[14px] bg-[var(--surface-elevated)] p-5 sm:p-6 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-2 pb-4 border-b border-[var(--divider)]">
             <div>
@@ -265,7 +261,7 @@ export default function ProjectStage({
                   {isSelected && (
                     <motion.span
                       layoutId={`chai-pillar-${interactive ? 'modal' : 'stage'}`}
-                      transition={{ type: 'spring', stiffness: 450, damping: 36 }}
+                      transition={{ type: 'spring', stiffness: 460, damping: 36 }}
                       className="absolute inset-0 rounded-full bg-[var(--accent-soft)] -z-0"
                     />
                   )}
@@ -292,7 +288,7 @@ export default function ProjectStage({
               </p>
             </motion.div>
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
     )
   }
@@ -309,13 +305,12 @@ export default function ProjectStage({
 
   return (
     <div
-      ref={stageRef}
-      className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-4 sm:p-7'} overflow-hidden transition-all`}
+      className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-4 sm:p-7'} overflow-hidden`}
       style={{ background: stageBg }}
     >
-      <motion.div
-        style={{ y: parallaxY, boxShadow: 'var(--shadow-stage)' }}
-        className={`w-full overflow-hidden rounded-[11px] sm:rounded-[13px] bg-[var(--surface-elevated)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.015] will-change-transform ${
+      <div
+        style={{ boxShadow: 'var(--shadow-stage)' }}
+        className={`w-full overflow-hidden rounded-[11px] sm:rounded-[13px] bg-[var(--surface-elevated)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.014] ${
           compact ? 'aspect-[2.05/1]' : ''
         }`}
       >
@@ -323,10 +318,11 @@ export default function ProjectStage({
         <img
           src={assetPath(screenshotSrc)}
           alt={title}
-          loading="lazy"
+          loading={interactive ? 'eager' : 'lazy'}
+          decoding={interactive ? 'sync' : 'async'}
           className={`w-full block ${compact ? 'h-full object-cover object-top' : 'h-auto object-cover'}`}
         />
-      </motion.div>
+      </div>
     </div>
   )
 }

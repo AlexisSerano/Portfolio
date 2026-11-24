@@ -25,15 +25,111 @@ interface TrailPoint {
   age: number
 }
 
-// Authentic notched single sakura petal path in local unit coordinates (-1..1)
 function drawSakuraPetal(ctx: CanvasRenderingContext2D, size: number) {
   ctx.beginPath()
   ctx.moveTo(0, size * 0.85)
   ctx.bezierCurveTo(size * 0.62, size * 0.42, size * 0.82, -size * 0.35, size * 0.26, -size * 0.88)
-  ctx.lineTo(0, -size * 0.64) // Iconic V-notch at tip of cherry blossom petal
+  ctx.lineTo(0, -size * 0.64)
   ctx.lineTo(-size * 0.26, -size * 0.88)
   ctx.bezierCurveTo(-size * 0.82, -size * 0.35, -size * 0.62, size * 0.42, 0, size * 0.85)
   ctx.closePath()
+}
+
+// Pre-renders the 5-petal botanical Sakura bloom + soft radial halo ONCE to an offscreen bitmap
+function createBloomSprite(isLight: boolean): HTMLCanvasElement {
+  const size = 720
+  const off = document.createElement('canvas')
+  off.width = size
+  off.height = size
+  const c = off.getContext('2d')
+  if (!c) return off
+
+  const half = size / 2
+
+  // 1. Soft atmospheric radial halo
+  const halo = c.createRadialGradient(half, half, 0, half, half, half)
+  if (isLight) {
+    halo.addColorStop(0, 'rgba(224, 108, 138, 0.20)')
+    halo.addColorStop(0.42, 'rgba(204, 132, 184, 0.09)')
+    halo.addColorStop(0.76, 'rgba(224, 108, 138, 0)')
+  } else {
+    halo.addColorStop(0, 'rgba(242, 158, 178, 0.125)')
+    halo.addColorStop(0.42, 'rgba(196, 132, 204, 0.05)')
+    halo.addColorStop(0.76, 'rgba(242, 158, 178, 0)')
+  }
+  c.fillStyle = halo
+  c.fillRect(0, 0, size, size)
+
+  // 2. Botanical 5-notched-petal Sakura geometry on a separate layer for radial edge fade
+  const flowerLayer = document.createElement('canvas')
+  flowerLayer.width = size
+  flowerLayer.height = size
+  const fc = flowerLayer.getContext('2d')
+  if (fc) {
+    fc.translate(half, half)
+    const scale = 1.55
+    fc.scale(scale, scale)
+
+    const strokeRgb = isLight ? '201, 74, 106' : '242, 158, 178'
+
+    for (let k = 0; k < 5; k++) {
+      fc.save()
+      fc.rotate((k * 72 * Math.PI) / 180)
+
+      const pGrad = fc.createLinearGradient(0, -10, 0, -172)
+      pGrad.addColorStop(0, `rgba(${strokeRgb}, 0.015)`)
+      pGrad.addColorStop(0.55, `rgba(${strokeRgb}, ${isLight ? 0.10 : 0.065})`)
+      pGrad.addColorStop(1, `rgba(${strokeRgb}, ${isLight ? 0.17 : 0.115})`)
+
+      fc.beginPath()
+      fc.moveTo(0, -10)
+      fc.bezierCurveTo(26, -42, 72, -96, 42, -154)
+      fc.bezierCurveTo(28, -176, 10, -168, 0, -146)
+      fc.bezierCurveTo(-10, -168, -28, -176, -42, -154)
+      fc.bezierCurveTo(-72, -96, -26, -42, 0, -10)
+      fc.closePath()
+
+      fc.fillStyle = pGrad
+      fc.fill()
+      fc.strokeStyle = `rgba(${strokeRgb}, ${isLight ? 0.18 : 0.12})`
+      fc.lineWidth = 0.75
+      fc.stroke()
+
+      // Fine stamen filament
+      fc.beginPath()
+      fc.moveTo(0, -12)
+      fc.lineTo(0, -64)
+      fc.strokeStyle = `rgba(${strokeRgb}, ${isLight ? 0.15 : 0.10})`
+      fc.lineWidth = 0.6
+      fc.stroke()
+
+      fc.beginPath()
+      fc.arc(0, -66, 1.5, 0, Math.PI * 2)
+      fc.fillStyle = `rgba(${strokeRgb}, ${isLight ? 0.24 : 0.16})`
+      fc.fill()
+
+      fc.restore()
+    }
+
+    fc.beginPath()
+    fc.arc(0, 0, 4.2, 0, Math.PI * 2)
+    fc.fillStyle = `rgba(${strokeRgb}, ${isLight ? 0.18 : 0.13})`
+    fc.fill()
+
+    // Soft radial fade mask baked once
+    fc.setTransform(1, 0, 0, 1, 0, 0)
+    fc.globalCompositeOperation = 'destination-in'
+    const mask = fc.createRadialGradient(half, half, size * 0.08, half, half, size * 0.44)
+    mask.addColorStop(0, 'rgba(0,0,0,0.95)')
+    mask.addColorStop(0.65, 'rgba(0,0,0,0.42)')
+    mask.addColorStop(1, 'rgba(0,0,0,0)')
+    fc.fillStyle = mask
+    fc.fillRect(0, 0, size, size)
+
+    c.drawImage(flowerLayer, 0, 0)
+  }
+
+  return off
 }
 
 export default function StudioAtmosphere() {
@@ -65,30 +161,33 @@ export default function StudioAtmosphere() {
     resize()
     window.addEventListener('resize', resize, { passive: true })
 
-    // Create 14 sparse, delicate depth-of-field petals that drift continuously on their own
+    // Pre-cache Dark and Light Sakura bloom sprites once (zero per-frame SVG/mask compositing!)
+    const darkBloom = createBloomSprite(false)
+    const lightBloom = createBloomSprite(true)
+
+    // 14 sparse depth-of-field petals with frame-rate-independent dt physics
     const petalCount = width < 640 ? 8 : 14
     const petals: Petal[] = Array.from({ length: petalCount }, (_, i) => {
-      const depth = i % 3 // 0 = far, 1 = mid, 2 = soft foreground
-      const size = depth === 0 ? 5.5 : depth === 1 ? 8.5 : 12.5
+      const depth = i % 3
+      const size = depth === 0 ? 5.5 : depth === 1 ? 8.5 : 12.2
       return {
         x: Math.random() * width,
         y: Math.random() * height,
         size,
-        speedX: -0.18 - Math.random() * 0.24 - depth * 0.06,
-        speedY: 0.26 + Math.random() * 0.32 + depth * 0.08,
+        speedX: -0.20 - Math.random() * 0.22 - depth * 0.05,
+        speedY: 0.28 + Math.random() * 0.30 + depth * 0.07,
         vx: 0,
         vy: 0,
         angle: Math.random() * Math.PI * 2,
         spin: (Math.random() - 0.5) * 0.008,
         tumble: Math.random() * Math.PI * 2,
-        tumbleSpeed: 0.012 + Math.random() * 0.014,
+        tumbleSpeed: 0.013 + Math.random() * 0.013,
         swayPhase: Math.random() * Math.PI * 2,
-        swayAmp: 0.22 + Math.random() * 0.28,
+        swayAmp: 0.24 + Math.random() * 0.26,
         opacity: depth === 0 ? 0.16 : depth === 1 ? 0.26 : 0.19,
       }
     })
 
-    // Smooth cursor aura + silky trail
     let pointerActive = false
     let targetX = width * 0.5
     let targetY = height * 0.35
@@ -113,52 +212,102 @@ export default function StudioAtmosphere() {
     window.addEventListener('pointermove', onPointerMove, { passive: true })
 
     let rafId = 0
-    let frame = 0
+    let lastNow = performance.now()
 
-    const render = () => {
-      frame++
+    const render = (now: number) => {
+      // Normalized to 60fps baseline (dt = 1.0 at 60Hz, 0.5 at 120Hz, 0.25 at 240Hz)
+      const dt = Math.min(Math.max((now - lastNow) / 16.6667, 0.1), 2.5)
+      lastNow = now
+
       ctx.clearRect(0, 0, width, height)
 
       const isLight = document.documentElement.getAttribute('data-theme') === 'light'
+      const bloomSprite = isLight ? lightBloom : darkBloom
 
-      // Update smooth pointer & append trail point when moving
+      // 1. Draw slowly rotating, breathing cached Sakura Bloom in top-right sky
+      const bloomDrawSize = Math.min(Math.max(width * 0.58, 560), 860)
+      const bloomCenterX = width * 0.80
+      const bloomCenterY = height * 0.26
+      const breath = 1 + 0.03 * Math.sin(now * 0.00045)
+      const rot = (now * 0.000055) % (Math.PI * 2)
+
+      ctx.save()
+      ctx.translate(bloomCenterX, bloomCenterY)
+      ctx.rotate(rot)
+      ctx.scale(breath, breath)
+      ctx.drawImage(
+        bloomSprite,
+        -bloomDrawSize / 2,
+        -bloomDrawSize / 2,
+        bloomDrawSize,
+        bloomDrawSize
+      )
+      ctx.restore()
+
+      // 2. Subtle counter-glow in bottom-left
+      const counterR = Math.max(width * 0.42, 380)
+      const counterGrad = ctx.createRadialGradient(
+        width * 0.08,
+        height * 0.92,
+        0,
+        width * 0.08,
+        height * 0.92,
+        counterR
+      )
+      counterGrad.addColorStop(
+        0,
+        isLight ? 'rgba(224, 112, 142, 0.13)' : 'rgba(242, 158, 178, 0.075)'
+      )
+      counterGrad.addColorStop(1, 'rgba(242, 158, 178, 0)')
+      ctx.fillStyle = counterGrad
+      ctx.fillRect(0, height - counterR, counterR * 1.15, counterR)
+
+      // 3. Smooth dt-independent cursor aura & silky Bézier ribbon
       if (pointerActive) {
-        smoothX += (targetX - smoothX) * 0.16
-        smoothY += (targetY - smoothY) * 0.16
+        const lerpFactor = 1 - Math.pow(1 - 0.24, dt)
+        smoothX += (targetX - smoothX) * lerpFactor
+        smoothY += (targetY - smoothY) * lerpFactor
+
         const dx = smoothX - prevX
         const dy = smoothY - prevY
-        const speed = Math.hypot(dx, dy)
+        const dist = Math.hypot(dx, dy)
 
-        if (speed > 0.6) {
-          trail.push({ x: smoothX, y: smoothY, age: 0 })
-          if (trail.length > 26) trail.shift()
+        if (dist > 0.5) {
+          // Subdivide fast sweeps so high-speed flicks stay razor-smooth
+          const steps = Math.min(Math.ceil(dist / 8), 4)
+          for (let s = 1; s <= steps; s++) {
+            const frac = s / steps
+            trail.push({
+              x: prevX + dx * frac,
+              y: prevY + dy * frac,
+              age: 0,
+            })
+          }
+          while (trail.length > 32) trail.shift()
         }
 
-        // Draw soft ambient cursor halo (visible in BOTH Dark & Light modes)
-        const auraRadius = 260
+        const auraRadius = 250
         const aura = ctx.createRadialGradient(smoothX, smoothY, 0, smoothX, smoothY, auraRadius)
         if (isLight) {
           aura.addColorStop(0, 'rgba(212, 82, 116, 0.11)')
-          aura.addColorStop(0.45, 'rgba(226, 120, 148, 0.045)')
+          aura.addColorStop(0.45, 'rgba(226, 120, 148, 0.04)')
           aura.addColorStop(1, 'rgba(226, 120, 148, 0)')
         } else {
           aura.addColorStop(0, 'rgba(242, 158, 178, 0.085)')
-          aura.addColorStop(0.45, 'rgba(218, 128, 156, 0.03)')
+          aura.addColorStop(0.45, 'rgba(218, 128, 156, 0.028)')
           aura.addColorStop(1, 'rgba(242, 158, 178, 0)')
         }
         ctx.fillStyle = aura
         ctx.fillRect(smoothX - auraRadius, smoothY - auraRadius, auraRadius * 2, auraRadius * 2)
 
-        // Draw silky tapered Sakura ribbon trail
         for (let i = trail.length - 1; i >= 0; i--) {
-          trail[i].age += 0.038
+          trail[i].age += 0.032 * dt
           if (trail[i].age >= 1) {
             trail.splice(i, 1)
           }
         }
 
         if (trail.length > 3) {
-          // Layered continuous quadratic Bézier ribbons — zero joint overlap artifacts
           const layers = [0, 0.28, 0.54, 0.76]
           for (const startFrac of layers) {
             const startIdx = Math.floor(trail.length * startFrac)
@@ -179,7 +328,7 @@ export default function StudioAtmosphere() {
             ctx.strokeStyle = isLight
               ? `rgba(204, 72, 108, ${alpha})`
               : `rgba(244, 166, 185, ${alpha})`
-            ctx.lineWidth = weight * 11
+            ctx.lineWidth = weight * 10.5
             ctx.lineCap = 'round'
             ctx.lineJoin = 'round'
             ctx.stroke()
@@ -190,32 +339,31 @@ export default function StudioAtmosphere() {
         prevY = smoothY
       }
 
-      // Update & draw drifting 3D Sakura petals
+      // 4. Update & draw 3D drifting Sakura petals (dt-normalized)
+      const damping = Math.pow(0.96, dt)
       for (const p of petals) {
-        p.swayPhase += 0.014
-        p.tumble += p.tumbleSpeed
-        p.angle += p.spin + Math.sin(p.swayPhase) * 0.003
+        p.swayPhase += 0.014 * dt
+        p.tumble += p.tumbleSpeed * dt
+        p.angle += (p.spin + Math.sin(p.swayPhase) * 0.003) * dt
 
-        // Gentle breeze nudge from cursor
         if (pointerActive) {
           const distX = p.x - smoothX
           const distY = p.y - smoothY
           const distSq = distX * distX + distY * distY
           if (distSq < 19600 && distSq > 1) {
-            const dist = Math.sqrt(distSq)
-            const force = (1 - dist / 140) * 0.045
-            p.vx += (distX / dist) * force
-            p.vy += (distY / dist) * force
+            const d = Math.sqrt(distSq)
+            const force = (1 - d / 140) * 0.048 * dt
+            p.vx += (distX / d) * force
+            p.vy += (distY / d) * force
           }
         }
 
-        p.vx *= 0.96
-        p.vy *= 0.96
+        p.vx *= damping
+        p.vy *= damping
 
-        p.x += p.speedX + Math.sin(p.swayPhase) * p.swayAmp + p.vx
-        p.y += p.speedY + Math.cos(p.swayPhase * 0.7) * 0.08 + p.vy
+        p.x += (p.speedX + Math.sin(p.swayPhase) * p.swayAmp + p.vx) * dt
+        p.y += (p.speedY + Math.cos(p.swayPhase * 0.7) * 0.08 + p.vy) * dt
 
-        // Seamless wrap around viewport
         if (p.y > height + 24) {
           p.y = -24
           p.x = Math.random() * (width + 120)
@@ -227,7 +375,7 @@ export default function StudioAtmosphere() {
         }
 
         const scaleY = Math.max(0.22, Math.abs(Math.cos(p.tumble)))
-        const shimmer = 0.85 + 0.15 * Math.sin(frame * 0.02 + p.swayPhase)
+        const shimmer = 0.86 + 0.14 * Math.sin(now * 0.0014 + p.swayPhase)
         const alpha = p.opacity * shimmer * (isLight ? 1.25 : 1)
 
         ctx.save()
@@ -257,68 +405,6 @@ export default function StudioAtmosphere() {
 
   return (
     <div aria-hidden="true" className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Warm Sakura Atmospheric Halo (Top Right / Hero Backdrop) */}
-      <div
-        className="animate-aura-pulse absolute -top-[14%] right-[-8%] w-[640px] h-[640px] sm:w-[860px] sm:h-[860px] rounded-full flex items-center justify-center"
-        style={{
-          background:
-            'radial-gradient(circle, var(--bloom-primary) 0%, var(--bloom-secondary) 38%, transparent 70%)',
-        }}
-      >
-        {/* Subtle Architectural 5-Petal Sakura Silhouette Merged Into Halo */}
-        <svg
-          viewBox="-200 -200 400 400"
-          className="animate-sakura-bloom w-[76%] h-[76%] opacity-55 dark:opacity-40"
-          style={{
-            maskImage: 'radial-gradient(circle, rgba(0,0,0,0.95) 18%, rgba(0,0,0,0.35) 56%, transparent 78%)',
-            WebkitMaskImage:
-              'radial-gradient(circle, rgba(0,0,0,0.95) 18%, rgba(0,0,0,0.35) 56%, transparent 78%)',
-          }}
-        >
-          <defs>
-            <linearGradient id="sakuraBloomFill" x1="0%" y1="100%" x2="0%" y2="0%">
-              <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.03" />
-              <stop offset="55%" stopColor="var(--accent)" stopOpacity="0.18" />
-              <stop offset="100%" stopColor="var(--accent)" stopOpacity="0.32" />
-            </linearGradient>
-          </defs>
-
-          {[0, 72, 144, 216, 288].map((deg) => (
-            <g key={deg} transform={`rotate(${deg})`}>
-              {/* Authentic notched Japanese Sakura petal */}
-              <path
-                d="M 0 -10 C 26 -42, 72 -96, 42 -154 C 28 -176, 10 -168, 0 -146 C -10 -168, -28 -176, -42 -154 C -72 -96, -26 -42, 0 -10 Z"
-                fill="url(#sakuraBloomFill)"
-                stroke="var(--accent)"
-                strokeOpacity="0.28"
-                strokeWidth="0.85"
-              />
-              {/* Delicate botanical stamen line */}
-              <line
-                x1="0"
-                y1="-12"
-                x2="0"
-                y2="-64"
-                stroke="var(--accent)"
-                strokeOpacity="0.22"
-                strokeWidth="0.65"
-              />
-              <circle cx="0" cy="-66" r="1.6" fill="var(--accent)" fillOpacity="0.32" />
-            </g>
-          ))}
-          <circle cx="0" cy="0" r="5" fill="var(--accent)" fillOpacity="0.22" />
-        </svg>
-      </div>
-
-      {/* Soft Secondary Sakura Counter-Glow (Bottom Left) */}
-      <div
-        className="absolute -bottom-[20%] -left-[12%] w-[60vw] h-[55vh] rounded-full opacity-75"
-        style={{
-          background: 'radial-gradient(ellipse at center, var(--bloom-primary) 0%, transparent 70%)',
-        }}
-      />
-
-      {/* 120fps Hardware Canvas: Continuous 3D Drifting Petals + Silky Trail */}
       <canvas ref={canvasRef} className="absolute inset-0 block" />
     </div>
   )

@@ -22,7 +22,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
 
   const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 280, damping: 34, restDelta: 0.001 })
+  const scaleX = useSpring(scrollYProgress, { stiffness: 460, damping: 42, mass: 0.2, restDelta: 0.001 })
 
   useEffect(() => {
     const onScroll = () => {

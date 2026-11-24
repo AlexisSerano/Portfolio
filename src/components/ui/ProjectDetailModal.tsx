@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
@@ -10,6 +10,7 @@ import { X, ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react'
 
 interface ProjectDetailModalProps {
   project: Project | null
+  direction: number
   onClose: () => void
   onNavigate: (direction: 'prev' | 'next') => void
   hasPrev: boolean
@@ -27,8 +28,11 @@ const visualSlugs = new Set([
   'chronia',
 ])
 
+const easeOutExpo = [0.16, 1, 0.3, 1] as const
+
 export default function ProjectDetailModal({
   project,
+  direction,
   onClose,
   onNavigate,
   hasPrev,
@@ -37,9 +41,10 @@ export default function ProjectDetailModal({
   totalCount,
 }: ProjectDetailModalProps) {
   const { lang, t } = useLanguage()
+  const scrollBodyRef = useRef<HTMLDivElement>(null)
+  const isOpen = Boolean(project)
 
   useEffect(() => {
-    const isOpen = Boolean(project)
     window.dispatchEvent(new CustomEvent('portfolio-modal-toggle', { detail: { isOpen } }))
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -49,7 +54,13 @@ export default function ProjectDetailModal({
     return () => {
       document.body.style.overflow = ''
     }
-  }, [project])
+  }, [isOpen])
+
+  useEffect(() => {
+    if (scrollBodyRef.current) {
+      scrollBodyRef.current.scrollTop = 0
+    }
+  }, [project?.slug])
 
   useEffect(() => {
     if (!project) return
@@ -68,26 +79,26 @@ export default function ProjectDetailModal({
     <AnimatePresence>
       {project && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-10">
-          {/* Deep Frosted Cinema Backdrop */}
+          {/* Frosted Cinema Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.22 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/72 backdrop-blur-xl"
+            className="fixed inset-0 bg-black/72 backdrop-blur-lg will-change-[opacity]"
           />
 
-          {/* Centered Wide Cinema Modal (Apple / Linear Spring Expansion) */}
+          {/* Centered Wide Cinema Modal */}
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label={lang === 'fr' ? project.title.fr : project.title.en}
-            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 18 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: 14 }}
-            transition={{ type: 'spring', stiffness: 390, damping: 34 }}
-            className="relative z-10 w-full max-w-[900px] max-h-[88dvh] rounded-[24px] bg-[var(--bg)] text-[var(--ink)] flex flex-col overflow-hidden"
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
+            transition={{ duration: 0.34, ease: easeOutExpo }}
+            className="relative z-10 w-full max-w-[900px] max-h-[88dvh] rounded-[24px] bg-[var(--bg)] text-[var(--ink)] flex flex-col overflow-hidden will-change-transform"
             style={{ boxShadow: 'var(--shadow-modal)' }}
           >
             {/* Top Cinema Bar */}
@@ -98,7 +109,7 @@ export default function ProjectDetailModal({
                   onClick={() => onNavigate('prev')}
                   disabled={!hasPrev}
                   aria-label={t('Projet précédent', 'Previous project')}
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer pressable"
                 >
                   <ArrowLeft className="w-4 h-4" />
                 </button>
@@ -110,7 +121,7 @@ export default function ProjectDetailModal({
                   onClick={() => onNavigate('next')}
                   disabled={!hasNext}
                   aria-label={t('Projet suivant', 'Next project')}
-                  className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer pressable"
                 >
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -120,24 +131,21 @@ export default function ProjectDetailModal({
                 type="button"
                 onClick={onClose}
                 aria-label={t('Fermer', 'Close')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[13px] text-[var(--ink-secondary)] hover:text-[var(--ink)] hover:bg-[var(--surface)] transition-colors cursor-pointer pressable"
               >
                 <span>{t('Fermer', 'Close')}</span>
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Scrollable Wide Case Study Body with Smooth Project Switch Transition */}
-            <div data-lenis-prevent className="flex-1 overflow-y-auto px-6 sm:px-9 py-7 sm:py-8">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={project.slug}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.18 }}
-                >
-                  {/* Header */}
+            {/* Scrollable Case Study Body — Instant 0ms Switch with Directional Glide */}
+            <div ref={scrollBodyRef} data-lenis-prevent className="flex-1 overflow-y-auto px-6 sm:px-9 py-7 sm:py-8">
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, x: direction * 18 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.24, ease: easeOutExpo }}
+              >
                   <div className="max-w-[760px]">
                     <div className="text-[13px] font-medium text-[var(--accent)] tabular-nums">
                       {project.year} · {lang === 'fr' ? project.details.duration.fr : project.details.duration.en}
@@ -147,7 +155,6 @@ export default function ProjectDetailModal({
                     </h2>
                   </div>
 
-                  {/* Wide Visual Stage (Only Real Product Screenshots & Custom R&D/CHAI Stages) */}
                   {visualSlugs.has(project.slug) && (
                     <div className="mt-6">
                       <ProjectStage
@@ -158,9 +165,7 @@ export default function ProjectDetailModal({
                     </div>
                   )}
 
-                  {/* 2-Column Editorial Sheet Layout */}
                   <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-                    {/* Left Metadata Column (4 cols) */}
                     <div className="lg:col-span-4 space-y-5">
                       <div>
                         <div className="text-[12px] text-[var(--ink-muted)] mb-1">
@@ -208,7 +213,6 @@ export default function ProjectDetailModal({
                       )}
                     </div>
 
-                    {/* Right Narrative Column (8 cols) */}
                     <div className="lg:col-span-8 space-y-6">
                       <div>
                         <h3 className="text-[14px] font-semibold text-[var(--ink)] mb-2">
@@ -251,7 +255,6 @@ export default function ProjectDetailModal({
                     </div>
                   </div>
                 </motion.div>
-              </AnimatePresence>
             </div>
           </motion.div>
         </div>
