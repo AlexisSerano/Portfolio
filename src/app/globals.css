@@ -168,6 +168,51 @@
   transform: scale(0.975);
 }
 
+@keyframes gpuSpinSlow {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(0, 0, 0) rotate(360deg);
+  }
+}
+
+.gpu-spin-slow {
+  animation: gpuSpinSlow 115s linear infinite;
+  will-change: transform;
+}
+
+/* Specular Mouse-Tracking Sakura Edge & Surface Spotlight on Flagship Stages */
+.stage-interactive {
+  position: relative;
+}
+
+.stage-interactive::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    420px circle at var(--sx, 50%) var(--sy, 0%),
+    var(--accent),
+    transparent 68%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 280ms ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.stage-interactive:hover::before {
+  opacity: 0.72;
+}
+
 /* GPU Dual-Layer Vertical Text Roll on Primary Buttons */
 .roll-btn .roll-clip {
   position: relative;

@@ -2,6 +2,7 @@ import OpeningCurtain from '@/components/ui/OpeningCurtain'
 import StudioAtmosphere from '@/components/ui/StudioAtmosphere'
 import Navbar from '@/components/layout/Navbar'
 import Hero from '@/components/sections/Hero'
+import ImpactStrip from '@/components/sections/ImpactStrip'
 import Experience from '@/components/sections/Experience'
 import Projects from '@/components/sections/Projects'
 import Skills from '@/components/sections/Skills'
@@ -17,6 +18,7 @@ export default function Home() {
         <Navbar />
         <main>
           <Hero />
+          <ImpactStrip />
           <Experience />
           <Projects />
           <Skills />

@@ -85,8 +85,8 @@ export default function Navbar() {
       className="sticky top-0 z-40 transition-shadow duration-200"
       style={{
         backgroundColor: 'var(--nav-bg)',
-        backdropFilter: 'blur(18px)',
-        WebkitBackdropFilter: 'blur(18px)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
         boxShadow: scrolled ? '0 1px 0 0 var(--divider)' : 'none',
       }}
     >

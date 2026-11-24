@@ -1,13 +1,22 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { AnimatePresence, motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion'
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useSpring,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import Magnetic from '@/components/ui/Magnetic'
 import { assetPath } from '@/lib/asset'
 import { ArrowUpRight, Check, Copy } from 'lucide-react'
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const
+const firstNameChars = ['A', 'l', 'e', 'x', 'i', 's']
 
 export default function Hero() {
   const { t } = useLanguage()
@@ -15,8 +24,19 @@ export default function Hero() {
   const [copied, setCopied] = useState(false)
   const [heroReady, setHeroReady] = useState(false)
 
-  // Subtle 3D portrait spring parallax
+  const sectionRef = useRef<HTMLElement>(null)
   const portraitRef = useRef<HTMLDivElement>(null)
+
+  // Cinema camera scroll-recede transition as user scrolls out of Hero
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const heroScale = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [1, 1] : [1, 0.96])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.85], prefersReducedMotion ? [1, 1] : [1, 0.28])
+  const heroY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [0, 44])
+
+  // Subtle 3D portrait spring parallax
   const rawRotateX = useMotionValue(0)
   const rawRotateY = useMotionValue(0)
   const rotateX = useSpring(rawRotateX, { stiffness: 260, damping: 24, mass: 0.4 })
@@ -30,9 +50,7 @@ export default function Hero() {
 
     const onReady = () => setHeroReady(true)
     window.addEventListener('portfolio-hero-ready', onReady)
-
-    // Safety fallback so Hero is never stuck hidden
-    const fallback = window.setTimeout(() => setHeroReady(true), 780)
+    const fallback = window.setTimeout(() => setHeroReady(true), 760)
 
     return () => {
       window.removeEventListener('portfolio-hero-ready', onReady)
@@ -45,8 +63,8 @@ export default function Hero() {
     const rect = portraitRef.current.getBoundingClientRect()
     const nx = (e.clientX - rect.left) / rect.width - 0.5
     const ny = (e.clientY - rect.top) / rect.height - 0.5
-    rawRotateY.set(nx * 9)
-    rawRotateX.set(-ny * 9)
+    rawRotateY.set(nx * 10)
+    rawRotateX.set(-ny * 10)
   }
 
   const handlePortraitLeave = () => {
@@ -68,16 +86,20 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       id="top"
       className="relative min-h-[calc(100svh-3.5rem)] flex flex-col justify-center py-12 sm:py-16 max-w-[1120px] mx-auto px-6"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-        {/* Left Column (7 cols): Choreographed Monumental Entrance */}
+      <motion.div
+        style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center origin-top will-change-transform"
+      >
+        {/* Left Column (7 cols): Kinetic Display Title + Bio + Magnetic CTAs */}
         <div className="lg:col-span-7">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={heroReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-            transition={{ duration: 0.58, delay: 0.04, ease: easeOutExpo }}
+            transition={{ duration: 0.58, delay: 0.03, ease: easeOutExpo }}
             className="text-[13.5px] sm:text-[14px] font-medium text-[var(--accent)] tracking-[-0.01em] mb-3"
           >
             {t(
@@ -87,24 +109,35 @@ export default function Hero() {
           </motion.p>
 
           <h1
-            className="font-extrabold tracking-[-0.045em] leading-[0.97]"
-            style={{ fontSize: 'clamp(3.3rem, 7vw, 6rem)' }}
+            aria-label="Alexis Serano."
+            className="font-extrabold tracking-[-0.046em] leading-[0.95]"
+            style={{ fontSize: 'clamp(3.5rem, 7.6vw, 6.4rem)' }}
           >
-            <span className="block overflow-hidden pb-1">
-              <motion.span
-                initial={{ y: '112%' }}
-                animate={heroReady ? { y: '0%' } : { y: '112%' }}
-                transition={{ duration: 0.78, delay: 0.08, ease: easeOutExpo }}
-                className="block text-[var(--ink)] will-change-transform"
-              >
-                Alexis
-              </motion.span>
+            {/* Staggered Character-Level GPU Rise on First Name */}
+            <span aria-hidden="true" className="flex overflow-hidden pb-1">
+              {firstNameChars.map((ch, idx) => (
+                <motion.span
+                  key={idx}
+                  initial={{ y: '115%' }}
+                  animate={heroReady ? { y: '0%' } : { y: '115%' }}
+                  transition={{
+                    duration: 0.74,
+                    delay: 0.06 + idx * 0.028,
+                    ease: easeOutExpo,
+                  }}
+                  className="inline-block text-[var(--ink)] will-change-transform"
+                >
+                  {ch}
+                </motion.span>
+              ))}
             </span>
-            <span className="block overflow-hidden pb-2">
+
+            {/* Luminous Sakura Sheen Last Name */}
+            <span aria-hidden="true" className="block overflow-hidden pb-2">
               <motion.span
-                initial={{ y: '112%' }}
-                animate={heroReady ? { y: '0%' } : { y: '112%' }}
-                transition={{ duration: 0.78, delay: 0.16, ease: easeOutExpo }}
+                initial={{ y: '115%' }}
+                animate={heroReady ? { y: '0%' } : { y: '115%' }}
+                transition={{ duration: 0.82, delay: 0.20, ease: easeOutExpo }}
                 className="block will-change-transform"
               >
                 <span className="text-sakura-sheen">Serano.</span>
@@ -115,8 +148,8 @@ export default function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={heroReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
-            transition={{ duration: 0.62, delay: 0.24, ease: easeOutExpo }}
-            className="mt-3 text-[17.5px] sm:text-[20px] font-semibold tracking-[-0.022em] text-[var(--ink)]"
+            transition={{ duration: 0.62, delay: 0.28, ease: easeOutExpo }}
+            className="mt-3 text-[17.5px] sm:text-[20.5px] font-semibold tracking-[-0.022em] text-[var(--ink)]"
           >
             {t(
               'Développeur Logiciel & Full-Stack · R&D chez Carrier',
@@ -127,7 +160,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={heroReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: 0.66, delay: 0.30, ease: easeOutExpo }}
+            transition={{ duration: 0.66, delay: 0.34, ease: easeOutExpo }}
             className="mt-5 space-y-3.5 text-[15px] sm:text-[15.75px] leading-[1.68] text-[var(--ink-secondary)] max-w-[590px]"
           >
             <p>
@@ -147,7 +180,7 @@ export default function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={heroReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-            transition={{ duration: 0.66, delay: 0.38, ease: easeOutExpo }}
+            transition={{ duration: 0.66, delay: 0.42, ease: easeOutExpo }}
             className="mt-8 flex flex-wrap items-center gap-3.5"
           >
             <Magnetic strength={0.22}>
@@ -155,7 +188,7 @@ export default function Hero() {
                 href={assetPath('/images/Alexis_serano.pdf')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="roll-btn group inline-flex items-center gap-1.5 px-5 py-3 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[13.5px] font-semibold pressable shadow-[0_10px_28px_-6px_rgba(242,158,178,0.42)]"
+                className="roll-btn group inline-flex items-center gap-1.5 px-5.5 py-3 rounded-full bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--accent-fg)] text-[13.5px] font-semibold pressable shadow-[0_12px_32px_-6px_rgba(242,158,178,0.45)]"
               >
                 <span className="roll-clip">
                   <span className="roll-primary">{cvLabel}</span>
@@ -220,14 +253,14 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column (5 cols): Interactive 3D Micro-Tilt Portrait & Open Figures */}
+        {/* Right Column (5 cols): 3D Perspective Portrait + Open Swiss Credentials */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           animate={heroReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 22 }}
-          transition={{ duration: 0.78, delay: 0.2, ease: easeOutExpo }}
+          transition={{ duration: 0.8, delay: 0.22, ease: easeOutExpo }}
           className="lg:col-span-5 lg:pl-6"
         >
-          <div className="flex items-center gap-5 sm:gap-6" style={{ perspective: '800px' }}>
+          <div className="flex items-center gap-5 sm:gap-6" style={{ perspective: '900px' }}>
             <motion.div
               ref={portraitRef}
               onPointerMove={handlePortraitMove}
@@ -237,9 +270,9 @@ export default function Hero() {
                 rotateY,
                 transformStyle: 'preserve-3d',
                 boxShadow:
-                  '0 22px 48px -12px rgba(0, 0, 0, 0.45), 0 0 36px -12px var(--bloom-primary)',
+                  '0 24px 52px -12px rgba(0, 0, 0, 0.52), 0 0 42px -10px var(--bloom-primary)',
               }}
-              className="relative w-[116px] h-[150px] sm:w-[134px] sm:h-[172px] rounded-[22px] overflow-hidden shrink-0 will-change-transform"
+              className="group/pic relative w-[120px] h-[156px] sm:w-[138px] sm:h-[178px] rounded-[22px] overflow-hidden shrink-0 will-change-transform ring-1 ring-[var(--accent-border)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -247,13 +280,13 @@ export default function Hero() {
                 alt="Alexis Serano"
                 width={313}
                 height={679}
-                className="w-full h-full object-cover object-[center_46%] contrast-[1.03] saturate-[0.95] transition-transform duration-500 hover:scale-[1.03]"
+                className="w-full h-full object-cover object-[center_46%] contrast-[1.03] saturate-[0.95] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/pic:scale-[1.04]"
                 fetchPriority="high"
               />
             </motion.div>
 
             <div className="space-y-2 text-[13.5px]">
-              <div className="text-[16px] font-bold text-[var(--ink)] tracking-[-0.02em]">
+              <div className="text-[16.5px] font-bold text-[var(--ink)] tracking-[-0.02em]">
                 {t('Frontière genevoise', 'Geneva border')}
               </div>
               <p className="text-[var(--ink-secondary)] leading-relaxed">
@@ -268,36 +301,22 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="mt-9 pt-7 border-t border-[var(--divider)] grid grid-cols-3 gap-5">
+          <div className="mt-8 pt-6 border-t border-[var(--divider)] grid grid-cols-2 gap-6 text-[13px]">
             <div>
-              <div className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.035em] text-[var(--accent)] tabular-nums leading-none">
-                4M<span className="text-[14px] font-medium text-[var(--ink-muted)]">/an</span>
-              </div>
-              <div className="mt-2 text-[12px] text-[var(--ink-secondary)] leading-snug">
-                {t('Régulateurs sécurisés chez Carrier', 'Controllers secured at Carrier')}
+              <div className="text-[var(--ink-muted)]">{t('Poste actuel', 'Current role')}</div>
+              <div className="mt-1 font-semibold text-[var(--ink)]">
+                {t('Alternant R&D · Carrier', 'R&D Apprentice · Carrier')}
               </div>
             </div>
-
             <div>
-              <div className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.035em] text-[var(--ink)] tabular-nums leading-none">
-                1 800
-              </div>
-              <div className="mt-2 text-[12px] text-[var(--ink-secondary)] leading-snug">
-                {t('Professionnels couverts au CHAI', 'Hospital staff supported')}
-              </div>
-            </div>
-
-            <div>
-              <div className="text-[24px] sm:text-[28px] font-extrabold tracking-[-0.035em] text-[var(--ink)] tabular-nums leading-none">
-                180
-              </div>
-              <div className="mt-2 text-[12px] text-[var(--ink-secondary)] leading-snug">
-                {t('Crédits ECTS · Grade Bachelor', 'ECTS · Bachelor Degree')}
+              <div className="text-[var(--ink-muted)]">{t('Langues', 'Languages')}</div>
+              <div className="mt-1 font-semibold text-[var(--ink)]">
+                {t('Français · Anglais B2', 'French · English B2')}
               </div>
             </div>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   )
 }

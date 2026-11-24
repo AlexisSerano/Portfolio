@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import { assetPath } from '@/lib/asset'
-import { RefreshCw } from 'lucide-react'
+import { RefreshCw, ArrowUpRight } from 'lucide-react'
 
 interface ProjectStageProps {
   slug: string
@@ -85,19 +85,30 @@ export default function ProjectStage({
   const [selectedCtrl, setSelectedCtrl] = useState<number>(0)
   const [selectedPillar, setSelectedPillar] = useState<number>(0)
   const [otpIndex, setOtpIndex] = useState<number>(0)
+  const stageRef = useRef<HTMLDivElement>(null)
 
   const stageBg = stageBackgrounds[slug] ?? 'var(--surface)'
+
+  // Direct DOM pointer tracking for specular Sakura edge light (0 React re-renders!)
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (interactive || e.pointerType === 'touch' || !stageRef.current) return
+    const rect = stageRef.current.getBoundingClientRect()
+    stageRef.current.style.setProperty('--sx', `${e.clientX - rect.left}px`)
+    stageRef.current.style.setProperty('--sy', `${e.clientY - rect.top}px`)
+  }
 
   if (slug === 'alternance-carrier') {
     const active = controllers[selectedCtrl]
     return (
       <div
-        className="w-full rounded-[22px] p-5 sm:p-8 transition-shadow duration-300"
+        ref={stageRef}
+        onPointerMove={handlePointerMove}
+        className={`${interactive ? '' : 'stage-interactive'} w-full rounded-[22px] p-5 sm:p-8`}
         style={{ background: stageBg }}
       >
         <div
           style={{ boxShadow: 'var(--shadow-stage)' }}
-          className="w-full rounded-[15px] bg-[var(--surface-elevated)] p-5 sm:p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
+          className="relative z-10 w-full rounded-[15px] bg-[var(--surface-elevated)] p-5 sm:p-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
         >
           <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-[var(--divider)]">
             <div className="flex items-center gap-3.5">
@@ -220,12 +231,14 @@ export default function ProjectStage({
     const pillar = chaiPillars[selectedPillar]
     return (
       <div
-        className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-5 sm:p-7'} transition-shadow duration-300`}
+        ref={stageRef}
+        onPointerMove={handlePointerMove}
+        className={`${interactive ? '' : 'stage-interactive'} w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-5 sm:p-7'}`}
         style={{ background: stageBg }}
       >
         <div
           style={{ boxShadow: 'var(--shadow-stage)' }}
-          className="w-full rounded-[14px] bg-[var(--surface-elevated)] p-5 sm:p-6 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
+          className="relative z-10 w-full rounded-[14px] bg-[var(--surface-elevated)] p-5 sm:p-6 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1"
         >
           <div className="flex flex-wrap items-baseline justify-between gap-2 pb-4 border-b border-[var(--divider)]">
             <div>
@@ -305,12 +318,14 @@ export default function ProjectStage({
 
   return (
     <div
-      className={`w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-4 sm:p-7'} overflow-hidden`}
+      ref={stageRef}
+      onPointerMove={handlePointerMove}
+      className={`${interactive ? '' : 'stage-interactive'} w-full rounded-[22px] ${compact ? 'p-4 sm:p-5' : 'p-4 sm:p-7'} overflow-hidden relative`}
       style={{ background: stageBg }}
     >
       <div
         style={{ boxShadow: 'var(--shadow-stage)' }}
-        className={`w-full overflow-hidden rounded-[11px] sm:rounded-[13px] bg-[var(--surface-elevated)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.014] ${
+        className={`relative z-10 w-full overflow-hidden rounded-[11px] sm:rounded-[13px] bg-[var(--surface-elevated)] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.016] ${
           compact ? 'aspect-[2.05/1]' : ''
         }`}
       >
@@ -322,6 +337,14 @@ export default function ProjectStage({
           decoding={interactive ? 'sync' : 'async'}
           className={`w-full block ${compact ? 'h-full object-cover object-top' : 'h-auto object-cover'}`}
         />
+
+        {/* Floating Reveal Pill on Hover */}
+        {!interactive && (
+          <div className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#09090D]/85 text-[#F8F5F7] text-[12px] font-medium absolute bottom-3 right-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none ring-1 ring-white/10">
+            <span>{t('Explorer', 'Explore')}</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#F29EB2]" />
+          </div>
+        )}
       </div>
     </div>
   )

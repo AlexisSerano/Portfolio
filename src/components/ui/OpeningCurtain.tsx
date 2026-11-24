@@ -20,7 +20,7 @@ export default function OpeningCurtain() {
     emitHeroReady()
     setPhase('done')
     try {
-      window.sessionStorage.setItem('portfolio_curtain_v9', '1')
+      window.sessionStorage.setItem('portfolio_curtain_v10', '1')
     } catch {
       // Ignore storage errors
     }
@@ -37,7 +37,7 @@ export default function OpeningCurtain() {
 
     let alreadyPlayed = false
     try {
-      alreadyPlayed = window.sessionStorage.getItem('portfolio_curtain_v9') === '1'
+      alreadyPlayed = window.sessionStorage.setItem !== undefined && window.sessionStorage.getItem('portfolio_curtain_v10') === '1'
     } catch {
       alreadyPlayed = false
     }

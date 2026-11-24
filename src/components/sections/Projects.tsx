@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useLanguage } from '@/context/LanguageContext'
 import FadeIn from '@/components/ui/FadeIn'
 import SectionHeading from '@/components/ui/SectionHeading'
@@ -19,11 +19,72 @@ const flagshipOrder = [
   'refonte-mobile-web',
 ]
 
+// Custom visual/editorial filmstrip slide metadata for Archive items (zero cheesy stock images)
+const archiveLensMeta: Record<
+  string,
+  {
+    screenshot?: string
+    eyebrow: string
+    headline: { fr: string; en: string }
+    gradient: string
+  }
+> = {
+  chronia: {
+    eyebrow: 'PHP · AJAX · SQL',
+    headline: { fr: 'Aide à la personne & planning partagé', en: 'Caregiving & shared schedule' },
+    gradient: 'linear-gradient(135deg, #25131E 0%, #151322 100%)',
+  },
+  'agence-voyages-javafx': {
+    eyebrow: 'Java · JavaFX · MVC / DAO',
+    headline: {
+      fr: 'Catalogue multicritères, panier & devis JSON',
+      en: 'Multi-criteria catalog, cart & JSON quotes',
+    },
+    gradient: 'linear-gradient(135deg, #171424 0%, #23141E 100%)',
+  },
+  chatenger: {
+    eyebrow: 'PHP · MySQL · Sécurité Web',
+    headline: {
+      fr: 'Messagerie instantanée, bcrypt & bouclier XSS/SQLi',
+      en: 'Live web messaging, bcrypt & XSS/SQLi shield',
+    },
+    gradient: 'linear-gradient(135deg, #1E131C 0%, #121722 100%)',
+  },
+  'modele-neurone': {
+    eyebrow: 'Python · NumPy · TensorFlow',
+    headline: {
+      fr: 'Perceptron from scratch, descente de gradient & ReLU',
+      en: 'Perceptron from scratch, gradient descent & ReLU',
+    },
+    gradient: 'linear-gradient(135deg, #121B22 0%, #1D1320 100%)',
+  },
+  'trading-investissement': {
+    eyebrow: 'Finance Quant · DeFi / DEX',
+    headline: {
+      fr: 'Flux de liquidité, carnet d’ordres & gestion du risque',
+      en: 'Liquidity flows, orderbook & strict risk sizing',
+    },
+    gradient: 'linear-gradient(135deg, #111D1B 0%, #1C131C 100%)',
+  },
+  'montage-video': {
+    screenshot: '/images/projects/montage-video.jpg',
+    eyebrow: 'Premiere Pro · After Effects',
+    headline: { fr: '7+ ans de montage, motion & sound design', en: '7+ yrs of editing & motion design' },
+    gradient: 'linear-gradient(135deg, #1D1422 0%, #14131B 100%)',
+  },
+}
+
 export default function Projects() {
   const { lang, t } = useLanguage()
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const [navDirection, setNavDirection] = useState<number>(1)
-  const [hoveredArchive, setHoveredArchive] = useState<string | null>(null)
+  const [hoveredArchiveIdx, setHoveredArchiveIdx] = useState<number | null>(null)
+
+  const archiveWrapRef = useRef<HTMLDivElement>(null)
+  const rawLensX = useMotionValue(0)
+  const rawLensY = useMotionValue(0)
+  const lensX = useSpring(rawLensX, { stiffness: 320, damping: 28, mass: 0.35 })
+  const lensY = useSpring(rawLensY, { stiffness: 320, damping: 28, mass: 0.35 })
 
   const bySlug = (slug: string) => projects.find((p) => p.slug === slug)
   const carrierProject = bySlug('alternance-carrier')
@@ -85,6 +146,13 @@ export default function Projects() {
       setNavDirection(1)
       setSelectedProject(orderedAll[selectedIndex + 1])
     }
+  }
+
+  const handleArchivePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType === 'touch' || !archiveWrapRef.current) return
+    const rect = archiveWrapRef.current.getBoundingClientRect()
+    rawLensX.set(e.clientX - rect.left + 24)
+    rawLensY.set(e.clientY - rect.top - 86)
   }
 
   const renderFlagshipCard = (project: Project, compact = false) => {
@@ -167,59 +235,132 @@ export default function Projects() {
         )}
       </div>
 
-      {/* Open-Space Spotlight Archive with Glide Micro-Physics */}
+      {/* Open-Space Archive + Awwwards-Style Floating Filmstrip Lens */}
       <div className="mt-24 sm:mt-28">
         <FadeIn>
-          <h3 className="text-[20px] sm:text-[22px] font-bold tracking-[-0.028em] text-[var(--ink)] mb-6">
+          <h3 className="text-[22px] sm:text-[26px] font-bold tracking-[-0.032em] text-[var(--ink)] mb-6">
             {t('Autres projets & travaux', 'Other projects & work')}
           </h3>
         </FadeIn>
 
         <FadeIn delay={0.05}>
           <div
-            onMouseLeave={() => setHoveredArchive(null)}
-            className="-mx-4 group/archive divide-y divide-[var(--divider)] border-t border-[var(--divider)]"
+            ref={archiveWrapRef}
+            onPointerMove={handleArchivePointerMove}
+            onMouseLeave={() => setHoveredArchiveIdx(null)}
+            className="relative -mx-4 group/archive divide-y divide-[var(--divider)] border-y border-[var(--divider)]"
           >
-            {archiveProjects.map((project) => {
+            {archiveProjects.map((project, idx) => {
               const title = lang === 'fr' ? project.title.fr : project.title.en
               const desc = lang === 'fr' ? project.description.fr : project.description.en
-              const isHovered = hoveredArchive === project.slug
+              const isHovered = hoveredArchiveIdx === idx
 
               return (
                 <button
                   key={project.slug}
                   type="button"
-                  onMouseEnter={() => setHoveredArchive(project.slug)}
+                  onMouseEnter={() => setHoveredArchiveIdx(idx)}
                   onClick={() => {
                     setNavDirection(1)
                     setSelectedProject(project)
                   }}
-                  className="group/row relative w-full text-left py-4 px-4 transition-opacity duration-200 group-hover/archive:opacity-55 hover:!opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
+                  className="group/row relative w-full text-left py-5 px-4 transition-opacity duration-200 group-hover/archive:opacity-50 hover:!opacity-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
                 >
                   {isHovered && (
                     <motion.span
                       layoutId="archive-spotlight"
                       transition={{ type: 'spring', stiffness: 480, damping: 38 }}
-                      className="absolute inset-x-0 inset-y-1 rounded-[14px] bg-[var(--accent-soft)] -z-0"
+                      className="absolute inset-x-0 inset-y-1.5 rounded-[14px] bg-[var(--accent-soft)] -z-0"
                     />
                   )}
-                  <div className="relative z-10">
-                    <div className="flex items-baseline justify-between gap-4">
-                      <span className="text-[15px] font-semibold text-[var(--ink)] group-hover/row:text-[var(--accent)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-1.5 inline-block">
+                  <div className="relative z-10 flex items-baseline justify-between gap-6">
+                    <div className="min-w-0">
+                      <span className="text-[16px] sm:text-[17.5px] font-bold tracking-[-0.02em] text-[var(--ink)] group-hover/row:text-[var(--accent)] transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-2 inline-block">
                         {title}
                       </span>
-                      <span className="inline-flex items-center gap-1 text-[13px] text-[var(--accent)] tabular-nums shrink-0">
-                        <span>{project.year}</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5" />
-                      </span>
+                      <p className="mt-0.5 text-[14px] text-[var(--ink-secondary)] leading-relaxed max-w-[700px] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-2">
+                        {desc}
+                      </p>
                     </div>
-                    <p className="mt-0.5 text-[14px] text-[var(--ink-secondary)] leading-relaxed max-w-[780px] transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-1.5">
-                      {desc}
-                    </p>
+
+                    <span className="inline-flex items-center gap-1.5 text-[13.5px] font-medium text-[var(--accent)] tabular-nums shrink-0">
+                      <span>{project.year}</span>
+                      <ArrowUpRight className="w-4 h-4 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-0.5 group-hover/row:-translate-y-0.5" />
+                    </span>
                   </div>
                 </button>
               )
             })}
+
+            {/* Floating Cursor-Tracking Filmstrip Preview Lens (Desktop) */}
+            <motion.div
+              aria-hidden="true"
+              style={{ x: lensX, y: lensY }}
+              initial={false}
+              animate={{
+                opacity: hoveredArchiveIdx !== null ? 1 : 0,
+                scale: hoveredArchiveIdx !== null ? 1 : 0.78,
+              }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="hidden lg:block pointer-events-none absolute top-0 left-0 z-30 w-[290px] h-[176px] rounded-[18px] overflow-hidden ring-1 ring-[var(--accent-border)] will-change-transform"
+            >
+              <div
+                className="w-full h-full transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] will-change-transform"
+                style={{
+                  transform: `translate3d(0, -${(hoveredArchiveIdx ?? 0) * 100}%, 0)`,
+                }}
+              >
+                {archiveProjects.map((project) => {
+                  const meta = archiveLensMeta[project.slug] ?? {
+                    eyebrow: project.tags.slice(0, 2).join(' · '),
+                    headline: project.title,
+                    gradient: 'linear-gradient(135deg, #18131E 0%, #11131B 100%)',
+                  }
+
+                  return (
+                    <div
+                      key={project.slug}
+                      className="w-full h-[176px] relative overflow-hidden flex flex-col justify-between p-4 text-[#F8F5F7]"
+                      style={{ background: meta.gradient }}
+                    >
+                      {meta.screenshot && (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={assetPath(meta.screenshot)}
+                            alt=""
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-cover opacity-55"
+                          />
+                          <div
+                            className="absolute inset-0"
+                            style={{
+                              background:
+                                'linear-gradient(180deg, rgba(9,9,13,0.35) 0%, rgba(9,9,13,0.88) 100%)',
+                            }}
+                          />
+                        </>
+                      )}
+
+                      <div className="relative z-10 flex items-center justify-between text-[11px] font-mono text-[#F29EB2]">
+                        <span>{meta.eyebrow}</span>
+                        <span>{project.year}</span>
+                      </div>
+
+                      <div className="relative z-10">
+                        <div className="text-[14px] font-bold leading-snug tracking-[-0.015em] text-[#F8F5F7]">
+                          {lang === 'fr' ? meta.headline.fr : meta.headline.en}
+                        </div>
+                        <div className="mt-1 text-[11.5px] text-[#C8C0CC] inline-flex items-center gap-1">
+                          <span>{t('Cliquer pour ouvrir', 'Click to inspect')}</span>
+                          <ArrowUpRight className="w-3 h-3 text-[#F29EB2]" />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </motion.div>
           </div>
         </FadeIn>
       </div>
